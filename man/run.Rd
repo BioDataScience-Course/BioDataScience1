@@ -2,7 +2,7 @@
 % Please edit documentation in R/run.R
 \name{run}
 \alias{run}
-\title{Run learnr tutorials from the BioDataScience2 package}
+\title{Run learnr tutorials from the BioDataScience1 package}
 \usage{
 run(tutorial, ..., update = ask, ask = interactive())
 }

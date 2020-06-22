@@ -1,6 +1,6 @@
-# BioDataScience2 - Learnr Documents
+# BioDataScience1 - Learnr Documents
 
-A Series of Learnr Documents for Biological Data Science. This package is linked to the book : [Science des données biologiques 2](http://biodatascience-course.sciviews.org/sdd-umons2/). 
+A Series of Learnr Documents for Biological Data Science. This package is linked to the book : [Science des données biologiques 1](http://biodatascience-course.sciviews.org/sdd-umons/). 
 
 ## Installation
 
@@ -12,10 +12,10 @@ Make sure you have the **remotes** R package installed:
 install.packages("remotes")
 ```
 
-Use `install_github()` to install the **BioDataScience2** package from Github (source from **master** branch will be recompiled on your machine):
+Use `install_github()` to install the **BioDataScience1** package from Github (source from **master** branch will be recompiled on your machine):
 
 ```r
-remotes::install_github("BioDataScience-Course/BioDataScience2")
+remotes::install_github("BioDataScience-Course/BioDataScience1")
 ```
 
 ## Note to developers

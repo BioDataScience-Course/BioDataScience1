@@ -1,4 +1,4 @@
-#' Run learnr tutorials from the BioDataScience2 package
+#' Run learnr tutorials from the BioDataScience1 package
 #'
 #' @param tutorial The name of the tutorial to use. If not provided, a list of
 #' available tutorials is displayed.
@@ -103,7 +103,7 @@ run <- function(tutorial, ..., update = ask, ask = interactive()) {
     # Get all tags for BioDataScience
     good_tags <- character(0)
     all_tags_data <- try(github_GET(
-      "repos/BioDataScience-Course/BioDataScience2/releases"),
+      "repos/BioDataScience-Course/BioDataScience1/releases"),
       silent = TRUE)
     if (!inherits(all_tags_data, "try-error")) {
       all_tags <- sapply(all_tags_data, getElement, "tag_name")
@@ -126,16 +126,16 @@ run <- function(tutorial, ..., update = ask, ask = interactive()) {
     if (!is.null(last_tag)) {
       last_rel <- sub("^[vV]([0-9]+\\.[0-9]+)\\.([0-9]+)$", "\\1-\\2", last_tag)
       curr_rel <- sub("^([0-9]+\\.[0-9]+)\\.([0-9]+)$", "\\1-\\2",
-        utils::packageVersion("BioDataScience2"))
+        utils::packageVersion("BioDataScience1"))
       # In previous version we tested if compareVersion() > 0, but here, we
       # rather check if it is different, cf. may need to downgrade possibly
       status <- try(utils::compareVersion(last_rel, curr_rel) != 0, silent = TRUE)
       if (!inherits(status, "try-error")) {
         if (status > 0) {
           # We need to update the package
-          message("Updating the BioDataScience2 package... please, be patient")
+          message("Updating the BioDataScience1 package... please, be patient")
           remotes::install_github(
-            paste0("BioDataScience-Course/BioDataScience2@", last_tag))
+            paste0("BioDataScience-Course/BioDataScience1@", last_tag))
           new_rel <- sub("^([0-9]+\\.[0-9]+)\\.([0-9]+)$", "\\1-\\2",
             utils::packageVersion("BioDataScience"))
           try(updated <- utils::compareVersion(new_rel, last_rel) == 0, silent = TRUE)
@@ -148,7 +148,7 @@ run <- function(tutorial, ..., update = ask, ask = interactive()) {
   }
 
   if (missing(tutorial)) {
-    tutos <- dir(system.file("tutorials", package = "BioDataScience2"))
+    tutos <- dir(system.file("tutorials", package = "BioDataScience1"))
     if (isTRUE(ask) && interactive()) {
       # Allow selecting from the list...
       sel <- utils::select.list(tutos, title = "Select a tutorial")
@@ -159,5 +159,5 @@ run <- function(tutorial, ..., update = ask, ask = interactive()) {
     }
   }
   message("Hit ESC or Ctrl-c when done...")
-  learnr::run_tutorial(tutorial, package = "BioDataScience2", ...)
+  learnr::run_tutorial(tutorial, package = "BioDataScience1", ...)
 }

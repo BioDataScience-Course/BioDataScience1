@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Guyliann Engels &amp; Philippe Grosjean" />
+
+
+<meta name="progressive" content="false" />
+<meta name="allow-skip" content="false" />
+
+<title>Rappel</title>
+
+
+<!-- highlightjs -->
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="pageContent band">
+<div class="bandContent page">
+
+<div class="topics">
+
+<p><div class="row">
+<div class="col-sm-9">
+<div>
+<img src="images/BioDataScience-128.png" align="left"/>
+<h1>Science des données biologiques 2</h1>
+Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)
+</div>
+</div>
+<div class="col-sm-3">
+<div>
+<div class="form-group shiny-input-container">
+<label for="user">Utilisateur :</label>
+<input id="user" type="text" class="form-control" value=""/>
+</div>
+<div class="form-group shiny-input-container">
+<label for="email">Email :</label>
+<input id="email" type="text" class="form-control" value=""/>
+</div>
+</div>
+</div>
+</div><div id="user" class="shiny-text-output"></div><div id="email" class="shiny-text-output"></div></p>
+<div id="section-preambule" class="section level2">
+<h2>Préambule</h2>
+<p>Si vous n’avez jamais utilisé de tutoriel “learnr”, familiarisez-vous d’abord avec son interface <a href="http://biodatascience-course.sciviews.org/sdd-umons/learnr.html">ici</a>.</p>
+<p><img src="images/attention.jpg" /></p>
+<p><strong>Ne vous trompez pas dans votre adresse mail et votre identifiant Github</strong></p>
+<p><strong>N’oubliez pas de soumettre votre réponse après chaque exercice</strong></p>
+<blockquote>
+<p>Conformément au RGPD (<a href="https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr">Règlement Général sur la Protection des Données</a>), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. <strong>Les données seront enregistrées au nom de l’utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !</strong> En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.</p>
+</blockquote>
+</div>
+<div id="section-gestion-de-projet" class="section level2">
+<h2>Gestion de projet</h2>
+<p>Répondez aux questions ci-dessous</p>
+<div class="panel panel-default">
+<div class="panel-heading tutorial-panel-heading">Quiz</div>
+<table class="table quiz-table">
+<tr>
+<td>
+
+<div id="htmlwidget-44ee79b4800b33d62a4c" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-44ee79b4800b33d62a4c">{"x":{"question":"Définissez la SciViews Box 2019 ?","answers":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":true,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"label":"qu_intro-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Définissez la SciViews Box 2019 ?","a":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":true,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-8a354640b40a88410a50" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-8a354640b40a88410a50">{"x":{"question":"Définissez le programme RStudio","answers":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":true,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"label":"qu_intro-2","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Définissez le programme RStudio","a":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":true,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-32583d0b5106117c37c5" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-32583d0b5106117c37c5">{"x":{"question":"Définissez Git","answers":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":true,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"label":"qu_intro-3","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Définissez Git","a":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":true,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-74d1fb1790874cf13e07" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-74d1fb1790874cf13e07">{"x":{"question":"Définissez GitHub","answers":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":true,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"label":"qu_intro-4","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Définissez GitHub","a":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":true,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":false,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-7b696fe7bd391c10eb59" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-7b696fe7bd391c10eb59">{"x":{"question":"Définissez le Markdown","answers":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":true,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"label":"qu_intro-5","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Définissez le Markdown","a":[{"option":"une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés","correct":false,"message":null},{"option":"un environnement de développement intégré","correct":false,"message":null},{"option":"un logiciel de gestion de versions","correct":false,"message":null},{"option":"un service web d&#39;hébergement de projet","correct":false,"message":null},{"option":"un langage avec une syntaxe facile à lire et à écrire","correct":true,"message":null},{"option":"aucune des réponses proposées n&#39;est correcte","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="section-analyse-de-situation" class="section level2">
+<h2>Analyse de situation</h2>
+<div id="section-situation-1" class="section level3">
+<h3>Situation 1</h3>
+<p>Deux chercheurs distants de plusieurs centaines de kilomètres, collaborent sur un projet commun. Ils ont pour cela décidé d’employer un outil de gestion de version et d’héberger ce projet sur un système d’hébergement web dédié pour cela.</p>
+<p>Sur base de l’image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.</p>
+<p><img src="images/gestion-version.drawio.png" /></p>
+<div class="panel panel-default">
+<div class="panel-heading tutorial-panel-heading">Quiz</div>
+<table class="table quiz-table">
+<tr>
+<td>
+
+<div id="htmlwidget-ced08f25a5f0d44500f0" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-ced08f25a5f0d44500f0">{"x":{"question":"Qualifiez la situation <strong>A<\/strong>","answers":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>A<\/strong>","a":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-1398860c021df73e7fbd" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-1398860c021df73e7fbd">{"x":{"question":"Qualifiez la situation <strong>B<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":true,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git1-2","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>B<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":true,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-d4bafbf7e160c2c23f28" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-d4bafbf7e160c2c23f28">{"x":{"question":"Qualifiez la situation <strong>C<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":true,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git1-3","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>C<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":true,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="section-situation-2" class="section level3">
+<h3>Situation 2</h3>
+<p>Le chercheur 2 s’intéresse au projet du chercheur 1, travaille dessus et propose des modifications afin l’améliorer.</p>
+<p><img src="images/fork.png" /></p>
+<div class="panel panel-default">
+<div class="panel-heading tutorial-panel-heading">Quiz</div>
+<table class="table quiz-table">
+<tr>
+<td>
+
+<div id="htmlwidget-a686b129466a89abe170" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-a686b129466a89abe170">{"x":{"question":"Qualifiez la situation <strong>A<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":true,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git2-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>A<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":true,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-f61c970caa77130670f7" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-f61c970caa77130670f7">{"x":{"question":"Qualifiez la situation <strong>B<\/strong>","answers":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git2-2","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>B<\/strong>","a":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-5f32f049b8da94be6d4e" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-5f32f049b8da94be6d4e">{"x":{"question":"Qualifiez la situation <strong>C<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":true,"message":null}],"label":"qu_git2-3","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>C<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":true,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="section-situation-3" class="section level3">
+<h3>Situation 3</h3>
+<p>Le chercheur 2 vient d’intégrer le projet que le chercheur 1 réalisait seul. Il doit donc acquérir le dépot pour la première fois sur sa machine avant de pouvoir contribuer à ce projet.</p>
+<p>Sur base de l’image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.</p>
+<p><img src="images/clone.png" /></p>
+<div class="panel panel-default">
+<div class="panel-heading tutorial-panel-heading">Quiz</div>
+<table class="table quiz-table">
+<tr>
+<td>
+
+<div id="htmlwidget-944485978c6be1bc1102" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-944485978c6be1bc1102">{"x":{"question":"Qualifiez la situation <strong>A<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":true,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git3-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>A<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":true,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-370f5eb0822c7993e68a" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-370f5eb0822c7993e68a">{"x":{"question":"Qualifiez la situation <strong>B<\/strong>","answers":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git3-2","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>B<\/strong>","a":[{"option":"commit","correct":true,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":false,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-e381c0b4f6a507e734ab" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-e381c0b4f6a507e734ab">{"x":{"question":"Qualifiez la situation <strong>C<\/strong>","answers":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":true,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"label":"qu_git3-3","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Qualifiez la situation <strong>C<\/strong>","a":[{"option":"commit","correct":false,"message":null},{"option":"clone","correct":false,"message":null},{"option":"push","correct":true,"message":null},{"option":"pull","correct":false,"message":null},{"option":"fetch","correct":false,"message":null},{"option":"fork","correct":false,"message":null},{"option":"pull request","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div id="section-biometrie-doursins" class="section level2">
+<h2>Biométrie d’oursins</h2>
+<p>Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous</p>
+<p><img src="rappel_files/figure-html/unnamed-chunk-3-1.png" width="624" /></p>
+<p>Le jeu des données mis à votre dispositon est <code>urchin_bio</code> qui comprend les variables suivantes : origin, diameter1, diameter2, height, buoyant_weight, weight, solid_parts, integuments, dry_integuments, digestive_tract, dry_digestive_tract, gonads, dry_gonads, skeleton, lantern, test, spines, maturity, sex</p>
+<div class="tutorial-exercise" data-label="qu_np" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données 
+urchin &lt;- data.io::read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;, lang = &quot;FR&quot;)
+# Reproduisez le graphique ci-dessous
+#
+#</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_np-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données 
+urchin &lt;- data.io::read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;, lang = &quot;FR&quot;)
+# Reproduisez le graphique ci-dessous
+# Relisez le chapitre 2 du livre science des données 1
+# https://biodatascience-course.sciviews.org/sdd-umons/nuage-de-points.html </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_np-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données 
+urchin &lt;- data.io::read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;, lang = &quot;FR&quot;)
+# Reproduisez le graphique ci-dessous
+# VOus pouvez utilisez la fonction chart() couplée à la function geom_point() 
+# pour réaliser le graphique demandé
+chart() +
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_np-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données 
+urchin &lt;- data.io::read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;, lang = &quot;FR&quot;)
+# Reproduisez le graphique ci-dessous
+# VOus pouvez utilisez la fonction chart() couplée à la function geom_point() 
+# pour réaliser le graphique demandé
+chart(urchin, height ~ weight) +
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_np-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données 
+urchin &lt;- data.io::read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;, lang = &quot;FR&quot;)
+# Reproduisez le graphique ci-dessous
+ 
+chart(urchin, height ~ weight %col=% origin) +
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_np-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># TODO</code></pre>
+</div>
+</div>
+<div id="section-croissance-des-dents-de-cochon-dinde" class="section level2">
+<h2>Croissance des dents de cochon d’Inde</h2>
+<p>Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous</p>
+<p><img src="rappel_files/figure-html/unnamed-chunk-4-1.png" width="624" /></p>
+<p>Le jeu des données mis à votre dispositon est <code>ToothGrowth</code> qui comprend les variables suivantes : len, supp, dose</p>
+<div class="tutorial-exercise" data-label="qu_bp" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# reproduisez le graphique 
+#
+#</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# Relisez le chapitre 2 du livre science des données 1
+# http://biodatascience-course.sciviews.org/sdd-umons/boxplot.html  </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp) +
+  geom_boxplot() </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-hint-4" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot() +
+  labs(y = &quot;Longueur des dents [mm]&quot;, x = &quot;Supplémentation&quot;, fill = &quot;Dose&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># imporation des données
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# fonction pour ajouter le nombre d&#39;observations 
+give_n &lt;- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot() +
+  stat_summary(fun.data = give_n, geom = &quot;text&quot;, hjust = 0.5,
+    position = position_dodge(0.75)) +
+  labs(y = &quot;Longueur des dents [mm]&quot;, x = &quot;Supplémentation&quot;, fill = &quot;Dose&quot;)
+# Vous auriez également pu employer cette solution 
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+
+tooth_growth$dose &lt;- as.ordered(tooth_growth$dose)
+tooth_growth &lt;- labelise(tooth_growth, self = FALSE,
+  label = list(
+    len = &quot;Longueur des dents&quot;,
+    supp = &quot;Supplémentation&quot;,
+    dose = &quot;Dose&quot;
+  ),
+  units = list(
+    len = &quot;mm&quot;,
+    supp = NA,
+    dose = &quot;mg/J&quot;
+  )
+)
+# Réalisation graphique
+chart(data = tooth_growth, len ~ supp %fill=% dose) +
+  geom_boxplot() +
+  stat_summary(fun.data = give_n, geom = &quot;text&quot;, hjust = 0.5,
+    position = position_dodge(0.75))</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_bp-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># TODO </code></pre>
+</div>
+</div>
+<div id="section-normalite-dune-variable" class="section level2">
+<h2>Normalité d’une variable</h2>
+<pre class="r"><code>#nom du jeu de données : df
+names(df)</code></pre>
+<pre><code>[1] &quot;x&quot;</code></pre>
+<pre class="r"><code>summary(df)</code></pre>
+<pre><code>       x          
+ Min.   :-94.368  
+ 1st Qu.:-24.333  
+ Median :  7.475  
+ Mean   :  9.854  
+ 3rd Qu.: 36.684  
+ Max.   :113.215  </code></pre>
+<p>Sur base du jeu de données suivant ci-dessus , répondez à la question ci-dessous</p>
+<p><strong>Des snippets sont mis à votre disposition en fin de question</strong></p>
+<div class="tutorial-exercise-support" data-label="var04_prepa" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>set.seed(43)
+df &lt;- tibble::tibble(x = rnorm(n = 60, mean = 10, sd = 50))</code></pre>
+</div>
+<div class="tutorial-exercise" data-label="qu_conf" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"var04_prepa","exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_conf-hint" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code> car::qqPlot(df[[&quot;x&quot;]], distribution = &quot;norm&quot;,
+   envelope = 0.99, col = &quot;Black&quot;, ylab = &quot;x&quot;,cex = .4)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_conf-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>#TODO</code></pre>
+</div>
+
+<div id="htmlwidget-bf761e6c6b5156fd5af5" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-bf761e6c6b5156fd5af5">{"x":{"question":"Avec une enveloppe de confiance de 0.99, est ce que la variable x du jeu de donnée df suit une ... ","answers":[{"option":"distribution normale","correct":true,"message":null},{"option":"distribution approximativement normale","correct":false,"message":null},{"option":"distribution anormale","correct":false,"message":null}],"label":"qu_conf01","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Avec une enveloppe de confiance de 0.99, est ce que la variable x du jeu de donnée df suit une ... ","a":[{"option":"distribution normale","correct":true,"message":null},{"option":"distribution approximativement normale","correct":false,"message":null},{"option":"distribution anormale","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="section-biometrie-humaine" class="section level2">
+<h2>Biométrie humaine</h2>
+<p>Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous</p>
+<p><img src="rappel_files/figure-html/unnamed-chunk-7-1.png" width="624" /></p>
+<p>Afin de structurer votre réflexion, voici quelques pistes pour vous guider</p>
+<ul>
+<li><p>importer les données</p></li>
+<li><p>calculer une nouvelle variale : <span class="math inline">\(bmi = \frac{weight}{height^2}\)</span></p></li>
+</ul>
+<p>Attention, le poids doit être en kg et la taille en mètre.</p>
+<ul>
+<li><p>calculer une nouvelle variable qui va séparer la variable bmi avec les personnes en sous poids (inférieur à 18.5), de corpulence normale (18.5 à 25) et en surpoids (supérieur à 25)</p></li>
+<li><p>reproduire le graphique</p></li>
+</ul>
+<div class="tutorial-exercise" data-label="qu_facette" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># importation des données
+biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+# calcule des nouvelles variables 
+#
+# reproduction du graphique 
+# </code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+# nommer la nouvelle variable bmi
+biometry %&gt;.%
+  mutate(., bmi = ) -&gt; biometry </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+
+biometry %&gt;.%
+  mutate(., bmi = weight/(height/100)^2) -&gt; biometry </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+
+biometry %&gt;.%
+  mutate(., bmi = weight/(height/100)^2) -&gt; biometry 
+
+biometry$bmi_rec &lt;- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks= c())</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-hint-4" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+
+biometry %&gt;.%
+  mutate(., bmi = weight/(height/100)^2) -&gt; biometry 
+
+biometry$bmi_rec &lt;- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-hint-5" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+
+biometry %&gt;.%
+  mutate(., bmi = weight/(height/100)^2) -&gt; biometry 
+
+biometry$bmi_rec &lt;- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+chart(biometry, height ~ weight %col=% bmi_rec) + 
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>biometry &lt;- read(&quot;biometry&quot;, package = &quot;BioDataScience&quot;, lang = &quot;FR&quot;)
+
+biometry %&gt;.%
+  mutate(., bmi = weight/(height/100)^2) -&gt; biometry 
+
+biometry$bmi_rec &lt;- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+chart(biometry, height ~ weight %col=% bmi_rec | gender) + 
+  geom_point()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_facette-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>#TODO</code></pre>
+</div>
+<p>Cette question n’est pas évidente, n’oubliez pas que vous pouvez quitter le learnR afin de chercher vos réponses sur internet, dans le livre en ligne ou encore utiliser les chunk, les snippets,…</p>
+</div>
+<div id="section-rendement-des-pommes-de-terre-en-belgique" class="section level2">
+<h2>Rendement des pommes de terre en Belgique</h2>
+<p>Des scientifiques belges s’intéressent aux rendements de deux variétés de pomme de terre : la bintje et la fontane. Après 110 jours, il réalise des prélèvements sur différentes parcelles en Belgique qu’ils quantifient en tonnes par hectare.</p>
+<p>Reproduisez le tableau ci-dessous, le jeu de données mis à votre disposition se nomme <code>pdt</code> et les variables sont les suivantes : rendement, variete. La fonction de mise en forme du tableau est <code>kable()</code> du package <code>knitr</code></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variété</th>
+<th align="right">Rendement moyen [t/ha]</th>
+<th align="right">Nombre de parcelles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">bintje</td>
+<td align="right">34.70195</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">fontane</td>
+<td align="right">38.41439</td>
+<td align="right">28</td>
+</tr>
+</tbody>
+</table>
+<div class="tutorial-exercise-support" data-label="qu_group-prep" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>set.seed(42)
+pdt &lt;- tibble(
+  rendement = c(rnorm(n = 18, mean = 33.6, sd = 4), rnorm(n = 28, mean = 39.5, sd = 4)), 
+  variete = c(rep(&quot;bintje&quot;, times = 18), rep(&quot;fontane&quot;, times = 28)))</code></pre>
+</div>
+<div class="tutorial-exercise" data-label="qu_group" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>summary(pdt)
+#
+#</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"qu_group-prep","exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_group-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>pdt %&gt;.%
+  group_by(., ) %&gt;.%
+  summarise(., ) %&gt;.%
+  knitr::kable(., )</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_group-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>pdt %&gt;.%
+  group_by(., ) %&gt;.%
+  summarise(., mean = mean(), count = sum(!is.na())) %&gt;.%
+  knitr::kable(., col.names = c())</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_group-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>pdt %&gt;.%
+  group_by(., variete) %&gt;.%
+  summarise(., mean = mean(), count = sum(!is.na())) %&gt;.%
+  knitr::kable(., col.names = c())</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_group-hint-4" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>pdt %&gt;.%
+  group_by(., variete) %&gt;.%
+  summarise(., mean = mean(rendement), count = sum(!is.na(rendement))) %&gt;.%
+  knitr::kable(., col.names = c(&quot;Variété&quot; ,&quot;Rendement moyen [t/ha]&quot;, &quot;Nombre de parcelles&quot;))</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_group-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># TODO</code></pre>
+</div>
+<p>Cette exercice s’inspire des observations relayé sur le site du sillon Belge de l’article consulté le 3 septembre 2019 suivant : <a href="https://www.sillonbelge.be/4731/article/2019-08-28/bintje-et-fontane-apres-110-115-jours-faute-de-casser-la-baraque-ces-deux" class="uri">https://www.sillonbelge.be/4731/article/2019-08-28/bintje-et-fontane-apres-110-115-jours-faute-de-casser-la-baraque-ces-deux</a></p>
+</div>
+<div id="section-association-wallone-de-lelevage" class="section level2">
+<h2>Association wallone de l’élevage</h2>
+<p>L’association wallone de l’élevage dispose de plusieurs centres d’insémination. Ils ont un recensement des différents taureaux reproducteurs. Reproduisez le graphique ci-dessous. Ce dernier ne montre que les individus compris entre 20 et 55 mois. vous avez à votre disposition le jeu de données <code>beef</code> qui comprend les variables suivantes : variety, name, age, height, weight</p>
+<p><img src="rappel_files/figure-html/unnamed-chunk-11-1.png" width="624" /></p>
+<div class="tutorial-exercise-support" data-label="qu_filter-prep" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>beef &lt;- read(file = system.file(&quot;extdata&quot;, &quot;belgianblue.xlsx&quot;, package = &quot;BioDataScience2&quot;), type = &quot;xlsx&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise" data-label="qu_filter" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>summary(beef)
+# reproduisez le graphique suivant
+# 
+# </code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"qu_filter-prep","exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># il existe de nombreuses manière d&#39;obtenir ce graphique 
+# la fonction dont vous avez besoin est la fonction filter()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># structure de la réponse
+beef %&gt;.%
+  filter(.,) %&gt;.%
+  chart(.,) +
+  geom_point() +
+  labs()</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>beef %&gt;.%
+  filter(.,) %&gt;.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() </code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-hint-4" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>beef %&gt;.%
+  filter(.,) %&gt;.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() +
+  labs(y = &quot;Masse [kg]&quot;, x = &quot;Age [mois]&quot;, color = &quot;Variété&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-hint-5" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>beef %&gt;.%
+  filter(., age &gt;= 20 &amp; age &lt;= 55) %&gt;.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() +
+  labs(y = &quot;Masse [kg]&quot;, x = &quot;Age [mois]&quot;, color = &quot;Variété&quot;)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_filter-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># TODO</code></pre>
+</div>
+</div>
+<div id="section-test-de-student" class="section level2">
+<h2>Test de Student</h2>
+<div class="tutorial-exercise-support" data-label="student1_prepa" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>set.seed(43)
+weight &lt;- tibble::tibble(weight = c(rnorm(n = 15, mean = 100, sd = 5), 
+                      rnorm(n = 15, mean = 102, sd = 5)), 
+           area = rep(c(&quot;a&quot;, &quot;b&quot;), each = 15))
+weight$area &lt;- as.factor(weight$area)</code></pre>
+</div>
+<p>Vous avez à votre disposition le jeu de données <code>weight</code> dont voici quelques informations :</p>
+<pre class="r"><code># nom du jeu de données : weight
+# nom des variables du jeu de données
+names(weight)</code></pre>
+<pre><code>[1] &quot;weight&quot; &quot;area&quot;  </code></pre>
+<pre class="r"><code># résumé des variables
+summary(weight)</code></pre>
+<pre><code>     weight       area  
+ Min.   : 90.47   a:15  
+ 1st Qu.: 97.71   b:15  
+ Median :100.00         
+ Mean   :100.33         
+ 3rd Qu.:102.71         
+ Max.   :112.32         </code></pre>
+<p>Réalisez un test de Student bilatéral avec un seuil <span class="math inline">\(\alpha\)</span> de 0.05 et de variance inégale.</p>
+<div class="tutorial-exercise" data-label="qu_student" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># résumé du jeu de données
+summary(weight)
+#
+#</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"student1_prepa","exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="qu_student-hint" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test(data = weight, weight ~ area,
+  alternative = &quot;two.sided&quot;, conf.level = 0.95, var.equal = FALSE)</code></pre>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading tutorial-panel-heading">Quiz</div>
+<table class="table quiz-table">
+<tr>
+<td>
+
+<div id="htmlwidget-940be8db8c899b34b2aa" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-940be8db8c899b34b2aa">{"x":{"question":"Quels sont les résultats de ce test ?","answers":[{"option":"t = \\(-1.452\\), df = \\(27.994\\), p-value = 0.1575","correct":true,"message":null},{"option":"t = \\(-1.452\\), df = \\(28\\), p-value = 0.1575","correct":false,"message":null},{"option":"t = \\(-1.452\\), df = \\(28\\), p-value = 0.0787","correct":false,"message":null},{"option":"t = \\(-1.452\\), df = \\(27.994\\), p-value = 0.0787","correct":false,"message":null}],"label":"qu_student1-1","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":false,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Quels sont les résultats de ce test ?","a":[{"option":"t = \\(-1.452\\), df = \\(27.994\\), p-value = 0.1575","correct":true,"message":null},{"option":"t = \\(-1.452\\), df = \\(28\\), p-value = 0.1575","correct":false,"message":null},{"option":"t = \\(-1.452\\), df = \\(28\\), p-value = 0.0787","correct":false,"message":null},{"option":"t = \\(-1.452\\), df = \\(27.994\\), p-value = 0.0787","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+<tr>
+<td>
+
+<div id="htmlwidget-651593a8a1503b09565e" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-651593a8a1503b09565e">{"x":{"question":"Y a t&#39;il une différence significative au seuil \\(\\alpha\\) de 0.05 de masse entre les deux zones étudiées pour la masse monitorée","answers":[{"option":"oui","correct":false,"message":null},{"option":"non","correct":true,"message":null}],"label":"qu_student1-2","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Y a t&#39;il une différence significative au seuil \\(\\alpha\\) de 0.05 de masse entre les deux zones étudiées pour la masse monitorée","a":[{"option":"oui","correct":false,"message":null},{"option":"non","correct":true,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="section-choix-dun-test-statistique" class="section level2">
+<h2>Choix d’un test statistique</h2>
+
+<div id="htmlwidget-0cc0652ae795c3790062" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-0cc0652ae795c3790062">{"x":{"question":"Sélectionnez le(s) test(s) statistique(s) qui permet(tent) de vérifier l&#39;homogénéité des variances","answers":[{"option":"Test de Bartlett","correct":true,"message":null},{"option":"Test de Shapiro-wilk","correct":false,"message":null},{"option":"Test de Friedman","correct":false,"message":null},{"option":"Test de Pearson","correct":false,"message":null},{"option":"Aucune des réponses proposées","correct":false,"message":null}],"label":"qu_test","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Sélectionnez le(s) test(s) statistique(s) qui permet(tent) de vérifier l&#39;homogénéité des variances","a":[{"option":"Test de Bartlett","correct":true,"message":null},{"option":"Test de Shapiro-wilk","correct":false,"message":null},{"option":"Test de Friedman","correct":false,"message":null},{"option":"Test de Pearson","correct":false,"message":null},{"option":"Aucune des réponses proposées","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="section-diversite-de-poissons-dans-les-cours-deau-wallons" class="section level2">
+<h2>Diversité de poissons dans les cours d’eau wallons</h2>
+<p>Des scientifiques réalisent des pêches sur 100 stations d’intérêts afin d’étudier la diversité des poissons dans les cours d’eau de wallonie. Ils s’intéressent tout particulièrement à l’espèce <em>Barbus barbus</em> L. 1758. A la suite de leurs recensements, ils souhaitent connaitre le nombre de stations dans les zones A,C,D dont la densité relative en barbeau est supérieure à 12.5 % par rapport à l’ensemble des poissons pêchés.</p>
+<p>Ils mettent à votre disposition un jeu de données qui se nomme <code>density</code> avec deux variables les zones (<code>area</code>) et la densité relative (<code>densi</code>) de barbeau commun par rapport à l’ensemble des poissons pêchés.</p>
+<pre class="r"><code>#nom du jeu de données : density
+names(density)</code></pre>
+<pre><code>[1] &quot;area&quot;  &quot;densi&quot;</code></pre>
+<pre class="r"><code>summary(density)</code></pre>
+<pre><code> area       densi       
+ A:20   Min.   : 8.094  
+ B:20   1st Qu.:10.676  
+ C:20   Median :11.876  
+ D:20   Mean   :11.862  
+ E:20   3rd Qu.:12.882  
+        Max.   :16.617  </code></pre>
+<p>Vous devez retirer les zones (<code>area</code>) <strong>B</strong> et <strong>E</strong> et ne garder que les valeurs de densité strictement supérieures à 12.5.</p>
+<div class="tutorial-exercise-support" data-label="transfo01" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>set.seed(43)
+set.seed(43)
+rep(c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;), each = 20) -&gt; t
+tt &lt;- c(rnorm(n = 20, mean = 10, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 11, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 14, sd = 1))
+density &lt;- tibble::tibble(area = as.factor(t) , densi = tt)
+
+density %&gt;.%
+  dplyr::filter(., area %in% c(&quot;A&quot;, &quot;C&quot;, &quot;D&quot;) &amp; densi &gt; 12.5) %&gt;.%
+  nrow(.)-&gt; t111</code></pre>
+</div>
+<div class="tutorial-exercise" data-label="transfo01_cal" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.setup":"transfo01","exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="transfo01_cal-hint" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>density %&gt;.%
+  dplyr::filter(., area %in% c(&quot;A&quot;, &quot;C&quot;, &quot;D&quot;) &amp; densi &gt; 12.5) %&gt;.%
+  nrow(.)</code></pre>
+</div>
+
+<div id="htmlwidget-ddc3206cbe3a4b83cdaa" style="width:100%;height:auto;", class = "quiz html-widget">
+<div class="panel panel-default">
+<div class="panel-body quizArea">
+</div>
+</div>
+</div>
+
+<script type="application/json" data-for="htmlwidget-ddc3206cbe3a4b83cdaa">{"x":{"question":"Combien de stations ont une densité en barbeau strictement supérieurs à \\(12.5\\) compris dans les zones A,C,D ?","answers":[{"option":"\\(8\\)","correct":true,"message":null},{"option":"\\(30\\)","correct":false,"message":null},{"option":"\\(11\\)","correct":false,"message":null},{"option":"\\(9\\)","correct":false,"message":null},{"option":"\\(60\\)","correct":false,"message":null}],"label":"qu_transfo01","skipStartButton":true,"perQuestionResponseAnswers":true,"perQuestionResponseMessaging":true,"preventUnanswered":true,"displayQuestionCount":false,"displayQuestionNumber":false,"disableRanking":true,"nextQuestionText":"","checkAnswerText":"Submit Answer","allowRetry":true,"randomSortAnswers":true,"json":{"info":{"name":"","main":""},"questions":[{"q":"Combien de stations ont une densité en barbeau strictement supérieurs à \\(12.5\\) compris dans les zones A,C,D ?","a":[{"option":"\\(8\\)","correct":true,"message":null},{"option":"\\(30\\)","correct":false,"message":null},{"option":"\\(11\\)","correct":false,"message":null},{"option":"\\(9\\)","correct":false,"message":null},{"option":"\\(60\\)","correct":false,"message":null}],"correct":"Correct!","incorrect":"Incorrect."}]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="section-conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Vous venez de terminer votre séance d’exercice.</p>
+<p>Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utiliser un dièse (<code>#</code>) devant vos phrases.</p>
+<div class="tutorial-exercise" data-label="comm" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="8">
+<pre class="text"><code># Ajout de commentaires 
+# ...</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.timelimit":60,"exercise.checker":["function (label, user_code, solution_code, check_code, envir_result, ","    evaluate_result, ...) ","{","    list(message = \"Your answer is recorded!\", correct = TRUE, ","        type = \"info\", location = \"append\")","}"]}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="comm-check" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># Not yet...</code></pre>
+</div>
+
+<script type="application/shiny-prerendered" data-context="server-start">
+library(learnr)
+library(knitr)
+SciViews::R()
+library(BioDataScience)
+
+options(tutorial.event_recorder = BioDataScience::record_sdd)
+tutorial_options(exercise.checker = BioDataScience::checker_sdd)
+tutorial_options(exercise.timelimit = 60)
+tutorial_options(exercise.cap = "Code R")
+knitr::opts_chunk$set(echo = FALSE, comment = NA)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = list("sdd2.01a", "1.1.0"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+output$user <- renderText({BioDataScience::user_name(input$user);""})
+output$email <- renderText({BioDataScience::user_email(input$email);""})
+updateTextInput(session, "user", value = BioDataScience::user_name())
+updateTextInput(session, "email", value = BioDataScience::user_email())
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_np-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_np-code-editor`)), session)
+output$`tutorial-exercise-qu_np-output` <- renderUI({
+  `tutorial-exercise-qu_np-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_bp-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_bp-code-editor`)), session)
+output$`tutorial-exercise-qu_bp-output` <- renderUI({
+  `tutorial-exercise-qu_bp-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_conf-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_conf-code-editor`)), session)
+output$`tutorial-exercise-qu_conf-output` <- renderUI({
+  `tutorial-exercise-qu_conf-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_facette-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_facette-code-editor`)), session)
+output$`tutorial-exercise-qu_facette-output` <- renderUI({
+  `tutorial-exercise-qu_facette-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_group-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_group-code-editor`)), session)
+output$`tutorial-exercise-qu_group-output` <- renderUI({
+  `tutorial-exercise-qu_group-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_filter-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_filter-code-editor`)), session)
+output$`tutorial-exercise-qu_filter-output` <- renderUI({
+  `tutorial-exercise-qu_filter-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-qu_student-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-qu_student-code-editor`)), session)
+output$`tutorial-exercise-qu_student-output` <- renderUI({
+  `tutorial-exercise-qu_student-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-transfo01_cal-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-transfo01_cal-code-editor`)), session)
+output$`tutorial-exercise-transfo01_cal-output` <- renderUI({
+  `tutorial-exercise-transfo01_cal-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-comm-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-comm-code-editor`)), session)
+output$`tutorial-exercise-comm-output` <- renderUI({
+  `tutorial-exercise-comm-result`()
+})
+</script>
+ <!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"character","attributes":{},"value":["1.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["www"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["htmlwidgets"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.3"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["quiz-binding"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["quiz.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.12"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["slickquiz"]},{"type":"character","attributes":{},"value":["1.5.20"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["htmlwidgets/lib/slickquiz"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/slickQuiz.js"]},{"type":"character","attributes":{},"value":["css/slickQuiz.css","css/slickQuizTutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]}]}
+</script>
+<!--/html_preserve-->
+<!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120]}},"value":[{"type":"character","attributes":{},"value":["acepack","assertthat","backports","base","base64enc","BioDataScience","broom","cellranger","chart","checkmate","cli","cluster","codetools","colorspace","compiler","cowplot","crayon","data.io","data.table","datasets","digest","dplyr","ellipse","evaluate","farver","flow","forcats","foreign","Formula","generics","gganimate","ggplot2","ggplotify","ggpubr","glue","graphics","grDevices","grid","gridExtra","gridGraphics","gtable","haven","highr","Hmisc","hms","htmlTable","htmltools","htmlwidgets","httpuv","httr","igraph","inline","jsonlite","knitr","labeling","later","lattice","latticeExtra","lazyeval","learnr","lubridate","magick","magrittr","markdown","MASS","Matrix","methods","mime","modelr","mongolite","munsell","nlme","nnet","pillar","pkgconfig","plyr","prettyunits","progress","promises","proto","pryr","purrr","R6","RColorBrewer","Rcpp","readr","readxl","rematch","remotes","rlang","rmarkdown","rpart","rprojroot","rstudioapi","rvcheck","rvest","scales","SciViews","shiny","splines","stats","stringi","stringr","survival","svMisc","tibble","tidyr","tidyselect","tidyverse","tools","tsibble","tweenr","utils","viridis","viridisLite","withr","xfun","xml2","xtable","yaml"]},{"type":"character","attributes":{},"value":["1.4.1","0.2.1","1.1.3","3.5.3","0.1-3","2019.3.0","0.5.2","1.1.0","1.3.0","1.9.1","1.1.0","2.0.8","0.2-16","1.4-1","3.5.3","0.9.4","1.3.4","1.2.2","1.12.2","3.5.3","0.6.18","0.8.0.1","0.4.1","0.13","1.1.0","1.0.0","0.4.0","0.8-71","1.2-3","0.0.2","1.0.3","3.1.1","0.0.3","0.2","1.3.1","3.5.3","3.5.3","3.5.3","2.3","0.3-0","0.3.0","2.1.0","0.8","4.2-0","0.4.2","1.13.1","0.3.6","1.3","1.5.1","1.4.0","1.2.4","0.3.15","1.6","1.22","0.3","0.8.0","0.20-38","0.6-28","0.2.2","0.9.2.1","1.7.4","2.0","1.5","0.9","7.3-51.3","1.2-17","3.5.3","0.6","0.1.4","2.0.1","0.5.0","3.1-138","7.3-12","1.3.1","2.0.2","1.8.4","1.0.2","1.2.0","1.0.1","1.0.0","0.1.4","0.3.2","2.4.0","1.1-2","1.0.1","1.3.1","1.3.1","1.0.1","2.0.2","0.3.4","1.12","4.1-13","1.3-2","0.10","0.1.3","0.3.2","1.0.0","1.1.0","1.3.0","3.5.3","3.5.3","1.4.3","1.4.0","2.44-1.1","1.1.0","2.1.1","0.8.3","0.2.5","1.2.1","3.5.3","0.7.0","1.0.1","3.5.3","0.5.1","0.3.0","2.1.2","0.6","1.2.0","1.8-3","2.2.0"]}]}]}
+</script>
+<!--/html_preserve-->
+</div>
+
+</div> <!-- topics -->
+
+<div class="topicsContainer">
+<div class="topicsPositioner">
+<div class="band">
+<div class="bandContent topicsListContainer">
+
+<!-- begin doc-metadata -->
+<div id="doc-metadata">
+<h2 class="title toc-ignore" style="display:none;">Rappel</h2>
+<h4 class="author"><em>Guyliann Engels &amp; Philippe Grosjean</em></h4>
+</div>
+<!-- end doc-metadata -->
+
+</div> <!-- bandContent.topicsListContainer -->
+</div> <!-- band -->
+</div> <!-- topicsPositioner -->
+</div> <!-- topicsContainer -->
+
+
+</div> <!-- bandContent page -->
+</div> <!-- pageContent band -->
+
+
+
+
+<script>
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+
+</html>

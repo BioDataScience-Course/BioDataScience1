@@ -1,0 +1,761 @@
+---
+title: "Régression linéaire"
+author: "Guyliann Engels & Philippe Grosjean"
+output:
+  learnr::tutorial
+tutorial:
+  id: "sdd2.01b"
+  version: 1.2.0
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+SciViews::R()
+library(BioDataScience)
+
+options(tutorial.event_recorder = BioDataScience::record_sdd)
+tutorial_options(exercise.checker = BioDataScience::checker_sdd)
+tutorial_options(exercise.timelimit = 60)
+tutorial_options(exercise.cap = "Code R")
+knitr::opts_chunk$set(echo = FALSE, comment = NA)
+```
+
+```{r, echo=FALSE}
+fixedRow(
+  column(9, div(
+    img(src = 'images/BioDataScience-128.png', align = "left"),
+    h1("Science des données biologiques 2"),
+    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
+  )),
+  column(3, div(
+    textInput("user", "Utilisateur :", ""),
+    textInput("email", "Email :", "")
+  ))
+)
+textOutput("user") # This is newer shown, but required to trigger an event!
+textOutput("email") # Idem!
+```
+
+```{r, context="server"}
+output$user <- renderText({BioDataScience::user_name(input$user);""})
+output$email <- renderText({BioDataScience::user_email(input$email);""})
+updateTextInput(session, "user", value = BioDataScience::user_name())
+updateTextInput(session, "email", value = BioDataScience::user_email())
+```
+
+## Préambule
+
+Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
+
+![](images/attention.jpg)
+
+**Ne vous trompez pas dans votre adresse mail et votre identifiant Github**
+
+**N'oubliez pas de soumettre votre réponse après chaque exercice**
+
+> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
+
+## Corrélation 
+
+
+
+```{r corr1-init}
+set.seed(43)
+min <- 5
+max <- 15
+
+df <- tibble(
+  x = seq(from = min, to = max, by = 0.25),
+  y = x*2 + rnorm(sd= 0.5, n = length(x)),
+  z = 2^x + rnorm(sd= 50, n = length(x)),
+  a = sin(x) + rnorm(sd = 0.25,  n = length(x))
+)
+
+#GGally::ggscatmat(as.data.frame(df), 1:4)
+#correlation(df, method = "pearson")
+#correlation(df, method = "spearman")
+```
+
+Vous avez à disposition le jeu de données `df` qui comprend les `r length(names(df))` variables suivantes : `r names(df)`. 
+
+- Réalisez une matrice de correlation avec l'indice de Pearson.
+
+```{r corr1-prep}
+set.seed(43)
+# duplicated chunk : corr1-init
+min <- 5
+max <- 15
+
+df <- tibble(
+  x = seq(from = min, to = max, by = 0.25),
+  y = x*2 + rnorm(sd= 0.5, n = length(x)),
+  z = 2^x + rnorm(sd= 50, n = length(x)),
+  a = sin(x) + rnorm(sd = 0.25,  n = length(x))
+)
+
+#correlation(df[1:4])
+#correlation(df[1:4], method = "spearman")
+```
+
+```{r corr1, exercise = TRUE, exercise.setup = "corr1-prep"}
+
+```
+
+```{r corr1-hint-1}
+# snippet mis à disposition
+correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+```
+
+```{r corr1-hint-2}
+correlation(df[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+```
+
+```{r corr1-solution}
+correlation(df[, 1:4], use = "complete.obs", method = "pearson")
+```
+
+```{r corr1-check}
+# TODO
+```
+
+Répondez à la question ci-dessous
+
+```{r qu_corr1}
+question("Quelles sont les combinaisons de variables les plus corrélées ?",
+  answer("x-y", correct = TRUE),
+  answer("x-z"),
+  answer("x-a"),
+  answer("y-z"),
+  answer("y-a"),
+  answer("z-a"),
+    allow_retry = TRUE, random_answer_order = TRUE)
+```
+
+- Réalisez une matrice de correlation avec la méthode de Spearman
+
+```{r corr2, exercise = TRUE, exercise.setup = "corr1-prep"}
+
+```
+
+```{r corr2-hint-1}
+# snippet mis à disposition
+correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+```
+
+```{r corr2-hint-2}
+correlation(df[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+```
+
+```{r corr2-solution}
+correlation(df[, 1:4], use = "complete.obs", method = "spearman")
+```
+
+```{r corr2-check}
+# TODO
+```
+
+Répondez à la question ci-dessous
+
+```{r qu_corr2}
+question("Quelles sont les combinaisons de variables les moins corrélées ?",
+  answer("x-y"),
+  answer("x-z"),
+  answer("x-a"),
+  answer("y-z"),
+  answer("y-a", correct = TRUE),
+  answer("z-a"),
+    allow_retry = TRUE, random_answer_order = TRUE
+  )
+```
+
+- Reproduisez le graphique ci-dessous en vous basant sur vos matrices réalisées précédements
+
+```{r, echo = F}
+plot(correlation(df[, 1:4], use = "complete.obs", method = "spearman"), type = "upper")
+```
+
+```{r corr3, exercise = TRUE, exercise.setup = "corr1-prep"}
+
+```
+
+```{r corr3-hint-1}
+plot(correlation(df[, 1:4], use = "complete.obs", method = "spearman"))
+```
+
+```{r corr3-solution}
+plot(correlation(df[, 1:4], use = "complete.obs", method = "spearman"), type = "upper")
+```
+
+```{r corr3-check}
+# TODO
+```
+
+
+## Régression linéaire
+
+```{r}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+a <- x*1 + 3 + rnorm(sd = 0.5, n = length(x))
+b <- x*1.1 + 3 + rnorm(sd = 0.5, n = length(x))
+c <- x*1.2 + 3 + rnorm(sd = 0.5, n = length(x))
+
+area <- as.factor(rep(c("a", "b", "c"), each = length(x)))
+
+mais <- tibble(
+  x = c(x,x,x),
+  value = c(a,b,c),
+  area = area
+)
+```
+
+Réalisez la régression linéaire de `value` en fonction de `x` sur le jeu de données `mais`. Vous avez à votre dispositon un nuage de points et un résumé des données pour avoir une première connaissance de données.
+
+```{r}
+chart(mais, value ~ x) +
+  geom_point()
+
+summary(df)
+
+lm_reg <- lm(data = mais, value ~ x)
+
+lm_param <- broom::glance(lm_reg)
+lm_result <- broom::tidy(lm_reg)
+```
+
+```{r reglin-prep}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+  
+a <- x*1 + 3 + rnorm(sd = 0.5, n = length(x))
+b <- x*1.1 + 3 + rnorm(sd = 0.5, n = length(x))
+c <- x*1.2 + 3 + rnorm(sd = 0.5, n = length(x))
+
+area <- as.factor(rep(c("a", "b", "c"), each = length(x)))
+
+mais <- tibble(
+  x = c(x,x,x),
+  value = c(a,b,c),
+  area = area
+)
+```
+
+```{r reglin, exercise = TRUE, exercise.setup = "reglin-prep"}
+
+```
+
+```{r reglin-hint-1}
+#snippet
+summary(lm. <- lm(data = DF, FORMULA))
+```
+
+```{r reglin-solution}
+summary(lm. <- lm(data = mais, value ~ x))
+```
+
+```{r reglin-check}
+# TODO 
+```
+
+Suite à votre analyse répondez aux questions suivantes
+
+```{r qu_reglin1}
+quiz(
+  question(text = "Quelle est la valeur de l'ordonnée à l'origine ?",
+    answer(sprintf("%.2f", lm_result$estimate[1]), correct = TRUE),
+    answer(sprintf("%.2f", lm_result$estimate[2])),
+    answer(sprintf("%.2f", lm_result$std.error[1])),
+    answer(sprintf("%.2f", lm_result$std.error[2])),
+    answer(sprintf("%.2f", lm_result$statistic[1])),
+    answer(sprintf("%.2f", lm_result$statistic[2])),
+    answer(sprintf("%.2f", lm_param$r.squared[1])),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question(text = "Quelle est la valeur de la pente ?",
+    answer(sprintf("%.2f", lm_result$estimate[1])),
+    answer(sprintf("%.2f", lm_result$estimate[2]), correct = TRUE),
+    answer(sprintf("%.2f", lm_result$std.error[1])),
+    answer(sprintf("%.2f", lm_result$std.error[2])),
+    answer(sprintf("%.2f", lm_result$statistic[1])),
+    answer(sprintf("%.2f", lm_result$statistic[2])),
+    answer(sprintf("%.2f", lm_param$r.squared[1])),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question(text = "Quelle est la fraction de la variance exprimée par la régression linéaire ?",
+    answer(sprintf("%.3f", lm_param$r.squared), correct = TRUE),
+    answer(sprintf("%.3f", lm_param$statistic)),
+    answer(sprintf("%.3f", lm_param$df)),
+    answer(sprintf("%.3f", lm_result$estimate[1])),
+    answer(sprintf("%.3f", lm_result$estimate[2])),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+## Outils de diagnostic 1 
+
+Vous avez à votre disposition un jeu de données `df1` qui comprend les variable suivante `a` et `b`. 
+
+Réalisez un régression linéaire de la variable `a` en fonciton de la variable `b` avec la fonction `lm()` et réalisez ensuite le premier graphique de l'analyse des résidus.
+
+```{r homo-init}
+set.seed(42)
+x <- seq(from = 5, to = 50, by = 0.25)
+a <- x + rnorm(sd = 3, n = length(x))
+b <- a*1.25 + 3 + rnorm(sd = 10, n = length(x))
+
+df1 <- tibble(
+  a = a,
+  b = b
+)
+
+chart(df1, a ~ b) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F)
+```
+
+
+```{r homo-prep}
+set.seed(42)
+x <- seq(from = 5, to = 50, by = 0.25)
+a <- x + rnorm(sd = 3, n = length(x))
+b <- a*1.25 + 3 + rnorm(sd = 3, n = length(x))
+
+df1 <- tibble(
+  a = a,
+  b = b
+)
+
+#chart(df1, a ~ b) +
+#  geom_point()
+```
+
+
+```{r homo, exercise = TRUE, exercise.setup = "homo-prep"}
+# résumé des données
+summary(df1)
+#
+#
+```
+
+```{r homo-hint-1}
+# ensemble des snippets utiles 
+# ...models 
+#####
+summary(lm. <- lm(data = DF, FORMULA))
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x))(.)
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM + 0))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x + 0))(.)
+
+```
+
+```{r homo-hint-2}
+#####
+#plot(lm., which = 1)
+lm. %>.%
+  chart(broom::augment(.), .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values", y = "Residuals") +
+  ggtitle("Residuals vs Fitted")
+#####
+#plot(lm., which = 2)
+lm. %>.%
+  chart(broom::augment(.), aes(sample = .std.resid)) +
+  geom_qq() +
+  geom_qq_line(colour = "darkgray") +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals") +
+  ggtitle("Normal Q-Q")
+#####
+#plot(lm., which = 3)
+lm. %>.%
+  chart(broom::augment(.), sqrt(abs(.std.resid)) ~ .fitted) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values",
+    y = expression(bold(sqrt(abs("Standardized residuals"))))) +
+  ggtitle("Scale-Location")
+```
+
+```{r homo-hint-3}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#
+```
+
+```{r homo-hint-4}
+# CHoix des bons snippets
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 1)
+lm. %>.%
+  chart(broom::augment(.), .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values", y = "Residuals") +
+  ggtitle("Residuals vs Fitted")
+```
+
+```{r homo-solution}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = df1, a ~ b))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 1)
+lm. %>.%
+  chart(broom::augment(.), .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values", y = "Residuals") +
+  ggtitle("Residuals vs Fitted")
+```
+
+```{r homo-check}
+# TODO
+```
+
+```{r qu_homo}
+quiz(
+  question("Suite à l'analyse graphique du premier graphique de l'analyse des résidus de ma régression linéaire, je trouve que mes résidus sont ...",
+         answer("homogènes", correct = TRUE),
+         answer("hétérogènes"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Suite à l'analyse graphique du troisième graphique de l'analyse des résidus de ma régression linéaire, y a t'il  des valeurs extrèmes au sein des mes résidus?",
+           answer("oui"),
+           answer("non", correct = TRUE),
+           allow_retry = TRUE
+           )
+)
+```
+
+
+## Outils de diagnostic 2 
+
+Vous avez à votre disposition un jeu de données `df2` qui comprend les variable suivante `a` et `b`. 
+
+Réalisez un régression linéaire de la variable `a` en fonciton de la variable `b` avec la fonction `lm()` et réalisez ensuite le second graphique de l'analyse des résidus.
+
+```{r homo1-init}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+  
+a1 <- x*1 + 3 + rnorm(sd = 0.5, n = length(x))
+b1 <- x*1.1 + 3 + rnorm(sd = 0.5, n = length(x))
+c1 <- x*0.7 + 3 + rnorm(sd = 0.5, n = length(x))
+
+
+df2 <- tibble(
+  a = c(x,x,x),
+  b = c(a1,b1,c1),
+)
+
+chart(df2, a ~ b) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F)
+```
+
+
+```{r homo1-prep}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+  
+a1 <- x*1 + 3 + rnorm(sd = 0.5, n = length(x))
+b1 <- x*1.1 + 3 + rnorm(sd = 0.5, n = length(x))
+c1 <- x*0.7 + 3 + rnorm(sd = 0.5, n = length(x))
+
+
+df2 <- tibble(
+  a = c(x,x,x),
+  b = c(a1,b1,c1),
+)
+
+#chart(df1, a ~ b) +
+#  geom_point()
+```
+
+
+```{r homo1, exercise = TRUE, exercise.setup = "homo1-prep"}
+# résumé des données
+summary(df2)
+#
+#
+```
+
+```{r homo1-hint-1}
+# ensemble des snippets utiles 
+# ...models 
+#####
+summary(lm. <- lm(data = DF, FORMULA))
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x))(.)
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM + 0))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x + 0))(.)
+
+```
+
+```{r homo1-hint-2}
+#####
+#plot(lm., which = 1)
+lm. %>.%
+  chart(broom::augment(.), .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values", y = "Residuals") +
+  ggtitle("Residuals vs Fitted")
+#####
+#plot(lm., which = 2)
+lm. %>.%
+  chart(broom::augment(.), aes(sample = .std.resid)) +
+  geom_qq() +
+  geom_qq_line(colour = "darkgray") +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals") +
+  ggtitle("Normal Q-Q")
+#####
+#plot(lm., which = 3)
+lm. %>.%
+  chart(broom::augment(.), sqrt(abs(.std.resid)) ~ .fitted) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values",
+    y = expression(bold(sqrt(abs("Standardized residuals"))))) +
+  ggtitle("Scale-Location")
+```
+
+
+```{r homo1-hint-3}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#
+```
+
+```{r homo1-hint-4}
+# CHoix des bons snippets
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 2)
+lm. %>.%
+  chart(broom::augment(.), aes(sample = .std.resid)) +
+  geom_qq() +
+  geom_qq_line(colour = "darkgray") +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals") +
+  ggtitle("Normal Q-Q")
+```
+
+```{r homo1-solution}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = df2, a ~ b))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 2)
+lm. %>.%
+  chart(broom::augment(.), aes(sample = .std.resid)) +
+  geom_qq() +
+  geom_qq_line(colour = "darkgray") +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals") +
+  ggtitle("Normal Q-Q")
+```
+
+```{r homo1-check}
+# TODO
+```
+
+```{r qu_homo1}
+question("Suite à l'analyse graphique du second graphique de l'analyse des résidus de ma régression linéaire, je trouve que la distribution de mes résidus suit une distribution ...",
+         answer("normale"),
+         answer("non-normale", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE)
+```
+
+
+
+## Outils de diagnostic 3
+
+Vous avez à votre disposition un jeu de données `df3` qui comprend les variable suivante `a` et `b`. 
+
+Réalisez un régression linéaire de la variable `a` en fonciton de la variable `b` avec la fonction `lm()` et réalisez ensuite le second graphique de l'analyse des résidus.
+
+```{r homo2-init}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+  
+a1 <- x*1 + 4.5 + rnorm(sd = 0.5, n = length(x))
+b1 <- x*1 + 2.5 + rnorm(sd = 0.5, n = length(x))
+c1 <- x*0.7 + 3 + rnorm(sd = 0.5, n = length(x))
+
+
+df3 <- tibble(
+  a = c(x,x,x),
+  b = c(a1,b1,c1),
+)
+
+chart(df3, a ~ b) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F)
+```
+
+
+```{r homo2-prep}
+set.seed(42)
+x <- seq(from = 5, to = 15, by = 0.25)
+  
+a1 <- x*1 + 4.5 + rnorm(sd = 0.5, n = length(x))
+b1 <- x*1 + 2.5 + rnorm(sd = 0.5, n = length(x))
+c1 <- x*0.7 + 3 + rnorm(sd = 0.5, n = length(x))
+
+
+df3 <- tibble(
+  a = c(x,x,x),
+  b = c(a1,b1,c1),
+)
+```
+
+
+```{r homo2, exercise = TRUE, exercise.setup = "homo2-prep"}
+# résumé des données
+summary(df3)
+#
+#
+```
+
+```{r homo2-hint-1}
+# ensemble des snippets utiles 
+# ...models 
+#####
+summary(lm. <- lm(data = DF, FORMULA))
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x))(.)
+#####
+summary(lm. <- lm(data = DF, YNUM ~ XNUM + 0))
+lm. %>.% (function (lm, model = lm[["model"]], vars = names(model))
+  chart(model, aes_string(x = vars[2], y = vars[1])) +
+  geom_point() +
+  stat_smooth(method = "lm", formula = y ~ x + 0))(.)
+```
+
+```{r homo2-hint-2}
+#####
+#plot(lm., which = 1)
+lm. %>.%
+  chart(broom::augment(.), .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values", y = "Residuals") +
+  ggtitle("Residuals vs Fitted")
+#####
+#plot(lm., which = 2)
+lm. %>.%
+  chart(broom::augment(.), aes(sample = .std.resid)) +
+  geom_qq() +
+  geom_qq_line(colour = "darkgray") +
+  labs(x = "Theoretical quantiles", y = "Standardized residuals") +
+  ggtitle("Normal Q-Q")
+#####
+#plot(lm., which = 3)
+lm. %>.%
+  chart(broom::augment(.), sqrt(abs(.std.resid)) ~ .fitted) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values",
+    y = expression(bold(sqrt(abs("Standardized residuals"))))) +
+  ggtitle("Scale-Location")
+```
+
+
+```{r homo2-hint-3}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#
+```
+
+```{r homo2-hint-4}
+# CHoix des bons snippets
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = DF, FORMULA))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 3)
+lm. %>.%
+  chart(broom::augment(.), sqrt(abs(.std.resid)) ~ .fitted) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values",
+    y = expression(bold(sqrt(abs("Standardized residuals"))))) +
+  ggtitle("Scale-Location")
+```
+
+```{r homo2-solution}
+# il faut d'abord réaliser le modèle
+summary(lm. <- lm(data = df3, a ~ b))
+# il faut ensuite réaliser le premier graphique de l'analyse des résidus
+#plot(lm., which = 3)
+lm. %>.%
+  chart(broom::augment(.), sqrt(abs(.std.resid)) ~ .fitted) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Fitted values",
+    y = expression(bold(sqrt(abs("Standardized residuals"))))) +
+  ggtitle("Scale-Location")
+```
+
+```{r homo2-check}
+# TODO
+```
+
+```{r qu_homo2}
+quiz(
+  question("Suite à l'analyse graphique du troisième graphique de l'analyse des résidus de ma régression linéaire, je trouve que mes résidus sont ...",
+         answer("homogènes"),
+         answer("hétérogènes", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Suite à l'analyse graphique du troisième graphique de l'analyse des résidus de ma régression linéaire, y a t'il  des valeurs extrèmes au sein des mes résidus?",
+           answer("oui"),
+           answer("non", correct = TRUE),
+           allow_retry = TRUE
+           )
+)
+```
+
+## Conclusion
+
+Vous venez de terminer votre séance d'exercice.
+
+Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utilisez un dièse (`#`) devant vos phrases.
+
+```{r comm, exercise=TRUE, exercise.lines = 8}
+# Ajout de commentaires 
+# ...
+```
+
+```{r comm-check}
+# Not yet...
+```

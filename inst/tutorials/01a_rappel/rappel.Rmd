@@ -1,0 +1,861 @@
+---
+title: "Rappel"
+author: "Guyliann Engels & Philippe Grosjean"
+output:
+  learnr::tutorial
+tutorial:
+  id: "sdd2.01a"
+  version: 1.1.0
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(knitr)
+SciViews::R()
+library(BioDataScience)
+
+options(tutorial.event_recorder = BioDataScience::record_sdd)
+tutorial_options(exercise.checker = BioDataScience::checker_sdd)
+tutorial_options(exercise.timelimit = 60)
+tutorial_options(exercise.cap = "Code R")
+knitr::opts_chunk$set(echo = FALSE, comment = NA)
+```
+
+```{r, echo=FALSE}
+fixedRow(
+  column(9, div(
+    img(src = 'images/BioDataScience-128.png', align = "left"),
+    h1("Science des données biologiques 2"),
+    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
+  )),
+  column(3, div(
+    textInput("user", "Utilisateur :", ""),
+    textInput("email", "Email :", "")
+  ))
+)
+textOutput("user") # This is newer shown, but required to trigger an event!
+textOutput("email") # Idem!
+```
+
+```{r, context="server"}
+output$user <- renderText({BioDataScience::user_name(input$user);""})
+output$email <- renderText({BioDataScience::user_email(input$email);""})
+updateTextInput(session, "user", value = BioDataScience::user_name())
+updateTextInput(session, "email", value = BioDataScience::user_email())
+```
+
+## Préambule
+
+Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
+
+![](images/attention.jpg)
+
+**Ne vous trompez pas dans votre adresse mail et votre identifiant Github**
+
+**N'oubliez pas de soumettre votre réponse après chaque exercice**
+
+> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
+
+## Gestion de projet 
+
+Répondez aux questions ci-dessous
+
+```{r qu_intro}
+quiz(
+  question("Définissez la SciViews Box 2019 ?",
+    answer("une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés",
+      correct = TRUE),
+    answer("un environnement de développement intégré"),
+    answer("un logiciel de gestion de versions"),
+    answer("un service web d'hébergement de projet"),
+    answer("un langage avec une syntaxe facile à lire et à écrire"),
+    answer("aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Définissez le programme RStudio",
+    answer("une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("un environnement de développement intégré", correct = TRUE),
+    answer("un logiciel de gestion de versions"),
+    answer("un service web d'hébergement de projet"),
+    answer("un langage avec une syntaxe facile à lire et à écrire"),
+    answer("aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez Git",
+    answer("une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("un environnement de développement intégré"),
+    answer("un logiciel de gestion de versions", correct = TRUE),
+    answer("un service web d'hébergement de projet"),
+    answer("un langage avec une syntaxe facile à lire et à écrire"),
+    answer("aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez GitHub",
+    answer("une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("un environnement de développement intégré"),
+    answer("un logiciel de gestion de versions"),
+    answer("un service web d'hébergement de projet", correct = TRUE),
+    answer("un langage avec une syntaxe facile à lire et à écrire"),
+    answer("aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez le Markdown",
+    answer("une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("un environnement de développement intégré"),
+    answer("un logiciel de gestion de versions"),
+    answer("un service web d'hébergement de projet"),
+    answer("un langage avec une syntaxe facile à lire et à écrire", correct = TRUE),
+    answer("aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE)
+  )
+```
+
+
+## Analyse de situation
+
+### Situation 1
+
+Deux chercheurs distants de plusieurs centaines de kilomètres, collaborent sur un projet commun. Ils ont pour cela décidé d'employer un outil de gestion de version et d'héberger ce projet sur un système d'hébergement web dédié pour cela. 
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/gestion-version.drawio.png)
+
+```{r qu_git1}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit"),
+    answer("clone"),
+    answer("push", correct = TRUE),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull", correct = TRUE),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+### Situation 2
+
+Le chercheur 2 s'intéresse au projet du chercheur 1, travaille dessus et propose des modifications afin l'améliorer. 
+
+![](images/fork.png)
+
+```{r qu_git2}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork", correct = TRUE),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+
+### Situation 3
+
+Le chercheur 2 vient d'intégrer le projet que le chercheur 1 réalisait seul. Il doit donc acquérir le dépot pour la première fois sur sa machine avant de pouvoir contribuer à ce projet. 
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/clone.png)
+
+
+```{r qu_git3}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit"),
+    answer("clone", correct = TRUE),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push", correct = TRUE),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+## Biométrie d'oursins
+
+Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous
+
+```{r}
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+
+chart(urchin, height ~ weight %col=% origin) +
+  geom_point()
+```
+
+Le jeu des données mis à votre dispositon est `urchin_bio` qui comprend les variables suivantes : `r names(urchin)`
+
+```{r qu_np, exercise = TRUE}
+# importation des données 
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+# Reproduisez le graphique ci-dessous
+#
+#
+```
+
+```{r qu_np-hint-1}
+# importation des données 
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+# Reproduisez le graphique ci-dessous
+# Relisez le chapitre 2 du livre science des données 1
+# https://biodatascience-course.sciviews.org/sdd-umons/nuage-de-points.html 
+```
+
+```{r qu_np-hint-2}
+# importation des données 
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+# Reproduisez le graphique ci-dessous
+# VOus pouvez utilisez la fonction chart() couplée à la function geom_point() 
+# pour réaliser le graphique demandé
+chart() +
+  geom_point()
+```
+
+```{r qu_np-hint-3}
+# importation des données 
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+# Reproduisez le graphique ci-dessous
+# VOus pouvez utilisez la fonction chart() couplée à la function geom_point() 
+# pour réaliser le graphique demandé
+chart(urchin, height ~ weight) +
+  geom_point()
+```
+
+```{r qu_np-solution}
+# importation des données 
+urchin <- data.io::read("urchin_bio", package = "data.io", lang = "FR")
+# Reproduisez le graphique ci-dessous
+ 
+chart(urchin, height ~ weight %col=% origin) +
+  geom_point()
+```
+
+```{r qu_np-check}
+# TODO
+```
+
+## Croissance des dents de cochon d'Inde
+
+
+Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous
+
+```{r}
+tooth_growth <- read("ToothGrowth", package = "datasets")
+
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot() +
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5,
+    position = position_dodge(0.75)) +
+  labs(y = "Longueur des dents [mm]", x = "Supplémentation", fill = "Dose")
+```
+
+
+Le jeu des données mis à votre dispositon est `ToothGrowth` qui comprend les variables suivantes : `r names(ToothGrowth)`
+
+```{r qu_bp, exercise = TRUE}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# reproduisez le graphique 
+#
+#
+```
+
+```{r qu_bp-hint-1}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# Relisez le chapitre 2 du livre science des données 1
+# http://biodatascience-course.sciviews.org/sdd-umons/boxplot.html  
+```
+
+```{r qu_bp-hint-2}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp) +
+  geom_boxplot() 
+```
+
+```{r qu_bp-hint-3}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot()
+```
+
+```{r qu_bp-hint-4}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot() +
+  labs(y = "Longueur des dents [mm]", x = "Supplémentation", fill = "Dose")
+```
+
+```{r qu_bp-solution}
+# imporation des données
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# fonction pour ajouter le nombre d'observations 
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x))
+# graphique
+chart(data = tooth_growth, len ~ supp %fill=% as.factor(dose)) +
+  geom_boxplot() +
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5,
+    position = position_dodge(0.75)) +
+  labs(y = "Longueur des dents [mm]", x = "Supplémentation", fill = "Dose")
+# Vous auriez également pu employer cette solution 
+tooth_growth <- read("ToothGrowth", package = "datasets")
+
+tooth_growth$dose <- as.ordered(tooth_growth$dose)
+tooth_growth <- labelise(tooth_growth, self = FALSE,
+  label = list(
+    len = "Longueur des dents",
+    supp = "Supplémentation",
+    dose = "Dose"
+  ),
+  units = list(
+    len = "mm",
+    supp = NA,
+    dose = "mg/J"
+  )
+)
+# Réalisation graphique
+chart(data = tooth_growth, len ~ supp %fill=% dose) +
+  geom_boxplot() +
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5,
+    position = position_dodge(0.75))
+```
+
+```{r qu_bp-check}
+# TODO 
+```
+
+## Normalité d'une variable
+
+```{r}
+set.seed(43)
+df <- tibble::tibble(x = rnorm(n = 60, mean = 10, sd = 50))
+# car::qqPlot(df[["x"]], distribution = "norm",
+#   envelope = 0.99, col = "Black", ylab = "x",cex = .4)
+```
+
+```{r, echo = TRUE}
+#nom du jeu de données : df
+names(df)
+summary(df)
+```
+
+Sur base du jeu de données suivant ci-dessus , répondez à la question ci-dessous
+
+**Des snippets sont mis à votre disposition en fin de question**
+
+```{r var04_prepa}
+set.seed(43)
+df <- tibble::tibble(x = rnorm(n = 60, mean = 10, sd = 50))
+```
+
+
+```{r qu_conf, exercise = TRUE, exercise.setup = "var04_prepa"}
+
+```
+
+```{r qu_conf-hint}
+ car::qqPlot(df[["x"]], distribution = "norm",
+   envelope = 0.99, col = "Black", ylab = "x",cex = .4)
+```
+
+```{r qu_conf-check}
+#TODO
+```
+
+
+```{r qu_conf01}
+question("Avec une enveloppe de confiance de 0.99, est ce que la variable x du jeu de donnée df suit une ... ",
+         answer("distribution normale", correct = TRUE),
+         answer("distribution approximativement normale"),
+         answer("distribution anormale"),
+         allow_retry = TRUE, random_answer_order = TRUE)
+```
+
+
+## Biométrie humaine
+
+Sur base des données qui sont mises à votre disposition reproduisez le graphique ci-dessous
+
+```{r}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+
+biometry$bmi_rec <- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+chart(biometry, height ~ weight %col=% bmi_rec | gender) + 
+  geom_point()
+```
+
+Afin de structurer votre réflexion, voici quelques pistes pour vous guider
+
+- importer les données
+
+- calculer une nouvelle variale :  $bmi = \frac{weight}{height^2}$ 
+
+Attention, le poids doit être en kg et la taille en mètre.
+
+- calculer une nouvelle variable qui va séparer la variable bmi avec les personnes en sous poids (inférieur à 18.5), de corpulence normale (18.5 à 25) et en surpoids (supérieur à 25)
+
+- reproduire le graphique
+
+```{r qu_facette, exercise = TRUE}
+# importation des données
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+# calcule des nouvelles variables 
+#
+# reproduction du graphique 
+# 
+```
+
+```{r qu_facette-hint-1}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+# nommer la nouvelle variable bmi
+biometry %>.%
+  mutate(., bmi = ) -> biometry 
+
+```
+
+```{r qu_facette-hint-2}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+```
+
+```{r qu_facette-hint-3}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+
+biometry$bmi_rec <- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks= c())
+
+```
+
+```{r qu_facette-hint-4}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+
+biometry$bmi_rec <- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+```
+
+```{r qu_facette-hint-5}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+
+biometry$bmi_rec <- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+chart(biometry, height ~ weight %col=% bmi_rec) + 
+  geom_point()
+```
+
+```{r qu_facette-solution}
+biometry <- read("biometry", package = "BioDataScience", lang = "FR")
+
+biometry %>.%
+  mutate(., bmi = weight/(height/100)^2) -> biometry 
+
+biometry$bmi_rec <- cut(biometry$bmi, include.lowest=FALSE,  right=FALSE,
+                        breaks=c(0, 18.5, 25, 60))
+
+chart(biometry, height ~ weight %col=% bmi_rec | gender) + 
+  geom_point()
+```
+
+```{r qu_facette-check}
+#TODO
+```
+
+Cette question n'est pas évidente, n'oubliez pas que vous pouvez quitter le learnR afin de chercher vos réponses sur internet, dans le livre en ligne ou encore utiliser les chunk, les snippets,...
+
+## Rendement des pommes de terre en Belgique
+
+Des scientifiques belges s'intéressent aux rendements de deux variétés de pomme de terre  : la bintje et la fontane. Après 110 jours, il réalise des prélèvements sur différentes parcelles en Belgique qu'ils quantifient en tonnes par hectare. 
+
+```{r, warning=F, message=F}
+set.seed(42)
+pdt <- tibble(
+  rendement = c(rnorm(n = 18, mean = 33.6, sd = 4), rnorm(n = 28, mean = 39.5, sd = 4)), 
+  variete = c(rep("bintje", times = 18), rep("fontane", times = 28)))
+```
+
+Reproduisez le tableau ci-dessous, le jeu de données mis à votre disposition se nomme `pdt` et les variables sont les suivantes : `r names(pdt)`. La fonction de mise en forme du tableau est `kable()` du package `knitr`
+
+```{r}
+pdt %>.%
+  group_by(., variete) %>.%
+  summarise(., mean = mean(rendement), count = sum(!is.na(rendement))) %>.%
+  knitr::kable(., col.names = c("Variété" ,"Rendement moyen [t/ha]", "Nombre de parcelles"))
+```
+
+```{r qu_group-prep}
+set.seed(42)
+pdt <- tibble(
+  rendement = c(rnorm(n = 18, mean = 33.6, sd = 4), rnorm(n = 28, mean = 39.5, sd = 4)), 
+  variete = c(rep("bintje", times = 18), rep("fontane", times = 28)))
+```
+
+```{r qu_group, exercise = TRUE, exercise.setup = "qu_group-prep"}
+summary(pdt)
+#
+#
+```
+
+```{r qu_group-hint-1}
+pdt %>.%
+  group_by(., ) %>.%
+  summarise(., ) %>.%
+  knitr::kable(., )
+```
+
+```{r qu_group-hint-2}
+pdt %>.%
+  group_by(., ) %>.%
+  summarise(., mean = mean(), count = sum(!is.na())) %>.%
+  knitr::kable(., col.names = c())
+```
+
+```{r qu_group-hint-3}
+pdt %>.%
+  group_by(., variete) %>.%
+  summarise(., mean = mean(), count = sum(!is.na())) %>.%
+  knitr::kable(., col.names = c())
+```
+
+```{r qu_group-hint-4}
+pdt %>.%
+  group_by(., variete) %>.%
+  summarise(., mean = mean(rendement), count = sum(!is.na(rendement))) %>.%
+  knitr::kable(., col.names = c("Variété" ,"Rendement moyen [t/ha]", "Nombre de parcelles"))
+```
+
+```{r qu_group-check}
+# TODO
+```
+
+
+Cette exercice s'inspire des observations relayé sur le site du sillon Belge de l'article consulté le 3 septembre 2019 suivant :   <https://www.sillonbelge.be/4731/article/2019-08-28/bintje-et-fontane-apres-110-115-jours-faute-de-casser-la-baraque-ces-deux>
+
+## Association wallone de l’élevage
+
+```{r, warning=F, message=F, results='hide'}
+beef <- read(file = system.file("extdata", "belgianblue.xlsx", package = "BioDataScience2"), type = "xlsx")
+```
+
+L'association wallone de l'élevage dispose de plusieurs centres d'insémination. Ils ont un recensement des différents taureaux reproducteurs. Reproduisez le graphique ci-dessous. Ce dernier ne montre que les individus compris entre 20 et 55 mois. vous avez à votre disposition le jeu de données `beef` qui comprend les variables suivantes : `r names(beef)`
+
+```{r}
+beef %>.%
+  filter(., age >= 20 & age <= 55) %>.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() +
+  labs(y = "Masse [kg]", x = "Age [mois]", color = "Variété")
+```
+
+
+```{r, qu_filter-prep}
+beef <- read(file = system.file("extdata", "belgianblue.xlsx", package = "BioDataScience2"), type = "xlsx")
+```
+
+```{r qu_filter, exercise = TRUE, exercise.setup = "qu_filter-prep"}
+summary(beef)
+# reproduisez le graphique suivant
+# 
+# 
+```
+
+```{r qu_filter-hint-1}
+# il existe de nombreuses manière d'obtenir ce graphique 
+# la fonction dont vous avez besoin est la fonction filter()
+```
+
+```{r qu_filter-hint-2}
+# structure de la réponse
+beef %>.%
+  filter(.,) %>.%
+  chart(.,) +
+  geom_point() +
+  labs()
+```
+
+```{r qu_filter-hint-3}
+beef %>.%
+  filter(.,) %>.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() 
+```
+
+```{r qu_filter-hint-4}
+beef %>.%
+  filter(.,) %>.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() +
+  labs(y = "Masse [kg]", x = "Age [mois]", color = "Variété")
+```
+
+```{r qu_filter-hint-5}
+beef %>.%
+  filter(., age >= 20 & age <= 55) %>.%
+  chart(., weight ~ age %col=% variety) +
+  geom_point() +
+  labs(y = "Masse [kg]", x = "Age [mois]", color = "Variété")
+```
+
+```{r qu_filter-check}
+# TODO
+```
+
+## Test de Student
+
+```{r}
+set.seed(43)
+weight <- tibble::tibble(weight = c(rnorm(n = 15, mean = 100, sd = 5), 
+                      rnorm(n = 15, mean = 102, sd = 5)), 
+           area = rep(c("a", "b"), each = 15))
+weight$area <- as.factor(weight$area)
+```
+
+```{r student1_prepa}
+set.seed(43)
+weight <- tibble::tibble(weight = c(rnorm(n = 15, mean = 100, sd = 5), 
+                      rnorm(n = 15, mean = 102, sd = 5)), 
+           area = rep(c("a", "b"), each = 15))
+weight$area <- as.factor(weight$area)
+```
+
+Vous avez à votre disposition le jeu de données `weight` dont voici quelques informations :
+
+```{r, echo = TRUE}
+# nom du jeu de données : weight
+# nom des variables du jeu de données
+names(weight)
+# résumé des variables
+summary(weight)
+```
+
+Réalisez un test de Student bilatéral avec un seuil $\alpha$ de 0.05 et de variance inégale.
+
+```{r qu_student, exercise = TRUE, exercise.setup = "student1_prepa"}
+# résumé du jeu de données
+summary(weight)
+#
+#
+```
+
+```{r qu_student-hint}
+t.test(data = weight, weight ~ area,
+  alternative = "two.sided", conf.level = 0.95, var.equal = FALSE)
+```
+
+
+```{r qu_student1}
+quiz(
+  question("Quels sont les résultats de ce test ?",
+         answer("t = $-1.452$, df = $27.994$, p-value = 0.1575", correct = TRUE),
+         answer("t = $-1.452$, df = $28$, p-value = 0.1575"),
+         answer("t = $-1.452$, df = $28$, p-value = 0.0787"),
+         answer("t = $-1.452$, df = $27.994$, p-value = 0.0787"),
+         random_answer_order = TRUE),
+  question("Y a t'il une différence significative au seuil $\\alpha$ de 0.05 de masse entre les deux zones étudiées pour la masse monitorée",
+         answer("oui"),
+         answer("non", correct = TRUE), 
+         random_answer_order = TRUE, allow_retry = TRUE))
+```
+
+## Choix d'un test statistique
+
+```{r qu_test}
+question("Sélectionnez le(s) test(s) statistique(s) qui permet(tent) de vérifier l'homogénéité des variances",
+         answer("Test de Bartlett", correct = TRUE),
+         answer("Test de Shapiro-wilk"),
+         answer("Test de Friedman"),
+         answer("Test de Pearson"),
+         answer("Aucune des réponses proposées"),
+         random_answer_order = TRUE, allow_retry = TRUE)
+```
+
+## Diversité de poissons dans les cours d'eau wallons
+
+```{r}
+set.seed(43)
+rep(c("A", "B", "C", "D", "E"), each = 20) -> t
+tt <- c(rnorm(n = 20, mean = 10, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 11, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 14, sd = 1))
+density <- tibble::tibble(area = as.factor(t) , densi = tt)
+
+density %>.%
+  dplyr::filter(., area %in% c("A", "C", "D") & densi > 12.5) %>.%
+  nrow(.)-> t111
+```
+
+Des scientifiques réalisent des pêches sur 100 stations d'intérêts afin d'étudier la diversité des poissons dans les cours d'eau de wallonie. Ils s'intéressent tout particulièrement à l'espèce *Barbus barbus* L. 1758. A la suite de leurs recensements, ils souhaitent connaitre le nombre de stations dans les zones A,C,D dont la densité relative en barbeau est supérieure à 12.5 % par rapport à l'ensemble des poissons pêchés. 
+
+Ils mettent à votre disposition un jeu de données qui se nomme `density` avec deux variables les zones (`area`) et la densité relative (`densi`) de barbeau commun par rapport à l'ensemble des poissons pêchés. 
+
+```{r, echo = TRUE}
+#nom du jeu de données : density
+names(density)
+summary(density)
+```
+
+ Vous devez retirer les zones (`area`) **B** et **E** et ne garder que les valeurs de densité strictement supérieures à 12.5. 
+
+
+```{r transfo01}
+set.seed(43)
+set.seed(43)
+rep(c("A", "B", "C", "D", "E"), each = 20) -> t
+tt <- c(rnorm(n = 20, mean = 10, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 11, sd = 1),
+        rnorm(n = 20, mean = 12, sd = 1),
+        rnorm(n = 20, mean = 14, sd = 1))
+density <- tibble::tibble(area = as.factor(t) , densi = tt)
+
+density %>.%
+  dplyr::filter(., area %in% c("A", "C", "D") & densi > 12.5) %>.%
+  nrow(.)-> t111
+```
+
+```{r transfo01_cal, exercise = TRUE, exercise.setup = "transfo01"}
+
+```
+
+```{r transfo01_cal-hint}
+density %>.%
+  dplyr::filter(., area %in% c("A", "C", "D") & densi > 12.5) %>.%
+  nrow(.)
+```
+
+```{r qu_transfo01}
+question("Combien de stations ont une densité en barbeau strictement supérieurs à $12.5$ compris dans les zones A,C,D ?", 
+         answer(sprintf("$%s$", t111), correct = TRUE),
+         answer(sprintf("$%s$", t111 + 22)),
+         answer(sprintf("$%s$", t111 + 3)),
+         answer(sprintf("$%s$", t111+1)),
+         answer(sprintf("$%s$", t111 + 52)),
+         random_answer_order = TRUE, allow_retry = TRUE)
+```
+
+
+## Conclusion
+
+Vous venez de terminer votre séance d'exercice.
+
+Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utiliser un dièse (`#`) devant vos phrases.
+
+```{r comm, exercise=TRUE, exercise.lines = 8}
+# Ajout de commentaires 
+# ...
+```
+
+```{r comm-check}
+# Not yet...
+```

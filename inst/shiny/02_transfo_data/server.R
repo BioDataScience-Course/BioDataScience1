@@ -17,32 +17,34 @@ shinyServer(function(input, output) {
 
     # generate bins based on input$bins from ui.R
     if (input$transfox == "Aucune") {
-      x <- urchin$weight
+      urchin$xvar <- urchin$weight
       labx <- "Masse"
     } else if (input$transfox == "Logarithme") {
-      x <- log(urchin$weight)
+      urchin$xvar <- log(urchin$weight)
       labx <- paste(input$transfox, "de la masse")
     } else {
-      x <- sqrt(urchin$weight)
+      urchin$xvar <- sqrt(urchin$weight)
       labx <- paste(input$transfox, "de la masse")
     }
     if(input$transfoy == "Aucune") {
-      y <- urchin$height
+      urchin$yvar <- urchin$height
       laby <- "Hauteur du test"
     } else if (input$transfoy == "Logarithme") {
-      y <- log(urchin$height)
+      urchin$yvar <- log(urchin$height)
       laby <- paste(input$transfoy, "de la hauteur du test")
     } else {
-      y <- sqrt(urchin$height)
+      urchin$yvar <- sqrt(urchin$height)
       laby <- paste(input$transfoy, "de la hauteur du test")
     }
 
     # draw the histogram with the specified number of bins
     a <- chart::chart(data = urchin, height ~  weight) +
       ggplot2::geom_point()
-    b <- chart::chart(data = urchin, y ~ x) +
+
+    b <- chart::chart(data = urchin, yvar ~ xvar) +
       ggplot2::geom_point() +
       ggplot2::labs( x = labx, y = laby)
+
     chart::combine_charts(list(a,b))
   })
 })

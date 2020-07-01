@@ -1,6 +1,7 @@
 ---
-title: "Les bases de R : découverte de l'outil"
+title: "sdd1-mod02 : base"
 author : "Guyliann Engels & Philippe Grosjean"
+description: "Les bases de R"
 tutorial:
   id: "sdd1.02a"
   version: 1.1.0

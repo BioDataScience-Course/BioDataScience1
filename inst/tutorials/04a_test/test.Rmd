@@ -1,7 +1,8 @@
 ---
-title: "Module 4 : vérification des compétences"
+title: "sdd1-mod04 : Graphiques"
 subtitle: "Visualisation III"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "Réalisation de différents graphiques du module 4"
 output:
   learnr::tutorial
 tutorial:

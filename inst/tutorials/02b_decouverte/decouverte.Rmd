@@ -1,7 +1,7 @@
 ---
-title: "Module 2: Découverte de R"
-sutitle: "L'obésité"
+title: "sdd1-mod02 : decouverte"
 author : "Guyliann Engels & Philippe Grosjean"
+description: "Découverte des R  : étude sur l'obésité"
 tutorial:
   id: "sdd1.02b"
   version: 1.2.0

@@ -1,6 +1,6 @@
 ---
-title: "Module 8 : chi2"
-subtitle: "Traitement des données I"
+title: "sdd1-mod08 : chi2"
+description: "Application du chi2T"
 author: "Guyliann Engels & Philippe Grosjean"
 output:
   learnr::tutorial

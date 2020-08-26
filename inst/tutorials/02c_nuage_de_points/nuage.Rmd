@@ -1,5 +1,6 @@
 ---
-title: "Le nuage de point : faire un graphique dans R"
+title: "sdd1-mod02 : nuage de points"
+description: "Réalisation de nuages de points dans R"
 author : "Guyliann Engels & Philippe Grosjean"
 tutorial:
   id: "sdd1.02c"

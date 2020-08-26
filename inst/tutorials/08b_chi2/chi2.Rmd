@@ -25,7 +25,6 @@ library(BioDataScience)
 library(ggpubr)
 
 #datasets
-
 tabac <- data.frame(sexe = c("filles", "garçons", "filles",
                              "garçons"),
                     comport = c("fumeurs", "fumeurs", "non fumeurs", "non fumeurs"),

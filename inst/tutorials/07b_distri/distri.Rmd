@@ -1,6 +1,6 @@
 ---
-title: "Module 7 : Lois de distributions"
-subtitle: "Traitement des données I"
+title: "sdd1-mod07 : distributions"
+description: "Les lois de distributions"
 author: "Guyliann Engels & Philippe Grosjean"
 output:
   learnr::tutorial

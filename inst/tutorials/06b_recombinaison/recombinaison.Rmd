@@ -1,7 +1,8 @@
 ---
-title: "Module 6 : Recombinaison de tableaux"
+title: "sdd1-mod06 : Recombinaison"
 subtitle: "Traitement des données I"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "Recombinaison de tableaux"
 output:
   learnr::tutorial 
 tutorial:

@@ -1,11 +1,11 @@
 ---
-title: "Module 10 : Analyse de la variance (ANOVA) et Kruskal-Wallis"
-subtitle: "Traitement des données I"
+title: "ANOVA et Kruskal-Wallis"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 10** Analyse de variance et test de Kruskal-Wallis (alternative non paramétrique)."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.10b"
+  id: "sdd1_10b"
   version: 1.0.0
 runtime: shiny_prerendered
 ---

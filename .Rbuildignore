@@ -12,4 +12,6 @@ Makefile
 ^appveyor\.yml$
 ^\.Rproj\.user$
 ^.*\.Rproj$
-LICENSE
+LICENSE.md
+data-raw
+data-raw/*

@@ -1,11 +1,11 @@
 ---
-title: "sdd1-mod07 : probabilités"
-description: "Calculs de probabilités"
+title: "Probabilités"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 7** Calcul de probabilités."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.07a"
+  id: "sdd1_07a"
   version: 1.0.1
 runtime: shiny_prerendered
 ---

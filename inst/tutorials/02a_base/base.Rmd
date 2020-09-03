@@ -1,9 +1,9 @@
 ---
-title: "sdd1-mod02 : base"
+title: "Les bases de R"
 author : "Guyliann Engels & Philippe Grosjean"
-description: "Les bases de R"
+description: "**SDD I Module 2** Principales opérations et commandes dans R."
 tutorial:
-  id: "sdd1.02a"
+  id: "sdd1_02a"
   version: 1.1.0
 output: 
   learnr::tutorial:

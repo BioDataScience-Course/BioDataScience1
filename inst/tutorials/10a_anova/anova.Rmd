@@ -1,11 +1,12 @@
 ---
-title: "Module 10 : Analyse de la variance (ANOVA)"
+title: "Analyse de la variance"
 subtitle: "Traitement des données I"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 10** Analyse de la variance et tests de comparaisons multiples."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.10a"
+  id: "sdd1_10a"
   version: 1.0.1
 runtime: shiny_prerendered
 ---

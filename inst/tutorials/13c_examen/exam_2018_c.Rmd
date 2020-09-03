@@ -1,11 +1,11 @@
 ---
-title: "Examen aout 2019 : Version A"
-subtitle: "Traitement des données I"
+title: "Examen"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I** Exemple de questions d'examen (version A d'aout 2018)."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.13c"
+  id: "sdd1_13c"
   version: 1.0.0
 runtime: shiny_prerendered
 ---

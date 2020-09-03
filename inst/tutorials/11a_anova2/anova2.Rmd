@@ -1,11 +1,12 @@
 ---
-title: "Module 11 : Analyse de la variance (ANOVA) à 2 facteurs"
+title: "ANOVA à 2 facteurs"
 subtitle: "Traitement des données I"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 11** Analyse de variance à deux facteurs, différents modèles."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.11a"
+  id: "sdd1_11a"
   version: 1.1.1
 runtime: shiny_prerendered
 ---

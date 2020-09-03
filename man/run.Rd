@@ -10,7 +10,7 @@ run(tutorial, ..., update = ask, ask = interactive())
 \item{tutorial}{The name of the tutorial to use. If not provided, a list of
 available tutorials is displayed.}
 
-\item{...}{Further arguments passed to \code{\link[=run_tutorial]{run_tutorial()}}}
+\item{...}{Further arguments passed to \code{learnr::run_tutorial()}.}
 
 \item{update}{Do we check for an updated version first, and if it is found,
 update the package automatically?}
@@ -30,11 +30,8 @@ selected tutorial.
 # To start from a list of available tutorials:
 run()
 \dontrun{
-run("01a_rappel")
+run("00a_learnr")
 }
-}
-\seealso{
-\code{\link[=run_tutorial]{run_tutorial()}}
 }
 \concept{run interactive learnr documents from the BioDataScience package}
 \keyword{utilities}

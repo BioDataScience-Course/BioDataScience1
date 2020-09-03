@@ -1,11 +1,11 @@
 ---
-title: "Module 11 : Les différentes syntaxe dans R"
-subtitle: "Traitement des données I"
+title: "Syntaxe de R"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 11** Exploration de différents styles de syntaxe dans R."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.11b"
+  id: "sdd1_11b"
   version: 1.0.0
 runtime: shiny_prerendered
 ---

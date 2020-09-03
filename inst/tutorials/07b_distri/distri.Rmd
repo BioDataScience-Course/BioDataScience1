@@ -1,11 +1,11 @@
 ---
-title: "sdd1-mod07 : distributions"
-description: "Les lois de distributions"
+title: "Distributions"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 7** Les lois de distribution de probabilités."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.07b"
+  id: "sdd1_07b"
   version: 1.0.0
 runtime: shiny_prerendered
 ---

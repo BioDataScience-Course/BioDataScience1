@@ -1,11 +1,11 @@
 ---
-title: "Module 12 : Les coefficient de corrélation"
-subtitle: "Traitement des données I"
+title: "Corrélation"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 12** Le coefficient de corrélation et le test de corrélation."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.12a"
+  id: "sdd1_12a"
   version: 1.0.0
 runtime: shiny_prerendered
 ---

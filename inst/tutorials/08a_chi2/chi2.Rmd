@@ -1,11 +1,11 @@
 ---
-title: "sdd1-mod08 : chi2"
-description: "Application du chi2T"
+title: "Chi2"
 author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 8** La loi de distribution du Chi2 et le test d'hypothèse associé."
 output:
   learnr::tutorial
 tutorial:
-  id: "sdd1.08a"
+  id: "sdd1_08a"
   version: 1.0.1
 runtime: shiny_prerendered
 ---

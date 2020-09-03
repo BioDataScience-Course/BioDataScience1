@@ -1,12 +1,11 @@
 ---
-title: "sdd1-mod06 : Recombinaison"
-subtitle: "Traitement des données I"
+title: "Recombinaison de tableaux"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "Recombinaison de tableaux"
+description: "**SDD I Module 6** Remodelage de tableaux et recombinaison de plusieurs tableaux."
 output:
   learnr::tutorial 
 tutorial:
-  id: "sdd1.06b"
+  id: "sdd1_06b"
   version: 1.2.0
 runtime: shiny_prerendered
 ---

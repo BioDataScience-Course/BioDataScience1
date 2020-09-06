@@ -24,6 +24,5 @@
 .DS_Store
 
 # RSconnect
-/inst/shiny/**/rsconnect/*
-/inst/shiny/**/**/rsconnect/*
+rsconnect
 

@@ -9,8 +9,8 @@ Authors@R: c(
   email = "guyliann.engels@umons.ac.be"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
 Depends: R (>= 3.3.0)
-Imports: learndown, BioDataScience
-Suggests: SciViews, ggplot2, ggpubr, data.io, flow, chart, covr, knitr, testthat
+Imports: learndown
+Suggests: SciViews, ggplot2, ggpubr, data.io, flow, chart, covr, knitr, testthat, gradethis
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

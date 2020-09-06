@@ -23,7 +23,9 @@
 #' run("00a_learnr")
 #' }
 run <- function(tutorial, ..., update = ask, ask = interactive()) {
-  BioDataScience::init()
+  #BioDataScience::init()
+  if (missing(tutorial))
+    tutorial <- NULL
   learndown::run(tutorial = tutorial, package = "BioDataScience1",
     repos = "BioDataScience-course/BioDataScience1", ..., update = update,
     ask = ask)

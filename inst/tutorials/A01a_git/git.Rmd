@@ -13,8 +13,8 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
+#options(tutorial.event_recorder = BioDataScience::record_sdd)
+#tutorial_options(exercise.checker = BioDataScience::checker_sdd)
 tutorial_options(exercise.timelimit = 60)
 tutorial_options(exercise.cap = "Code R")
 knitr::opts_chunk$set(echo = FALSE, comment = NA)
@@ -37,10 +37,10 @@ textOutput("email") # Idem!
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+output$user <- renderText({learndown::user_name(input$user);""})
+output$email <- renderText({learndown::user_email(input$email);""})
+updateTextInput(session, "user", value = learndown::user_name())
+updateTextInput(session, "email", value = learndown::user_email())
 ```
 
 ## Gestion de projet 

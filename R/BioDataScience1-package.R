@@ -5,7 +5,7 @@
 #' @docType package
 #' @name BioDataScience1-package
 #'
-#' @importFrom learndown config run
+#' @importFrom learndown config run learndownLearnrBanner
 NULL
 
 #@importFrom BioDataScience init

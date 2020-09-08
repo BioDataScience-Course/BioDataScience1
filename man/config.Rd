@@ -2,18 +2,37 @@
 % Please edit documentation in R/config.R
 \name{config}
 \alias{config}
-\title{Configure the R environment to acces my MongoDB database}
+\alias{fingerprint}
+\alias{learnr_setup}
+\alias{learnr_banner}
+\title{Configure the R environment to access my MongoDB database, and provide or
+cache user information for reuse in learnr and shiny applications that are
+run locally.}
 \usage{
 config(debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
+
+fingerprint(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
+
+learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
+
+learnr_banner(simple = FALSE)
 }
 \arguments{
 \item{debug}{Do we issue debugging messages (by default, yes if the
 environment variables \code{LEARNDOWN_DEBUG} is not \code{0}).}
+
+\item{data}{Fingerprint data (user information) either in clear, or ciphered. In
+this case, the string must start with "fingerprint=".}
+
+\item{cap}{The caption of learnr R code widgets.}
+
+\item{simple}{Do we use a simple banner without title or not?}
 }
 \value{
 \code{TRUE} or \code{FALSE} invisibly, if it succeeds or not (with database
 access test).
 }
 \description{
-Environment variables are added with infos about my database.
+Environment variables are added with infos about my database and files
+are written in the user's directory with cache data.
 }

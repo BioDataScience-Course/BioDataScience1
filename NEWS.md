@@ -2,8 +2,9 @@
 
 ## Changes in version 2020.0.0
 
-- Clean up. Now depends on learndown and BioDataScience only.
-- config() function added.
+- Clean up. Now depends on learndown only.
+- `config()`, `fingerprint()`, `learnr_setup()` and `learnr_banner()` functions
+added.
 
 ## Changes in version 2019.11.0
 

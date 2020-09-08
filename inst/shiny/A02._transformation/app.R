@@ -78,9 +78,10 @@ server <- function(input, output, session) {
       ggplot2::geom_point()
   })
 
-  trackEvents(session, input, output, debug = TRUE)
+  trackEvents(session, input, output,
+    fingerprint.fun = BioDataScience1::fingerprint, debug = TRUE)
   trackSubmit(session, input, output, max_score = 5, solution =
-      list(scalex = "Logarithme népérien", scaley = "Logarithme népérien"),
+    list(scalex = "Logarithme népérien", scaley = "Logarithme népérien"),
     comment = "transformation double-logarithmique",
     message.success = "Correct, c'est la meilleure transformation. La transformation double-logarithmique est très souvent utilisée en biologie.",
     message.error = "Incorrect, une meilleure transformation existe.")

@@ -5,6 +5,7 @@
 \alias{fingerprint}
 \alias{learnr_setup}
 \alias{learnr_banner}
+\alias{learnr_server}
 \title{Configure the R environment to access my MongoDB database, and provide or
 cache user information for reuse in learnr and shiny applications that are
 run locally.}
@@ -16,6 +17,8 @@ fingerprint(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
 learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
 
 learnr_banner(simple = FALSE)
+
+learnr_server(input, output, session)
 }
 \arguments{
 \item{debug}{Do we issue debugging messages (by default, yes if the
@@ -27,6 +30,12 @@ this case, the string must start with "fingerprint=".}
 \item{cap}{The caption of learnr R code widgets.}
 
 \item{simple}{Do we use a simple banner without title or not?}
+
+\item{input}{The Shiny input.}
+
+\item{output}{The Shiny output.}
+
+\item{session}{The Shiny session.}
 }
 \value{
 \code{TRUE} or \code{FALSE} invisibly, if it succeeds or not (with database

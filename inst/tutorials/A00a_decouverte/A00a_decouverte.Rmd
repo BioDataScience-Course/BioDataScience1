@@ -4,20 +4,25 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I** Quelques exercices simples pour découvrir learnr."
 tutorial:
   id: "A00a_decouverte"
-  version: 2.0.0/5
+  version: 2.1.0/5
 output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
 ---
-
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
 ```
 
-`r BioDataScience1::learnr_banner()`
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
 
 ----
 
@@ -94,11 +99,11 @@ La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 
 
 *Afin de tester vos instructions, cliquez sur `Run Code` (autant que vous voulez). Lorsque vous êtes satisfait de votre réponse, cliquez sur `Submit Answer`. Si l'exercice est trop compliqué, n'hésitez pas à utiliser les indices mis à votre disposition (`Hints`) s'il y en a, comme ici.*
 
-```{r sea_temp1_h2, exercise=TRUE}
+```{r sea_temp1_h3, exercise=TRUE}
 
 ```
 
-```{r sea_temp1_h2-hint-1}
+```{r sea_temp1_h3-hint-1}
 # Vous pouvez utiliser la zone de code R comme une calculatrice.
 # Addition : +
 # Soustraction : - 
@@ -106,12 +111,19 @@ La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 
 # Division : /
 ```
 
-```{r sea_temp1_h2-hint-2}
+```{r sea_temp1_h3-hint-2}
+ # Additionner le nombre de degrés pris par année
+ # à la temp&rature de 2020
+ 
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r sea_temp1_h3-solution}
 ## Solution ##
 13.5 + 0.053 * (2030 - 2020) 
 ```
 
-```{r sea_temp1_h2-check}
+```{r sea_temp1_h3-check}
 grade_result(
   pass_if(~ identical(.result, 13.5 + (0.053 * (2030 - 2020))), "Déjà un demi degré en plus. Vous avez compris le principe de la zone de code R pour y effectuer vos calculs."),
   fail_if(~ TRUE, "Pas exactement. Pour chaque année écoulée, vous devez ajouter 0.053 degrés.")
@@ -125,7 +137,7 @@ grade_result(
 ```{r sea_temp2, exercise=TRUE, exercices.lines=5}
 t0 = 13.5
 y0 = 2020
-y1 = 2010
+y1 = 2100
 deltat = 0.053
 ___ + ___ * (___ - ___)
 ```
@@ -134,7 +146,7 @@ ___ + ___ * (___ - ___)
 ## Solution ##
 t0 = 13.5
 y0 = 2020
-y1 = 2010
+y1 = 2100
 deltat = 0.053
 t0 + deltat * (y1 - y0) 
 ```

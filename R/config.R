@@ -49,11 +49,23 @@ debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
 #' @export
 learnr_banner <- function(simple = FALSE) {
   if (isTRUE(simple)) {
-    learndownLearnrBanner()
+    learndownLearnrBanner(
+      msg.nologin = 'Utilisateur anonyme, aucun enregistrement !',
+      msg.login = 'Enregistrement actif pour ')
   } else {
     learndownLearnrBanner(
       title = "Science des donn\u00e9es biologiques I",
       text = "R\u00e9alis\u00e9 par le service d'\u00c9cologie num\u00e9rique, Universit\u00e9 de Mons (Belgique)",
-      image = "https://wp.sciviews.org/BioDataScience-96.png")
+      image = "https://wp.sciviews.org/BioDataScience-96.png",
+      msg.nologin = 'Utilisateur anonyme, aucun enregistrement !',
+      msg.login = 'Enregistrement actif pour ')
   }
 }
+
+#' @rdname config
+#' @export
+#' @param input The Shiny input.
+#' @param output The Shiny output.
+#' @param session The Shiny session.
+learnr_server <- function(input, output, session)
+  learndownLearnrServer(input, output, session)

@@ -118,7 +118,17 @@ $(document).ready(function () {
 <div class="topics">
 
 <div>
-<div class="alert alert-warning" style="width: 100vw;">Utilisateur anonyme, aucun enregistrement !</div>
+<div data-display-if="output.login == &#39;&#39;" data-ns-prefix="">
+<div class="alert alert-warning" style="width: 100%;">Utilisateur anonyme, aucun enregistrement !</div>
+</div>
+<div data-display-if="output.login != &#39;&#39;" data-ns-prefix="">
+<div class="alert alert-info" style="width: 100%;">
+Enregistrement actif pour 
+<strong>
+<span id="login" class="shiny-text-output"></span>
+</strong>
+</div>
+</div>
 <img src="https://wp.sciviews.org/BioDataScience-96.png" align="left"/>
 <h1>Science des données biologiques I</h1>
 Réalisé par le service d'Écologie numérique, Université de Mons (Belgique)
@@ -175,17 +185,23 @@ Réalisé par le service d'Écologie numérique, Université de Mons (Belgique)
 </ul>
 <p><em>Utilisez la zone de code R ci-dessous pour répondre à la question. Vous pouvez l’utiliser comme une calculatrice.</em></p>
 <p><em>Afin de tester vos instructions, cliquez sur <code>Run Code</code> (autant que vous voulez). Lorsque vous êtes satisfait de votre réponse, cliquez sur <code>Submit Answer</code>. Si l’exercice est trop compliqué, n’hésitez pas à utiliser les indices mis à votre disposition (<code>Hints</code>) s’il y en a, comme ici.</em></p>
-<div class="tutorial-exercise" data-label="sea_temp1_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise" data-label="sea_temp1_h3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="sea_temp1_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise-support" data-label="sea_temp1_h3-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># Vous pouvez utiliser la zone de code R comme une calculatrice.
 # Addition : +
 # Soustraction : - 
 # Multiplication : *
 # Division : /</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="sea_temp1_h2-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise-support" data-label="sea_temp1_h3-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code> # Additionner le nombre de degrés pris par année
+ # à la temp&amp;rature de 2020
+ 
+ #### ATTENTION: Hint suivant = solution !####</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="sea_temp1_h3-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>## Solution ##
 13.5 + 0.053 * (2030 - 2020) </code></pre>
 </div>
@@ -196,7 +212,7 @@ Réalisé par le service d'Écologie numérique, Université de Mons (Belgique)
 <div class="tutorial-exercise" data-label="sea_temp2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>t0 = 13.5
 y0 = 2020
-y1 = 2010
+y1 = 2100
 deltat = 0.053
 ___ + ___ * (___ - ___)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
@@ -205,7 +221,7 @@ ___ + ___ * (___ - ___)</code></pre>
 <pre class="text"><code>## Solution ##
 t0 = 13.5
 y0 = 2020
-y1 = 2010
+y1 = 2100
 deltat = 0.053
 t0 + deltat * (y1 - y0) </code></pre>
 </div>
@@ -244,7 +260,7 @@ SciViews::R()
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = list(id = "A00a_decouverte", version = "2.0.0/5"))
+learnr:::register_http_handlers(session, metadata = list(id = "A00a_decouverte", version = "2.1.0/5"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -266,24 +282,28 @@ learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setu
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
+BioDataScience1::learnr_server(input, output, session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_chauffe-1", 
     question = structure("Quel gaz dans l&#39;atmosphère est considéré comme le principal responsable de cette augmentation de température par effet de serre ?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_ce7fe1", 
+    "character")), answers = list(structure(list(id = "lnr_ans_bd03152", 
         option = "N$_2$", value = "N$_2$", label = structure("N\\(_2\\)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a5372bf", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_cbe7960", 
         option = "O$_2$", value = "O$_2$", label = structure("O\\(_2\\)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3414ed5", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e67a8c5", 
         option = "O$_3$", value = "O$_3$", label = structure("O\\(_3\\)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c99abf", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2ca642c", 
         option = "CO$_2$", value = "CO$_2$", label = structure("CO\\(_2\\)", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_645b91e", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c0abce4", 
         option = "SO$_3$", value = "SO$_3$", label = structure("SO\\(_3\\)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_db5ff36", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b51b5d1", 
         option = "NH$_3$", value = "NH$_3$", label = structure("NH\\(_3\\)", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
@@ -295,25 +315,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz_chauffe-1-answer", question = "quiz_chauffe-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nQuel gaz dans l&#39;atmosphère est considéré comme le principal responsable de cette augmentation de température par effet de serre ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1683256471.21617, options = list()), class = c("learnr_radio", 
+    seed = 414596949.306938, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_chauffe-2", 
     question = structure("Quelle est l&#39;année la plus chaude (température moyenne annuelle à Uccle) en Belgique entre 1833 et 2018 ?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_27f7d80", 
+    "character")), answers = list(structure(list(id = "lnr_ans_33f088", 
         option = "1989", value = "1989", label = structure("1989", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Avec une moyenne annuelle de 11,26°C, l&#39;année 1989 se place à la 8e position", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_75aaa8f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1a90e77", 
         option = "2007", value = "2007", label = structure("2007", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Avec une moyenne annuelle de 11,52°C, l&#39;année 2007 se place à la 4e position", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a29b88d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a16b94a", 
         option = "2014", value = "2014", label = structure("2014", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8ff3100", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d7af08c", 
         option = "2018", value = "2018", label = structure("2018", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Avec une moyenne annuelle de 11,85°C, l&#39;année 2018 se place à la 2e position", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
@@ -326,28 +346,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz_chauffe-2-answer", question = "quiz_chauffe-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nQuelle est l&#39;année la plus chaude (température moyenne annuelle à Uccle) en Belgique entre 1833 et 2018 ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 486265375.773565, options = list()), class = c("learnr_radio", 
+    seed = 198913697.407374, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "quiz_chauffe-3", 
     question = structure("Les changements climatiques sont souvent associés à l&#39;<strong>écologie<\u002fstrong>. Quel(s) célèbre(s) scientifique(s) ont contribué à cette discipline ?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_bc29e2e", 
+    "character")), answers = list(structure(list(id = "lnr_ans_3f87a86", 
         option = "Ernst Haeckel", value = "Ernst Haeckel", label = structure("Ernst Haeckel", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Ernst Haeckel est même l&#39;inventeur du terme écologie.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_23039b9", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2e1d7dd", 
         option = "Charles Darwin", value = "Charles Darwin", 
         label = structure("Charles Darwin", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Charles Darwin a écrit l&#39;<strong>Origine des espèces<\u002fstrong> qui établit les premiers pas de la théorie de l&#39;évolution.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee2408", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_783f332", 
         option = "Carl von Linné", value = "Carl von Linné", 
         label = structure("Carl von Linné", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Carl von Linné propose le système de classification binomiale des espèces.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ee64a7d", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3508f2a", 
         option = "Alexander von Humboldt", value = "Alexander von Humboldt", 
         label = structure("Alexander von Humboldt", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Alexander von Humboldt n&#39;a pas inventé \n      le terme d&#39;écologie. Il est cependant, le père de l&#39;écologie scientifique en\n      trouvant des associations entre la température et les espèces, par exemple.", html = TRUE, class = c("html", 
@@ -361,24 +381,25 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "quiz_chauffe-3-answer", question = "quiz_chauffe-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nLes changements climatiques sont souvent associés à l&#39;<strong>écologie<\u002fstrong>. Quel(s) célèbre(s) scientifique(s) ont contribué à cette discipline ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 912987635.074857, options = list()), class = c("learnr_checkbox", 
+    seed = 2048097246.04628, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-sea_temp1_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-sea_temp1_h2-code-editor`)), session)
-output$`tutorial-exercise-sea_temp1_h2-output` <- renderUI({
-  `tutorial-exercise-sea_temp1_h2-result`()
+`tutorial-exercise-sea_temp1_h3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-sea_temp1_h3-code-editor`)), session)
+output$`tutorial-exercise-sea_temp1_h3-output` <- renderUI({
+  `tutorial-exercise-sea_temp1_h3-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("sea_temp1_h2", list(setup = NULL, chunks = list(list(label = "sea_temp1_h2", 
-    code = "", opts = list(label = "\"sea_temp1_h2\"", exercise = "TRUE"), 
+learnr:::store_exercise_cache("sea_temp1_h3", list(setup = NULL, chunks = list(list(label = "sea_temp1_h3", 
+    code = "", opts = list(label = "\"sea_temp1_h3\"", exercise = "TRUE"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
 "  pass_if(~ identical(.result, 13.5 + (0.053 * (2030 - 2020))), \"Déjà un demi degré en plus. Vous avez compris le principe de la zone de code R pour y effectuer vos calculs.\"),", 
 "  fail_if(~ TRUE, \"Pas exactement. Pour chaque année écoulée, vous devez ajouter 0.053 degrés.\")", 
-")"), chunk_opts = list(label = "sea_temp1_h2-check")), solution = NULL, 
+")"), chunk_opts = list(label = "sea_temp1_h3-check")), solution = structure(c("## Solution ##", 
+"13.5 + 0.053 * (2030 - 2020) "), chunk_opts = list(label = "sea_temp1_h3-solution")), 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, strip.white = TRUE, 
@@ -398,8 +419,8 @@ learnr:::store_exercise_cache("sea_temp1_h2", list(setup = NULL, chunks = list(l
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "sea_temp1_h2", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = "", params.src = "sea_temp1_h2, exercise=TRUE", 
+        label = "sea_temp1_h3", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = "", params.src = "sea_temp1_h3, exercise=TRUE", 
         fig.num = 0L, exercise.df_print = "paged"), engine = "r"))
 </script>
  
@@ -411,11 +432,11 @@ output$`tutorial-exercise-sea_temp2-output` <- renderUI({
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("sea_temp2", list(setup = NULL, chunks = list(list(label = "sea_temp2", code = "t0 = 13.5\ny0 = 2020\ny1 = 2010\ndeltat = 0.053\n___ + ___ * (___ - ___)", 
+learnr:::store_exercise_cache("sea_temp2", list(setup = NULL, chunks = list(list(label = "sea_temp2", code = "t0 = 13.5\ny0 = 2020\ny1 = 2100\ndeltat = 0.053\n___ + ___ * (___ - ___)", 
     opts = list(label = "\"sea_temp2\"", exercise = "TRUE", exercices.lines = "5"), 
     engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Vos début en code R sont impressionnants.\")", chunk_opts = list(
     label = "sea_temp2-check")), solution = structure(c("## Solution ##", 
-"t0 = 13.5", "y0 = 2020", "y1 = 2010", "deltat = 0.053", "t0 + deltat * (y1 - y0) "
+"t0 = 13.5", "y0 = 2020", "y1 = 2100", "deltat = 0.053", "t0 + deltat * (y1 - y0) "
 ), chunk_opts = list(label = "sea_temp2-solution")), options = list(
     eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
     tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
@@ -436,7 +457,7 @@ learnr:::store_exercise_cache("sea_temp2", list(setup = NULL, chunks = list(list
     exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
     label = "sea_temp2", exercise = TRUE, exercices.lines = 5, 
     out.width.px = 624, out.height.px = 384, code = c("t0 = 13.5", 
-    "y0 = 2020", "y1 = 2010", "deltat = 0.053", "___ + ___ * (___ - ___)"
+    "y0 = 2020", "y1 = 2100", "deltat = 0.053", "___ + ___ * (___ - ___)"
     ), params.src = "sea_temp2, exercise=TRUE, exercices.lines=5", 
     fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
@@ -444,19 +465,19 @@ learnr:::store_exercise_cache("sea_temp2", list(setup = NULL, chunks = list(list
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz_eval_noscore", 
     question = structure("Comment évalueriez-vous globalement cet outils pédagogiques ?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_5a287fe", 
+    "character")), answers = list(structure(list(id = "lnr_ans_9fbefe4", 
         option = "Excellent", value = "Excellent", label = structure("Excellent", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_88cc2db", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3fa463f", 
         option = "Bon", value = "Bon", label = structure("Bon", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_833367a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_259782a", 
         option = "Satisfaisant", value = "Satisfaisant", label = structure("Satisfaisant", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c690a38", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ded925c", 
         option = "Insuffisant", value = "Insuffisant", label = structure("Insuffisant", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5df55e", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_86f0336", 
         option = "Très insuffisant", value = "Très insuffisant", 
         label = structure("Très insuffisant", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
@@ -469,14 +490,14 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "quiz_eval_noscore-answer", question = "quiz_eval_noscore"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nComment évalueriez-vous globalement cet outils pédagogiques ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 864808751.097292, options = list()), class = c("learnr_radio", 
+    seed = 58105505.9729425, options = list()), class = c("learnr_radio", 
 "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "comm_noscore", 
     question = structure("Laissez-nous vos impressions sur cet outil pédagogique", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e14b596", 
+    "character")), answers = list(structure(list(id = "lnr_ans_2502c1d", 
         option = "", value = "", label = structure("", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Pas de commentaires... C&#39;est bien aussi.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
@@ -489,7 +510,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
         answer = "comm_noscore-answer", question = "comm_noscore"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nLaissez-nous vos impressions sur cet outil pédagogique\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 2018645903.55999, options = list(placeholder = "Entrez vos commentaires ici...", 
+    seed = 1919758453.10604, options = list(placeholder = "Entrez vos commentaires ici...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )))
 </script>

@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I** Quelques exercices simples pour découvrir learnr."
 tutorial:
   id: "A00a_decouverte"
-  version: 2.1.0/5
+  version: 2.0.0/5
 output:
   learnr::tutorial:
     progressive: true

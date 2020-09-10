@@ -25,6 +25,11 @@ BioDataScience1::learnr_server(input, output, session)
 
 ----
 
+## Objectifs
+
+- Vérifier que la terminologie relative aux différents outils logiciels qui seront utilisés est connue.
+- Auto-évaluer sa compréhension des différents actions 'Git'.
+
 ## Outils logiciels
 
 Répondez aux questions ci-dessous après avoir lu attentivement la théorie correspondante.
@@ -224,4 +229,3 @@ question_text(
   allow_retry = TRUE
 )
 ```
-

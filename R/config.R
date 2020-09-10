@@ -25,8 +25,8 @@ config <- function(debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
 
 #' @rdname config
 #' @export
-fingerprint <- function(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
-  learndown::fingerprint(data = data,
+sign_in <- function(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
+  learndown::sign_in(data = data,
     password = .pass_user, iv = .iv_user,
     cache = "~/.biodatascience_user",
     debug = debug)
@@ -42,7 +42,7 @@ fingerprint <- function(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
 learnr_setup <- function(cap = "Code R",
 debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
   learndown::learndownLearnrSetup(config = BioDataScience1::config(),
-    fingerprint = BioDataScience1::fingerprint(), cap = cap, debug = debug)
+    sign_in = BioDataScience1::sign_in(), cap = cap, debug = debug)
 }
 
 #' @rdname config

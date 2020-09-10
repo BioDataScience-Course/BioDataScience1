@@ -79,7 +79,7 @@ server <- function(input, output, session) {
   })
 
   trackEvents(session, input, output,
-    fingerprint.fun = BioDataScience1::fingerprint, debug = TRUE)
+    sign_in.fun = BioDataScience1::sign_in)
   trackSubmit(session, input, output, max_score = 5, solution =
     list(scalex = "Logarithme népérien", scaley = "Logarithme népérien"),
     comment = "transformation double-logarithmique",

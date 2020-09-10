@@ -2,7 +2,7 @@
 % Please edit documentation in R/config.R
 \name{config}
 \alias{config}
-\alias{fingerprint}
+\alias{sign_in}
 \alias{learnr_setup}
 \alias{learnr_banner}
 \alias{learnr_server}
@@ -12,7 +12,7 @@ run locally.}
 \usage{
 config(debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
 
-fingerprint(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
+sign_in(data, debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
 
 learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
 

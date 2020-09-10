@@ -21,7 +21,6 @@ ui <- fluidPage(
         "Aucune", "Logarithme népérien", "Racine carrée",
         "Carré", "Exponentielle")),
     hr(),
-
     submitQuitButtons()
   ),
 

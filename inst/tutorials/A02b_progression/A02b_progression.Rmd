@@ -4,60 +4,28 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Familiarisation avec R en utilisant une étude sur l'obésité."
 tutorial:
   id: "A02b_progression"
-  version: 1.2.0
+  version: 2.0.0
 output:
   learnr::tutorial:
+    progressive: true
+    allow_skip: true
     fig_caption: yes
 runtime: shiny_prerendered
 ---
-
 ```{r setup, include=FALSE}
-library(learnr)
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
-tutorial_options(exercise.timelimit = 60)
-tutorial_options(exercise.cap = "Code R")
-knitr::opts_chunk$set(echo = FALSE, comment = NA, warning = FALSE)
-
+BioDataScience1::learnr_setup()
 SciViews::R()
-#library(knitr)
-#library(BioDataScience)
-
-biometry <- read("biometry", package = "BioDataScience", lang = "fr")
 ```
 
 ```{r, echo=FALSE}
-fixedRow(
-  column(9, div(
-    img(src = 'images/BioDataScience-128.png', align = "left"),
-    h1("Science des données biologiques"),
-    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
-  )),
-  column(3, div(
-    textInput("user", "Utilisateur :", ""),
-    textInput("email", "Email :", "")
-  ))
-)
-textOutput("user") # This is newer shown, but required to trigger an event!
-textOutput("email") # Idem!
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+BioDataScience1::learnr_server(input, output, session)
 ```
 
-
-## Préambule
-
-Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
-
-![](images/attention.jpg)
-
-> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collectés afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
-
+----
 
 ## Objectif
 
@@ -70,31 +38,31 @@ knitr::include_graphics(path = "images/Rlogo.png")
 
 ## Introduction
 
-R est un programme **Open Source** qui permet la manipulation, la visualisation et les calculs (statistiques) sur des données. 
+Dans ce tutoriel, nous allons utiliser R ensemble pour résoudre une question biologique à travail l'analyse de données. 
 
 ### Manipuler
 
-En partant d'un tableau de données relatif à de la biométrie humaine contenant 395 observations et 7 variables : 
+En partant d'un tableau de données relatif à de la biométrie humaine contenant 395 observations et 7 variables\ : 
 
 ```{r, echo=TRUE}
 # Chargement de SciViews::R
 SciViews::R
 # Importation du jeu de données
-(biometry <- read("biometry", package = "BioDataScience", lang = "fr"))
-
+(biometry <- read("biometry", package = "BioDataScience1",
+  lang = "fr"))
 ```
 
-**Notez ceci :**
+**Notez ceci\ :**
 
 - Les encadrés gris dénotent des instructions entrées dans R. Si ce dernier renvoie des résultats, ils sont présentés dans des encadrés blancs juste en dessous (pas le cas ici).
 
-- Toujours commencer par l'instruction `SciViews::R` pour installer les différents outils (rassemblés dans des "packages" R) dont nous aurons besoin.
+- Toujours commencer par l'instruction `SciViews::R` pour installer les différents outils (rassemblés dans des extensions du programme, appelées "packages" R) dont nous aurons besoin.
 
-- Le jeu de données est disponible dans un package R : `BioDataScience`, spécialement préparé pour ce cours.
+- Le jeu de données est disponible dans un package R\ : `BioDataScience1`, spécialement préparé pour ce cours.
 
-- L'anglais est la langue la plus employée en science des données. Les jeux de données employées seront encodés en anglais. 
+- L'anglais est la langue la plus employée en science des données. Les jeux de données employés sont encodés en anglais. 
 
-Le point d'interrogation devant notre jeu de données renvoit vers une page d'aide.
+Le point d'interrogation devant notre jeu de données renvoit vers une page d'aide, tout comme pour les fonctions.
 
 ```{r, eval = FALSE, echo = TRUE}
 ?biometry
@@ -107,22 +75,19 @@ biometry %>.%
   select(., -c(day_birth, wrist, year_measure)) -> bio
 ```
 
-  
-**Notez ceci :**
+**Notez ceci\ :**
 
-Nous utilisons ici le chaînage (%>.%) et une sélection en éliminant des colonnes du tableau que nous n’utiliserons pas (la 3ème, la 7ème et la 8ème).
+Nous utilisons ici le chaînage (`%>.%`) et une sélection avec la fonctioin `select()` en éliminant des colonnes du tableau que nous n’utiliserons pas (les variables `day_birth`, `wrist` et `year_measure`).
 
-Lorsqu’on utilise un chaînage d’instructions, l’assignation du résultat est plus lisible quand elle est réalisée à la fin (-> bio).
+Lorsqu’on utilise un chaînage d’instructions, l’assignation du résultat est plus lisible quand elle est réalisée à la fin (`-> bio`). Notez l'utilisation ici de la flèche d'assignation inversée `->` à n'utiliser que dans des cas très particuliers comme ici.
 
-
-La fonction `kable()` du package `knitr` peut être appelée directement sans charger le package à l'aide de l'instruction `knitr::kable()`. Elle permet de formatter correctement un tableau dans Markdown. Utilisons-là maintenant pour présenter les huit premières lignes de notre jeu de données.
+La fonction `kable()` du package `knitr` peut être appelée directement sans charger le package à l'aide de l'instruction `knitr::kable()`. Elle permet de formater correctement un tableau en Markdown. Utilisons-là maintenant pour présenter les huit premières lignes de notre jeu de données  grâce à la fonction `head()`.
 
 ```{r, echo=TRUE}
 bio %>.%
   head(., n = 8) %>.% # Garde les huit premières lignes
   knitr::kable(., align = "c")
 ```
-
 
 Considérons maintenant uniquement les femmes. On peut filtrer simplement les lignes d'un tableau de données en utilisant comme critère `gender == "W"` (**attention :** notez bien que dans un _test de condition_, l'égalité s'écrit avec **deux** signes égaux dans R). Les autres options sont : `!=` pour différent de, `>` pour plus grand que, `<` pour plus petit que, ainsi que `>=` ou `<=` pour plus grand ou égale et plus petit ou égal.
 
@@ -133,13 +98,12 @@ bio %>.%
   knitr::kable(., align = "c")
 ```
 
-
 Continuons à manipuler notre tableau en sélectionnant des colonnes et en filtrant les lignes en une seule opération. Pour sélectionner les femmes `gender == "W"`  et retirer la colonnes `age`, nous utiliserons :
 
 ```{r, echo=TRUE}
 bio %>.%
-  filter(., gender == "W") %>.% # sélectionne les femmes
-  select(., - age) %>.% # retire la colonne age
+  filter(., gender == "W") %>.% # Sélectionne les femmes
+  select(., - age) %>.% # Retire la colonne âge
   head(., n = 8) %>.% # Garde les huit premières lignes
   knitr::kable(., align = "c")
 ```
@@ -162,7 +126,7 @@ chart(biometry, ~ gender %fill=% gender) +
 - Les histogrammes nous montrent que les personnes intérogées forment deux groupes. l'un proche de la vingtaine et le second proche de la cinquantaine.
 
 ```{r, echo=TRUE}
-chart(biometry, ~ age %fill=% gender | gender)+
+chart(biometry, ~ age %fill=% gender | gender) +
   geom_histogram(bins = 25) +
   scale_fill_viridis_d()
 ```
@@ -190,7 +154,6 @@ chart(biometry, height ~ weight %col=% gender) +
   geom_point() +
   scale_color_viridis_d()
 ```
-
 
 **Ceci n'est qu'un bref aperçu des possibilités que propose R, vous en découvrirez une partie lors des cours de science de données.** 
 
@@ -273,7 +236,7 @@ Calculez l'IMC de l'homme ci-dessus de 191 cm et de 93 kg.
 ```
 
 ```{r id2_imc-check}
-# Not yet...
+grade_code("Vous ête génial.")
 ```
 
 L'IMC de cet homme indique que cet homme est par contre en `surpoids` selon l'échelle de l'OMS.
@@ -298,12 +261,12 @@ weight_w <- c(69, 49, 75, 66, 54)
 # Assignation des valeurs de tailles dans un vecteur nommé `height`
 height_w <- c(174, 155, 169, 179, 168)
 # Transformation du vecteur `height_w` de centimètre en mètre 
-height_w <- height_w/100
+height_w <- height_w / 100
 # Calcul de l'IMC/ BMI
 weight_w / height_w^2
 ```
 
-**Important :**
+**Important\ :**
 
 - Choisissez bien les noms de vos objets. Ces noms doivent être courts, mais informatifs concernant leur contenu.
 
@@ -313,7 +276,7 @@ weight_w / height_w^2
 
 - Si le nom est constitué de plusieurs mots, il est préférable de séparer ces mots par un trait souligné. Pour rappel, l'espace n'est pas utilisable. Par exemple, `circomference_poignet`.
 
-- Eviter d'utiliser des caractères accentués.
+- Éviter d'utiliser des caractères accentués.
 
 - Si possible, utilisez des noms en anglais. Certainement si votre travail sera échangé avec d'autres scientifiques en international, ... mais c'est une bonne habitude à prendre même sur votre propre code. Pour reprendre l'exemple précedent `wrist_circumference`
 
@@ -329,30 +292,30 @@ Réalisez les mêmes opérations sur les individus de 8 à 12.
 
 ```{r vec_imc, exercise=TRUE}
 # Assignation des valeurs de masses dans un vecteur nommé `weight_m`
-weight_m <- c()
+weight_m <- c(___)
 # Assignation des valeurs de tailles dans un vecteur nommé `height_m`
-height_m <- 
-# Transformation du vecteur `height` de centimètre en mètre 
-height_m <- height_m/100
+height_m <- ___
+# Transformation du vecteur `height_m` de centimètre en mètre 
+height_m <- height_m / 100
 # Calcul de IMC
-
+___
 ```
 
 Vous obtenez les 5 valeurs d'IMC d'une seule fois avec l'utilisation de vecteurs.
 
 ```{r vec_imc-solution}
-# Assignation des valeurs de masses dans un vecteur nommé `masse2`
+# Assignation des valeurs de masses dans un vecteur nommé `weight_m`
 weight_m <- c(82, 73, 105, 61, 95)
-# Assignation des valeurs de tailles dans un vecteur nommé `taille2`
+# Assignation des valeurs de tailles dans un vecteur nommé `height_m`
 height_m <- c(174, 186, 203, 172, 190)
-# Transformation du vecteur `height` de centimètre en mètre 
-height_m <- height_m/100
+# Transformation du vecteur `height_m` de centimètre en mètre 
+height_m <- height_m / 100
 # Calcul de IMC
 weight_m / height_m^2
 ```
 
 ```{r vec_imc-check}
-# Not yet...
+grade_code("C'est tout simplement parfait... que dire de plus.")
 ```
 
 
@@ -365,16 +328,16 @@ Dans `data_frame()`, vous entrerez vos différents vecteurs comme autant d'**arg
 ```{r, echo=TRUE}
 # Création du tableau de données (data frame)
 woman <- data_frame(
-  id     = 3:7,           # Valeurs numériques
+  id     = 3:7,       # Valeurs numériques
   sex    = rep("W", times = 5), # Chaines de caractères (! guillemets)
-  weight = weight_w,                     # Vecteur de masses fait précédemment
-  height = height_w                     # Vecteur de tailles fait précédemment
+  weight = weight_w,  # Vecteur de masses fait précédemment
+  height = height_w   # Vecteur de tailles fait précédemment
 )
 # Afficher le tableau
 woman
 ```
 
-Avez-vous remarqué la différence dans la façon d'encoder des valeurs numériques et des chaines de caractères ?
+Avez-vous remarqué la différence dans la façon d'encoder des valeurs numériques et des chaînes de caractères \?
 
 Réalisez-les mêmes opérations sur les individus de 8 à 12 (inspirez vous des instructions ci-dessus) : 
 
@@ -386,27 +349,27 @@ Réalisez-les mêmes opérations sur les individus de 8 à 12 (inspirez vous des
 | 11 |    M   |      61     |     172     |
 | 12 |    M   |      95     |     190     |
 
-```{r prepare}
-# Assignation des valeurs de masses dans un vecteur `masse2`
+```{r vec_man_setup}
+# Assignation des valeurs de masses dans un vecteur `weight_m`
 weight_m <- c(82, 73, 105, 61, 95)
-# Assignation des valeurs de tailles dans un vecteur `taille2`
+# Assignation des valeurs de tailles dans un vecteur `height_m`
 height_m <- c(1.74, 1.86, 2.03, 1.72, 1.90)
 ```
 
-```{r vec_man, exercise=TRUE, exercise.setup="prepare"}
-# Encodage du jeu de données
+```{r vec_man, exercise=TRUE, exercise.setup="vec_man_setup"}
+# Encoder le jeu de données
 man <- data_frame(
-  id     = ,
-  sex    = ,
-  weight = ,
-  height = 
+  id     = ___,
+  sex    = ___,
+  weight = ___,
+  height = ___
 )
 # Afficher le tableau
-
+___
 ```
 
 ```{r vec_man-solution}
-# Encodage du jeu de données
+# Encoder le jeu de données
 man <- data_frame(
   id     = 8:12,
   sex    = rep("M", times = 5),
@@ -417,9 +380,8 @@ man <- data_frame(
 man
 ```
 
-
 ```{r vec_man-check}
-# Not yet...
+grade_code("Mais parfaitement. Maintenant que vous savez créer un tableau de données dans R, vous verrez, vous ne pourrez plus vous en passer.")
 ```
 
 Calculez de nouveau l'IMC et ajoutez vos résultats dans le tableau de données. Vous avez à votre disposition la fonction `mutate()` qui requiert comme argument le jeu de données et le nom de la nouvelle variable comme nom d'argument suivi de la formule mathématique qui calcule son contenu.
@@ -439,10 +401,10 @@ woman
 
 Réalisez par vous-mêmes les mêmes opérations sur le jeu de données `man`.
 
-```{r prepare1}
-# Assignation des valeurs de masses dans un vecteur `masse2`
+```{r imc_mutate_setup}
+# Assignation des valeurs de masses dans un vecteur `weight_m`
 weight_m <- c(82, 73, 105, 61, 95)
-# Assignation des valeurs de tailles dans un vecteur `taille2`
+# Assignation des valeurs de tailles dans un vecteur `height_m`
 height_m <- c(1.74, 1.86, 2.03, 1.72, 1.90)
 # Dataset
 man <- data_frame(
@@ -453,11 +415,11 @@ man <- data_frame(
 )
 ```
 
-```{r imc_mutate, exercise=TRUE, exercise.setup="prepare1"}
+```{r imc_mutate, exercise=TRUE, exercise.setup="imc_mutate_setup"}
 # Calculer l'IMC pour les hommes
-man <- mutate(man, bmi = )
+man <- mutate(man, bmi = ___)
 # Afficher le tableau de données
-
+___
 ```
 
 ```{r imc_mutate-solution}
@@ -468,21 +430,21 @@ man
 ```
 
 ```{r imc_mutate-check}
-# Not yet...
+grade_code("La fonction `mutate()` n'a maintrenant plus de secrets pour vous.")
 ```
 
 Vous pouvez observer que tout comme le tableau de données portant sur les femmes, vous obtenez une nouvelle colonne au sein de votre tableau de données portant le nom de `bmi` (pour "Body Mass Index", soit l'IMC en français).
 
-## 13% de la population adulte mondiale est obèse
+## Fraction obèse de la population
 
 Le monde titre que 13% de la populaton mondiale est obèse. Vérifiez cette affirmation avec le jeu de données `biometry` qui regroupe les masses et les tailles de 395 personnes adultes vivant sur le territoire belge (Hainaut, Belgique). Nous allons également tirer au hasard 100 individus comme sous-échantillon de ce tableau (à titre d'illustration d'autres traitements possibles sur le tableau). La fonction qui réalise cela est `sample_n()`. La fonction `set.seed()` prend un nombre et initialise le générateur de nombres dit "pseudo-aléatoires" pour que tout le monde ait le même sous-ensemble. En pratique, cette instruction est facultative, mais elle est utile pour générer des résultats **reproductibles**. Indiquez naturellement un nombre différent, à chaque fois que vous l'utiliser !
 
 ```{r, echo=TRUE}
-biometry <- read("biometry", package = "BioDataScience")
+biometry <- read("biometry", package = "BioDataScience1")
 set.seed(50) # Initialisation du générateur de nombres pseudo-aléatoires
+# Échantillonnage au hasard de 100 individus
 biometry %>.%
   sample_n(., size = 100, replace = FALSE) -> bio_100
-# Echantillonnage au hasard de 100 individus
 bio_100
 ```
 
@@ -499,25 +461,25 @@ head(bio_100, n = 5)
 Calculez l'IMC sur le jeu de données `biometry` tout entier.
 
 ```{r bio_imc, exercise=TRUE}
-# Calcul de le BMI
-
-# Affichage des premières lignes du tableau de données
-
+# Calcul de l'IMC
+___ <- ___
+# Affichage des 5 premières lignes du tableau de données
+___
 ```
 
 ```{r bio_imc-solution}
 # Calcul de l'IMC
 biometry <- mutate(biometry, bmi = weight / (height / 100)^2)
-# Affichage des premières lignes du tableau de données
+# Affichage des 5 premières lignes du tableau de données
 head(biometry, n = 5)
 ```
 
 ```{r bio_imc-check}
-# Not yet...
+grade_code("Vous devenez expert en R, ma parole.")
 ```
 
 
-## Signification de l'IMC selon l'échelle de l'OMS
+## Signification de l'IMC
 
 Une fois la valeur obtenue de l'IMC, il faut lui attribuer son interprétation pour connaitre son état de santé.
 
@@ -541,12 +503,12 @@ Vous avez à votre disposition la fonction `case_when()` qui permet d'attribuer 
 | Et (combinaison de tests) |       `&`      |
 | Ou (idem)                 |       `|`      |
 
-Ajoutez une nouvelle variable qui tient compte de l'échelle de l'OMS avec le jeu de données `bio_100`. Analysez la structuration de la suite d'instructions, les conditions employées, la position des guillemets, ...
+Ajoutez une nouvelle variable qui tient compte de l'échelle de l'OMS avec le jeu de données `bio_100` dans la variable `bmi_cat`. Analysez la structuration de la suite d'instructions, les conditions employées, la position des guillemets, ...
 
 ```{r, echo=TRUE}
 # Ajouter la nouvelles variable
 bio_100 <- mutate(bio_100,
-  bmi_schedule = case_when(
+  bmi_cat = case_when(
     bmi < 18.5 ~ "underweight",
     bmi >= 18.5 & bmi < 25 ~ "normal weight",
     bmi >= 25 & bmi < 30 ~ "overweight",
@@ -556,43 +518,30 @@ bio_100 <- mutate(bio_100,
 bio_100
 ```
 
-Ajoutez une nouvelle variable au jeu de données `biometry` en complétant les informations manquantes.
+Ajoutez une nouvelle variable `bmi_cat` au jeu de données `biometry` en complétant les informations manquantes.
 
-```{r prepare2}
-biometry <- read("biometry", package = "BioDataScience")
+```{r case_when_setup}
+biometry <- read("biometry", package = "BioDataScience1")
 biometry <- mutate(biometry, bmi = weight / (height / 100)^2)
 ```
 
-```{r case_when, exercise=TRUE, exercise.setup="prepare2"}
+```{r case_when, exercise=TRUE, exercise.setup="case_when_setup"}
 # Ajouter la nouvelles variable
-   <- mutate(   ,
-  bm_schedule = case_when(
+___ <- mutate(___,
+  bmi_cat = case_when(
     bmi  ~ "underweight",
     bmi  ~ "normal weight",
     bmi  ~"overweight",
     bmi  ~ "obese"
 ))
 # Afficher le début du  tableau 
-head(   )
-```
-
-```{r case_when-hint}
-# Ajouter la nouvelles variable
-bio <- mutate(biometry,
-  bmi_schedule = case_when(
-    bmi  ~ "underweight",
-    bmi  ~ "normal weight",
-    bmi  ~"overweight",
-    bmi  ~ "obese"
-))
-# Afficher le début du  tableau 
-head()
+head(___)
 ```
 
 ```{r case_when-solution}
 # Ajouter la nouvelles variable
 biometry <- mutate(biometry,
-  bmi_schedule = case_when(
+  bmi_cat = case_when(
     bmi < 18.5 ~ "underweight",
     bmi >= 18.5 & bmi < 25 ~ "normal weight",
     bmi>= 25 & bmi < 30 ~"overweight",
@@ -603,7 +552,7 @@ head(biometry)
 ```
 
 ```{r case_when-check}
-# Not yet...
+grade_code("C'est correct. Vous êtes maintenant capable de réaliser des cathégories avec `case_when()`.")
 ```
 
 Votre nouvelle variable comprend une succession de lignes complétées par des chaines de caractères. Organisez cette variable de votre tableau de données avec la fonction `factor()`. Observez la nouvelle structuration de la suite d'instructions. Vous observez pour la première fois l'opérateur `$`. Dans l'exemple ci-dessous, lorsque vous utilisez `bio_100$echelle_imc`, vous pouvez l'interprétez comme : "dans le tableau de données `bio_100`, je prend la colonne/variable `echelle_imc`. La fonction `factor()` s'applique donc sur cette colonne (dont le vecteur est extrait). Avec l'argument `levels`, vous spécifiez l'ordre des différents niveaux de votre variable à classer. 
@@ -611,7 +560,7 @@ Votre nouvelle variable comprend une succession de lignes complétées par des c
 Classer votre nouvelle variable avec le jeu de données `bio_100`.
 
 ```{r, echo=TRUE}
-bio_100$bmi_schedule <- factor(bio_100$bmi_schedule,
+bio_100$bmi_cat <- factor(bio_100$bmi_cat,
   levels = c("underweight", "normal weight", "overweight", "obese"))
 bio_100
 ```
@@ -620,11 +569,11 @@ En apparence, pas grand changement, mais maintenant, nous avons indiqué un ordr
 
 Classer votre nouvelle variable avec le jeu de données `bio` tout entier, et en utilisant `ordered()` ici.
 
-```{r prepare3}
-biometry <- read("biometry", package = "BioDataScience", lang="fr")
+```{r factor_setup}
+biometry <- read("biometry", package = "BioDataScience1", lang = "fr")
 biometry$bmi <- biometry$weight / (biometry$height / 100)^2
 biometry <- mutate(biometry,
-  bmi_schedule = case_when(
+  bmi_cat = case_when(
     bmi < 18.5 ~ "underweight",
     bmi >= 18.5 & bmi < 25 ~ "normal weight",
     bmi >= 25 & bmi < 30 ~ "overweight",
@@ -632,30 +581,30 @@ biometry <- mutate(biometry,
 ))
 ```
 
-```{r factor, exercise=TRUE, exercise.setup="prepare3"}
-biometry$   <- ordered(biometry$bmi_schedule,
-  levels = )
+```{r factor, exercise=TRUE, exercise.setup="factor_setup"}
+biometry$___ <- ordered(biometry$bmi_cat,
+  levels = c(___))
 # Visualiser le vecteur
-biometry$bmi_schedule
+biometry$bmi_cat
 # Extraire les niveaux d'encodage des niveaux
-levels(biometry$bmi_schedule)
+___(biometry$bmi_cat)
 ```
 
 ```{r factor-solution}
-biometry$bmi_schedule <- ordered(biometry$bmi_schedule,
+biometry$bmi_cat <- ordered(biometry$bmi_cat,
   levels = c("underweight", "normal weight", "overweight", "obese"))
-# Visualiser le vacteur
-biometry$bmi_schedule
+# Visualiser le vecteur
+biometry$bmi_cat
 # Extraire les niveaux d'encodage des niveaux
-levels(biometry$bmi_schedule)
+levels(biometry$bmi_cat)
 ```
 
 ```{r factor-check}
-# Not yet...
+grade_code("Quelle progression fulgurante.")
 ```
 
 
-## Vérification de l'affirmation du journal le monde
+## Vérification
 
 La fonction `summary()` permet d'obtenir un résumé complet d'un tableau de données.
 
@@ -664,88 +613,89 @@ La fonction `summary()` permet d'obtenir un résumé complet d'un tableau de don
 summary(bio_100)
 # Nombre d'obèses : 12 /100 = 12%
 bio_100 %>.%
-  filter(., bmi_schedule == "obese") %>.%
+  filter(., bmi_cat == "obese") %>.%
   nrow(.) / nrow(bio_100) * 100 # Nbre lignes filtrées / nbre total * 100
 ```
 
-```{r prepare4}
-biometry <- read("biometry", package = "BioDataScience", lang = "fr")
+Utilisez la fonction `summary()` pour obtenir une description du tableau de données complet `biometry`.
+
+```{r obese_setup}
+biometry <- read("biometry", package = "BioDataScience1", lang = "fr")
 biometry$bmi <- biometry$weight/(biometry$height/100)^2
 biometry <- mutate(biometry,
-  bmi_schedule = case_when(
+  bmi_cat = case_when(
     bmi < 18.5 ~ "underweight",
     bmi >= 18.5 & bmi < 25 ~ "normal weight",
     bmi >= 25 & bmi < 30 ~ "overweight",
     bmi >= 30 ~ "obese"
 ))
-biometry$bmi_schedule <- ordered(biometry$bmi_schedule,
+biometry$bmi_cat <- ordered(biometry$bmi_cat,
   levels = c("underweight", "normal weight", "overweight", "obese"))
 label(biometry$bmi) <- "Indice de masse corporelle"
 units(biometry$bmi) <- NA
 ```
 
-Utilisez la fonction `summary()` pour obtenir une description du tableau de données complet `biometry`.
-
-```{r obese, exercise=TRUE, exercise.setup = "prepare4"}
-# résumé des données
-summary()
+```{r obese, exercise=TRUE, exercise.setup = "obese_setup"}
+# Résumé des données
+summary(___)
 ```
 
 ```{r obese-solution}
+# Résumé des données
 summary(biometry)
 ```
 
 ```{r obese-check}
-# Not yet...
+grade_code("Mais oui. La fonction `summary()` est générique et affiche des informations condensées à partir de pratiquement n'importe quel objet dans R.")
 ```
 
 Pour calculer le pourcentage d'obèses, nous pouvons filtrer le tableau et ensuite utiliser la fonction `nrow()` pour compter le nombre de lignes retenues... à diviser par le nombre de lignes du tableau de départ. Faites-le par vous-mêmes :
 
-```{r obese1, exercise=TRUE, exercise.setup = "prepare4"}
+```{r obese1, exercise=TRUE, exercise.setup = "obese_setup"}
 # Calculer le pourcentage d'obèse dans notre tableau de données
 biometry %>.%
-  filter(.,   ) %>.%
+  filter(., ___) %>.%
   nrow(.) / nrow(biometry) * 100 # Nbre lignes filtrées / nbre total * 100
 ```
 
 ```{r obese1-solution}
 # Calculer le pourcentage d'obèse dans notre tableau de données
 biometry %>.%
-  filter(., bmi_schedule == "obese") %>.%
+  filter(., bmi_cat == "obese") %>.%
   nrow(.) / nrow(biometry) * 100 # Nbre lignes filtrées / nbre total * 100
 ```
 
 ```{r obese1-check}
-# Not yet...
+grade_code("Vous apprenez vite. Les opérateurs de condition comme `==` sont très utiles en combinaison avec `filter()` pour sélectionner les lignes d'intérêt dans le tableau de données.")
 ```
 
 Vos résultats concordent-ils avec les valeurs avancées dans les médias ? Représentons la distribution du bmi de nos individus sondés.
 
 ```{r, echo = TRUE}
 chart(bio_100, ~ bmi %fill=% gender) +
-  geom_histogram( bins = 25) +
+  geom_histogram(bins = 25) +
   geom_vline(xintercept = 30, color = "red") +
   scale_fill_viridis_d()
 ```
 
 Utilisez la fonction `chart()` pour représenter graphiquement la distribution des données par rapport au bmi des individus.
 
-```{r histo, exercise = TRUE, exercise.setup = "prepare4"}
-chart(   , ~  %fill=% gender) + # instruction du graphique
-  geom_histogram( bins = 25) + # réaliser un histogramme
+```{r histo, exercise = TRUE, exercise.setup = "obese_setup"}
+chart(___, ~ ___ %fill=% gender) + # instruction du graphique
+  geom_histogram(bins = 25) + # réaliser un histogramme
   geom_vline(xintercept = 30, color = "red") + # ajouter une ligne à 30 de bmi
   scale_fill_viridis_d() 
 ```
 
 ```{r histo-solution}
 chart(biometry, ~ bmi %fill=% gender) + # instruction du graphique
-  geom_histogram( bins = 25) + # réaliser un histogramme
+  geom_histogram(bins = 25) + # réaliser un histogramme
   geom_vline(xintercept = 30, color = "red") + # ajouter une ligne à 30 de bmi
   scale_fill_viridis_d() 
 ```
 
 ```{r histo-check}
-# Not yet...
+grade_code("Vous progressez très bien.")
 ```
 
 
@@ -753,23 +703,22 @@ chart(biometry, ~ bmi %fill=% gender) + # instruction du graphique
 
 La fraction d'obèses dans notre jeu de données est de 12,7%, ce qui est très proche des 13% annoncé par le monde. 
 
-Bravo! Vous venez de terminez cette petite analyse dans un tutoriel "learnr". 
+Bravo\ ! Vous venez de terminez cette petite analyse dans un tutoriel "learnr". 
 
-Durant cette séance, vous avez appris à : 
+Durant cette séance, vous avez appris à\ : 
 
-- Effectuer des calculs dans R
-- Créer des vecteurs et vectoriser vos calculs
-- Assigner les résultats à un nom 
+- Approfondir vos calculs dans R
+- Vectoriser vos calculs
 - Rassembler des données dans un tableau "data frame"
-- Remanier un tableau de données 
+- Remanier un tableau de données
+- Réaliser vos premiers graphiques dans R pour visualiser les données
 
-Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utiliser un dièse (`#`) devant vos phrases.
-
-```{r comm, exercise=TRUE, exercise.lines=8}
-# Ajout de commentaires 
-# ...
-```
-
-```{r comm-check}
-# Not yet...
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
 ```

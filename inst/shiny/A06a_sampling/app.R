@@ -3,6 +3,9 @@ BioDataScience1::config()
 
 library(shiny)
 library(learndown)
+library(tibble)
+library(ggplot2)
+library(chart)
 
 set.seed(50)
 pop <- rnorm(n = 1000000L, mean = 150, sd = 35)

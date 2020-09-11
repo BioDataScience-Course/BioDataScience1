@@ -79,7 +79,7 @@ server <- function(input, output, session) {
 
   trackEvents(session, input, output,
     sign_in.fun = BioDataScience1::sign_in)
-  trackSubmit(session, input, output, max_score = 5, solution =
+  trackSubmit(session, input, output, max_score = 2, solution =
     list(scalex = "Logarithme népérien", scaley = "Logarithme népérien"),
     comment = "transformation double-logarithmique",
     message.success = "Correct, c'est la meilleure transformation. La transformation double-logarithmique est très souvent utilisée en biologie.",

@@ -44,7 +44,7 @@ server <- function(input, output, session) {
   trackEvents(session, input, output,
     sign_in.fun = BioDataScience1::sign_in)
   trackSubmit(session, input, output, max_score = 2, solution =
-      list(limits_x = c(0,100), limits_y = c(0,40)),
+      list(limits_x = c(0, 100), limits_y = c(0, 40)),
     comment = "Choix des limits de x et y",
     message.success = "Correct, vous avez sélectionné les limites les plus adaptées",
     message.error = "Incorrect, de meilleures limites existent.")

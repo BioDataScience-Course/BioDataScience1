@@ -3,6 +3,7 @@ BioDataScience1::config()
 
 library(shiny)
 library(learndown)
+library(BioDataScience1)
 library(tibble)
 library(ggplot2)
 library(chart)

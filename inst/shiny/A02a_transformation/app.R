@@ -3,6 +3,11 @@ BioDataScience1::config()
 
 library(shiny)
 library(learndown)
+library(BioDataScience1)
+library(data.io)
+library(dplyr)
+library(ggplot2)
+library(chart)
 
 urchin <- data.io::read("urchin_bio", package = "data.io", lang = "fr")
 

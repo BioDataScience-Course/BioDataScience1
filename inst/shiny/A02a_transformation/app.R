@@ -84,8 +84,7 @@ server <- function(input, output, session) {
     comment = "transformation double-logarithmique",
     message.success = "Correct, c'est la meilleure transformation. La transformation double-logarithmique est très souvent utilisée en biologie.",
     message.error = "Incorrect, une meilleure transformation existe.")
-  trackQuit(session, input, output, delay = 10)
-
-  }
+  trackQuit(session, input, output, delay = 20)
+}
 
 shinyApp(ui, server)

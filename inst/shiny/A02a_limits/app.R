@@ -1,5 +1,5 @@
 learndown::learndownShinyVersion("0.0.9001") # Set app version
-BioDataScience1::config()
+BioDataScience::config()
 
 library(shiny)
 library(learndown)
@@ -45,7 +45,7 @@ server <- function(input, output, session) {
   })
 
   trackEvents(session, input, output,
-    sign_in.fun = BioDataScience1::sign_in)
+    sign_in.fun = BioDataScience::sign_in)
   trackSubmit(session, input, output, max_score = 2, solution =
       list(limits_x = c(0, 100), limits_y = c(0, 40)),
     comment = "Choix des limits de x et y",

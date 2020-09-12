@@ -2,9 +2,10 @@
 
 ## Changes in version 2020.0.0
 
-- Clean up. Now depends on learndown only.
-- `config()`, `sign_in()`, `learnr_setup()` and `learnr_banner()` functions
+- Clean up. Now depends on learndown and BioDataScience only.
+- `learnr_setup()` and `learnr_banner()` functions
 added.
+- Tutorials and Shiny applications are reworked to use the {learndown} package.
 
 ## Changes in version 2019.11.0
 

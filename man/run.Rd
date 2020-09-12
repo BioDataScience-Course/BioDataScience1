@@ -2,36 +2,53 @@
 % Please edit documentation in R/run.R
 \name{run}
 \alias{run}
-\title{Run learnr tutorials from the BioDataScience1 package}
+\alias{run_app}
+\alias{update_pkg}
+\title{Run learnr tutorials, Shiny applications from the BioDataScience1 package, or
+update it}
 \usage{
 run(tutorial, ..., update = ask, ask = interactive())
+
+run_app(app, ..., update = ask, ask = interactive(), in.job = TRUE)
+
+update_pkg()
 }
 \arguments{
 \item{tutorial}{The name of the tutorial to use. If not provided, a list of
 available tutorials is displayed.}
 
-\item{...}{Further arguments passed to \code{learnr::run_tutorial()}.}
+\item{...}{Further arguments passed to \code{learnr::run_tutorial()} or to
+\code{shiny::runApp()}.}
 
 \item{update}{Do we check for an updated version first, and if it is found,
 update the package automatically?}
 
-\item{ask}{In case \code{tutorial} is not provided, do we ask to select in a list?}
+\item{ask}{In case \code{tutorial} or \code{app} is not provided, do we ask to select
+in a list?}
+
+\item{app}{The name of the Shiny application to use. If not provided, a list
+of available applications is displayed.}
+
+\item{in.job}{Should the application be run in a Job in RStudio (\code{TRUE} by
+default)?}
 }
 \value{
-If \code{tutorial} is not provided, in interactive mode with \code{ask = TRUE},
-you have to select one in a list, and in non interactive mode, or
-\code{ask = FALSE}, it returns the list of all available tutorials.
+If \code{tutorial} or \code{app} is not provided, in interactive mode with
+\code{ask = TRUE}, you have to select one in a list, and in non interactive mode,
+or \code{ask = FALSE}, it returns the list of all available tutorials or Shiny
+applications in the BioDataScience1 package.
 }
 \description{
-Start the learnr R engine in the current R session with the
-selected tutorial.
+Start a learnr tutorial or a Shiny application from the BioDataScience1
+package, possibly after updating it.
 }
 \examples{
+\dontrun{
 # To start from a list of available tutorials:
 run()
-\dontrun{
-run("00a_learnr")
+# Idem for Shiny applications:
+run_app()
 }
 }
-\concept{run interactive learnr documents from the BioDataScience package}
+\concept{run interactive learnr or Shiny applications}
 \keyword{utilities}

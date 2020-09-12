@@ -1,0 +1,19 @@
+Name: Run learnr tutorial
+Description: Run one of the learnr tutorials in this package (after possibly updating it)
+Binding: run_addin
+Interactive: true
+
+Name: Run Shiny application
+Description: Run one of the Shiny applications in this package (after possibly updating it)
+Binding: run_app_addin
+Interactive: true
+
+Name: Update
+Description: Update the package
+Binding: update_pkg_addin
+Interactive: true
+
+Name: Sign out
+Description: Sign out current user
+Binding: sign_out_addin
+Interactive: true

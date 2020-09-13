@@ -3,7 +3,7 @@ title: "Les différents outils"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Découverte de la SciViews Box, RStudio, Markdown & Git."
 tutorial:
-  id: "A01a_git"
+  id: "A01a_outils"
   version: 2.0.0/14
 output: 
   learnr::tutorial:

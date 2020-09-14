@@ -11,4 +11,4 @@
 #' @importFrom miniUI gadgetTitleBar miniContentPanel miniPage miniTitleBarButton miniTitleBarCancelButton
 NULL
 
-#@importFrom BioDataScience init
+#@importFrom BioDataScience config sign_in sign_out run run_app update_pkg

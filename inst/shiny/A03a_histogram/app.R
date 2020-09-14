@@ -1,5 +1,5 @@
 # Histogram with variable classes
-# learndown::learndownShinyVersion("1.0.0")
+learndown::learndownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 
 library(shiny)

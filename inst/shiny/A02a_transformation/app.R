@@ -1,3 +1,4 @@
+# Transformation of the axes of a scatterplot
 learndown::learndownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 

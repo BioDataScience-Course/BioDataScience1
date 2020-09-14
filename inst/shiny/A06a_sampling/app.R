@@ -1,3 +1,4 @@
+# Sampling a distribution
 learndown::learndownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 

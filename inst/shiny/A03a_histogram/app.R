@@ -1,6 +1,6 @@
 # Histogram with variable classes
 # learndown::learndownShinyVersion("1.0.0")
-BioDataScience::config()
+conf <- BioDataScience::config()
 
 library(shiny)
 library(learndown)
@@ -34,7 +34,7 @@ server <- function(input, output, session) {
   })
 
   trackEvents(session, input, output,
-    sign_in.fun = BioDataScience::sign_in)
+    sign_in.fun = BioDataScience::sign_in, config = conf)
   trackSubmit(session, input, output, max_score = 2, solution =
       list(bins = c(min = 12, max = 32)),
     comment = "largeur de classe pour un histogramme",

@@ -1,5 +1,5 @@
 learndown::learndownShinyVersion("1.0.0")
-BioDataScience::config()
+conf <- BioDataScience::config()
 
 library(shiny)
 library(learndown)
@@ -74,7 +74,7 @@ server <- function(input, output, session) {
   })
 
   trackEvents(session, input, output,
-    sign_in.fun = BioDataScience::sign_in)
+    sign_in.fun = BioDataScience::sign_in, config = conf)
   trackSubmit(session, input, output, max_score = 1, solution = NULL,
     comment = "all solutions are correct",
     message.success = "La taille d'échantillon doit toujours être la plus grande possible, mais en pratique nous sommes limité par le temps, le coût, ou le nombre de sujets disponibles.",

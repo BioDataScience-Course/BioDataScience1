@@ -1,5 +1,5 @@
 learndown::learndownShinyVersion("1.0.0")
-BioDataScience::config()
+conf <- BioDataScience::config()
 
 library(shiny)
 library(learndown)
@@ -83,7 +83,7 @@ server <- function(input, output, session) {
   })
 
   trackEvents(session, input, output,
-    sign_in.fun = BioDataScience::sign_in)
+    sign_in.fun = BioDataScience::sign_in, config = conf)
   trackSubmit(session, input, output, max_score = 2, solution =
     list(scalex = "Logarithme népérien", scaley = "Logarithme népérien"),
     comment = "transformation double-logarithmique",

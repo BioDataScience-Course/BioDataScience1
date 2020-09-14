@@ -26,8 +26,9 @@ learnr_banner <- function(simple = FALSE) {
       title = "Science des donn\u00e9es biologiques\ I",
       text = "R\u00e9alis\u00e9 par le service d'\u00c9cologie num\u00e9rique, Universit\u00e9 de Mons (Belgique)",
       image = "https://wp.sciviews.org/BioDataScience-96.png",
-      msg.nologin = 'Utilisateur anonyme, aucun enregistrement !',
-      msg.login = 'Enregistrement actif pour ')
+      msg.nologin = "Utilisateur anonyme, aucun enregistrement !",
+      msg.login = "Enregistrement actif pour ",
+      msg.error = "Erreur d'enregistrement de l'activit\u00e9 ! ")
   }
 }
 

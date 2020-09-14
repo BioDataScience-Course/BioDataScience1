@@ -30,7 +30,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 Vous vous trouvez au sein d'un tutoriel interactif construit avec `learnr`. La première chose à vérifier à l’ouverture du tutoriel interactif est votre `nom d’utilisateur` et votre `adresse email`. En effet, votre progression sera enregistrée, mais cela ne peut se faire que si vous renseignez ces données correctement avant de travailler dans le tutoriel learnr.
 
-Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels interactifs comprenant des illustrations, des questions à choix multiples, des exercices R, … 
+Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels interactifs comprenant des illustrations, des questions à choix multiples, des exercices R, ...
 
 Des questions ouvertes (sous la forme zones de code R) vous sont proposées dans les exercices. Elles vous permettent d’expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, recliquez `Run Code`, etc… jusqu’à ce que vous soyez satisfait du résultat. Finissez l’exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 

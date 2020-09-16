@@ -8,7 +8,7 @@ Authors@R: c(
   person("Guyliann", "Engels", role = "aut",
   email = "guyliann.engels@umons.ac.be"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
-Depends: R (>= 3.3.0)
+Depends: R (>= 3.5.0)
 Imports: learndown, BioDataScience, shiny, miniUI
 Suggests: SciViews, ggplot2, ggpubr, data.io, flow, chart, covr, knitr, testthat, gradethis
 License: MIT + file LICENSE

@@ -7,6 +7,8 @@
 added.
 - Tutorials and Shiny applications are reworked to use the {learndown} package.
 
+- The datasets `biometry` and `biometrie` are moved to `BioDataScience`.
+
 ## Changes in version 2019.11.0
 
 - Tutorial 06b_mds

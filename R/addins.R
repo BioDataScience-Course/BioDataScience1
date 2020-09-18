@@ -4,80 +4,54 @@ run_addin <- function() {
   #library(shiny)
   #library(miniUI)
 
-  selectTutorial <- function() {
-    tutorials <- dir(system.file("tutorials", package = "BioDataScience1"))
-    if (!length(tutorials)) return(NULL)
+  selectItem <- function() {
+    package <- "BioDataScience1"
+
+    items <- character(0)
+    tutorials <- dir(system.file("tutorials", package = package))
+    if (length(tutorials))
+      items <- paste(tutorials, "(tutorial)")
+    apps <- dir(system.file("shiny", package = package))
+    if (length(apps))
+      items <- c(items, paste(apps, "(Shiny app)"))
+    if (!length(items)) return()
 
     ui <- miniPage(
       miniContentPanel(
-        selectInput("tutorial", "Tutorials in BioDataScience1:",
-          selectize = FALSE, size = 11, tutorials)
+        selectInput("item", paste0("Items in ", package, ":"),
+          selectize = FALSE, size = 11, items)
       ),
-      gadgetTitleBar("", left = miniTitleBarCancelButton(), right =
-          miniTitleBarButton("done", "Select", primary = TRUE))
+      gadgetTitleBar("",
+        left  = miniTitleBarCancelButton(),
+        right = miniTitleBarButton("done", "Select", primary = TRUE)
+      )
     )
 
     server <- function(input, output, session) {
       observeEvent(input$done, {
-        returnValue <- input$tutorial
-        if (!is.null(returnValue))
-          BioDataScience1::run(returnValue)
+        returnValue <- input$item
+        if (!is.null(returnValue)) {
+          if (grepl(" \\(tutorial\\)$", returnValue)) {
+            run(sub(" \\(tutorial\\)$", "", returnValue))
+          } else {# Must be an app then
+            run_app(sub(" \\(Shiny app\\)$", "", returnValue))
+          }
+        }
         stopApp(returnValue)
       })
     }
 
     runGadget(ui, server,
-      viewer = dialogViewer("Select a tutorial",
+      viewer = dialogViewer("Select an item",
         width = 300, height = 250))
   }
 
-  tutorial <- try(suppressMessages(selectTutorial()), silent = TRUE)
-  if (!is.null(tutorial) && !inherits(tutorial, "try-error"))
-    message("Running tutorial ", tutorial)
-}
-
-run_app_addin <- function() {
-  #library(shiny)
-  #library(miniUI)
-
-  selectApp <- function() {
-    apps <- dir(system.file("shiny", package = "BioDataScience1"))
-    if (!length(apps)) return(NULL)
-
-    ui <- miniPage(
-      miniContentPanel(
-        selectInput("app", "Shiny apps in BioDataScience1:",
-          selectize = FALSE, size = 11, apps)
-      ),
-      gadgetTitleBar("", left = miniTitleBarCancelButton(), right =
-        miniTitleBarButton("done", "Select", primary = TRUE))
-    )
-
-    server <- function(input, output, session) {
-      observeEvent(input$done, {
-        returnValue <- input$app
-        if (!is.null(returnValue))
-          BioDataScience1::run_app(returnValue)
-        stopApp(returnValue)
-      })
-    }
-
-    runGadget(ui, server,
-      viewer = dialogViewer("Select a Shiny application",
-        width = 300, height = 250))
-  }
-
-  app <- try(suppressMessages(selectApp()), silent = TRUE)
-  if (!is.null(app) && !inherits(app, "try-error"))
-    message("Running Shiny application ", app)
-}
-
-update_pkg_addin <- function() {
   # Update both BioDataScience & BioDataScience1
   learndown::update_pkg("BioDataScience",
     github_repos = "BioDataScience-course/BioDataScience")
   update_pkg()
-}
 
-sign_out_addin <- function()
-  BioDataScience::sign_out()
+  item <- try(suppressMessages(selectItem()), silent = TRUE)
+  if (!is.null(item) && !inherits(item, "try-error"))
+    message("Running item ", item)
+}

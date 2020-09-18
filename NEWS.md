@@ -9,6 +9,8 @@ added.
 
 - The datasets `biometry` and `biometrie` are moved to `BioDataScience`.
 
+- RStudio addin.
+
 ## Changes in version 2019.11.0
 
 - Tutorial 06b_mds

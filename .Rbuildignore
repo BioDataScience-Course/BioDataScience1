@@ -12,10 +12,6 @@ FAQ.md
 Makefile
 .Rprofile
 
-
-data-raw
-data-raw/*
-
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README.R?md$

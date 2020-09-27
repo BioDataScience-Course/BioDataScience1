@@ -1,0 +1,232 @@
+---
+title: "Les différents outils"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 1** Découverte de la SciViews Box, RStudio, Markdown & Git."
+tutorial:
+  id: "A01La_outils"
+  version: 2.0.0/14
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+----
+
+## Objectifs
+
+- Vérifier que la terminologie relative aux différents outils logiciels qui seront utilisés est connue.
+- Auto-évaluer sa compréhension des différents actions 'Git'.
+
+## Outils logiciels
+
+Répondez aux questions ci-dessous après avoir lu attentivement la théorie correspondante.
+
+```{r qu_intro}
+quiz(
+  question("Définissez 'SciViews Box'",
+    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés",
+      correct = TRUE),
+    answer("Un environnement de développement intégré"),
+    answer("Un logiciel de gestion de versions"),
+    answer("Un service web d'hébergement de projet"),
+    answer("Un langage avec une syntaxe facile à lire et à écrire"),
+    answer("Aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Définissez 'RStudio'",
+    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("Un environnement de développement intégré", correct = TRUE),
+    answer("Un logiciel de gestion de versions"),
+    answer("Un service web d'hébergement de projet"),
+    answer("Un langage avec une syntaxe facile à lire et à écrire"),
+    answer("Aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez 'Git'",
+    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("Un environnement de développement intégré"),
+    answer("Un logiciel de gestion de versions", correct = TRUE),
+    answer("Un service web d'hébergement de projet"),
+    answer("Un langage avec une syntaxe facile à lire et à écrire"),
+    answer("Aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez 'GitHub'",
+    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("Un environnement de développement intégré"),
+    answer("Un logiciel de gestion de versions"),
+    answer("Un service web d'hébergement de projet", correct = TRUE),
+    answer("Un langage avec une syntaxe facile à lire et à écrire"),
+    answer("Aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE),
+  question("Définissez 'Markdown'",
+    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
+    answer("Un environnement de développement intégré"),
+    answer("Un logiciel de gestion de versions"),
+    answer("Un service web d'hébergement de projet"),
+    answer("Un langage avec une syntaxe facile à lire et à écrire", correct = TRUE),
+    answer("Aucune des réponses proposées n'est correcte"),
+    allow_retry = TRUE, random_answer_order = TRUE)
+  )
+```
+
+
+## Analyse de situation Git
+
+### Situation 1
+
+Deux chercheurs distants de plusieurs centaines de kilomètres, collaborent sur un projet commun. Ils ont pour cela décidé d'employer un outil de gestion de version et d'héberger ce projet sur un système d'hébergement web dédié pour cela. 
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/gestion-version.drawio.png)
+
+```{r qu_git1}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit"),
+    answer("clone"),
+    answer("push", correct = TRUE),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull", correct = TRUE),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+### Situation 2
+
+Le chercheur 2 s'intéresse au projet du chercheur 1, travaille dessus et propose des modifications afin l'améliorer. 
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/fork.png)
+
+```{r qu_git2}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork", correct = TRUE),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+
+### Situation 3
+
+Le chercheur 2 vient d'intégrer le projet que le chercheur 1 réalisait seul. Il doit donc acquérir le dépôt pour la première fois sur sa machine avant de pouvoir contribuer à ce projet. 
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/clone.png)
+
+
+```{r qu_git3}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit"),
+    answer("clone", correct = TRUE),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push", correct = TRUE),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+
+## Conclusion
+
+Vous avez beaucoup de nouveaux outils logiciels à découvrir. Nous progresserons étape par étape pour les maitriser. Pour l'instant, l'important est d'avoir une vue d'ensemble des différents logiciels utilisés et de comprendre la terminologie de Git.
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

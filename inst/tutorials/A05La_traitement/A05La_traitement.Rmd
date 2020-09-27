@@ -1,0 +1,259 @@
+---
+title: "Traitement de données I"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 5** Traitement des données élémentaires."
+tutorial:
+  id: "A05La_traitement"
+  version: 2.0.0/3
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    fig_caption: yes
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+library(BioDataScience)
+library(ggridges)
+# Dataset
+crabs <- read("crabs", package = "MASS", lang = "fr")
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+----
+
+## Objectifs
+
+- Vérifier l'acquisition des notions relatives aux remaniement des données avec les fonctions select(), filter(), mutate(), group_by(), summarise()
+- Vérifier l'acquisition des données relatives aux chainages des intructions
+
+## Calculer de nouvelles variables
+
+Le remaniement des données est indispensable lors d'une analyse de données. Pour vérifier l'acquisition de ces compétences, le jeu de données sur la biométrie des crabes est employée.
+
+```{r}
+# Importation des principaux packages 
+SciViews::R
+# Importation des données sur la biométrie des crabes
+(crabs <- read("crabs", package = "MASS", lang = "fr"))
+```
+
+A partir du jeu de données `crabs`, calculez à l'aide de la fonction `mutate()` : 
+
+- le logarithme (`log()`) de la longueur de la carapace (`length`) des crabes et nommez cette nouvelle variables **length_log**
+- la racine carrée (`sqrt()`) de la largueur de la carapace (`width`) et nommez cette nouvelle variable **width_sqrt**
+- Divisez la variable lobe frontal (`front`) par 1000 et nommez cette nouvelle variable **front_m**
+
+Affichez ensuite les 6 premières lignes du tableau (`head()`).
+
+Vous devez obtenir le tableau ci-dessous : 
+
+```{r}
+# Mutate
+crabs %>.% mutate(., 
+                  length_log = log(length),
+                  width_sqrt = sqrt(width),
+                  front_m = front/1000) -> crabs
+# Visualisation des premières lignes du tableau 
+head(crabs)
+```
+
+```{r mutate_h3, exercise=TRUE}
+# Mutate
+___ %>.% 
+  ___(., ___ = ___,
+         ___ = ___,
+         ___ = ___) -> ___
+# Visualisation des premières lignes du tableau 
+___
+```
+
+```{r mutate_h3-hint-1}
+# Mutate
+DF %>.% 
+  mutate(., length_log = ___,
+            width_sqrt = ___,
+            front_m = ___) -> DF
+# Visualisation des premières lignes du tableau 
+head(___)
+```
+
+```{r mutate_h3-hint-2}
+# Mutate
+crabs %>.% 
+  mutate(., length_log = log(___),
+            width_sqrt = sqrt(___),
+            front_m = ___/1000) -> crabs
+# Visualisation des premières lignes du tableau 
+head(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r mutate_h3-solution}
+# Mutate
+crabs %>.% 
+  mutate(., length_log = log(length),
+            width_sqrt = sqrt(width),
+            front_m = front/1000) -> crabs
+# Visualisation des premières lignes du tableau 
+head(crabs)
+```
+
+```{r mutate_h3-check}
+grade_code("Vous savez maintenant comment calculer de nouvelles variables avec la fonction `mutate()`.")
+```
+
+## Filtrer et sélectionner des données
+
+Reprennons le jeu de données initial sur la biométrie des crabes (`crabs`)
+
+```{r}
+# Importation des données sur la biométrie des crabes
+(crabs <- read("crabs", package = "MASS", lang = "fr"))
+```
+
+Réalisez les opérations suivantes avec les fonctions `filter()` et `select()` : 
+
+- Retirer la variable index (`index`) du jeu de données
+- Garder uniquement les individus mâles du jeu de données dont la longeur de la carapace est supérieur à 25 mm (variables `sex` et `length`)
+- Affichez ensuite les 6 premières lignes du tableau
+
+Employez le chainage pour résoudre cette exercice.
+
+Vous devez obtenir le tableau ci-dessous
+
+```{r}
+crabs %>.%
+  select(., - index) %>.%
+  filter(., sex == "M" & length >= 25) %>.%
+  head(.)
+```
+
+```{r pipe1_h3, exercise=TRUE}
+crabs ___
+  ___(___, ___) ___
+  ___(___, ___ & ___) ___
+  ___(___)
+```
+
+```{r pipe1_h3-hint-1}
+crabs %>.%
+  select(___, ___) ___
+  filter(___, ___ & ___) ___
+  head(___)
+```
+
+```{r pipe1_h3-hint-2}
+crabs %>.%
+  select(., - ___) %>.%
+  filter(___, sex == ___ & length >= ___) ___
+  head(___)
+```
+
+```{r pipe1_h3-solution}
+crabs %>.%
+  select(., - index) %>.%
+  filter(., sex == "M" & length >= 25) %>.%
+  head(.)
+```
+
+```{r pipe1_h3-check}
+grade_code("Vous maitrisez maintenant la sélection de vos variables avec `select()` et de vos observations avec `filter()`.")
+```
+
+## Résumer des données
+
+Reprennons le jeu de données initial sur la biométrie de crabes (`crabs`)
+
+```{r}
+# Importation des données sur la biométrie des crabes
+(crabs <- read("crabs", package = "MASS", lang = "fr"))
+```
+
+Réalisez les opérations suivantes : 
+
+- Sélectionnez les individus dont la longueur (`length`) est strictement supérieur à 25 mm
+- Résumez le jeu de données par le sexe (`sex`) et par la variété (`species`) de *Leptograpsus variegatus*
+    + Calculez la moyenne de la largeur des carapaces (`width`) par groupe
+    + Dénombrez les individus par groupe
+- Formatez votre tableau avec la fonction `kable()`
+
+Employez le chainage pour résoudre cette exercice.
+
+Vous devez obtenir le tableau ci-dessous : 
+
+```{r}
+crabs %>.%
+  filter(., length > 25) %>.%
+  group_by(., species, sex) %>.%
+  summarise(., mean = mean(width), number = n()) %>.%
+  knitr::kable(.)
+```
+
+```{r pipe2_h3, exercise=TRUE}
+library(knitr)
+crabs ___
+  ___(___, ___) ___
+  ___(___, ___, ___) ___
+  ___(___, mean = ___, number = ___) ___
+  ___(___)
+```
+
+```{r pipe2_h3-hint-1}
+crabs %>.%
+  filter(___, ___) ___
+  group_by(___, ___, ___) ___
+  summarise(___, mean = ___, number = ___) ___
+  knitr::kable(___)
+```
+
+```{r pipe2_h3-hint-2}
+crabs %>.%
+  filter(., length > ___) %>.%
+  group_by(., ___, ___) %>.%
+  summarise(., mean = mean(___), number = n()) ___
+  knitr::kable(___)
+```
+
+```{r pipe2_h3-solution}
+crabs %>.%
+  filter(., length > 25) %>.%
+  group_by(., species, sex) %>.%
+  summarise(., mean = mean(width), number = n()) %>.%
+  knitr::kable(.)
+```
+
+```{r pipe2_h3-check}
+grade_code("Vous progressez à grand pas ! Vous savez maintenant résumer vos données avec `group_by()` et `summarise()` et formater vos sorties avec `kable()`.")
+```
+
+## Conclusion
+
+Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+
+Vous maitriser maintenant :
+
+- les notions relatives aux remaniement des données avec les fonctions `select()`, `filter()`, `mutate()`, `group_by()`, `summarise()`
+- le chainages des intructions
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```
+

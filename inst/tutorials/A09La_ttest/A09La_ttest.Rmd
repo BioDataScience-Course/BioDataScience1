@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** La distribution et le test t de Student."
 tutorial:
   id: "A09La_ttest"
-  version: 1.0.2
+  version: 2.0.0/9
 output:
   learnr::tutorial:
     progressive: true

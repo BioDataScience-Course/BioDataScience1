@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.1.0
+
+- minor changes in the first 3 modules
+
 ## Changes in version 2020.0.0
 
 - Clean up. Now depends on learndown and BioDataScience only.

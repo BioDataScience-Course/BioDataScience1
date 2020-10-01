@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Réalisation de graphiques en nuages de points dans R."
 tutorial:
   id: "A02Lc_nuage"
-  version: 2.0.0/6
+  version: 2.1.0/6
 output:
   learnr::tutorial:
     progressive: true
@@ -61,7 +61,7 @@ Les instructions de base afin de produire un nuage de points sont :
 
 ```{r, eval=FALSE, echo = TRUE}
 # Importation du jeu de données
-urchin <- read("urchin_bio", package = "data.io")
+urchin <- read("urchin_bio", package = "data.io", lang  = "fr")
 # Réalisation du graphique 
 chart(urchin, formula = height ~ weight) +
   geom_point()
@@ -76,8 +76,6 @@ Commencez par réaliser rapidement les graphiques vus durant la capsule vidéo.
 Le jeu de données `urchin_bio` portant sur la biométrie d'oursins est assigné à `urchin`. Les variables employées pour ce premier graphique sont la masse du squelette (`skeleton`) et la masse totale (`weight`).
 
 ```{r first_graph_intro}
-# Importation du jeu de données
-urchin <- read("urchin_bio", package = "data.io")
 # Réalisation du graphique 
 chart(urchin, formula = skeleton ~ weight) +
   geom_point()
@@ -206,7 +204,7 @@ a <- chart(urchin, formula = lantern ~ test %alpha=% origin) +
 b <- chart(urchin, formula = lantern ~ test %shape=% origin) +
   geom_point(na.rm = TRUE)
 
-ggpubr::ggarrange(a,b)
+combine_charts(list(a,b), labels = NULL)
 ```
 
 > **A noter :** Nous pouvons observer que l'utilisation de la forme n'est pas forcément l'argument le plus judicieux dans cet exemple. 
@@ -258,7 +256,7 @@ Vous pouvez observer qu'une première ligne de code vous est fournies afin de re
 ```{r 2factor_graph_h3, exercise=TRUE}
 urchin <- dplyr::filter(urchin, sex != "NA")
 
-chart(___, formula = ___ ~ ___ ___ ___ ___ ___) +
+chart(___, formula = ___ ~ ___ %col=% ___ ___ ___) +
   geom_point(___)
 ```
 
@@ -298,7 +296,8 @@ a <- chart(urchin, formula = height ~ weight %col=% origin) +
   geom_point(na.rm = TRUE)
 b <- chart(urchin, formula = log(height) ~ log(weight) %col=% origin) +
   geom_point(na.rm = TRUE)
-ggpubr::ggarrange(a,b, common.legend = TRUE, legend = "right")
+
+combine_charts(list(a,b), labels = NULL, common.legend = TRUE, legend = "right")
 ```
 
 Réalisez un nuage de points montrant le **logarithme de la masse**  en ordonnée et le **logarithme de la masse immergée** en abscisse. Utilisez la couleur afin de différencier l'origine des individus et précisez à nouveau qu'il y a des valeurs manquantes.

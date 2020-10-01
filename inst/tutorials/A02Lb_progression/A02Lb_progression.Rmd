@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Familiarisation avec R en utilisant une étude sur l'obésité."
 tutorial:
   id: "A02Lb_progression"
-  version: 2.0.0/10
+  version: 2.1.0/10
 output:
   learnr::tutorial:
     progressive: true
@@ -529,10 +529,10 @@ biometry <- mutate(biometry, bmi = weight / (height / 100)^2)
 # Ajouter la nouvelles variable
 ___ <- mutate(___,
   bmi_cat = case_when(
-    bmi  ~ "underweight",
-    bmi  ~ "normal weight",
-    bmi  ~"overweight",
-    bmi  ~ "obese"
+    bmi  ___ ___~ "underweight",
+    bmi  ___ ___~ "normal weight",
+    bmi  ___ ___~"overweight",
+    bmi  ___ ___~ "obese"
 ))
 # Afficher le début du tableau 
 head(___)

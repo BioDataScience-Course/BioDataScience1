@@ -14,7 +14,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="true" />
 
-<title>Nuage de points</title>
+<title>Test t de Student</title>
 
 
 <!-- highlightjs -->
@@ -142,216 +142,196 @@ Réalisé par le service d'Écologie numérique, Université de Mons (Belgique)
 <hr />
 <div id="section-objectifs" class="section level2">
 <h2>Objectifs</h2>
-<p>Ce tutoriel interactif a pour objectif de vous apprendre à réaliser des graphiques de type nuage de points comme montré sur la figure ci-dessous.</p>
-<div class="figure">
-<img src="A02Lc_nuage_files/figure-html/unnamed-chunk-3-1.png" alt="Variation de la masse du squelette en fonction de la masse totale de *Paracentrotus lividus* Lamarck 1816" width="624" />
-<p class="caption">
-Variation de la masse du squelette en fonction de la masse totale de <em>Paracentrotus lividus</em> Lamarck 1816
-</p>
+<ul>
+<li><p>Découvrir la distribution <em>t</em> de Student</p></li>
+<li><p>Comprendre le principe de la distribution d’un échantillon</p></li>
+<li><p>Appréhender l’intervalle de confiance, savoir le calculer et l’utiliser</p></li>
+<li><p>Comprendre les différentes variantes du test <em>t</em> de Student et être capable de l’utiliser pour résoudre des questions pratiques en biologie</p></li>
+</ul>
+</div>
+<div id="section-moyenne" class="section level2">
+<h2>Moyenne</h2>
+<p>Un échantillon représentatif d’une population peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l’écart-type ou encore le coefficient de variation.</p>
+<div id="section-moyenne-1" class="section level3">
+<h3>Moyenne</h3>
+<p>Un premier descripteur est donc la moyenne de l’échantillon qui est calculé via l’équation suivante :</p>
+<p><span class="math display">\[\bar{x}=\sum_{i=1}^n{\frac{x_i}{n}}\]</span></p>
+<p>En partant de la série de nombre ci-dessous, réalisez les calculs suivants :</p>
+<pre class="r"><code>(var &lt;- sample(x = 1:10, size = 3))</code></pre>
+<pre><code>[1] 2 9 5</code></pre>
+<div class="panel panel-default">
+<div data-label="qu_mean" class="tutorial-question panel-body">
+<div id="qu_mean-answer_container" class="shiny-html-output"></div>
+<div id="qu_mean-message_container" class="shiny-html-output"></div>
+<div id="qu_mean-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
-<div id="section-introduction" class="section level2">
-<h2>Introduction</h2>
-<p>Le nuage de points permet de représenter une variable numérique en fonction d’une autre variable numérique. On peut exprimer cette relation dans R sous la forme de <span class="math display">\[y \sim x\]</span> que l’on peut lire : <span class="math display">\[y \ en \ fonction \ de \ x\]</span></p>
-<div class="figure">
-<img src="A02Lc_nuage_files/figure-html/unnamed-chunk-4-1.png" alt="Points essentiels d'un nuage de points" width="624" />
-<p class="caption">
-Points essentiels d’un nuage de points
-</p>
 </div>
-<p>Les instructions de base afin de produire un nuage de points sont :</p>
-<pre class="r"><code># Importation du jeu de données
-urchin &lt;- read(&quot;urchin_bio&quot;, package = &quot;data.io&quot;)
-# Réalisation du graphique 
-chart(urchin, formula = height ~ weight) +
-  geom_point()</code></pre>
-</div>
-<div id="section-retour-sur-la-vidéo" class="section level2">
-<h2>Retour sur la vidéo</h2>
-<p>Commencez par réaliser rapidement les graphiques vus durant la capsule vidéo.</p>
-<div id="section-exercice-1" class="section level3">
-<h3>Exercice 1</h3>
-<p>Le jeu de données <code>urchin_bio</code> portant sur la biométrie d’oursins est assigné à <code>urchin</code>. Les variables employées pour ce premier graphique sont la masse du squelette (<code>skeleton</code>) et la masse totale (<code>weight</code>).</p>
-<pre><code>Warning: Removed 163 rows containing missing values (geom_point).</code></pre>
-<p><img src="A02Lc_nuage_files/figure-html/first_graph_intro-1.png" width="624" /></p>
-<p>Réalisez un nuage de points montrant la masse du squelette en ordonnée et la masse totale en abscisse afin d’obtenir le graphique ci-dessus (un encadré <strong>Code R</strong> est une zone où vous pouvez vous-même entrer des instructions R et/ou les modifier. Les numéros à gauche sont les numéros de lignes. Ils ne font pas partie des instructions. Utilisez le bouton <strong>Run Code</strong> pour tester, et ensuite <strong>Submit Answer</strong> quand vous êtes satisfait de ce votre réponse).</p>
-<p>Complétez la zone de code R en remplaçant les <code>___</code> par les variables demandées.</p>
-<div class="tutorial-exercise" data-label="first_graph_h3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(___, formula = ___ ~ ___) +
-  geom_point()</code></pre>
+<div id="section-moyenne-du-vecteur-vec" class="section level3">
+<h3>Moyenne du vecteur <code>vec</code></h3>
+<p>Utilisez une fonction dans R afin de calculer la moyenne du vecteur <code>vec</code>.</p>
+<pre class="r"><code>vec &lt;- c(14, 24, 32, 18, 19)</code></pre>
+<div class="tutorial-exercise" data-label="mean1_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec &lt;- c(14, 24, 32, 18, 19))
+# Calculez ci-dessous la moyenne de vec</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="first_graph_h3-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(DF, formula = NUM ~ NUM) +
-  geom_point()</code></pre>
+<div class="tutorial-exercise-support" data-label="mean1_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec &lt;- c(14, 24, 32, 18, 19))
+# Calculez ci-dessous la moyenne de vec : 
+# Utilisez la foncion mean()</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="first_graph_h3-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = NUM ~ NUM) +
-  geom_point()
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
-</div>
-<div class="tutorial-exercise-support" data-label="first_graph_h3-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = skeleton ~ weight) +
-  geom_point()</code></pre>
+<div class="tutorial-exercise-support" data-label="mean1_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec &lt;- c(14, 24, 32, 18, 19))
+## Solution ##
+mean(vec)</code></pre>
 </div>
 </div>
-<div id="section-exercice-2" class="section level3">
-<h3>Exercice 2</h3>
-<p>Le jeu de données assigné à <code>urchin</code> contient des valeurs manquantes comme le précise le message suivant lors de la réalisation du graphique précédent.</p>
-<p><strong>Warning message: Removed 163 rows containing missing values (geom_point).</strong></p>
-<p>Ajoutez l’argument <code>na.rm = TRUE</code> dans la fonction <code>geom_point()</code> afin de préciser que les variables du jeu de données contiennent des valeurs manquantes.</p>
-<p>Réalisez un nuage de points montrant le masse du squelette (<code>skeleton</code>) en ordonnée et le masse totale (<code>weight</code>) en abscisse.</p>
-<p>Complétez la zone de code R en remplaçant <code>___</code> par les variables demandées. Précisez qu’il y a des valeurs manquantes (<code>na.rm = TRUE</code>).</p>
-<div class="tutorial-exercise" data-label="na_graph_h3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(___, formula = ___ ~ ___) +
-  geom_point(___)</code></pre>
+<div id="section-moyenne-du-vecteur-vec2" class="section level3">
+<h3>Moyenne du vecteur <code>vec2</code></h3>
+<p>Utilisez une fonction dans R afin de calculer la moyenne du vecteur <code>vec2</code>.</p>
+<pre class="r"><code>vec2 &lt;- c(14, 3, 32, NA, 40)</code></pre>
+<div class="tutorial-exercise" data-label="mean2_h3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec2 &lt;- c(14, 3, 32, NA, 40))
+# Calculez ci-dessous la moyenne de vec</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="na_graph_h3-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(DF, formula = NUM ~ NUM) +
-  geom_point(___)</code></pre>
+<div class="tutorial-exercise-support" data-label="mean2_h3-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec2 &lt;- c(14, 3, 32, NA, 40))
+# Calculez ci-dessous la moyenne de vec : 
+# Utilisez la foncion mean()</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="na_graph_h3-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = skeleton ~ weight) +
-  geom_point(___)
-
-# Dans la fonction `geom_point()`, il est possible d&#39;employer l&#39;argument `na.rm =` afin de préciser qu&#39;il y a des valeurs manquantes. 
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
+<div class="tutorial-exercise-support" data-label="mean2_h3-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec2 &lt;- c(14, 3, 32, NA, 40))
+# Calculez ci-dessous la moyenne de vec : 
+# Utilisez la foncion mean(), utilisez l&#39;argument na.rm = </code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="na_graph_h3-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = skeleton ~ weight) +
-  geom_point(na.rm = TRUE)
-
-# Dans la fonction `geom_point()`, il est possible d&#39;employer l&#39;argument `na.rm =` afin de préciser qu&#39;il y a des valeurs manquantes (`na.rm = TRUE`). </code></pre>
+<div class="tutorial-exercise-support" data-label="mean2_h3-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>(vec2 &lt;- c(14, 3, 32, NA, 40))
+## Solution ##
+mean(vec, na.rm = TRUE)</code></pre>
 </div>
 </div>
-<div id="section-exercice-3" class="section level3">
-<h3>Exercice 3</h3>
-<p>Vous souhaitez visualiser la différence d’origine des oursins mesurés. Ces informations se situent dans la variable sur l’origine (<code>origin</code>). L’utilisation de la couleur peut permettre de différencier ces derniers.</p>
-<p>La formule de la fonction <code>chart()</code> peut être complétée avec l’argument faisant référence à la couleur (<code>%col=%</code>).</p>
-<p><img src="A02Lc_nuage_files/figure-html/col_graph_intro-1.png" width="624" /></p>
-<p>Réalisez un nuage de points montrant la masse du squelette en ordonnée et la masse en abscisse. Utilisez la couleur afin de différencier l’origine des individus et précisez à nouveau qu’il y a des valeurs manquantes.</p>
-<p>Complétez la zone de code R en remplaçant <code>___</code> par les variables demandées. Précisez qu’il y a des valeurs manquantes (<code>na.rm = TRUE</code>).</p>
-<div class="tutorial-exercise" data-label="col_graph_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(___, formula = ___ ~ ___ ___ ___) +
-  geom_point(___)</code></pre>
+<div id="section-ecart-type" class="section level3">
+<h3>Ecart-type</h3>
+<p>Un second descripteur d’un échantillon est l’écart-type qui est calculé via l’équation suivante :</p>
+<p><span class="math display">\[s = \sqrt {s^2}\]</span></p>
+<p>L’écart-type est la racine carré de la variance qui est également un descripteur statistique de l’échantillon.</p>
+<p>La variance de l’échantillon qui est calculée via l’équation suivante :</p>
+<p><span class="math display">\[s^2 = \sum\limits_{i=1}^n \frac{(y_i - \bar y)^2}{n-1}\]</span></p>
+<p>Il existe également des fonctions dans R afin de calculer la variance et l’écart-type. Calculez l’écart-type du vecteur <code>vec3</code></p>
+<pre class="r"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)</code></pre>
+<div class="tutorial-exercise" data-label="sd1_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez l&#39;écart-type</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="col_graph_h2-hint" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(DF, formula = YNUM ~ XNUM %col=% FACTOR) +
-  geom_point(___)
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
+<div class="tutorial-exercise-support" data-label="sd1_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez l&#39;écart-type utilisez la fonction sd()</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="col_graph_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = skeleton ~ weight %col=% origin) +
-  geom_point(na.rm = TRUE)</code></pre>
-</div>
+<div class="tutorial-exercise-support" data-label="sd1_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez l&#39;écart-type
+sd(vec3)</code></pre>
 </div>
 </div>
-<div id="section-exercices-sur-le-nuage-de-points" class="section level2">
-<h2>Exercices sur le nuage de points</h2>
-<p>Maintenant que vous avez rapidement réalisé les graphiques vus durant la vidéo, expérimentez d’autres fonctions et arguments liés à la réalisation d’un nuage de points.</p>
-<div id="section-exercice-1-1" class="section level3">
-<h3>Exercice 1</h3>
-<p>La couleur n’est pas forcément l’argument le plus judicieux à employer pour différencier une variable facteur au sein d’un nuage de points. Il vous sera parfois demandé d’employer des formes (<code>%shape=%</code>) ou encore l’opacité (<code>%alpha=%</code>) que vous devez ajouter à la formule de la fonction <code>chart()</code>.</p>
-<pre><code>Warning: Using alpha for a discrete variable is not advised.</code></pre>
-<p><img src="A02Lc_nuage_files/figure-html/alpha_graph_intro-1.png" width="624" /></p>
-<blockquote>
-<p><strong>A noter :</strong> Nous pouvons observer que l’utilisation de la forme n’est pas forcément l’argument le plus judicieux dans cet exemple.</p>
-</blockquote>
-<p>Intéressez-vous à la masse de la lanterne d’aristote (<code>lantern</code>) en fonction de la masse du test (<code>test</code>).</p>
-<p>Réalisez un nuage de points montrant le masse de la lanterne d’Aristote (<code>lantern</code>) en ordonnée et la masse du test (<code>test</code>) en abscisse. Utilisez l‘opacité (<code>%alpha=%</code>) afin de différencier l’origine des individus (<code>origin</code>). Précisez à nouveau qu’il y a des valeurs manquantes (<code>na.rm = TRUE</code>).</p>
-<div class="tutorial-exercise" data-label="alpha_graph_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(___, formula = ___ ~ ___ ___ ___) +
-  geom_point(___)</code></pre>
+<div id="section-coefficient-de-variation" class="section level3">
+<h3>Coefficient de variation</h3>
+<p>Un autre descripteur est le coefficient de variation de l’échantillon qui est calculé via</p>
+<p><span class="math display">\[cv \ (\%) = \frac{s}{\bar y} \times 100\]</span></p>
+<p>Calculez le coefficient de variation du vecteur <code>vec3</code></p>
+<pre class="r"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)</code></pre>
+<div class="tutorial-exercise" data-label="cv1_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez le coefficient de variation </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="alpha_graph_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(DF, formula = YNUM ~ XNUM %alpha=% FACTOR) +
-  geom_point(___)
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
+<div class="tutorial-exercise-support" data-label="cv1_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez le coefficient de variation : utilisez la fonction sd() et la fonction mean</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="alpha_graph_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = lantern ~ test %alpha=% origin) +
-  geom_point(na.rm = TRUE)</code></pre>
+<div class="tutorial-exercise-support" data-label="cv1_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>vec3 &lt;- c(22, 18, 4, 24, 34, 3, 9)
+# Calculez l&#39;écart-type
+sd(vec3)/mean(vec3)*100</code></pre>
 </div>
 </div>
-<div id="section-exercice-2-1" class="section level3">
-<h3>Exercice 2</h3>
-<p>Intéressez-vous maintenant à la masse (<code>weight</code>) des individus en fonction de leur masse immergée (<code>buoyant_weight</code>).</p>
-<p>Vous pouvez avoir le souhait d’employer 2 variables facteurs pour obtenir un graphique plus informatif. La variable portant sur le sexe des individus (<code>sex</code>) peut être employée.</p>
-<p><img src="A02Lc_nuage_files/figure-html/2factor_graph_intro-1.png" width="624" /></p>
-<p>Réalisez un nuage de points montrant la masse en ordonnée et la masse immergée en abscisse. Utilisez la couleur afin de différencier l’origine des individus et différentes formes afin de différencier le sexe des individus. Précisez à nouveau qu’il y a des valeurs manquantes.</p>
-<p>Vous pouvez observer qu’une première ligne de code vous est fournies afin de retirer les lignes de tableau ne contenant pas l’information sur le sex des individus. Vous apprendrez dans les prochains cours à manipuler vos jeux de données.</p>
-<div class="tutorial-exercise" data-label="2factor_graph_h3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>urchin &lt;- dplyr::filter(urchin, sex != &quot;NA&quot;)
-
-chart(___, formula = ___ ~ ___ ___ ___ ___ ___) +
-  geom_point(___)</code></pre>
+<div id="section-tableau-résumé" class="section level3">
+<h3>Tableau résumé</h3>
+<p>En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d’Inde, reproduisez le tableau ci-dessous.</p>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["supp"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["dose"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["n"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"OJ","2":"0.5","3":"13.23","4":"4.459709","5":"10"},{"1":"OJ","2":"1.0","3":"22.70","4":"3.910953","5":"10"},{"1":"OJ","2":"2.0","3":"26.06","4":"2.655058","5":"10"},{"1":"VC","2":"0.5","3":"7.98","4":"2.746634","5":"10"},{"1":"VC","2":"1.0","3":"16.77","4":"2.515309","5":"10"},{"1":"VC","2":"2.0","3":"26.14","4":"4.797731","5":"10"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Le tableau de données comprend les variables suivantes : len, supp, dose</p>
+<pre class="r"><code># Importation du jeu de données ToothGrowth
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)</code></pre>
+<div class="tutorial-exercise" data-label="tab_h2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># Importation du jeu de données ToothGrowth
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# Tableau
+tooth_growth %&gt;.%
+  ___(., dose,___) %&gt;.%
+  summarise(., mean = ___(___), ___ = sd(___), n = n())</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="2factor_graph_h3-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>urchin &lt;- dplyr::filter(urchin, sex != &quot;NA&quot;)
-
-chart(___, formula = ___ ~ ___ %col=% ___ %shape=% ___) +
-  geom_point(___)</code></pre>
+<div class="tutorial-exercise-support" data-label="tab_h2-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># Importation du jeu de données ToothGrowth
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# Tableau
+tooth_growth %&gt;.%
+  group_by(., dose, ___) %&gt;.%
+  summarise(., mean = ___(___), ___ = sd(___), n = n())</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="2factor_graph_h3-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>urchin &lt;- dplyr::filter(urchin, sex != &quot;NA&quot;)
-
-chart(DF, formula = YNUM ~ XNUM %col=% FACTOR1 %shape=% FACTOR2) +
-  geom_point(___)
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
-</div>
-<div class="tutorial-exercise-support" data-label="2factor_graph_h3-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>urchin &lt;- dplyr::filter(urchin, sex != &quot;NA&quot;)
-
-chart(urchin, formula = weight ~ buoyant_weight %col=% origin %shape=% sex) +
-  geom_point(na.rm = TRUE)</code></pre>
+<div class="tutorial-exercise-support" data-label="tab_h2-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code># Importation du jeu de données ToothGrowth
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)
+# tableau
+tooth_growth %&gt;.%
+  group_by(., dose, supp) %&gt;.%
+  summarise(., mean = mean(len), sd = sd(len), n = n())</code></pre>
 </div>
 </div>
-<div id="section-exercice-3-1" class="section level3">
-<h3>Exercice 3</h3>
-<p>Intéressez-vous maintenant à la hauteur (<code>height</code>) en fonction de la masse (<code>weight</code>) des individus.</p>
-<p><img src="A02Lc_nuage_files/figure-html/unnamed-chunk-6-1.png" width="624" /></p>
-<p>Réalisez un nuage de points montrant le <strong>logarithme de la masse</strong> en ordonnée et le <strong>logarithme de la masse immergée</strong> en abscisse. Utilisez la couleur afin de différencier l’origine des individus et précisez à nouveau qu’il y a des valeurs manquantes.</p>
-<div class="tutorial-exercise" data-label="log_log_h4" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(___, formula = ___ ~ ___ ___ ___) +
-  geom_point(___)</code></pre>
+</div>
+<div id="section-test-de-student" class="section level2">
+<h2>Test de Student</h2>
+<p>Déterminez si la croissance des dents de cochons d’inde est similaire au seuil <span class="math inline">\(\alpha\)</span> de 0.05% lors de l’utilisation du supplément jus d’orange (OJ) par rapport au supplément vitamine C (VC). Utilisez un test t de Student bilatéral et de variance similaire.</p>
+<p>En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d’Inde, reproduisez le tableau ci-dessous.</p>
+<pre class="r"><code># Importation du jeu de données ToothGrowth
+tooth_growth &lt;- read(&quot;ToothGrowth&quot;, package = &quot;datasets&quot;)</code></pre>
+<p>Le tableau de données comprend les variables suivantes : len, supp, dose</p>
+<p>💬 <strong>Un snippet peut vous aider à réaliser cet exercice.</strong></p>
+<div class="tutorial-exercise" data-label="ttest" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test(data = ___, ___ ~ ___,
+  alternative = ___, conf.level = ___, var.equal = TRUE)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":true}</script>
 </div>
-<div class="tutorial-exercise-support" data-label="log_log_h4-hint-1" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(DF, formula = ___ ~ ___ %col=% ___) +
-  geom_point(___)</code></pre>
+<div class="tutorial-exercise-support" data-label="ttest-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>t.test(data = tooth_growth, len ~ supp,
+  alternative = &quot;two.sided&quot;, conf.level = 0.95, var.equal = TRUE)</code></pre>
 </div>
-<div class="tutorial-exercise-support" data-label="log_log_h4-hint-2" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = YNUM ~ XNUM %col=% FACTOR) +
-  geom_point(___)</code></pre>
+<p><div class="panel-heading tutorial-quiz-title">Quiz</div><div class="panel panel-default">
+<div data-label="quiz6-1" class="tutorial-question panel-body">
+<div id="quiz6-1-answer_container" class="shiny-html-output"></div>
+<div id="quiz6-1-message_container" class="shiny-html-output"></div>
+<div id="quiz6-1-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
-<div class="tutorial-exercise-support" data-label="log_log_h4-hint-3" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = log(YNUM) ~ log(XNUM) %col=% FACTOR) +
-  geom_point(___)
-
-#### Attention : solution dans le &#39;hint&#39; suivant! ####</code></pre>
+</div><div class="panel panel-default">
+<div data-label="quiz6-2" class="tutorial-question panel-body">
+<div id="quiz6-2-answer_container" class="shiny-html-output"></div>
+<div id="quiz6-2-message_container" class="shiny-html-output"></div>
+<div id="quiz6-2-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
-<div class="tutorial-exercise-support" data-label="log_log_h4-solution" data-caption="Code R" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code>chart(urchin, formula = log(height) ~ log(weight) %col=% origin) +
-  geom_point(na.rm = TRUE)</code></pre>
-</div>
-</div>
+</div></p>
 </div>
 <div id="section-conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Bravo! Vous venez de terminer cette séance d’exercices dans un tutoriel “learnr”.</p>
-<p>Durant cette séance, vous avez appris à :</p>
-<ul>
-<li>Effectuer des graphiques de type nuage de point</li>
-</ul>
+<p>Bravo! Vous venez de terminer votre séance d’exercices dans un tutoriel “learnr”.</p>
 <div class="panel panel-default">
 <div data-label="comm_noscore" class="tutorial-question panel-body">
 <div id="comm_noscore-answer_container" class="shiny-html-output"></div>
@@ -359,16 +339,15 @@ chart(urchin, formula = weight ~ buoyant_weight %col=% origin %shape=% sex) +
 <div id="comm_noscore-action_button_container" class="shiny-html-output"></div>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
-</div> 
+</div>
+
 <script type="application/shiny-prerendered" data-context="server-start">
 BioDataScience1::learnr_setup()
 SciViews::R()
-# Dataset
-urchin <- read(file = "urchin_bio", package = "data.io", lang = "fr")
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = list(id = "A02Lc_nuage", version = "2.0.0/6"))
+learnr:::register_http_handlers(session, metadata = list(id = "A09La_ttest", version = "1.0.2"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -382,21 +361,11 @@ session$onSessionEnded(function() {
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setup()", "SciViews::R()", "# Dataset", 
-"urchin <- read(file = \"urchin_bio\", package = \"data.io\", lang = \"fr\")"
-), overwrite = FALSE)
+learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setup()", "SciViews::R()"), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setup()", "SciViews::R()", "# Dataset", 
-"urchin <- read(file = \"urchin_bio\", package = \"data.io\", lang = \"fr\")"
-), overwrite = FALSE)
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setup()", "SciViews::R()", "# Dataset", 
-"urchin <- read(file = \"urchin_bio\", package = \"data.io\", lang = \"fr\")"
-), overwrite = FALSE)
+learnr:::store_exercise_setup_chunk("__setup__", c("BioDataScience1::learnr_setup()", "SciViews::R()"), overwrite = FALSE)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -404,27 +373,53 @@ BioDataScience1::learnr_server(input, output, session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-first_graph_h3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-first_graph_h3-code-editor`)), session)
-output$`tutorial-exercise-first_graph_h3-output` <- renderUI({
-  `tutorial-exercise-first_graph_h3-result`()
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "qu_mean", question = structure("Calculez la moyenne sur la série de nombre ci-dessus", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_d15c119", 
+    option = "5.33", value = "5.33", label = structure("5.33", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_23fa0a6", 
+    option = "16.00", value = "16.00", label = structure("16.00", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c122b34", 
+    option = "6.33", value = "6.33", label = structure("6.33", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_92fe1b5", 
+    option = "8.00", value = "8.00", label = structure("8.00", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
+"character")), try_again = structure("Try Again", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Bravo, c&#39;est correct", html = TRUE, class = c("html", 
+"character")), try_again = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "qu_mean-answer", question = "qu_mean"), loading = structure("<strong>Loading:<\u002fstrong> \nCalculez la moyenne sur la série de nombre ci-dessus\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = TRUE, allow_retry = TRUE, 
+    seed = 1733027077.693, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-mean1_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-mean1_h2-code-editor`)), session)
+output$`tutorial-exercise-mean1_h2-output` <- renderUI({
+  `tutorial-exercise-mean1_h2-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("first_graph_h3", list(setup = NULL, chunks = list(list(label = "first_graph_h3", 
-    code = "chart(___, formula = ___ ~ ___) +\n  geom_point()", 
-    opts = list(label = "\"first_graph_h3\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Vous venez de réaliser votre premier nuage de point.\")", chunk_opts = list(
-    label = "first_graph_h3-check")), solution = structure(c("chart(urchin, formula = skeleton ~ weight) +", 
-"  geom_point()"), chunk_opts = list(label = "first_graph_h3-solution")), 
+learnr:::store_exercise_cache("mean1_h2", list(setup = NULL, chunks = list(list(label = "mean1_h2", code = "(vec <- c(14, 24, 32, 18, 19))\n# Calculez ci-dessous la moyenne de vec\n", 
+    opts = list(label = "\"mean1_h2\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, mean(vec)), \"Bien joué !\")", 
+    ")"), chunk_opts = list(label = "mean1_h2-check")), solution = structure(c("(vec <- c(14, 24, 32, 18, 19))", 
+    "## Solution ##", "mean(vec)"), chunk_opts = list(label = "mean1_h2-solution")), 
     options = list(eval = FALSE, echo = TRUE, results = "markup", 
         tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
         comment = NA, highlight = FALSE, strip.white = TRUE, 
         size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "A02Lc_nuage_cache/html/", cache.vars = NULL, 
+        cache.path = "A09La_ttest_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
+        fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -436,72 +431,34 @@ learnr:::store_exercise_cache("first_graph_h3", list(setup = NULL, chunks = list
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "first_graph_h3", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = c("chart(___, formula = ___ ~ ___) +", 
-        "  geom_point()"), params.src = "first_graph_h3, exercise=TRUE", 
+        label = "mean1_h2", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = c("(vec <- c(14, 24, 32, 18, 19))", 
+        "# Calculez ci-dessous la moyenne de vec", ""), params.src = "mean1_h2, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-na_graph_h3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-na_graph_h3-code-editor`)), session)
-output$`tutorial-exercise-na_graph_h3-output` <- renderUI({
-  `tutorial-exercise-na_graph_h3-result`()
+`tutorial-exercise-mean2_h3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-mean2_h3-code-editor`)), session)
+output$`tutorial-exercise-mean2_h3-output` <- renderUI({
+  `tutorial-exercise-mean2_h3-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("na_graph_h3", list(setup = NULL, chunks = list(list(label = "na_graph_h3", 
-    code = "chart(___, formula = ___ ~ ___) +\n  geom_point(___)", 
-    opts = list(label = "\"na_graph_h3\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Plutot pratique cet argument `na.rm = TRUE` pour préciser la présence de valeurs manquantes.\")", chunk_opts = list(
-    label = "na_graph_h3-check")), solution = structure(c("chart(urchin, formula = skeleton ~ weight) +", 
-"  geom_point(na.rm = TRUE)", "", "# Dans la fonction `geom_point()`, il est possible d'employer l'argument `na.rm =` afin de préciser qu'il y a des valeurs manquantes (`na.rm = TRUE`). "
-), chunk_opts = list(label = "na_graph_h3-solution")), options = list(
-    eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
-    tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
-    highlight = FALSE, strip.white = TRUE, size = "normalsize", 
-    background = "#F7F7F7", cache = 0, cache.path = "A02Lc_nuage_cache/html/", 
-    cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-    cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-    fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
-    dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
-    fig.width = 6.5, fig.height = 4, fig.env = "figure", fig.cap = NULL, 
-    fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, fig.pos = "", 
-    out.width = 624, out.height = NULL, out.extra = NULL, fig.retina = 2, 
-    external = TRUE, sanitize = FALSE, interval = 1, aniopts = "controls,loop", 
-    warning = TRUE, error = FALSE, message = TRUE, render = NULL, 
-    ref.label = NULL, child = NULL, engine = "r", split = FALSE, 
-    include = TRUE, purl = TRUE, max.print = 1000, tutorial = TRUE, 
-    exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
-    exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-    label = "na_graph_h3", exercise = TRUE, out.width.px = 624, 
-    out.height.px = 384, code = c("chart(___, formula = ___ ~ ___) +", 
-    "  geom_point(___)"), params.src = "na_graph_h3, exercise=TRUE", 
-    fig.num = 0, exercise.df_print = "paged"), engine = "r"))
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-col_graph_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-col_graph_h2-code-editor`)), session)
-output$`tutorial-exercise-col_graph_h2-output` <- renderUI({
-  `tutorial-exercise-col_graph_h2-result`()
-})
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("col_graph_h2", list(setup = NULL, chunks = list(list(label = "col_graph_h2", 
-    code = "chart(___, formula = ___ ~ ___ ___ ___) +\n  geom_point(___)", 
-    opts = list(label = "\"col_graph_h2\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Vous savez maintenant comment ajouter de la couleur pour distinguer des sous-groupes. Impressionnant !\")", chunk_opts = list(
-    label = "col_graph_h2-check")), solution = structure(c("chart(urchin, formula = skeleton ~ weight %col=% origin) +", 
-"  geom_point(na.rm = TRUE)"), chunk_opts = list(label = "col_graph_h2-solution")), 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "A02Lc_nuage_cache/html/", cache.vars = NULL, 
+learnr:::store_exercise_cache("mean2_h3", list(setup = NULL, chunks = list(list(label = "mean2_h3", code = "(vec2 <- c(14, 3, 32, NA, 40))\n# Calculez ci-dessous la moyenne de vec\n", 
+    opts = list(label = "\"mean2_h3\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, mean(vec2, na.rm = TRUE)), \"Bien joué !\")", 
+    ")"), chunk_opts = list(label = "mean2_h3-check")), solution = structure(c("(vec2 <- c(14, 3, 32, NA, 40))", 
+    "## Solution ##", "mean(vec, na.rm = TRUE)"), chunk_opts = list(
+        label = "mean2_h3-solution")), options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
+        cache = 0, cache.path = "A09La_ttest_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
+        fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -513,34 +470,34 @@ learnr:::store_exercise_cache("col_graph_h2", list(setup = NULL, chunks = list(l
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "col_graph_h2", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = c("chart(___, formula = ___ ~ ___ ___ ___) +", 
-        "  geom_point(___)"), params.src = "col_graph_h2, exercise=TRUE", 
+        label = "mean2_h3", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = c("(vec2 <- c(14, 3, 32, NA, 40))", 
+        "# Calculez ci-dessous la moyenne de vec", ""), params.src = "mean2_h3, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-alpha_graph_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-alpha_graph_h2-code-editor`)), session)
-output$`tutorial-exercise-alpha_graph_h2-output` <- renderUI({
-  `tutorial-exercise-alpha_graph_h2-result`()
+`tutorial-exercise-sd1_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-sd1_h2-code-editor`)), session)
+output$`tutorial-exercise-sd1_h2-output` <- renderUI({
+  `tutorial-exercise-sd1_h2-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("alpha_graph_h2", list(setup = NULL, chunks = list(list(label = "alpha_graph_h2", 
-    code = "chart(___, formula = ___ ~ ___ ___ ___) +\n  geom_point(___)", 
-    opts = list(label = "\"alpha_graph_h2\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Vous maitrisez maintenant l'argument %alpha=% permettant de jouer sur l'opacité.\")", chunk_opts = list(
-    label = "alpha_graph_h2-check")), solution = structure(c("chart(urchin, formula = lantern ~ test %alpha=% origin) +", 
-"  geom_point(na.rm = TRUE)"), chunk_opts = list(label = "alpha_graph_h2-solution")), 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "A02Lc_nuage_cache/html/", cache.vars = NULL, 
+learnr:::store_exercise_cache("sd1_h2", list(setup = NULL, chunks = list(list(label = "sd1_h2", code = "vec3 <- c(22, 18, 4, 24, 34, 3, 9)\n# Calculez l'écart-type\n", 
+    opts = list(label = "\"sd1_h2\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, sd(vec3)), \"Bien joué !\")", 
+    ")"), chunk_opts = list(label = "sd1_h2-check")), solution = structure(c("vec3 <- c(22, 18, 4, 24, 34, 3, 9)", 
+    "# Calculez l'écart-type", "sd(vec3)"), chunk_opts = list(
+        label = "sd1_h2-solution")), options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
+        cache = 0, cache.path = "A09La_ttest_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
+        fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -552,35 +509,34 @@ learnr:::store_exercise_cache("alpha_graph_h2", list(setup = NULL, chunks = list
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "alpha_graph_h2", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = c("chart(___, formula = ___ ~ ___ ___ ___) +", 
-        "  geom_point(___)"), params.src = "alpha_graph_h2, exercise=TRUE", 
+        label = "sd1_h2", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = c("vec3 <- c(22, 18, 4, 24, 34, 3, 9)", 
+        "# Calculez l'écart-type", ""), params.src = "sd1_h2, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-2factor_graph_h3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-2factor_graph_h3-code-editor`)), session)
-output$`tutorial-exercise-2factor_graph_h3-output` <- renderUI({
-  `tutorial-exercise-2factor_graph_h3-result`()
+`tutorial-exercise-cv1_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-cv1_h2-code-editor`)), session)
+output$`tutorial-exercise-cv1_h2-output` <- renderUI({
+  `tutorial-exercise-cv1_h2-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("2factor_graph_h3", list(setup = NULL, chunks = list(list(label = "2factor_graph_h3", 
-    code = "urchin <- dplyr::filter(urchin, sex != \"NA\")\n\nchart(___, formula = ___ ~ ___ ___ ___ ___ ___) +\n  geom_point(___)", 
-    opts = list(label = "\"2factor_graph_h3\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Vos progrès sont impressionnants. Vous savez maintenant comment utiliser deux variables facteurs pour donner plus d'information sur vos graphiques en nuage de points.\")", chunk_opts = list(
-    label = "2factor_graph_h3-check")), solution = structure(c("urchin <- dplyr::filter(urchin, sex != \"NA\")", 
-"", "chart(urchin, formula = weight ~ buoyant_weight %col=% origin %shape=% sex) +", 
-"  geom_point(na.rm = TRUE)"), chunk_opts = list(label = "2factor_graph_h3-solution")), 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "A02Lc_nuage_cache/html/", cache.vars = NULL, 
+learnr:::store_exercise_cache("cv1_h2", list(setup = NULL, chunks = list(list(label = "cv1_h2", code = "vec3 <- c(22, 18, 4, 24, 34, 3, 9)\n# Calculez le coefficient de variation \n", 
+    opts = list(label = "\"cv1_h2\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure(c("grade_result(", 
+    "  pass_if(~ identical(.result, (sd(vec3)/mean(vec3))*100), \"Bien joué !\")", 
+    ")"), chunk_opts = list(label = "cv1_h2-check")), solution = structure(c("vec3 <- c(22, 18, 4, 24, 34, 3, 9)", 
+    "# Calculez l'écart-type", "sd(vec3)/mean(vec3)*100"), chunk_opts = list(
+        label = "cv1_h2-solution")), options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        strip.white = TRUE, size = "normalsize", background = "#F7F7F7", 
+        cache = 0, cache.path = "A09La_ttest_cache/html/", cache.vars = NULL, 
         cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
         cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
+        fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -592,34 +548,35 @@ learnr:::store_exercise_cache("2factor_graph_h3", list(setup = NULL, chunks = li
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "2factor_graph_h3", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = c("urchin <- dplyr::filter(urchin, sex != \"NA\")", 
-        "", "chart(___, formula = ___ ~ ___ ___ ___ ___ ___) +", 
-        "  geom_point(___)"), params.src = "2factor_graph_h3, exercise=TRUE", 
+        label = "cv1_h2", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = c("vec3 <- c(22, 18, 4, 24, 34, 3, 9)", 
+        "# Calculez le coefficient de variation ", ""), params.src = "cv1_h2, exercise = TRUE", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-log_log_h4-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-log_log_h4-code-editor`)), session)
-output$`tutorial-exercise-log_log_h4-output` <- renderUI({
-  `tutorial-exercise-log_log_h4-result`()
+`tutorial-exercise-tab_h2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-tab_h2-code-editor`)), session)
+output$`tutorial-exercise-tab_h2-output` <- renderUI({
+  `tutorial-exercise-tab_h2-result`()
 })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_cache("log_log_h4", list(setup = NULL, chunks = list(list(label = "log_log_h4", code = "chart(___, formula = ___ ~ ___ ___ ___) +\n  geom_point(___)", 
-    opts = list(label = "\"log_log_h4\"", exercise = "TRUE"), 
-    engine = "r")), code_check = NULL, error_check = NULL, check = structure("grade_code(\"Tout simplement parfait ! Vous maitrisez l'utilisation de nombreux arguments pour la création de vos graphiques en nuage de points.\")", chunk_opts = list(
-    label = "log_log_h4-check")), solution = structure(c("chart(urchin, formula = log(height) ~ log(weight) %col=% origin) +", 
-"  geom_point(na.rm = TRUE)"), chunk_opts = list(label = "log_log_h4-solution")), 
-    options = list(eval = FALSE, echo = TRUE, results = "markup", 
-        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
-        comment = NA, highlight = FALSE, strip.white = TRUE, 
-        size = "normalsize", background = "#F7F7F7", cache = 0, 
-        cache.path = "A02Lc_nuage_cache/html/", cache.vars = NULL, 
-        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
-        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
-        fig.align = "default", fig.path = "A02Lc_nuage_files/figure-html/", 
+learnr:::store_exercise_cache("tab_h2", list(setup = NULL, chunks = list(list(label = "tab_h2", code = "# Importation du jeu de données ToothGrowth\ntooth_growth <- read(\"ToothGrowth\", package = \"datasets\")\n# Tableau\ntooth_growth %>.%\n  ___(., dose,___) %>.%\n  summarise(., mean = ___(___), ___ = sd(___), n = n())", 
+    opts = list(label = "\"tab_h2\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure("grade_code(\"Bien joué !\")", chunk_opts = list(
+        label = "tab_h2-check")), solution = structure(c("# Importation du jeu de données ToothGrowth", 
+    "tooth_growth <- read(\"ToothGrowth\", package = \"datasets\")", 
+    "# tableau", "tooth_growth %>.%", "  group_by(., dose, supp) %>.%", 
+    "  summarise(., mean = mean(len), sd = sd(len), n = n())"
+    ), chunk_opts = list(label = "tab_h2-solution")), options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
+        background = "#F7F7F7", cache = 0, cache.path = "A09La_ttest_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
         dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
         fig.width = 6.5, fig.height = 4, fig.env = "figure", 
         fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
@@ -631,16 +588,102 @@ learnr:::store_exercise_cache("log_log_h4", list(setup = NULL, chunks = list(lis
         max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
         exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
         exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
-        label = "log_log_h4", exercise = TRUE, out.width.px = 624, 
-        out.height.px = 384, code = c("chart(___, formula = ___ ~ ___ ___ ___) +", 
-        "  geom_point(___)"), params.src = "log_log_h4, exercise = TRUE", 
+        label = "tab_h2", exercise = TRUE, out.width.px = 624, 
+        out.height.px = 384, code = c("# Importation du jeu de données ToothGrowth", 
+        "tooth_growth <- read(\"ToothGrowth\", package = \"datasets\")", 
+        "# Tableau", "tooth_growth %>.%", "  ___(., dose,___) %>.%", 
+        "  summarise(., mean = ___(___), ___ = sd(___), n = n())"
+        ), params.src = "tab_h2, exercise = TRUE", fig.num = 0, 
+        exercise.df_print = "paged"), engine = "r"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-ttest-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-ttest-code-editor`)), session)
+output$`tutorial-exercise-ttest-output` <- renderUI({
+  `tutorial-exercise-ttest-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache("ttest", list(setup = "# Importation du jeu de données ToothGrowth\n(tooth_growth <- read(\"ToothGrowth\", package = \"datasets\"))", 
+    chunks = list(list(label = "toothgrowth", code = "# Importation du jeu de données ToothGrowth\n(tooth_growth <- read(\"ToothGrowth\", package = \"datasets\"))", 
+        opts = list(label = "\"toothgrowth\""), engine = "r"), 
+        list(label = "ttest", code = "t.test(data = ___, ___ ~ ___,\n  alternative = ___, conf.level = ___, var.equal = TRUE)", 
+            opts = list(label = "\"ttest\"", exercise = "TRUE", 
+                exercise.setup = "\"toothgrowth\""), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = structure("grade_code(\"Bien joué !\")", chunk_opts = list(
+        label = "ttest-check")), solution = structure(c("t.test(data = tooth_growth, len ~ supp,", 
+    "  alternative = \"two.sided\", conf.level = 0.95, var.equal = TRUE)"
+    ), chunk_opts = list(label = "ttest-solution")), options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, strip.white = TRUE, size = "normalsize", 
+        background = "#F7F7F7", cache = 0, cache.path = "A09La_ttest_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "A09La_ttest_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, tutorial = TRUE, exercise.timelimit = 60, 
+        exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, ...) \n{\n    (utils::getFromNamespace(\"grade_learnr_\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, ...)\n}", 
+        exercise.error.check.code = "grade_code()", exercise.cap = "Code R", 
+        label = "ttest", exercise = TRUE, exercise.setup = "toothgrowth", 
+        out.width.px = 624, out.height.px = 384, code = c("t.test(data = ___, ___ ~ ___,", 
+        "  alternative = ___, conf.level = ___, var.equal = TRUE)"
+        ), params.src = "ttest, exercise = TRUE, exercise.setup = \"toothgrowth\"", 
         fig.num = 0, exercise.df_print = "paged"), engine = "r"))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz6-1", question = structure("Est ce que la croissance des dents de cochons d&#39;Inde est similaire ?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_184a2b7", 
+    option = "oui", value = "oui", label = structure("oui", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_4e8bbf9", 
+    option = "non", value = "non", label = structure("non", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
+"character")), try_again = structure("Try Again", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Bravo, c&#39;est correct", html = TRUE, class = c("html", 
+"character")), try_again = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz6-1-answer", question = "quiz6-1"), loading = structure("<strong>Loading:<\u002fstrong> \nEst ce que la croissance des dents de cochons d&#39;Inde est similaire ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 2103474589.52049, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz6-2", question = structure("Rejettez vous \\(H_0\\) ?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_e376802", 
+    option = "oui", value = "oui", label = structure("oui", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_c222d45", 
+    option = "non", value = "non", label = structure("non", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", 
+"character")), try_again = structure("Try Again", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Bravo, c&#39;est correct", html = TRUE, class = c("html", 
+"character")), try_again = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Recommencez afin de trouver la bonne réponse", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "quiz6-2-answer", question = "quiz6-2"), loading = structure("<strong>Loading:<\u002fstrong> \nRejettez vous \\(H_0\\) ?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 1736516860.19137, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label = "comm_noscore", 
-    question = structure("Laissez-nous vos impressions sur ce learnr", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_68d669f", 
+    question = structure("Laissez-nous vos impressions sur cet outil pédagogique", html = TRUE, class = c("html", 
+    "character")), answers = list(structure(list(id = "lnr_ans_8bf53cf", 
         option = "", value = "", label = structure("", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = structure("Pas de commentaires... C&#39;est bien aussi.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
@@ -651,9 +694,9 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
     "character")), incorrect = structure("Vos commentaires sont enregistrés.", html = TRUE, class = c("html", 
     "character")), message = NULL, post_message = NULL), ids = list(
         answer = "comm_noscore-answer", question = "comm_noscore"), 
-    loading = structure("<strong>Loading:<\u002fstrong> \nLaissez-nous vos impressions sur ce learnr\n<br/><br/><br/>", html = TRUE, class = c("html", 
+    loading = structure("<strong>Loading:<\u002fstrong> \nLaissez-nous vos impressions sur cet outil pédagogique\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1153755368.96274, options = list(placeholder = "Entrez vos commentaires ici...", 
+    seed = 160605708.425212, options = list(placeholder = "Entrez vos commentaires ici...", 
         trim = TRUE)), class = c("learnr_text", "tutorial_question"
 )))
 </script>
@@ -664,7 +707,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151]}},"value":[{"type":"character","attributes":{},"value":["acepack","anytime","askpass","assertthat","backports","base","base64enc","BiocManager","BioDataScience","BioDataScience1","bit","bit64","blob","broom","cellranger","chart","checkmate","cli","cluster","codetools","colorspace","compiler","cowplot","crayon","curl","data.io","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipse","ellipsis","evaluate","fansi","farver","fastmap","flow","forcats","foreign","Formula","fs","generics","gganimate","ggplot2","ggplotify","ggpubr","ggsignif","glue","gradethis","graphics","grDevices","grid","gridExtra","gridGraphics","gtable","haven","highr","Hmisc","hms","htmlTable","htmltools","htmlwidgets","httpuv","httr","igraph","inline","jpeg","jsonlite","knitr","labeling","later","lattice","latticeExtra","learndown","learnr","lifecycle","lubridate","magick","magrittr","markdown","MASS","Matrix","memoise","methods","mime","miniUI","modelr","mongolite","munsell","nanotime","nlme","nnet","openssl","pillar","pkgconfig","PKI","png","prettyunits","progress","promises","proto","pryr","purrr","R6","RColorBrewer","Rcpp","RcppCCTZ","readr","readxl","remotes","reprex","rlang","rmarkdown","rpart","rprojroot","RSQLite","rstudioapi","rvcheck","rvest","scales","SciViews","shiny","shinylogs","shinytoastr","splines","stats","stringi","stringr","survival","svMisc","testthat","tibble","tidyr","tidyselect","tidyverse","tools","tsibble","tweenr","utils","vctrs","viridis","viridisLite","webshot","withr","xfun","xml2","xtable","yaml","zoo"]},{"type":"character","attributes":{},"value":["1.4.1","0.3.7","1.1","0.2.1","1.1.6","3.6.3","0.1-3","1.30.10","2020.0.0","2020.0.0","1.1-15.2","0.9-7","1.2.1","0.5.6","1.1.0","1.3.0","2.0.0","2.0.2","2.1.0","0.2-16","1.4-1","3.6.3","1.0.0","1.3.4","4.3","1.2.2","1.12.8","3.6.3","1.1.0","1.4.3","0.6.25","0.8.5","0.4.1","0.3.0","0.14","0.4.1","2.0.3","1.0.1","1.0.0","0.5.0","0.8-76","1.2-3","1.4.1","0.0.2","1.0.5","3.3.0","0.0.5","0.2.5","0.6.0","1.4.0","0.1.0.9004","3.6.3","3.6.3","3.6.3","2.3","0.5-0","0.3.0","2.2.0","0.8","4.4-0","0.5.3","1.13.3","0.5.0.9000","1.5.1","1.5.2","1.4.1","1.2.5","0.3.15","0.1-8.1","1.6.1","1.28","0.3","1.0.0","0.20-41","0.6-29","1.1.2","0.10.1.9006","0.2.0","1.7.8","2.3","1.5","1.1","7.3-51.5","1.2-18","1.1.0","3.6.3","0.9","0.1.1.1","0.1.6","2.2.0","0.5.0","0.2.4","3.1-147","7.3-13","1.4.1","1.4.3","2.0.3","0.1-7","0.1-7","1.1.1","1.2.2","1.1.0","1.0.0","0.1.4","0.3.4","2.4.1","1.1-2","1.0.4.6","0.2.7","1.3.1","1.3.1","2.1.1","0.3.0","0.4.5","2.1","4.1-15","1.3-2","2.2.0","0.11","0.1.8","0.3.5","1.1.0","1.1.1","1.4.0.2","0.1.7.9000","2.1.1","3.6.3","3.6.3","1.4.6","1.4.0","3.1-12","1.1.0","2.3.2","3.0.1","1.0.2","1.0.0","1.3.0","3.6.3","0.8.6","1.0.1","3.6.3","0.2.4","0.5.1","0.3.0","0.5.2","2.2.0","0.13","1.3.2","1.8-4","2.2.1","1.8-7"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143]}},"value":[{"type":"character","attributes":{},"value":["acepack","anytime","askpass","assertthat","backports","base","base64enc","BiocManager","BioDataScience","BioDataScience1","bit","bit64","blob","broom","cellranger","chart","checkmate","cli","cluster","codetools","colorspace","compiler","cowplot","crayon","curl","data.io","data.table","datasets","DBI","dbplyr","digest","dplyr","ellipse","ellipsis","evaluate","fansi","fastmap","flow","forcats","foreign","Formula","fs","generics","ggplot2","ggplotify","ggpubr","ggsignif","glue","gradethis","graphics","grDevices","grid","gridExtra","gridGraphics","gtable","haven","Hmisc","hms","htmlTable","htmltools","htmlwidgets","httpuv","httr","igraph","jpeg","jsonlite","knitr","later","lattice","latticeExtra","learndown","learnr","lifecycle","lubridate","magick","magrittr","markdown","MASS","Matrix","memoise","methods","mime","miniUI","modelr","mongolite","munsell","nanotime","nlme","nnet","openssl","pillar","pkgconfig","PKI","png","promises","proto","pryr","purrr","R6","RColorBrewer","Rcpp","RcppCCTZ","readr","readxl","remotes","reprex","rlang","rmarkdown","rpart","rprojroot","RSQLite","rstudioapi","rvcheck","rvest","scales","SciViews","shiny","shinylogs","shinytoastr","splines","stats","stringi","stringr","survival","svMisc","testthat","tibble","tidyr","tidyselect","tidyverse","tools","tsibble","utils","vctrs","viridis","viridisLite","webshot","withr","xfun","xml2","xtable","yaml","zoo"]},{"type":"character","attributes":{},"value":["1.4.1","0.3.7","1.1","0.2.1","1.1.6","3.6.3","0.1-3","1.30.10","2020.0.0","2020.0.0","1.1-15.2","0.9-7","1.2.1","0.5.6","1.1.0","1.3.0","2.0.0","2.0.2","2.1.0","0.2-16","1.4-1","3.6.3","1.0.0","1.3.4","4.3","1.2.2","1.12.8","3.6.3","1.1.0","1.4.3","0.6.25","0.8.5","0.4.1","0.3.0","0.14","0.4.1","1.0.1","1.0.0","0.5.0","0.8-75","1.2-3","1.4.1","0.0.2","3.3.0","0.0.5","0.2.5","0.6.0","1.4.0","0.1.0.9004","3.6.3","3.6.3","3.6.3","2.3","0.5-0","0.3.0","2.2.0","4.4-0","0.5.3","1.13.3","0.4.0","1.5.1","1.5.2","1.4.1","1.2.5","0.1-8.1","1.6.1","1.28","1.0.0","0.20-38","0.6-29","1.1.2","0.10.1.9006","0.2.0","1.7.8","2.3","1.5","1.1","7.3-51.5","1.2-18","1.1.0","3.6.3","0.9","0.1.1.1","0.1.6","2.2.0","0.5.0","0.2.4","3.1-144","7.3-12","1.4.1","1.4.3","2.0.3","0.1-7","0.1-7","1.1.0","1.0.0","0.1.4","0.3.4","2.4.1","1.1-2","1.0.4.6","0.2.7","1.3.1","1.3.1","2.1.1","0.3.0","0.4.5","2.1","4.1-15","1.3-2","2.2.0","0.11","0.1.8","0.3.5","1.1.0","1.1.1","1.4.0.2","0.1.7.9000","2.1.1","3.6.3","3.6.3","1.4.6","1.4.0","3.1-8","1.1.0","2.3.2","3.0.1","1.0.2","1.0.0","1.3.0","3.6.3","0.8.6","3.6.3","0.2.4","0.5.1","0.3.0","0.5.2","2.2.0","0.13","1.3.1","1.8-4","2.2.1","1.8-7"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
@@ -678,7 +721,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_text", label =
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Nuage de points</h2>
+<h2 class="title toc-ignore" style="display:none;">Test t de Student</h2>
 <h4 class="author"><em>Guyliann Engels &amp; Philippe Grosjean</em></h4>
 </div>
 <!-- end doc-metadata -->

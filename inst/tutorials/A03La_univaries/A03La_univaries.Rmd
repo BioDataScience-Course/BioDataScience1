@@ -93,7 +93,7 @@ grade_code("Vous venez de réaliser votre premier histogramme !")
 Reproduisez le graphique suivant qui représente la répartition de la densité de la hauteur (`height`) en fonction du genre (`gender`) des individus présents dans le jeu de données `biometry`. 
 
 ```{r density_intro}
-chart(biometry, formula = ~ height %col=% gender) +
+chart(biometry, formula = ~ height %fill=% gender) +
   geom_density()
 ```
 
@@ -103,19 +103,19 @@ chart(___, formula = ~ ___ ___ ___) +
 ```
 
 ```{r density_h3-hint-1}
-chart(DF, formula = ~ ___ %col=% ___) +
+chart(DF, formula = ~ ___ %fill=% ___) +
   geom_density()
 ```
 
 ```{r density_h3-hint-2}
-chart(biometry, formula = ~ NUM %col=% FACTOR) +
+chart(biometry, formula = ~ NUM %fill=% FACTOR) +
   geom_density()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r density_h3-solution}
-chart(biometry, formula = ~ height %col=% gender) +
+chart(biometry, formula = ~ height %fill=% gender) +
   geom_density()
 ```
 
@@ -354,6 +354,7 @@ chart(DF, ___ ~ ___ %col=% ___ %shape=% ___) +
 # Utiliser la couleur en tant que premier argument et la forme en second
 chart(urchin, NUM ~ NUM %col=% FACTOR %shape=% FACTOR) +
   geom_point()
+#### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r np2_h3-solution}
@@ -361,7 +362,6 @@ chart(urchin, NUM ~ NUM %col=% FACTOR %shape=% FACTOR) +
 chart(urchin, height ~ weight %col=% origin %shape=% sex) +
   geom_point()
 
-#### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r np2_h3-check}

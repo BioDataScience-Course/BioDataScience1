@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.1.1
+
+- Tutorial A02Lb_progression : minor changes 
+
 ## Changes in version 2020.1.0
 
 - minor changes in the first 3 modules

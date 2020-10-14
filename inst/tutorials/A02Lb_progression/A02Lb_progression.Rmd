@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Familiarisation avec R en utilisant une étude sur l'obésité."
 tutorial:
   id: "A02Lb_progression"
-  version: 2.1.1/10
+  version: 2.1.2/10
 output:
   learnr::tutorial:
     progressive: true
@@ -516,10 +516,10 @@ bio_100 <- mutate(bio_100,
     bmi >= 30 ~ "obese"
 ))
 # Afficher le tableau 
-bio_100
+head(bio_100)
 ```
 
-Ajoutez une nouvelle variable `bmi_cat` au jeu de données `biometry` en complétant les informations manquantes.
+Ajoutez une nouvelle variable `bmi_cat` au jeu de données `biometry` en complétant les informations manquantes. Affichez les premières lignes du tableau avec la fonction `head()`
 
 ```{r case_when_setup}
 biometry <- read("biometry", package = "BioDataScience")
@@ -672,11 +672,18 @@ grade_code("Vous apprenez vite. Les opérateurs de condition comme `==` sont tr�
 
 Vos résultats concordent-ils avec les valeurs avancées dans les médias ? Représentons la distribution du bmi de nos individus sondés.
 
+```{r}
+label(bio_100$bmi) <- "Indice de masse corporelle"
+units(bio_100$bmi) <- NA
+label(bio_100$gender) <- "Genre"
+```
+
+
 ```{r, echo = TRUE}
 chart(bio_100, ~ bmi %fill=% gender) +
   geom_histogram(bins = 25) +
   geom_vline(xintercept = 30, color = "red") +
-  scale_fill_viridis_d()
+  scale_fill_viridis_d() 
 ```
 
 Utilisez la fonction `chart()` pour représenter graphiquement la distribution des données par rapport au bmi des individus.

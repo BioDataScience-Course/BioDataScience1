@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.2.0
+
+- Rename several shinyapps
+
 ## Changes in version 2020.1.1
 
 - Tutorial A02Lb_progression : minor changes 

@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.3.0
+
+- major change for A04L : several learnr
+
 ## Changes in version 2020.2.0
 
 - Rename several shinyapps

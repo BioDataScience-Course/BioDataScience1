@@ -190,7 +190,7 @@ b <- chart(e_mathaei, formula = ~ ~ site %fill=% variety) +
 combine_charts(list(a, b), common.legend = TRUE)
 ```
 
-```{r bar2_h3-check}
+```{r bar3_h3-check}
 grade_code("Vous connaissez maintenant les différentes valeurs que peuvent prendre l'argument `position =`. Notez la **différence** qui existe entre le graphique par defaut (`position = stack`) et le graphique B (`position = fill`) ! Le rendu est similaire mais c'est la **fraction** par rapport au total qui est représentée dans le graphique B et **non les effectifs** absolus !!")
 ```
 

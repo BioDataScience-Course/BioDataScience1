@@ -184,7 +184,7 @@ combine_charts(list(a, b), common.legend = TRUE)
 a <- chart(e_mathaei, formula = ~ site %fill=% variety) +
   geom_bar(position = "dodge") 
 # position = "fill"
-b <- chart(e_mathaei, formula = ~ ~ site %fill=% variety) +
+b <- chart(e_mathaei, formula = ~ site %fill=% variety) +
   geom_bar(position = "fill") 
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)

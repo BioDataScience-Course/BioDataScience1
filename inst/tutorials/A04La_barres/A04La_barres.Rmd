@@ -209,7 +209,7 @@ chart(crabs, length ~ sex %fill=% sex | species ) +
   stat_summary(geom = "col", fun.y = "mean")
 ```
 
-Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représante la moyenne de la longueur de la carapace (`length`) en fonction du sexe (`sex`) pour chacune des variétés d'oursins (`variety`). Utilisez aussi de la couleur pour mettre en évidence le sexe. 
+Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représante la moyenne de la longueur de la carapace (`length`) en fonction du sexe (`sex`) pour chacune des variétés d'oursins (`species`). Utilisez aussi de la couleur pour mettre en évidence le sexe. 
 
 ```{r bar4_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___ ___ ___ ) +

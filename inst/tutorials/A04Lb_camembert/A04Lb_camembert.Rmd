@@ -62,7 +62,7 @@ chart(data = e_mathaei, ~ factor(0) %fill=% variety) +
 A partir du jeu de donnée `e_mathaei`, reproduisez le graphique en camembert ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`).
 
 ```{r pie1_h2, exercise=TRUE}
-chart(data = DF, ~ ___ %fill=% ___) +
+chart(data = ___, ~ ___ %fill=% ___) +
   ___(width = 1) + 
   coord_polar("y", start = 0) +
   theme_void() +

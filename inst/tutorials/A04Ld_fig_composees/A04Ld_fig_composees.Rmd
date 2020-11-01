@@ -57,10 +57,10 @@ Les chercheurs souhaitent tout d'abord représenter la température en fonction 
 chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Temperature [C°]")
+  labs(y = "Température [C°]")
 ```
 
-Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Stations`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Temperature [C°]"). 
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Stations`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]"). 
 
 ```{r line1_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +
@@ -89,7 +89,7 @@ chart(marphy, NUM ~ NUM) +
 chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Temperature [C°]")
+  labs(y = "Température [C°]")
 ```
 
 ```{r line1_h3-check}
@@ -142,7 +142,7 @@ Ils decident pour finir de représenter les deux graphiques ensembles dans une f
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Temperature [C°]")
+  labs(y = "Température [C°]")
 
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +
@@ -190,7 +190,7 @@ combine_charts(list(___, ___))
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Temperature [C°]")
+  labs(y = "Température [C°]")
 # Graphique de la salinité
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +
@@ -207,7 +207,7 @@ combine_charts(list(___, ___))
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Temperature [C°]")
+  labs(y = "Température [C°]")
 # Graphique de la salinité
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +

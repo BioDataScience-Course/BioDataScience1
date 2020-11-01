@@ -1,8 +1,12 @@
 # BioDataScience1 News
 
+## Changes in version 2020.3.1
+
+- minor changes in A04L learnr
+
 ## Changes in version 2020.3.0
 
-- major change for A04L : several learnr
+- major changes for A04L : several learnr
 
 ## Changes in version 2020.2.0
 

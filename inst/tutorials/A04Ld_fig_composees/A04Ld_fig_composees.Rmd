@@ -5,7 +5,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
 tutorial:
   id: "A04Ld_fig_composees"
-  version: 2.0.0/5
+  version: 2.0.1/5
 output:
   learnr::tutorial:
     progressive: true
@@ -60,7 +60,7 @@ chart(marphy, Temperature ~ Station) +
   labs(y = "Température [C°]")
 ```
 
-Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Stations`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]"). 
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]"). 
 
 ```{r line1_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +

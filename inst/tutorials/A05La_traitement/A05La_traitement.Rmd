@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 5** Traitement des données élémentaires."
 tutorial:
   id: "A05La_traitement"
-  version: 2.0.0/3
+  version: 2.0.1/3
 output:
   learnr::tutorial:
     progressive: true
@@ -54,7 +54,7 @@ A partir du jeu de données `crabs`, calculez à l'aide de la fonction `mutate()
 - la racine carrée (`sqrt()`) de la largueur de la carapace (`width`) et nommez cette nouvelle variable **width_sqrt**
 - Divisez la variable lobe frontal (`front`) par 1000 et nommez cette nouvelle variable **front_m**
 
-Affichez ensuite les 6 premières lignes du tableau (`head()`).
+Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les 6 premières lignes sont affichées)
 
 Vous devez obtenir le tableau ci-dessous : 
 
@@ -75,7 +75,7 @@ ___ %>.%
          ___ = ___,
          ___ = ___) -> ___
 # Visualisation des premières lignes du tableau 
-___
+___(___)
 ```
 
 ```{r mutate_h3-hint-1}
@@ -126,8 +126,8 @@ Reprennons le jeu de données initial sur la biométrie des crabes (`crabs`)
 Réalisez les opérations suivantes avec les fonctions `filter()` et `select()` : 
 
 - Retirer la variable index (`index`) du jeu de données
-- Garder uniquement les individus mâles du jeu de données dont la longeur de la carapace est supérieur à 25 mm (variables `sex` et `length`)
-- Affichez ensuite les 6 premières lignes du tableau
+- Garder uniquement les individus mâles du jeu de données dont la longueur de la carapace est supérieure ou égale à 25 mm (variables `sex` et `length`)
+- Affichez ensuite les premières lignes du tableau (par défaut, les 6 premières lignes sont affichées)
 
 Employez le chainage pour résoudre cette exercice.
 
@@ -206,32 +206,35 @@ library(knitr)
 crabs ___
   ___(___, ___) ___
   ___(___, ___, ___) ___
-  ___(___, mean = ___, number = ___) ___
+  ___(___, mean = ___(___), number = ___()) ___
   ___(___)
 ```
 
 ```{r pipe2_h3-hint-1}
+library(knitr)
 crabs %>.%
   filter(___, ___) ___
   group_by(___, ___, ___) ___
-  summarise(___, mean = ___, number = ___) ___
-  knitr::kable(___)
+  summarise(___, mean = ___(___), number = ___()) ___
+  kable(___)
 ```
 
 ```{r pipe2_h3-hint-2}
+library(knitr)
 crabs %>.%
   filter(., length > ___) %>.%
   group_by(., ___, ___) %>.%
   summarise(., mean = mean(___), number = n()) ___
-  knitr::kable(___)
+  kable(___)
 ```
 
 ```{r pipe2_h3-solution}
+library(knitr)
 crabs %>.%
   filter(., length > 25) %>.%
   group_by(., species, sex) %>.%
   summarise(., mean = mean(width), number = n()) %>.%
-  knitr::kable(.)
+  kable(.)
 ```
 
 ```{r pipe2_h3-check}

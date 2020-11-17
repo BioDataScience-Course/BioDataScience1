@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.3.3
+
+- minor changes in A05La
+
 ## Changes in version 2020.3.2
 
 - minor changes in A04Ld

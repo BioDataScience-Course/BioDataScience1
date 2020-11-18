@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 5** Traitement des données élémentaires."
 tutorial:
   id: "A05La_traitement"
-  version: 2.0.1/3
+  version: 2.0.2/3
 output:
   learnr::tutorial:
     progressive: true
@@ -196,7 +196,7 @@ Vous devez obtenir le tableau ci-dessous :
 ```{r}
 crabs %>.%
   filter(., length > 25) %>.%
-  group_by(., species, sex) %>.%
+  group_by(., sex, species) %>.%
   summarise(., mean = mean(width), number = n()) %>.%
   knitr::kable(.)
 ```
@@ -232,7 +232,7 @@ crabs %>.%
 library(knitr)
 crabs %>.%
   filter(., length > 25) %>.%
-  group_by(., species, sex) %>.%
+  group_by(., sex, species) %>.%
   summarise(., mean = mean(width), number = n()) %>.%
   kable(.)
 ```

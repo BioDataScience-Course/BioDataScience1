@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.4.0
+
+- add new tutorials A06La and A06Lb
+
 ## Changes in version 2020.3.4
 
 - minor changes in A05La

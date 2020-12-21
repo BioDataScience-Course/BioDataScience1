@@ -2,43 +2,43 @@
 
 ## Changes in version 2020.4.1
 
--  minor changes in A06Lb
+- Correction of the comment `comm` -> `comm_noscore`  that was erroneously left in its ancien form in A06Lb.
 
 ## Changes in version 2020.4.0
 
-- add new tutorials A06La and A06Lb
+- New tutorials A06La and A06Lb added.
 
 ## Changes in version 2020.3.4
 
-- minor changes in A05La
+- Minor changes in A05La.
 
 ## Changes in version 2020.3.3
 
-- minor changes in A05La
+- Minor changes in A05La.
 
 ## Changes in version 2020.3.2
 
-- minor changes in A04Ld
+- Minor changes in A04Ld.
 
 ## Changes in version 2020.3.1
 
-- minor changes in A04L learnr
+- Minor changes in A04L learnr.
 
 ## Changes in version 2020.3.0
 
-- major changes for A04L : several learnr
+- Major changes for A04L: several learnrs.
 
 ## Changes in version 2020.2.0
 
-- Rename several shinyapps
+- Rename several shinyapps.
 
 ## Changes in version 2020.1.1
 
-- Tutorial A02Lb_progression : minor changes 
+- Tutorial A02Lb_progression : minor changes.
 
 ## Changes in version 2020.1.0
 
-- minor changes in the first 3 modules
+- Minor changes in the first 3 modules.
 
 ## Changes in version 2020.0.0
 
@@ -53,52 +53,50 @@ added.
 
 ## Changes in version 2019.11.0
 
-- Tutorial 06b_mds
+- Tutorial 06b_mds.
 
-- Tutorial 06c_som
+- Tutorial 06c_som.
 
 ## Changes in version 2019.11.0
 
-- Tutorial 06a_kmeans
+- Tutorial 06a_kmeans.
 
 ## Changes in version 2019.10.0
 
-- Tutorial 05a_distance_matrix
+- Tutorial 05a_distance_matrix.
 
 ## Changes in version 2019.9.0
 
-- New shiny app 04e_gompertz
+- New shiny app 04e_gompertz.
 
 ## Changes in version 2019.8.0
 
-- shiny app 04c 04d
+- Shiny app 04c 04d.
 
 ## Changes in version 2019.7.0
 
-- shiny app 04a_michaelis_menten and 04b_exponent
+- Shiny app 04a_michaelis_menten and 04b_exponent.
 
 ## Changes in version 2019.6.0
 
-- Tutorial 03a_mod_lin finalized
-
+- Tutorial 03a_mod_lin finalized.
 
 ## Changes in version 2019.5.0
 
-- Tutorial 02a_reg_multi finalized
+- Tutorial 02a_reg_multi finalized.
 
 ## Changes in version 2019.4.0
 
-- Tutorial 02b_reg_poly finalized
+- Tutorial 02b_reg_poly finalized.
 
 ## Changes in version 2019.3.0
 
-- Tutorial 01b_reg_lin : minor correction
+- Tutorial 01b_reg_lin: minor correction.
 
 ## Changes in version 2019.2.0
 
-- Tutorial 01b_reg_lin finalized
+- Tutorial 01b_reg_lin finalized.
 
 ## Changes in version 2019.1.0
 
-- Tutorial 01a_rappel finalized
-
+- Tutorial 01a_rappel finalized.

@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 6** Remodelage de tableaux"
 tutorial:
   id: "A06La_recombinaison"
-  version: 1.0.0/5
+  version: 2.0.0/5
 output:
   learnr::tutorial:
     progressive: true

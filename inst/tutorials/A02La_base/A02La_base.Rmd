@@ -3,7 +3,7 @@ title: "Les bases de R"
 author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Principales opérations et commandes dans R."
 tutorial:
-  id: "A02a_base"
+  id: "A02La_base"
   version: 2.0.0/7
 output: 
   learnr::tutorial:

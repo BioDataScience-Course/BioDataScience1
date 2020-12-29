@@ -26,6 +26,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ----
 
+<!-- TODO: rework this, and possibly split into svbox and git. Make sure to have between 5 and 10 exercices per learnr! -->
+
 ## Objectifs
 
 - Vérifier que la terminologie relative aux différents outils logiciels qui seront utilisés est connue.

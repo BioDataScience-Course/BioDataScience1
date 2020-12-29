@@ -3,7 +3,7 @@ title: "Probabilités"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 7** Calcul de probabilités."
 tutorial:
-  id: "A07a_proba"
+  id: "A07La_proba"
   version: 2.0.0/10
 output:
   learnr::tutorial:

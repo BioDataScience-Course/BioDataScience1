@@ -79,7 +79,7 @@ quiz(
     answer("Un langage avec une syntaxe facile à lire et à écrire", correct = TRUE),
     answer("Aucune des réponses proposées n'est correcte"),
     allow_retry = TRUE, random_answer_order = TRUE)
-  )
+)
 ```
 
 
@@ -219,7 +219,7 @@ quiz(
 
 ## Conclusion
 
-Vous avez beaucoup de nouveaux outils logiciels à découvrir. Nous progresserons étape par étape pour les maitriser. Pour l'instant, l'important est d'avoir une vue d'ensemble des différents logiciels utilisés et de comprendre la terminologie de Git.
+Vous avez beaucoup de nouveaux outils logiciels à découvrir. Nous progresserons étape par étape pour les maîtriser. Pour l'instant, l'important est d'avoir une vue d'ensemble des différents logiciels utilisés et de comprendre la terminologie de Git.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

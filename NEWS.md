@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.4.2
+
+- A07La_proba updated to version 2.
+
 ## Changes in version 2020.4.1
 
 - Correction of the comment `comm` -> `comm_noscore`  that was erroneously left in its ancien form in A06Lb.

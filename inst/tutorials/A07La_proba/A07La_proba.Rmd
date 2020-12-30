@@ -27,14 +27,23 @@ BioDataScience1::learnr_server(input, output, session)
 
 ----
 
+<!-- TODO: il manque des exercices qui comparent population de taille infinie ou non et qui mette en lumière les différences au niveau du calcul des probabilités (conditionnelles) -->
+
 ## Objectifs
 
+Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercez et bien en comprendre les subtilités. Ce tutoriel vous permet de\ :
+
 - Appréhender le calculs de probabilités
+
 - Calculer des probabilités sur base d'un tableau de contingence
+
+Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
 ## Lire des probabilités
 
-Les questions suivantes vous permettent de vérifier que vous comprenez bien le formalisme utilisé pour représenter des probabilités.
+![](images/formalism.jpg)
+
+Le calcul des probabilité est assorti d'un formalisme mathématique qu'il vous faut maîtriser. Les questions suivantes vous permettent de vérifier que vous le comprenez bien.
 
 ```{r qu_formalism}
 quiz(
@@ -59,7 +68,7 @@ quiz(
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Concentrez-vous sur ce que l'opérateur '+' signifie en calcul des probabilités. Recommencez afin de trouver la bonne réponse",
     correct = "C'est correct !"),
-  question("Dans une portée de chatons, quelle est la probabilité d'obtenir quatre mâles Pr{M}, sachant que le sex ratio est exactement de 1:1 ?",
+  question("Comment écrira-t-on la probabilité d'obtenir quatre mâles Pr{M} dans une portée de quatre châtons ?",
     answer("Pr{M . M . M . M}", correct = TRUE),
     answer("Pr{M et M et M et M}", correct = TRUE),
     answer("Pr{M + M + M + M}" ),
@@ -72,12 +81,16 @@ quiz(
 
 ## Calculer des probabilités
 
+![](images/calculation.jpg)
+
 ### Stress
 
-Le résultat d'une enquête relative au stress dans une population active est le suivant\ : 
+![](images/stress.jpg)
+
+Le résultat d'une enquête relative au stress dans une population active en fonction de leurs revenus professionnels est le suivant\ : 
 
 ```{r}
-Stress <- data.frame(
+stress <- data.frame(
   `Revenus faibles` = c( 526, 1954, 2480),
   `Revenus moyens`  = c( 274, 1680, 1954),
   `Revenus élevés`  = c( 216, 1899, 2115),
@@ -85,7 +98,7 @@ Stress <- data.frame(
   row.names         = c("Stressé", "Non stressé", "Total"),
   check.names = FALSE
 )
-knitr::kable(Stress)
+knitr::kable(stress)
 ```
 
 Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous aider d'une calculette)\ :
@@ -129,7 +142,9 @@ quiz(caption = "Stress et revenus",
 
 ### Efficacité d'un médicament
 
-Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d’effets secondaires (patients « sensibles »). Considérant un nouveau malade, quelle est la probabilité qu’il ne puisse pas être soigné par ce traitement ?
+![](images/pills.jpg)
+
+Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d’effets secondaires (patients « sensibles »). Considérant un nouveau malade arrivant à l'hôpital, quelle est la probabilité qu’il ne puisse pas être soigné par ce traitement\ ?
 
 ```{r medic1_h3, exercise=TRUE}
 
@@ -157,12 +172,12 @@ Un nouveau médicament contre une maladie permet de soigner 80% des individus at
 
 ```{r medic1_h3-check}
 grade_result(
-  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Il semble que le calcul des probabilités n'a plus de secrets pour vous. Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas (nous additionons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si on reçoit ce médicament)."),
+  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Il semble que le calcul des probabilités n'a plus de secrets pour vous. Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas (nous additionons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si on reçoit ce médicament). Vous pouvez aussi tracer un arbre de probabilité pour résoudre ce problème, si vous préférez"),
   fail_if(~ TRUE, "Votre calcul ne me semble pas correct. Combien ne peuvent recevoir le médicament, combien n'y réagissent pas positivement ? C'est la clé.")
 )
 ```
 
-Un médecin a trois patients atteints de la maladie en question dans sa salle d’attente ((ils ne se connaissent pas et ne sont pas de la même famille). Quelle est la probabilité que ce médecin puisse soigner l’ensemble de ses patients à l'aide du nouveau médicament ?
+Un médecin a trois patients atteints de la maladie en question dans sa salle d’attente ((ils ne se connaissent pas et ne sont pas de la même famille). Quelle est la probabilité que ce médecin puisse soigner l’ensemble de ses patients à l'aide du nouveau médicament\ ?
 
 ```{r medic2_h2, exercise=TRUE}
 
@@ -189,7 +204,7 @@ grade_result(
 
 ## Conclusion
 
-Bravo ! Vous venez de vérifier votre bonne compréhension des probabilités et des calculs de probabilités. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de progresser dans la matière.
+Bravo\ ! Vous venez de vérifier votre bonne compréhension des probabilités et des calculs de probabilités. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de progresser dans la matière.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

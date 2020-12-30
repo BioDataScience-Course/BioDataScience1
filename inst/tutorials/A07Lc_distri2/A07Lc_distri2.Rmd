@@ -11,6 +11,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 ---
+
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
@@ -28,10 +29,17 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-- S'assurer de bien maîtriser la loi Normale
-- Comprendre ce qu'est un graphique quantile-quantile
+La loi de distribution Normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez\ :
+
+- Vérifier que vous comprenez bien la logique des calculs autour de la distribution Normale 
+
+- Réaliser et interpréter un graphique quantile-quantile
+
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html) du cours, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A07La_proba")`).
 
 ## Distribution Normale
+
+![](images/normal versus paranormal distribution.jpg)
 
 La distribution Normale (ou Gaussienne) est appelée comme cela parce que c'est celle qui se rencontre le plus souvent. Elle s'observe à chaque fois que le résultat est la somme de petits effets aléatoires qui se combinent. Elle a une forme caractéristique, dite "en cloche".
 
@@ -39,7 +47,7 @@ La distribution Normale (ou Gaussienne) est appelée comme cela parce que c'est 
 
 Employez R pour représenter la densité de probabilité de la distribution $Y \sim N(10, 3)$.
 
-💬 **Le snippet `.indens` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.indens`** [`.in` = (d)`i`stribution: `n`ormal].
 
 ```{r normal1_h2, exercise=TRUE, exercise.lines=10}
 # Normal distribution (density probability) with parameters:
@@ -94,7 +102,7 @@ Ajoutez maintenant le libellé de la distribution à côté de sa courbe sur le 
 text(.mu-.s, .d(.mu-.s), .label, pos = 2, col = .col) # Label at left
 ```
 
-💬 **Le snippet `.inllabel` contient ce code, si vous devez le réutiliser plus tard.**
+💬 **Ce code correspond au snippet `.inllabel`.**
 
 ```{r normal2_h2, exercise=TRUE, exercise.lines=12}
 # Normal distribution (density probability) with parameters:
@@ -144,18 +152,20 @@ text(.mu-.s, .d(.mu-.s), .label, pos = 2, col = .col) # Label at left
 ```
 
 ```{r normal2_h2-check}
-grade_code("D'autres snippets sont également disponibles pour annoter vos graphiques de lois de distributions.")
+grade_code("D'autres snippets sont également disponibles pour annoter vos graphiques de lois de distributions dans la section `.ia`.")
 ```
 
 ### Calculs avec la loi Normale
 
 Comme pour les autres lois de distributions, il est vital de pouvoir calculer des probabilités en fonctions de quantiles et des quantiles à partir de probabilités. Nous nous référerons toujours à la probabilités d'avoir une valeur plus petite (aide à gauche avec `lower.tail = TRUE`) ou plus grande (aide à droite avec `lower.tail = FALSE`) que ce quantile. Une aire comprise entre deux quantiles doit se calculer en deux temps (Pr{Q2} - Pr{Q1}).
 
+![](images/maize.jpg)
+
 Vous étudiez la croissance de plants de maïs. A partir d'un grand nombre de mesures, vous avez pu déterminer que la hauteur de vos plants suit une distribution Normale avec une moyenne de 145 cm et un écart type de 22 cm.
 
 Calculez la probabilités d'avoir un plant de maïs de moins de 100 cm de haut dans votre champ.
 
-💬 **Le snippet `.inproba` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.inproba`.**
 
 ```{r normal3_h3, exercise=TRUE}
 pnorm(___, mean = ___, sd = ___, lower.tail = ___)
@@ -176,7 +186,7 @@ pnorm(100, mean = 145, sd = 22, lower.tail = TRUE)
 ```
 
 ```{r normal3_h3-check}
-grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = FALSE`.")
+grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = FALSE` dans la fonction `pnorm()`.")
 ```
 
 Calculez la probabilités d'avoir un plant de maïs dont la hauteur est comprise entre 120 et 150 cm. 
@@ -209,7 +219,7 @@ grade_code("Une aire comprise entre deux quantiles se calcule toujours en soustr
 
 En partant de la distribution théorique $Y \sim N(10, 2.5)$, calculez le quantile délimitant une probabilités à droite de 0.1 (10% des plus grandes observations).
 
-💬 **Le snippet `.inquant` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.inquant`.**
 
 ```{r normal5_h2, exercise=TRUE}
 qnorm(___, mean = ___, sd = __, lower.tail = ___)
@@ -231,6 +241,8 @@ grade_code("La fonction `qnorm()` calcule un quantile à partir d'une probabilit
 
 ## Graphique quantile-quantile
 
+![](images/crab.jpg)
+
 Utilisez le jeu de données `crabs` du package {MASS} qui reprend des mesures de la carapace de 200 crabes bleus.
 
 ```{r}
@@ -241,7 +253,7 @@ SciViews::R()
 
 Réalisez un graphique quantile-quantile visant à déterminer si la longueur de carapace (variable nommée `length`) de ces crabes suit une distribution Normale.
 
-💬 **Le snippet `.cuqqnorm` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.cuqqnorm`** [`.cu` = `c`hart: `u`nivariate].
 
 ```{r qqnorm1_h2, exercise=TRUE}
 SciViews::R()

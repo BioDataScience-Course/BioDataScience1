@@ -11,6 +11,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 ---
+
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
@@ -28,38 +29,46 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-- Vérifiez vos connaissances relatives aux lois de distribution des probabilités binomiale et Poisson
+Les lois de distribution généralisent le calcul des probabilités dans des situations bien définies. Elles permettent de calculer la probabilité que des évènements se produisent d'un point de vue théorique. La distribution binomiale et celle de Poisson concernent des variables quantitatives à deux modalités, c'est-à-dire que seulement deux évènements disjoints peuvent se produire.
+
+- Vérifiez vos connaissances relatives à la loi de distribution des probabilités binomiale
+
+- Vous assurez d'avoir bien compris la distribution de Poisson
+
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html) du cours, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/distribution-de-poisson.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via le learnr `BioDataScience1::run("A07La_proba")`.
 
 ## Distribution binomiale
 
 La distribution binomiale calcule les probabilités de *n* succès pour un modèle essai-erreur indépendant. Cela signifie que seulement deux évènements disjoints sont possibles\ : le "succès" ou l'"échec" (ces noms sont attribués aux deux évènements qui peuvent représenter tout autre chose comme pile ou face, mâle ou femelle, chevelu ou non, ...). Le nombre d'essais indépendants *p* est fixé à l'avance et est toujours le même pour une distribution donnée.
 
-En guise d'entrée en matière, répondez aux questions suivantes en effectuant le calcul à la main (en vous aidant éventuellement d'une calculette)\ :
+![](images/lions.jpg)
+
+En guise d'entrée en matière, répondez aux questions suivantes en effectuant le calcul à la main (en vous aidant éventuellement d'une calculette). Considérant une population de lions dans une réserve naturelle au Kenya qui est composée d'autant de lions mâles que de lionnes (sexe ratio de 1:1). Vous vous baladez dans la réserve et vous avez observé dix individus au total.
 
 ```{r qu_binom}
 quiz(
-  question("Calculez la probabilité d'obtenir au maximum 3 fois pile lors de 10 lancés d'une pièce de monnaie équilibrée.",
+  question("Calculez la probabilité d'avoir observé trois mâles au maximum.",
     answer("0.117"),
     answer("0.161"), 
     answer("0.172", correct = TRUE),
     answer("0.828"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
-  question("Calculez la probabilité d'obtenir au minimum 3 fois pile lors de 10 lancés de la même pièce.",
+    correct = "C'est correct ! Si l'on considère une distribution aléatoire des individus dans la réserve, du moins, pour cet exemple fictif."),
+  question("Calculez la probabilité d'observer au minimum 3 mâles parmi ces 10 individus.",
     answer("0.117"),
     answer("0.161"), 
     answer("0.172"),
     answer("0.828", correct = TRUE),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !")
+    correct = "C'est correct ! Notez que cette probabilité est complémentaire à la précédente.")
 )
 ```
 
-Calculer la table des probabilités possibles pour tous les évènements depuis 0 jusqu'à 10 fois pile pour dix lancés de notre pièce de monnaie avec R.
+Calculez la table des probabilités possibles pour tous les évènements depuis 0 jusqu'à 10 lions mâles observés sur dix individus au total, avec R.
 
-💬 **Le snippet `.ibtable` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.ibtable`** [`.ib`= (d)istribution: `b`inomial].
 
 ```{r binom1_h2, exercise=TRUE}
 (.table <- data.frame(success = ___,
@@ -82,9 +91,9 @@ Calculer la table des probabilités possibles pour tous les évènements depuis 
 grade_code("C'est parfait.")
 ```
 
-Employez R cette fois-ci pour répondre à une des questions posées lors du quiz plus haut\ : "Calculez la probabilité d'obtenir au maximum 3 fois pile lors de 10 lancés d'une pièce."
+Employez R cette fois-ci pour répondre à une des questions posées lors du quiz plus haut\ : "Calculez la probabilité d'observer au maximum 3 mâles sur 10 individus."
 
-💬 **Le snippet `.ibproba` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.ibproba`.**
 
 ```{r binom2_h3, exercise=TRUE}
 pbinom(___, size = ___, prob = ___, lower.tail = ___)
@@ -105,12 +114,10 @@ pbinom(3, size = 10, prob = 0.5, lower.tail = TRUE)
 ```
 
 ```{r binom2_h3-check}
-grade_code("Vous comprenez manifestement bien la logique de ce type de calcul dans R.")
+grade_code("Vous comprenez manifestement bien la logique de ce type de calcul dans R... ou alors, vous avez passé énormément de temps à observer les lions au Kenya !")
 ```
 
-Calculez avec R la probabilité d’obtenir exactement 4 fois pile lors de 10 lancés de pièce. **Attention\ :** la pièce utilisée cette fois-ci est truquée pour favoriser le côté pile (Pr{pile} = 0.75).
-
-💬 **Le snippet `.ibproba` peut vous aider à réaliser cet exercice.**
+Calculez avec R la probabilité d’observer exactement 4 lionnes pour 10 contacts dans une autre réserve où il y a 3 femelles pour 1 mâle (Pr{femelle} = 0.75).
 
 ```{r binom3_h3, exercise=TRUE}
 pbinom(___, size = ___, prob = ___, lower.tail = ___) - ___
@@ -136,7 +143,7 @@ grade_code("Comme le calcul des probabilités selon des lois de distribution nou
 
 Représentez le graphique de densité de probabilité pour la distribution binomiale de l'exercice précédent.
 
-💬 **Le snippet `.ibdens` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.ibdens`.**
 
 ```{r binom4_h2, exercise=TRUE}
 plot(___, dbinom(___, size = ___, prob = ___), type = "h",
@@ -161,7 +168,9 @@ grade_code("Les barres verticales représentent ici la probabilité de chaque é
 
 ## Distribution de Poisson
 
-La distribution de Poisson détermine, tout comme la distribution binomiale, les probabilités de nombres de succès par rapport à un nombre d'essais indépendants, mais ici la probabilité de succès est très faible (évènement rare).
+![](images/fishing.jpg)
+
+La distribution de Poisson détermine, tout comme la distribution binomiale, les probabilités de nombres de succès par rapport à un nombre d'essais indépendants, mais ici la probabilité de succès est très faible (évènement rare). Vous pouvez utiliser cette distribution pour déterminer la probabilité de rencontrer un animal rare, pour prédire les tremblements de terre, pour déterminer la probabilité d'une maladie rare, ... et même pour prédire la probabilité que vous arriviez à pêcher un gros poisson avec votre petite canne à pêche\ !
 
 Répondez à la question suivante en effectuant le calcul à la main (en vous aidant éventuellement d'une calculette).
 
@@ -180,7 +189,7 @@ quiz(
 
 Utilisez R pour représentez la table de probabilités lié à l'exercice ci-dessus.
 
-💬 **Le snippet `.iptable` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.iptable`** [`.ip` = (d)`i`stribution: `p`oisson].
 
 ```{r poisson1_h2, exercise=TRUE}
 (.table <- data.frame(occurences = 0:(___+20), probability = dpois(0:(___+20),
@@ -205,7 +214,7 @@ grade_code("La distribution de Poisson est plus simple que la distribution binom
 
 Représentez le graphique de densité de la distribution de Poisson pour $\lambda = 12$.
 
-💬 **Le snippet `.ipdens` peut vous aider à réaliser cet exercice.**
+💬 **Ce code correspond au snippet `.ipdens`.**
 
 ```{r poisson2_h2, exercise = TRUE}
 plot(0:(___+20), dpois(0:(___+20), lambda = ___),
@@ -225,7 +234,7 @@ plot(0:(12+20), dpois(0:(12+20), lambda = 12),
 ```
 
 ```{r poisson2_h2-check}
-grade_code("Ce graphique est en fait très asymétrique, mais l'axe des quantiles est tronqué vers la droite puisque toutes les évènements avec un plus grand nombre de succès ont tous une probabilité très proche de zéro.")
+grade_code("Ce graphique est en fait très asymétrique, mais l'axe des quantiles est tronqué vers la droite puisque toutes les évènements avec un plus grand nombre de succès ont tous une probabilité très proche de zéro et ne sont donc pas représentés sur le graphique.")
 ```
 
 ## Conclusion

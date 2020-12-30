@@ -6,6 +6,8 @@
 
 - A07Lb_distri updated into version 2 and split into A07Lb_distri (binomial & Poisson) and A07Lc_distri2 (Normal & quantile-quantile).
 
+- A08La_chi2 and A08Lb_chi2b reworked to version 2, and expanded to a new presentation with more explanations, more feedbacks and a couple of images to get the tutorials more user-friendly.
+
 ## Changes in version 2020.4.1
 
 - Correction of the comment `comm` -> `comm_noscore`  that was erroneously left in its ancien form in A06Lb.

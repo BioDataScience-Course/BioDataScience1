@@ -2,210 +2,184 @@
 title: "Chi2 (suite)"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 8** Applications du test du Chi2."
-output:
-  learnr::tutorial
 tutorial:
-  id: "A08b_chi2b"
-  version: 1.0.0
+  id: "A08Lb_chi2b"
+  version: 2.0.0/10
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(knitr)
+BioDataScience1::learnr_setup()
 SciViews::R()
-
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
-tutorial_options(exercise.timelimit = 60)
-tutorial_options(exercise.cap = "Code R")
-knitr::opts_chunk$set(echo = FALSE, comment = NA)
-
-library(BioDataScience)
-library(ggpubr)
-
-#datasets
-tabac <- data.frame(sexe = c("filles", "garçons", "filles",
-                             "garçons"),
-                    comport = c("fumeurs", "fumeurs", "non fumeurs", "non fumeurs"),
-                    freq = c(12, 19, 26, 20))
-#tabac
-tabac_table <- xtabs(freq ~ sexe + comport, data = tabac)
-
-#sang
-sang <- data.frame(groupe = c("A", "B", "AB", "O", "A", "B", "AB", "O", "A", "B", "AB", "O"),
-                   etat = c("Floride", "Floride", "Floride", "Floride", "Iowa", "Iowa", "Iowa", "Iowa", "Missouri", "Missouri", "Missouri", "Missouri"),
-                   freq = c(122, 117, 19, 244, 1781, 1351, 289, 3301, 353, 269, 60, 713))
-
-sang_table <- xtabs(freq ~ groupe + etat, data = sang)
 ```
 
 ```{r, echo=FALSE}
-fixedRow(
-  column(9, div(
-    img(src = 'images/BioDataScience-128.png', align = "left"),
-    h1("Science des données biologiques"),
-    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
-  )),
-  column(3, div(
-    textInput("user", "Utilisateur :", ""),
-    textInput("email", "Email :", "")
-  ))
-)
-textOutput("user") # This is newer shown, but required to trigger an event!
-textOutput("email") # Idem!
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+BioDataScience1::learnr_server(input, output, session)
 ```
 
-## Préambule
-
-Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
-
-![](images/attention.jpg)
-
-> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
-
+----
 
 ## Objectifs
 
-- Appréhender la distribution du $\chi^2$
+La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dépendances existent ou non entre les niveaux de deux variables qualitatives. C'est le test $\chi^2$ d'indépendance. Vos objectifs sont\ :
 
-- Appréhender les tests d'hypothèses
+- Comprendre le test d'hypothèse de $\chi^2$ d'indépendance pour deux variables qualitatives croisées
 
+- Interpréter correctement un tel test
 
-## Les fumeurs
+Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
 
-```{r, echo = TRUE}
-tabac <- data.frame(sexe = c("filles", "garçons", "filles",
-                             "garçons"),
-                    comport = c("fumeurs", "fumeurs", "non fumeurs", "non fumeurs"),
-                    freq = c(12, 19, 26, 20))
-#tabac
-tabac_table <- xtabs(freq ~ sexe + comport, data = tabac)
+## Fumeurs
 
-# affichage du tableau de données 
+![](images/smoker.jpg)
 
+Le tabagisme est étudié chez les adolescents. Voici les résultats d'un sondage sur un échantillon aléatoire parmi la population d'adolescents concernés par cette étude\ :
+
+```{r, echo=TRUE}
+tabac <- tibble::tibble(
+  genre        = c("fille",  "garçon", "fille",      "garçon"),
+  comportement = c("fumeur", "fumeur", "non fumeur", "non fumeur"),
+  freq          = c(11,       22,        28,            19))
+tabac_table <- xtabs(data = tabac, freq ~ genre + comportement)
 knitr::kable(tabac_table)
 ```
 
-Afin de calculer le $\chi^2$ vous devez au préalable calculer un second tableau comprennant $\alpha_i$
+Vous voulez savoir si la prévalence du tabagisme chez les adolescents est dépendante ou non du genre. Pour cela, vous considérez la distribution du $\chi^2$.
 
-```{r quiz1}
-question("Sélectionnez le tableau correspondant aux valeurs de $\\alpha_i$",
-         answer("A", correct = TRUE),
-         answer("B"),
-         answer("C"),
-         answer("D"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
-```
+### Calcul du $\chi^2_{obs}$
+
+Afin de déterminer la valeur du $\chi^2_{obs}$, vous commencez par réaliser le tableau contenant les fréquences théoriques sous l'hypothèse nulle d'indépendance du tabagisme par rapport au genre (les $\alpha_i$). Faite ce calcul à la main, en vous aidant éventuellement d'une calculette.
 
 ```{r}
-a <- data_frame("genre" = c("fille", "garcon"), "fumeur" = c(15.29, 15.7), "non-fumeur" = c(22.70, 23.30))
-b <- data_frame("genre" = c("fille", "garcon"), "fumeur" = c(4.83, 7.65), "non-fumeur" = c(15.53, 11.94))
-c <- data_frame("genre" = c("fille", "garcon"), "fumeur" = c(5.92, 9.62), "non-fumeur" = c(12.83, 10.13))
-d <- data_frame("genre" = c("fille", "garcon"), "fumeur" = c(12.42, 15.95), "non-fumeur" = c(26.39, 21.51))
-aa <- ggtexttable(a, rows = NULL)
-bb <- ggtexttable(b, rows = NULL)
-cc <- ggtexttable(c, rows = NULL)
-dd <- ggtexttable(d, rows = NULL)
-combine_charts(chartlist = list(aa, bb, cc, dd))
+a <- tibble::tibble(genre = c("fille", "garcon"), fumeur = c(16.1, 16.9),
+  `non fumeur` = c(22.9, 24.1))
+b <- tibble::tibble(genre = c("fille", "garcon"), fumeur = c(4.8, 7.6),
+  `non fumeur` = c(15.5, 11.9))
+c <- tibble::tibble(genre = c("fille", "garcon"), fumeur = c(5.9, 9.6),
+  `non fumeur` = c(12.8, 10.1))
+d <- tibble::tibble(genre = c("fille", "garcon"), fumeur = c(12.4, 15.9),
+  `non fumeur` = c(26.4, 21.5))
+aa <- ggpubr::ggtexttable(a, rows = NULL)
+bb <- ggpubr::ggtexttable(b, rows = NULL)
+cc <- ggpubr::ggtexttable(c, rows = NULL)
+dd <- ggpubr::ggtexttable(d, rows = NULL)
+chart::combine_charts(chartlist = list(aa, bb, cc, dd))
 ```
 
-Calculez le chi2 
-
-```{r quiz2}
-question("Calcul du $\\chi^2$",
-         answer("2.35", correct = TRUE),
-         answer("1.85"),
-         answer("1.42"),
-         answer("3.59"),
-           random_answer_order = TRUE,
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+```{r qu_alpha_i}
+question("Sélectionnez le tableau correspondant aux valeurs de $\\alpha_i$ (vous pouvez utiliser une calculette pour vérifier)",
+  answer("A", correct = TRUE),
+  answer("B"),
+  answer("C"),
+  answer("D"),
+  allow_retry = TRUE,
+  incorrect = "Recommencez afin de trouver la bonne réponse",
+  correct = "C'est correct ! Ces valeurs correspondent aux totaux des lignes multipliés par les totaux des colonnes et divisés par le total général.")
 ```
 
-Déterminez l'aire à droite délimité par la valeur du quantile calculé ci-dessus
+Calculez ensuite la valeur du $\chi^2_{obs}$ toujours sous l'hypothèse nulle d'indépendance à l'aide de votre calculette. Pour rappel, le calcul est le suivant\ :
 
-```{r,echo=TRUE, eval=FALSE}
-pchisq(QUANTILES, df = DEGREES_OF_FREEDOM, lower.tail = TRUE)
+$$\chi^2_{obs} = \sum_i \frac{(a_i - \alpha_i)^2}{\alpha_i}$$
+
+```{r qu_valeur_chi2}
+question("Valeur du $\\chi^2$",
+  answer("5.34", correct = TRUE),
+  answer("1.85"),
+  answer("6.28"),
+  answer("3.59"),
+  allow_retry = TRUE, random_answer_order = TRUE,
+  incorrect = "Recommencez afin de trouver la bonne réponse",
+  correct = "C'est correct ! Cette valeur est la somme des a_i moins alpha_i au carré divisés par les alpha_i.")
 ```
 
-```{r chi1, exercise = TRUE}
+### Test $\chi^2$ d'indépendance
 
+Continuez le calcul de votre test d'hypothèse d'indépendance à la main en déterminant l'aire à droite délimitée par la valeur du quantile $\chi^2_{obs}$ calculé ci-dessus dans la distribution du $\chi^2$ correspondant à cette étude.
+
+💬 **Ce code correspond au snippet `.icproba`** [`.ic` = (d)`i`stribution: `c`hi2].
+
+```{r valeur_chi2_h2, exercise=TRUE}
+pchisq(___, df = ___, lower.tail = ___)
 ```
 
-```{r chi1-solution}
-pchisq(2.35, df = 1, lower.tail = FALSE)
+```{r valeur_chi2_h2-hint-1}
+pchisq(___, df = 1, lower.tail = ___)
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r chi1-check}
-#TODO
+```{r valeur_chi2_h2-solution}
+pchisq(5.34, df = 1, lower.tail = FALSE)
 ```
 
-```{r quiz3}
+```{r valeur_chi2_h2-check}
+grade_code("Notez bien que la distribution du Chi^2 correspondante a ici un seul degré de liberté.")
+```
+
+```{r qu_interpretation}
 quiz(
-  question("Si le seuil alpha de notre expérience est de 0.05, y a t'il dépendance ou indépendance des deux variables ?",
-           answer("Dépendance des deux varibles"),
-           answer("Indépendance des deux variables", correct = TRUE),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
-  question("Si le seuil alpha de notre expérience est de 0.05, rejettez vous $H_0$ ?",
-           answer("oui"),
-           answer("non", correct = TRUE),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+  question("Rejetez-vous $H_0$ au seuil alpha de 5% ?",
+    answer("oui", correct = TRUE),
+    answer("non"),
+    allow_retry = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse",
+    correct = "C'est correct !"),
+  question("Toujours au seuil alpha de 5%, y-a-t'il dépendance ou indépendance des deux variables ?",
+    answer("Dépendance des deux variables", correct = TRUE),
+    answer("Indépendance des deux variables"),
+    allow_retry = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse",
+    correct = "C'est correct ! Vous rejetez H0 et cela signifie ici dépendance entre le genre et la prévalence du tabagisme chez ces adolescents, en l'occurence, les garçons ont plus tendance à fumer que les filles (vous comparez les fréquences observées par rapport aux fréquences attendues sous H0 pour le déterminer).")
 )
 ```
 
-Calculez cette fois ci via R et les snippets le test de $\chi^2$ d'indépendance. Le snippet est **.icchi2bi** et renvoit ces instructions.
+### Utilisation de `chisq.test()`
 
-```{r, echo = TRUE, eval = FALSE}
-(chi2. <- chisq.test(TABLE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
+Maintenant, calculez le même test d'hypothèse, mais avec la fonction dédiée `chisq.test()` dans R sur notre tableau de contingence à double entrée, considérant qu'il est déjà encodé dans R sous le nom `tabac_table`.
+
+💬 **Ce code correspond au snippet `.hcchi2bi`** [`.hc` = `h`ypothesis tests: `c`ontingency].
+
+```{r chi2_test_h2, exercise=TRUE}
+(chi2. <- chisq.test(___, correct = FALSE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
-```{r chi2, exercise = TRUE}
+```{r chi2_test_h2-hint-1}
+(chi2. <- chisq.test(TABLE_FREQ, correct = FALSE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r chi2-solution}
-(chi2. <- chisq.test(tabac_table)); cat("Expected frequencies:\n"); chi2.[["expected"]]
-```
-
-```{r chi2-check}
-#TODO
-```
-
-Obtenez vous la même valeur que calculé à la main ? La réponse est non. En effet, une correction est réalisée via la correction de continuité de Yates. En ajoutant l'argument **correct = FALSE**, vous retrouvez la même valeur que celle que vous avez calculé à la main. 
-
-```{r chi3, exercise = TRUE}
-
-```
-
-```{r chi3-solution}
+```{r chi2_test_h2-solution}
 (chi2. <- chisq.test(tabac_table, correct = FALSE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
-```{r chi3-check}
-#TODO
+```{r chi2_test_h2-check}
+grade_code("Dorénavant, le détail du calcul à la main ne vous est plus utile. Il vous sert seulement dans un premier temps à comprendre la logique derrière le test. Vous pouvez directement utiliser `chisq.test()` en pratique.")
 ```
 
-## Les groupes sanguins
+Vérifiez que vous obtenez bien la même valeur que celle que vous aviez calculée à la main. La fonction `chisq.test()` permet une subtilité supplémentaire via la correction de continuité de Yates si vous indiquez `correct = TRUE`. *Il est conseillé d'utiliser cette correction en pratique et elle est activée par défaut, donc, si vous ne précisez pas `correct=` dans l'appel de `chisq.test()`.*
 
-L’étude s’intéresse aux groupes sainguins dans l’Iowa, le Missouri et la Floride
+```{r, echo=TRUE}
+(chi2. <- chisq.test(tabac_table, correct = TRUE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
+```
 
-```{r, fig.align='center', echo=FALSE, message=FALSE, , out.width= '80%'}
-usa <-map_data("state")
+## Groupes sanguins
+
+![](images/blood.jpg)
+
+Une étude de la distribution des différents groupes sanguins est réalisée dans trois états américains\ : Iowa en vert, Missouri en bleu et Floride en rouge sur la carte ci-dessous.
+
+```{r, fig.align='center', echo=FALSE, message=FALSE, out.width= '80%'}
+SciViews::R
+usa <- map_data("state")
 usa$region <- as.factor(usa$region)
 #usa$region
 #levels(usa$region)
@@ -213,87 +187,94 @@ usa$region <- as.factor(usa$region)
 library(cowplot)
 chart(usa, aes(long, lat, group = group)) +
   geom_polygon(fill = "white", colour = "black") +
-  geom_polygon(data = filter(usa, region== "florida"), aes(long, lat, group = group), fill = "red")+
-  geom_polygon(data = filter(usa, region== "missouri"), aes(long, lat, group = group), fill = "blue")+
-  geom_polygon(data = filter(usa, region== "iowa"), aes(long, lat, group = group), fill = "green")+
-  theme(axis.line = element_blank(), axis.title = element_blank(),axis.text = element_blank(), axis.ticks = element_blank()) +
+  geom_polygon(data = filter(usa, region == "florida"),
+    aes(long, lat, group = group), fill = "red") +
+  geom_polygon(data = filter(usa, region == "missouri"),
+    aes(long, lat, group = group), fill = "blue") +
+  geom_polygon(data = filter(usa, region == "iowa"),
+    aes(long, lat, group = group), fill = "green")+
+  theme(axis.line = element_blank(), axis.title = element_blank(),
+    axis.text = element_blank(), axis.ticks = element_blank()) +
   coord_quickmap()
-
 ```
 
-Les distributions des groupes sanguins sont-elles identiques dans les trois états étudiés ?
+Voici les résultats de cette étude sur un échantillon aléatoire de la population (notez l'utilisation de `xtabs()` ici en avant dernière ligne pour créer le tableau de contingence à double entrée à partir des fréquences et qui correspond au snippet `.ectable2f`)\ :
 
 ```{r, echo=TRUE}
-sang <- data.frame(groupe = c("A", "B", "AB", "O", "A", "B", "AB", "O", "A", "B", "AB", "O"),
-                   etat = c("Floride", "Floride", "Floride", "Floride", "Iowa", "Iowa", "Iowa", "Iowa", "Missouri", "Missouri", "Missouri", "Missouri"),
-                   freq = c(122, 117, 19, 244, 1781, 1351, 289, 3301, 353, 269, 60, 713))
-
-sang_table <- xtabs(freq ~ groupe + etat, data = sang)
-knitr::kable(sang_table)
+blood <- tibble::tibble(
+  group = c("A", "B", "AB", "O", "A", "B", "AB", "O", "A", "B", "AB", "O"),
+  state = c("Floride", "Floride", "Floride", "Floride",
+            "Iowa", "Iowa", "Iowa", "Iowa",
+            "Missouri", "Missouri", "Missouri", "Missouri"),
+  freq  = c(122, 117, 19, 244, 1781, 1351, 289, 3301, 353, 269, 60, 713))
+blood_table <- xtabs(data = blood, freq ~ group + state)
+knitr::kable(blood_table)
 ```
 
-Avant de réalisez votre $\chi^2$ d'indépendance avec R, déterminez le nombre de degré de liberte de votre $\chi^2$
+Les distributions des groupes sanguins sont-elles identiques dans les trois états étudiés\ ?
 
-```{r quiz4}
-question("Sur base du tableau de données ci-dessus, déterminez le nombre de degré de liberté de la distribution du $\\chi^2$ correspondante ",
-         answer("1"),
-         answer("2"),
-         answer("3"),
-         answer("4"), 
-         answer("6", correct = TRUE),
-         answer("12"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+Avant de réalisez votre test $\chi^2$ d'indépendance avec R, veuillez indiquer le nombre de degré de liberté de la distribution $\chi^2$ théorique associée.
+
+```{r qu_ddl}
+question("Nombre de degré de liberté de la distribution du $\\chi^2$.",
+  answer("1"),
+  answer("2"),
+  answer("3"),
+  answer("4"), 
+  answer("6", correct = TRUE),
+  answer("12"),
+  allow_retry = TRUE,
+  incorrect = "Recommencez afin de trouver la bonne réponse",
+  correct = "C'est correct ! Le nombre de degrés de libertés est le nombre de lignes moins une multiplié par le nombre de colonnes moins une du tableau de contingence à double entrée, soit ici (3-1) * (4-1) = 6.")
 ```
 
-Calculez le $\chi^2_{obs}$ avec R et via le snippet **.icchi2bi** qui renvoit ces instructions.
+Calculez le test $\chi^2$ d'indépendance dans R pour ce jeu de données directement avec la fonction `chisq.test()` considérant que le tableau de contingence est déjà créé dans R sous le nom `blood_table`.
 
-```{r, echo = TRUE, eval = FALSE}
+💬 **Ce code correspond au snippet `.hcchi2bi`.**
+
+```{r chi_blood_h2, exercise=TRUE}
+(chi2. <- chisq.test(___)); cat("Expected frequencies:\n"); chi2.[["expected"]]
+```
+
+```{r chi_blood_h2-hint-1}
 (chi2. <- chisq.test(TABLE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
-```{r chi4, exercise = TRUE}
-
+```{r chi_blood_h2-solution}
+(chi2. <- chisq.test(blood_table)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
-```{r chi4-solution}
-(chi2. <- chisq.test(sang_table)); cat("Expected frequencies:\n"); chi2.[["expected"]]
+```{r chi_blood_h2-check}
+grade_code("Le code est similaire au cas précédent. Pour rappel, ne pas spécifier `correct =` dans `chisq.test()` implique la valeur `TRUE` par défaut. Cependant la correction de Yates n'est disponible que pour un tableau 2x2. Donc, cela n'a pas d'effet ici.")
 ```
 
-```{r chi4-check}
-#TODO
-```
-
-```{r quiz5}
+```{r qu_interpretation2}
 quiz(
-  question("Si le seuil alpha de notre expérience est de 0.05, y a t'il dépendance ou indépendance des variables ?",
-           answer("Dépendance des varibles"),
-           answer("Indépendance des variables", correct = TRUE),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
-  question("Si le seuil alpha de notre expérience est de 0.05, rejettez vous $H_0$ ?",
-           answer("oui"),
-           answer("non", correct = TRUE),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+  question("Avec un seuil alpha de 5%, rejetez-vous $H_0$ ici ?",
+    answer("oui"),
+    answer("non", correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse",
+    correct = "C'est correct !"),
+  question("Toujours au seuil alpha de 5%, y-a-t'il dépendance ou indépendance des variables ?",
+    answer("Dépendance des varibles"),
+    answer("Indépendance des variables", correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse",
+    correct = "C'est correct ! Cela signifie que la distribution des groupes sanguins dans la population américaine ne diffère pas d'un état à l'autre de manière significative au seuil alpha de 5% (en tous cas pour ces 3 états-là).")
 )
 ```
 
-
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+A l'issue de cette série d'exercices, vous devriez être à l'aise avec l'utilisation de la distribution du $\chi^2$ et de ses tests d'hypothèse. Vous pouvez maintenant passer à des applications concrètes (assignation GitHub).
 
-Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utilisez un dièse (`#`) devant vos phrases.
-
-```{r comm, exercise=TRUE, exercise.lines = 8}
-# Ajout de commentaires 
-# ...
-```
-
-```{r comm-check}
-# Not yet...
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
 ```

@@ -39,7 +39,7 @@ Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-u
 
 ## Distribution Normale
 
-![](images/normal versus paranormal distribution.jpg)
+![](images/para_normal_distribution.jpg)
 
 La distribution Normale (ou Gaussienne) est appelée comme cela parce que c'est celle qui se rencontre le plus souvent. Elle s'observe à chaque fois que le résultat est la somme de petits effets aléatoires qui se combinent. Elle a une forme caractéristique, dite "en cloche".
 
@@ -102,7 +102,7 @@ Ajoutez maintenant le libellé de la distribution à côté de sa courbe sur le 
 text(.mu-.s, .d(.mu-.s), .label, pos = 2, col = .col) # Label at left
 ```
 
-💬 **Ce code correspond au snippet `.inllabel`.**
+💬 **Le code ajouté en dernière ligne après celui qui génère le graphique correspond au snippet `.inllabel`.**
 
 ```{r normal2_h2, exercise=TRUE, exercise.lines=12}
 # Normal distribution (density probability) with parameters:

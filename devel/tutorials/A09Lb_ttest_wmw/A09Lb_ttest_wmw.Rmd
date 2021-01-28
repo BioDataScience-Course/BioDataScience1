@@ -2,68 +2,42 @@
 title: "Student & Wilcoxon"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Les tests de Student et de Wilcoxon/Mann-Withney."
-output:
-  learnr::tutorial
 tutorial:
   id: "A09b_ttest_wmw"
-  version: 1.0.1
+  version: 2.0.0/11
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(knitr)
+BioDataScience1::learnr_setup()
 SciViews::R()
-
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
-tutorial_options(exercise.timelimit = 60)
-tutorial_options(exercise.cap = "Code R")
-knitr::opts_chunk$set(echo = FALSE, comment = NA)
-
-library(BioDataScience)
 ```
 
 ```{r, echo=FALSE}
-fixedRow(
-  column(9, div(
-    img(src = 'images/BioDataScience-128.png', align = "left"),
-    h1("Science des données biologiques"),
-    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
-  )),
-  column(3, div(
-    textInput("user", "Utilisateur :", ""),
-    textInput("email", "Email :", "")
-  ))
-)
-textOutput("user") # This is newer shown, but required to trigger an event!
-textOutput("email") # Idem!
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+BioDataScience1::learnr_server(input, output, session)
 ```
 
-## Préambule
-
-Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
-
-![](images/attention.jpg)
-
-> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
+----
 
 ## Objectifs
+
+Le test t de Student (ou plutôt les tests de Student puisqu’il en existe plusieurs variantes) utilise la distribution t de Student comme distribution de référence pour comparer une moyenne par rapport à une valeur cible ou pour comparer deux moyennes. 
 
 - Comprendre les différentes variantes du test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
 - Connaître également le test de Wilcoxon-Mann-Withney, et pouvoir déterminer quand l’utiliser à la place du test de Student
 
-## test de student
+## Efficacité du mCPP
 
-### mCPP
+![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Gerd Altmann</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Pixabay</a>](images/weight.jpg){width=50%}
 
 Vous avez à votre disposition un jeu de données dont la thématique est la perte de poids. Des chercheurs se sont intéressés à l’effet du mCPP sur l’appétit de 2 groupes de patients obèses. Un groupe va recevoir le comprimé contenant le mCPP et le second un comprimé placébo. Chaque patient est pesé au début et à la fin de l’expérience pour déterminer la variation de poids. Aidez les chercheurs a déterminer si le mCPP a un effet sur la perte de poids.
 
@@ -72,7 +46,7 @@ weight <- c(0.00, -1.10, -1.60, -0.30, -1.10, -0.90, -0.50, 0.70, -1.20,
            -1.10, 0.50, 0.50, 0.00, -0.50, 1.30, -1.40, 0.00, -0.80,
            -1.10, -1.30, -1.00, -1.70, -1.40, - 0.10, - 0.50, -1.60, 0.50,
            0.00, 0.30, -0.60, -0.30, 0.70, 0.20, -0.60, -0.90, 2.00)
-mcpp <- data_frame(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
+mcpp <- tibble(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
 
 mcpp$gender <- factor(mcpp$gender, levels = c("M", "F"))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
@@ -80,13 +54,12 @@ mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
 mcpp
 ```
 
-
 ```{r prepare_mcpp}
 weight <- c(0.00, -1.10, -1.60, -0.30, -1.10, -0.90, -0.50, 0.70, -1.20,
            -1.10, 0.50, 0.50, 0.00, -0.50, 1.30, -1.40, 0.00, -0.80,
            -1.10, -1.30, -1.00, -1.70, -1.40, - 0.10, - 0.50, -1.60, 0.50,
            0.00, 0.30, -0.60, -0.30, 0.70, 0.20, -0.60, -0.90, 2.00)
-mcpp <- data_frame(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
+mcpp <- tibble(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
 
 mcpp$gender <- factor(mcpp$gender, levels = c("M", "F"))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
@@ -98,29 +71,46 @@ Le jeu de données mcpp comprend 3 variables dont la variable facteur `treatment
 levels(mcpp$treatment)
 ```
 
-Représentez graphiquement la masse en fonction du traitement adiminstré.
+### Tableau résumé
 
-Le snippet pour réaliser une boite de dispersion est **.cbbox** et renvoit les instructions suivantes :
+Réalisez un résumé des données en fonction du traitement administré. Utilisez les éléments ci-dessous pour compléter les instructions R (les éléments peuvent être employé plusieurs fois).
 
-```{r, echo = TRUE, eval=FALSE}
-chart(data = DF, YNUM ~ XFACTOR) +
-  geom_boxplot()
+```{r}
+variable <- c("mcpp", "treatment", "weight", "group_by", "summarise", "mean", "sd")
+sample(variable)
 ```
 
-```{r mcpp_boxplot, exercise = TRUE, exercise.setup = "prepare_mcpp" }
-
+```{r mcpp_tab_h2, exercise = TRUE, exercise.setup = "prepare_mcpp"}
+___ %>.%
+  ___(., ) %>.%
+  ___(., mean = ___(___), sd = ___(___), n = n())
 ```
 
-```{r mcpp_boxplot-solution}
-chart(data = mcpp, weight ~ treatment) +
-  geom_boxplot()
+```{r mcpp_tab_h2-hint-1}
+mcpp %>.% 
+  group_by(., ___) %>.%
+  summarise(., mean = ___(___), sd = ___(___), n = n())
+#### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r mcpp_boxplot-check}
-#TODO
+```{r mcpp_tab_h2-solution}
+mcpp %>.% 
+  group_by(., treatment) %>.%
+  summarise(., mean = mean(weight), sd = sd(weight), n = n())
 ```
 
-Le test de student a plusieurs conditions d'application que vous devez à chaque fois évaluer 
+```{r mcpp_tab_h2-check}
+grade_code("Bien joué ! Vous avez réalisé le tableau souhaité avec les éléments qui vous sont proposés.", "Oups, il semble que vous n'avez pas obtenu le bon résulat. Relisez attentivemetn les éléments mis à votre disposition pour compléter les instructions.")
+```
+
+### Test de Student
+
+Réalisez à présent un test de Student pour comparer ces deux moyennes. Avant de vous lancer dans l'exécution d'un test, N'oubliez pas de les étapes suivantes :
+
+- vérifier si le test répond à votre question de recherche 
+- vérifier les conditions d'applications du test
+
+Pour rappel, les conditions sont les suivantes :
 
 - échantillon représentatif (échantillonnage aléatoire et individus indépendants les uns des autres),
 - observations indépendantes les unes des autres,
@@ -129,9 +119,7 @@ Le test de student a plusieurs conditions d'application que vous devez à chaque
     + approximativement normale, le test sera approximativement exact,
     + non normale, le test sera approximativement exact si n est grand.
 
-Réalisez un test de student afin d'aider les scientifiques dans cette étude en vous assurant de la validité des conditions d'applications 
-
-Le snippet pour réaliser un test de student d'indépendance est **.hmtestindep** et renvoit les instructions suivantes :
+💬 **Le code proposé ci-dessous correspond au snippet `.hmtestindep`**
 
 ```{r, echo = TRUE, eval = FALSE}
 t.test(data = DF, YNUM ~ XFACTOR,
@@ -151,19 +139,29 @@ Attardez vous d'abord sur la compréhension de chacun des arguments de la foncti
 
 **Lorsque les observations sont peu nombreuses (moins de 30 observations par groupe), il est conseillé d'employé le test de Welch qui est une variante du test de student lorsque la variance est considérée comme non homogènes (var.equal = FALSE)**
 
-```{r ttest, exercise = TRUE, exercise.setup = "prepare_mcpp"}
+Réalisez une test de welch unilatéral à gauche avec un seuil $\alpha$ de 5% afin d'aider les scienifiques.
 
+```{r mcpp_ttest_h2, exercise = TRUE, exercise.setup = "prepare_mcpp"}
+t.test(data = ___, ___ ~ ___,
+  alternative = "___", conf.level = ___, var.equal = ___)
 ```
 
+```{r mcpp_ttest_h2-hint-1}
+t.test(data = mcpp, weight ~ treatment,
+  alternative = "___", conf.level = ___, var.equal = ___)
+#### ATTENTION: Hint suivant = solution !####
+```
 
-```{r ttest-solution}
+```{r mcpp_ttest_h2-solution}
 t.test(data = mcpp, weight ~ treatment,
   alternative = "greater", conf.level = 0.95, var.equal = FALSE)
 ```
 
-```{r ttest-check}
-#TODO
+```{r mcpp_ttest_h2-check}
+grade_code("Bien joué ! Vous avez réaliser un test de Welch avec les arguments souhaités.", "Oups, il semble que vous n'avez pas obtenu le bon résulats. Relisez avec attention la question et identifiez chaque valeur pour chaque argument à completer.")
 ```
+
+Analysez le tableau des résultats et répondez aux questions ci-dessous.
 
 ```{r quiz}
 quiz(
@@ -171,25 +169,30 @@ quiz(
            answer("oui", correct = TRUE),
            answer("non"),
            allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
+           incorrect = "Ce n'est pas la bonne réponse. Vous devez comparer la valeur de p au seuil $\alpha$  défini avant de réaliser le test pour trouver la bonne réponse à cette question.",
+           correct = "Bravo, c'est correct. Vous avez bien interprété votre test."),
   question("Rejettez vous $H_0$ ?",
            answer("oui", correct = TRUE),
            answer("non"),
            allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+           incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur de p au seuil $\alpha$  défini avant de réaliser le test.",
+           correct = "Bravo, c'est correct. Vous ne rejettez pas le $H_0$ au seuil $\alpha$ de 0.05")
 )
 ```
 
-### Dopamine
 
-Ce neurotransmetteur a un effet sur la motivation, la curiosité (augmentation de la fréquence cardiaque,...) Une baisse de la dopamine peut être mise en corrélation avec la dépression, la phobie sociale,...Un taux anormalement haut de dopamine peut être mis en corrélation avec les addictions, la schizophrénie,...
+## Dopamine
 
-Le toluène est une molécule organique très employée dans un ensemble de procédés chimiques. Ce composant affecte premièrement le système nerveux central. Les chercheurs ont étudié l’effet de ce dernier sur des rats. Ils ont dosé la dopamine comme indicateur de l’état de santé des rats. Le toluène a t’il donc un effet sur la concentration en dopamine dans le cerveau ? Sur 12 rats étudiés, 6 sont exposés au toluène et 6 sont utilisés comme contrôle.
+![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Gerd Altmann</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Pixabay</a>](images/motivation.jpg){width=50%}
+
+La dopamine est un neurotransmetteur qui a un effet sur la motivation, la curiosité (augmentation de la fréquence cardiaque,...). Une baisse de la dopamine peut être mise en corrélation avec la dépression, la phobie sociale,... Un taux anormalement haut de dopamine peut être mis en corrélation avec les addictions, la schizophrénie,...
+
+Le toluène est une molécule organique très employée dans un ensemble de procédés chimiques. Ce composant affecte le système nerveux central. Les chercheurs ont étudié l’effet de ce dernier sur des rats. Ils ont dosé la dopamine comme indicateur de l’état de santé des rats. 
+
+Le toluène a t’il donc un effet sur la concentration en dopamine dans le cerveau ? Sur 12 rats étudiés, 6 sont exposés au toluène et 6 sont utilisés comme contrôle.
 
 ```{r, echo = TRUE}
-dopamine <- data_frame(treatment = rep(c("Cont", "Tol"), each = 6), 
+dopamine <- tibble(treatment = rep(c("Cont", "Tol"), each = 6), 
                       concentration = c(1.820, 1.843, 1.397, 1.803, 2.539, 
                                         1.990, 3.420, 2.314, 1.911, 2.464, 
                                         2.781, 2.803))
@@ -198,7 +201,7 @@ dopamine
 ```
 
 ```{r prepare_toluene, echo = TRUE}
-dopamine <- data_frame(treatment = rep(c("Cont", "Tol"), each = 6), 
+dopamine <- tibble(treatment = rep(c("Cont", "Tol"), each = 6), 
                       concentration = c(1.820, 1.843, 1.397, 1.803, 2.539, 
                                         1.990, 3.420, 2.314, 1.911, 2.464, 
                                         2.781, 2.803))
@@ -211,151 +214,97 @@ Le jeu de données dopamine comprend 2 variables dont la variable facteur `treat
 levels(dopamine$treatment)
 ```
 
-Réalisez un résumé des données en fonction du traitement administré. 
+### Description graphique 
 
-```{r}
-variable <- c("dopamine", "treatment", "concentration", "group_by()", "summarise", "mean", "sd", "%>.%")
-sample(variable)
+Représentez graphiquement la concentration en dopamine en fonction du traitement administré à l'aide de boites de dispersion.
+
+```{r tolu_plot_h3, exercise = TRUE, exercise.setup = "prepare_toluene"}
+chart(data = ___, ___ ~ ___) +
+  geom____()
 ```
 
-```{r toluene, exercise = TRUE, exercise.setup = "prepare_toluene"}
-
+```{r tolu_plot_h3-hint-1}
+# Pour réaliser des boites de dispersion la fonction geom_boxplot()
+# Si vous avez des doutes sur votre compréhension des boites de dispersion, 
+# relisez le module 3 de sdd1
+chart(data = ___, ___ ~ ___) +
+  geom_boxplot()
 ```
 
-```{r toluene-solution}
-dopamine %>.% 
-  group_by(., treatment) %>.%
-  summarise(., mean = mean(concentration), sd = sd(concentration))
+```{r tolu_plot_h3-hint-2}
+chart(data = dopamine, ___ ~ ___) +
+  geom_boxplot()
+#### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r toluene-check}
-#TODO
+```{r tolu_plot_h3-solution}
+chart(data = dopamine, concentration ~ treatment) +
+  geom_boxplot()
 ```
 
-Réalisez un test de student afin de mettre en avant l'effet du toluène sur la concentration en dopamine.
-
-Le snippet pour réaliser un test de student d'indépendance est **.hmtestindep** et renvoit les instructions suivantes :
-
-```{r, echo = TRUE, eval = FALSE}
-t.test(data = DF, YNUM ~ XFACTOR,
-  alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
+```{r tolu_plot_h3-check}
+grade_code("Bien joué ! Vous avez proposé le graphique correct.", "Oups, il semble que vous n'avez pas obtenu le bon graphique. N'hésitez pas à jeter un coup d'oeil aux indices.")
 ```
 
-```{r toluene1, exercise = TRUE, exercise.setup = "prepare_toluene"}
+### Test de Wilcoxon-Mahn-Withney
 
-```
+Lorsque que vos observations ne sont **peu nombreuses** et/ou que ces dernières ne suivent **pas une distribution normal** vous pouvez faire le choix de réaliser une version non-paramétrique du test de student. Il s'agit du test de Wilcoxon-Mahn-Withney.
 
-```{r toluene1-solution}
-t.test(data = dopamine, concentration ~ treatment,
-  alternative = "two.sided", conf.level = 0.95, var.equal = FALSE)
-```
 
-```{r toluene1-check}
-#TODO
-```
-
-```{r quiz1}
-quiz(
-  question("Est ce que le toluene réduit la concentration en dopamine par rapport au controle ?",
-           answer("oui"),
-           answer("non", correct = TRUE),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
-  question("Rejettez vous $H_0$ ?",
-           answer("oui", correct = TRUE),
-           answer("non"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
-)
-```
-
-## Test de Wilcoxon-Mahn-Withney
-
-Lorsque que vos observations ne sont **peu nombreuses** et que ces dernières ne suivent **pas une distribution normal** vous pouvez faire le choix de réaliser une version non-paramétrique du test de student. Il s'agit du test de Wilcoxon-Mahn-Withney.
-
-Réalisez le test de Wilcoxon-Mahn-Withney sur les données lié à la perte de poids 
-
-```{r}
-mcpp
-```
-
-Le snippet pour réaliser un test de student d'indépendance est **.hnwilkindep** et renvoit les instructions suivantes :
+💬 **Le code proposé ci-dessous correspond au snippet `.hnwilkindep`**
 
 ```{r, echo = TRUE, eval=FALSE}
 wilcox.test(data = DF, YNUM ~ XFACTOR,
   alternative = "two.sided", conf.level = 0.95)
 ```
 
-Vous pouvez obsever que la structure de la fonction wilcox.test() est similaire à t-test().
+Comme vous pouvez vous en apercevoir l'instruction est assez similaire à la fonction t.test(). Le test de Wilcoxon-Mahn-Withney est la variante non paramétrique du test de Student. 
 
-```{r wmw, exercise = TRUE, exercise.setup = "prepare_mcpp" }
+Réalisez le test de Wilcoxon-Mahn-Withney bilatéral au seuil alpha de 0.05 sur les données liées à la concentration en dopamine 
 
+```{r tolu_wmw_h2, exercise = TRUE, exercise.setup = "prepare_toluene"}
+wilcox.test(data = ___, ___ ~ ___,
+  alternative = "___", conf.level = ___)
 ```
 
-```{r wmw-solution}
-wilcox.test(data = mcpp, weight ~ treatment,
-  alternative = "greater", conf.level = 0.95)
-```
-
-```{r wmw-check}
-#TODO
-```
-
-```{r quiz3}
-quiz(
-  question("Est ce que le mCPP a un effet sur la perte de poids ?",
-           answer("oui", correct = TRUE),
-           answer("non"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
-  question("Rejettez vous $H_0$ ?",
-           answer("oui", correct = TRUE),
-           answer("non"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
-  question("est ce que vos résultats sont similaires à ceux obtenus avec le test de student",
-           answer("oui", correct = TRUE),
-           answer("non"),
-           allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
-)
-```
-
-
-Réalisez le test de Wilcoxon-Mahn-Withney sur les données lié à la concentration en dopamine 
-
-```{r}
-dopamine
-```
-
-Le snippet pour réaliser un test de student d'indépendance est **.hnwilkindep** et renvoit les instructions suivantes :
-
-```{r, echo = TRUE, eval=FALSE}
-wilcox.test(data = DF, YNUM ~ XFACTOR,
+```{r tolu_wmw_h2-hint-1}
+wilcox.test(data = ___, ___ ~ ___,
   alternative = "two.sided", conf.level = 0.95)
 ```
 
-```{r wmw1, exercise = TRUE, exercise.setup = "prepare_toluene"}
-
-```
-
-```{r wmw1-solution}
+```{r tolu_wmw_h2-solution}
 wilcox.test(data = dopamine, concentration ~ treatment,
   alternative = "two.sided", conf.level = 0.95)
 ```
 
-```{r wmw1-check}
-#TODO
+```{r tolu_wmw_h2-check}
+grade_code("Bien joué ! Vous avez proposé le bon test.", "Oups, il semble que vous n'avez pas obtenu le bon résultat. N'hésitez pas à jeter un coup d'oeil aux indices.")
 ```
 
-## Puissance d'un test
+Répondez aux questions ci-dessous en analysant les résultats du test de Wilcoxon-Mahn-Withney.
 
-```{r quiz4}
+```{r tolu_quiz}
+quiz(
+  question("Est ce que le concentration en dopamine est similaire entre le groupe contrôle et le groupe mis en contact avec le toluène ?",
+           answer("oui"),
+           answer("non", correct = TRUE),
+           allow_retry = TRUE,
+           incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur de p au seuil $\alpha$  défini avant de réaliser le test.",
+           correct = "Bravo, c'est correct. Vous ne rejettez pas le $H_0$ au seuil $\alpha$ de 0.05"),
+  question("Rejettez vous $H_0$ ?",
+           answer("oui", correct = TRUE),
+           answer("non"),
+           allow_retry = TRUE,
+           incorrect = "Recommencez afin de trouver la bonne réponse",
+           correct = "Bravo, c'est correct")
+)
+```
+
+
+## Puissance d'un test d'hypothèse
+
+
+```{r puissance_quiz}
 quiz(
   question("Rejetter $H_0$ lorsque $H_0$ est vraie est :",
          answer("correct"),
@@ -384,15 +333,15 @@ quiz(
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+Bravo\ ! Vous venez de vérifier votre bonne compréhension du test de Student et du test de Wilcoxon-Mahn-Withney. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de progresser dans la matière.
 
-Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utilisez un dièse (`#`) devant vos phrases.
-
-```{r comm, exercise=TRUE, exercise.lines = 8}
-# Ajout de commentaires 
-# ...
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
 ```
 
-```{r comm-check}
-# Not yet...
-```

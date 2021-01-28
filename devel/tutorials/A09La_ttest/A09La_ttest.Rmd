@@ -11,6 +11,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 ---
+
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
@@ -28,11 +29,11 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-- Découvrir la distribution *t* de Student
+La moyenne est un descripteur très employé pour résumer l'information. Il est très courant de comparer un moyenne à une valeurs de référence ou deux moyennes ensembles. Dans votre carrière scientifique, il est indispensable de maîtriser la moyenne et ses subtilités.
 
-- Comprendre le principe de la distribution d'un échantillon
+- Savoir calculer la moyenne, l'écart-type ou encore la variance
 
-- Appréhender l'intervalle de confiance, savoir le calculer et l'utiliser
+- Appréhender l’intervalle de confiance, savoir le calculer et l'utiliser
 
 - Comprendre les différentes variantes du test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
@@ -61,8 +62,8 @@ question("Calculez la moyenne sur la série de nombre ci-dessus",
          answer(sprintf("%.2f", (sum(var)/2))),
          allow_retry = TRUE,
          random_answer_order = TRUE,
-         incorrect = "Recommencez afin de trouver la bonne réponse",
-         correct = "Bravo, c'est correct")
+         incorrect = "Oups, vous avez commis une erreur. Relisez avec attention la formule proposée ci-dessus.",
+         correct = "Bravo, c'est correct ! Vous savez calculer une moyenne.")
 ```
 
 ### Moyenne du vecteur `vec`
@@ -94,7 +95,8 @@ mean(vec)
 
 ```{r mean1_h2-check}
 grade_result(
-  pass_if(~ identical(.result, mean(vec)), "Bien joué !")
+  pass_if(~ identical(.result, mean(vec)), "Bien joué ! La fonction mean() est la bonne fonction."),
+  fail_if(~ TRUE, "Votre calcul n'est pas le bon. Retentez votre chance. Réfléchissez à la bonne fonction à employer.")
 )
 ```
 
@@ -134,7 +136,8 @@ mean(vec, na.rm = TRUE)
 
 ```{r mean2_h3-check}
 grade_result(
-  pass_if(~ identical(.result, mean(vec2, na.rm = TRUE)), "Bien joué !")
+  pass_if(~ identical(.result, mean(vec2, na.rm = TRUE)), "Bien joué ! La fonction mean() est la bonne idée. La petite suptilité est sur l'utilisation de l'argument na.rm = TRUE."),
+  fail_if(~ TRUE, "La bonne idée est d'employer la fonction mean(). Il y a une astuce avec les arguments à employer.")
 )
 ```
 
@@ -175,7 +178,8 @@ sd(vec3)
 
 ```{r sd1_h2-check}
 grade_result(
-  pass_if(~ identical(.result, sd(vec3)), "Bien joué !")
+  pass_if(~ identical(.result, sd(vec3)), "Bien joué ! La fonction sd() est la fonction pour calculer l'écart-type."),
+  fail_if(~ TRUE, "Votre calcul n'est pas le bon. Retentez votre chance. Il semble que vous n'avez pas utilisé la bonne fonction.")
 )
 ```
 
@@ -211,21 +215,25 @@ sd(vec3)/mean(vec3)*100
 
 ```{r cv1_h2-check}
 grade_result(
-  pass_if(~ identical(.result, (sd(vec3)/mean(vec3))*100), "Bien joué !")
+  pass_if(~ identical(.result, (sd(vec3)/mean(vec3))*100), "Bien joué ! Vous avez judicieusement utilisé la moyenne et l'écart-type pour obtenir le coefficient de variation."),
+  fail_if(~ TRUE, "Votre calcul n'est pas le bon. Commencez par déterminer la moyenne et l'écart-type de ce vecteur. N'oubliez pas de multiplier votre réponse par 100.")
 )
 ```
 
+## Croissance des dents de deux groupes de cochons d'Inde
 
 ### Tableau résumé
+
+![Image par <a href="https://pixabay.com/fr/users/vantagepointfl-55562/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=242520">Vantage Point Graphics</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=242520">Pixabay</a>](images/guinea-pig.jpg){width=50%}
 
 En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d'Inde, reproduisez le tableau ci-dessous.
 
 ```{r}
 # Importation du jeu de données ToothGrowth
 tooth_growth <- read("ToothGrowth", package = "datasets")
-
+# Résumé des données
 tooth_growth %>.%
-  group_by(., supp, dose) %>.%
+  group_by(., dose, supp) %>.%
   summarise(., mean = mean(len), sd = sd(len), n = n())
 ```
 
@@ -234,12 +242,14 @@ Le tableau de données comprend les variables suivantes : `r colnames(tooth_grow
 ```{r, echo = TRUE}
 # Importation du jeu de données ToothGrowth
 tooth_growth <- read("ToothGrowth", package = "datasets")
+# Premières lignes du tableau
+head(tooth_growth)
 ```
 
 ```{r tab_h2, exercise = TRUE}
 # Importation du jeu de données ToothGrowth
 tooth_growth <- read("ToothGrowth", package = "datasets")
-# Tableau
+# Résumé du tableau
 tooth_growth %>.%
   ___(., dose,___) %>.%
   summarise(., mean = ___(___), ___ = sd(___), n = n())
@@ -264,12 +274,12 @@ tooth_growth %>.%
 ```
 
 ```{r tab_h2-check}
-grade_code("Bien joué !")
+grade_code("Bien joué ! Vous avez proposé un tableau résumant l'information sur la longueur des dents en fonction des doses et des suppléments.", "Analysez avec attention le tableau que vous devez obtenir. Quelle est la variable dont vous devez déterminer la moyenne et l'écart-type ?")
 ```
 
-## Test de Student
+### Test de Student
 
-Déterminez si la croissance des dents de cochons d'inde est similaire au seuil $\alpha$ de 0.05% lors de l'utilisation du supplément jus d'orange (OJ) par rapport au supplément vitamine C (VC). Utilisez un test t de Student bilatéral et de variance similaire.
+Déterminez si la croissance des dents de cochons d'inde est similaire au seuil $\alpha$ de 0.05 lors de l'utilisation du supplément jus d'orange (OJ) par rapport au supplément vitamine C (VC). Utilisez un test t de Student bilatéral et de variance similaire.
 
 En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d'Inde, reproduisez le tableau ci-dessous.
 
@@ -283,38 +293,56 @@ Le tableau de données comprend les variables suivantes : `r colnames(tooth_grow
 ```{r toothgrowth}
 # Importation du jeu de données ToothGrowth
 (tooth_growth <- read("ToothGrowth", package = "datasets"))
+# Premières lignes du tableau
+head(tooth_growth)
 ```
 
-💬 **Un snippet peut vous aider à réaliser cet exercice.**
+💬 **Un snippet peut vous aider à réaliser cet exercice `.hmtestindep`.**
 
-```{r ttest, exercise = TRUE, exercise.setup = "toothgrowth"}
+```{r ttest_h2, exercise = TRUE, exercise.setup = "toothgrowth"}
+.hm
+# Importation du jeu de données ToothGrowth
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# Test de Student
 t.test(data = ___, ___ ~ ___,
   alternative = ___, conf.level = ___, var.equal = TRUE)
 ```
 
-```{r ttest-solution}
+```{r ttest_h2-hint-1}
+# Importation du jeu de données ToothGrowth
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# Test de Student
+t.test(data = ___, ___ ~ ___,
+  alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r ttest_h2-solution}
+# Importation du jeu de données ToothGrowth
+tooth_growth <- read("ToothGrowth", package = "datasets")
+# Test de Student
 t.test(data = tooth_growth, len ~ supp,
   alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
 ```
 
-```{r ttest-check}
-grade_code("Bien joué !")
+```{r ttest_h2-check}
+grade_code("Bien joué ! Vous avez su compléter la fonction t.test().", "Ce n'est pas la bonne réponse. Relis avec attention l'énoncé et complète les éléments manquants dans cette fonction.")
 ```
 
-```{r quiz6}
+```{r ttest_quiz}
 quiz(
   question("Est ce que la croissance des dents de cochons d'Inde est similaire ?",
            answer("oui", correct = TRUE),
            answer("non"),
            allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct"),
+           incorrect = "Ce n'est pas la bonne réponse. Vous devez comparer la valeur de p au seuil $\alpha$  défini avant de réaliser le test pour trouver la bonne réponse à cette question.",
+           correct = "Bravo, c'est correct. Vous avez bien interprété votre test."),
   question("Rejettez vous $H_0$ ?",
            answer("oui"),
            answer("non", correct = TRUE),
            allow_retry = TRUE,
-           incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+           incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0*, il faut comparer la valeur de p au seuil $\alpha$  défini avant de réaliser le test.",
+           correct = "Bravo, c'est correct. Vous ne rejettez pas le $H_0$ au seuil $\alpha$ de 0.05")
 )
 ```
 

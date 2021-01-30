@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 7** Calcul de probabilités."
 tutorial:
   id: "A07La_proba"
-  version: 2.0.0/10
+  version: 2.1.0/6
 output:
   learnr::tutorial:
     progressive: true
@@ -39,45 +39,7 @@ Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours
 
 Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
-## Lire des probabilités
 
-![](images/formalism.jpg)
-
-Le calcul des probabilité est assorti d'un formalisme mathématique qu'il vous faut maîtriser. Les questions suivantes vous permettent de vérifier que vous le comprenez bien.
-
-```{r qu_formalism}
-quiz(
-  question("Comment lire la proposition suivante : Pr{A.B} ?",
-    answer("Probabilité d'observer A ou B"),
-    answer("Probabilité d'observer A et B", correct = TRUE, message = "Probabilité d'évènements successifs indépendants qui se produisent simultanément"),
-    answer("Probabilité d'observer A si B se produit"),
-    allow_retry = TRUE, random_answer_order = TRUE,
-    incorrect = "Pas exactement. Recommencez afin de trouver la bonne réponse.",
-    correct = "C'est correct !"),
-  question("Comment lire la proposition suivante : Pr{A|B} ?",
-    answer("Probabilité d'observer A ou B"),
-    answer("Probabilité d'observer A et B"),
-    answer("Probabilité d'observer A si B se produit", correct = TRUE, message = "Ici, nous avons une probabilité conditionnelle que A se produise, sachant que B s'est produit"),
-    allow_retry = TRUE, random_answer_order = TRUE,
-    incorrect = "Désolé, mais ce n'est pas correct. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
-  question("Comment lire la proposition suivante : Pr{A + B} ?",
-    answer("Probabilité d'avoir A ou B", correct = TRUE, message = "En calcul de probabilité, l'addition signifie que l'on considère la probabilité que l'un parmi plusieurs évènements disjoints se produise"),
-    answer("Probabilité d'avoir A et B"),
-    answer("Probabilité d'avoir A si B se produit"),
-    allow_retry = TRUE, random_answer_order = TRUE,
-    incorrect = "Concentrez-vous sur ce que l'opérateur '+' signifie en calcul des probabilités. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
-  question("Comment écrira-t-on la probabilité d'obtenir quatre mâles Pr{M} dans une portée de quatre châtons ?",
-    answer("Pr{M . M . M . M}", correct = TRUE),
-    answer("Pr{M et M et M et M}", correct = TRUE),
-    answer("Pr{M + M + M + M}" ),
-    answer("Pr{M ou M ou M ou M}"),
-    allow_retry = TRUE, random_answer_order = TRUE,
-    incorrect = "Est-ce des évènements successifs indépendants ou des évènements dépendants, réfléchissez. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct ! Le '.' est synonyme ici de 'et' et concerne des évènements indépendants successifs.")
-)
-```
 
 ## Calculer des probabilités
 

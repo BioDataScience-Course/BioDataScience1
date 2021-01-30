@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.4.4
+
+- A07La_proba removed 4 multiple-choice exercises. 
+
 ## Changes in version 2020.4.3
 
 - Old tutorials and Shiny apps that still need to be reworked are moved to the devel/ directory.

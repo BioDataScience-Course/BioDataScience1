@@ -1,0 +1,106 @@
+---
+title: "Avis SDD I"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I** Vos commentaires et suggestions..."
+tutorial:
+  id: "A99La_avis"
+  version: 2.0.0/0
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+----
+
+## Donnez-nous votre avis sur SDD I...
+
+Ceci est un bref formulaire visant à améliorer le cours de science des données. Donnez-nous vos impressions positives et négatives. Soyez concis et constructif\ ! Vous pouvez aussi nous donner une note sur 20 si vous le souhaitez.
+
+```{r feedback_topic_noscore}
+question("Quelle partie du cours évaluez-vous ?",
+  answer("Module 1 : Introduction", correct = TRUE),
+  answer("Module 2 : Visualisation I", correct = TRUE),
+  answer("Module 3 : Visualisation II", correct = TRUE),
+  answer("Module 4 : Visualisation III", correct = TRUE),
+  answer("Module 5 : Traitement des données I", correct = TRUE),
+  answer("Module 6 : Traitement des données II", correct = TRUE),
+  answer("**AA visualisation (Q1, modules 1-6)**", correct = TRUE),
+  answer("Module 7 : Probabilités & Distributions", correct = TRUE),
+  answer("Module 8 : Test Chi carré", correct = TRUE),
+  answer("Module 9 : Moyenne", correct = TRUE),
+  answer("Module 10 : Variance I", correct = TRUE),
+  answer("Module 11 : Variance II", correct = TRUE),
+  answer("Module 12 : Corrélation", correct = TRUE),
+  answer("**AA inférence (Q2, modules 7-12)**", correct = TRUE),
+  answer("**Tout le cours**", correct = TRUE),
+  allow_retry = TRUE,
+  type = "single", correct = "OK, indiquez maintenant vous commentaires relatifs à cette partie ci-dessous.")
+```
+
+```{r feedback_plus_noscore, echo=FALSE}
+question_text(
+  "Indiquez un ou plusieurs aspects positifs",
+  answer("", TRUE, message = "Pas de commentaire... N'y a t'il aucun point positif dans le cours, vraiment ?"),
+  incorrect = "Votre avis est enregistré, merci.",
+  placeholder = "Entrez vos suggestions ici...",
+  allow_retry = TRUE
+)
+```
+
+```{r feedback_minus_noscore, echo=FALSE}
+question_text(
+  "Indiquez un ou plusieurs aspects négatifs",
+  answer("", TRUE, message = "Pas de commentaire... N'y a t'il vraiment aucun aspect négatif dans le cours, nous en doutons !"),
+  incorrect = "Votre avis est enregistré.",
+  placeholder = "Entrez vos suggestions ici...",
+  allow_retry = TRUE
+)
+```
+
+```{r feedback_note_noscore, echo=FALSE}
+question_text(
+  "Votre note sur 20",
+  answer("", FALSE, message = "Pas de note... Tant pis !"),
+  answer("0", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("1", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("2", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("3", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("4", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("5", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("6", FALSE, message = "Votre note est enregistrée, mais vous n'êtes pas très généreux !"),
+  answer("7", FALSE, message = "Votre note est enregistrée, ce cours ne vous plait visiblement pas !"),
+  answer("8", FALSE, message = "Votre note est enregistrée, ce cours ne vous plait visiblement pas !"),
+  answer("9", FALSE, message = "Votre note est enregistrée, ce cours ne vous plait visiblement pas !"),
+  answer("10", FALSE, message = "Votre note est enregistrée, tout juste la moyenne ? Quelle sévérité !"),
+  answer("11", FALSE, message = "Votre note est enregistrée, pas terrible comme résultat."),
+  answer("12", FALSE, message = "Votre note est enregistrée, pas terrible comme résultat."),
+  answer("13", FALSE, message = "Votre note est enregistrée, pas terrible comme résultat."),
+  answer("14", FALSE, message = "Votre note est enregistrée, c'est pas trop mal comme résultat."),
+  answer("15", FALSE, message = "Votre note est enregistrée, c'est pas trop mal comme résultat."),
+  answer("16", FALSE, message = "Votre note est enregistrée, un bon score, nous sommes contents."),
+  answer("17", FALSE, message = "Votre note est enregistrée, un bon score, nous sommes contents."),
+  answer("18", FALSE, message = "Votre note est enregistrée, un excellent score, merci : nous avons travaillé dur pour cela."),
+  answer("19", FALSE, message = "Votre note est enregistrée, un excellent score, merci : nous avons travaillé dur pour cela."),
+  answer("20", FALSE, message = "Votre note est enregistrée, 20/20 ? C'est très généreux !"),
+  answer("Impr0bab1e answ3r", TRUE, "Non ? Vous avez vraiement trouvé ça tout seul ?"),
+  incorrect = NULL,
+  placeholder = "Entrez vos points /20 ici (sans décimale)...",
+  allow_retry = TRUE, trim = TRUE
+)
+```
+
+*Merci d'avoir pris le temps de remplir ce formulaire.*

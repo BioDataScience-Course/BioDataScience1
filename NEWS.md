@@ -1,5 +1,8 @@
 # BioDataScience1 News
 
+## Changes in version 2020.5.0
+
+- "Tutorial" A99La_avis added to get a quick feedback from the students.
 
 ## Changes in version 2020.4.3
 

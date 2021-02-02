@@ -1,0 +1,212 @@
+---
+title: "Débriefing du Q1"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 7** Débriefing du cours **Science des données I : visualisation**"
+tutorial:
+  id: "A07L._debrief_q1"
+  version: 2.0.0/12
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+----
+
+## Objectifs
+
+Vous venez de terminer le cours **Science des données I : visualisation** donné au Q1. Vous débutez à présent le cours **Science des données I : inférence** au Q2.
+
+Il faut tout d'abord commencer par quelques félicitations. Bravo à tous pour votre progression fulgurante. 
+
+![[Victoire](Image par <a href="https://pixabay.com/fr/users/startupstockphotos-690514/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">StartupStockPhotos</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=593313">Pixabay</a>) ](images/children_win.jpg){width='80%'}
+
+- Ce que vous avez appris : 
+
+Vous avez acquis les compétences nécessaires à la réalisation de graphiques cohérent. Vous êtes également capable de les interpréter. Les graphiques en barres, les boites de dispersions, les nuages de points n'ont plus de secret pour vous.
+
+Ce n'est pas tout, vous avez acquis des compétences techniques impressionnantes. Il y a quelques semaines vous ne connaissiez ni R, ni RStudio, ni GitHub, ni le markdown,... La liste des compétences que vous avez apprise est très très longue. **Ne doutez plus de vous ! Ce que vous êtes capable de réaliser, peu de biologistes le peuvent.**
+
+- Ce qu'il vous reste à apprendre : 
+
+Il vous reste plein de graphiques, de techniques et d'analyses surprenantes à découvrir. N'ayez pas d'inquiétudes. Nous allons continuer ensemble à découvrir tout cela. 
+
+Afin d'améliorer la qualité de la formation, pouvez vous répondre aux quelques questions suivantes. Nous utiliserons vos réponses pour réaliser un débriefing avec vous.
+
+## Perception de vos compétences
+
+Débutons d'abord par s'intéresser à votre ressenti concernant les compétences que vous avez apprises.
+
+### Moyenne individuelle
+
+Selon vous, quelle est votre note pour ce cours ? Indiquez une note comprise entre 0 et 20 et soumettez votre résultat.
+
+```{r ind_mean, exercise = TRUE}
+
+```
+
+```{r ind_mean-check}
+grade_result(
+  pass_if(~ is.numeric(.result) && .result >= 0 && .result <= 20, "Votre réponse à bien été enregistrée"),
+  fail_if(~ TRUE, "Oups, votre résultats n'est pas valable. Votre réponse doit être une valeur numérique comprise entre 0 et 20.")
+)
+```
+
+### Moyenne générale
+
+Selon vous, quelle est la moyenne générale de votre promotion pour ce cours ? Indiquez une note comprise entre 0 et 20 et soumettez votre résultat.
+
+```{r global_mean, exercise = TRUE}
+
+```
+
+```{r global_mean-check}
+grade_result(
+  pass_if(~ is.numeric(.result) && .result >= 0 && .result <= 20, "Votre réponse à bien été enregistrée"),
+  fail_if(~ TRUE, "Oups, votre résultats n'est pas valable. Votre réponse doit être une valeur numérique comprise entre 0 et 20.")
+)
+```
+
+
+## Avis général
+
+Nous vous avons évalué pour ce cours. C'est maintenant à vous de nous évaluer ! 
+
+### Points positifs
+
+```{r posi_point, echo=FALSE}
+question_text(
+  "Citez un point positif de ce cours",
+  answer("", TRUE, message = "Pas de commentaires... N'y a t'il aucun point positif dans ce cours ?"),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```
+
+### Point négatif
+
+```{r neg_point, echo=FALSE}
+question_text(
+  "Citez un point négatif de ce cours",
+  answer("", TRUE, message = "Pas de commentaires... N'y a t'il aucun point négatif dans ce cours, nous en doutons."),
+  incorrect = "Votre avis est enregistré.",
+  placeholder = "Entrez votre avis ici...",
+  allow_retry = TRUE
+)
+```
+
+### Commentaire global
+
+```{r global_advice, echo=FALSE}
+question_text(
+  "Laissez-nous votre impression général sur le cours.",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```
+
+## COVID 19
+
+La pandémie qui nous touche nous a poussé à donner cette formation à distance. Donnez une note entre 0 et 20 de la qualité de l'encadrement à distance (cours en ligne, forum discord, mail,..)
+
+```{r covid, exercise = TRUE}
+
+```
+
+```{r covid-check}
+grade_result(
+  pass_if(~ is.numeric(.result) && .result >= 0 && .result <= 20, "Votre réponse à bien été enregistrée"),
+  fail_if(~ TRUE, "Oups, votre résultats n'est pas valable. Votre réponse doit être une valeur numérique comprise entre 0 et 20.")
+)
+```
+
+```{r covid_advice, echo=FALSE}
+question_text(
+  "Proposez un élément que vous souhaiteriez voir s'améliorer dans la pratique des cours à distance.",
+  answer("", TRUE, message = "Pas de commentaires... C'est dommage ... Sans votre avis, il est plus difficile d'améliorer nos cours."),
+  incorrect = "Votre avis est enregistré.",
+  placeholder = "Entrez votre avis ici...",
+  allow_retry = TRUE
+)
+```
+
+## Evaluation du support du cours
+
+Entrons un peu plus dans le détail de la formation. Donnez une note entre 0 et 20 de la qualité des supports de cours (cours en ligne, tutoriels,...)
+
+```{r support, exercise = TRUE}
+
+```
+
+```{r support-check}
+grade_result(
+  pass_if(~ is.numeric(.result) && .result >= 0 && .result <= 20, "Votre réponse à bien été enregistrée"),
+  fail_if(~ TRUE, "Oups, votre résultats n'est pas valable. Votre réponse doit être une valeur numérique comprise entre 0 et 20.")
+)
+```
+
+```{r support_advice, echo=FALSE}
+question_text(
+  "Proposez un élément que vous souhaiteriez voir s'améliorer dans le support de cours.",
+  answer("", TRUE, message = "Pas de commentaires... C'est dommage ... Sans votre avis, il est plus difficile d'améliorer nos cours."),
+  incorrect = "Votre avis est enregistré.",
+  placeholder = "Entrez votre avis ici...",
+  allow_retry = TRUE
+)
+```
+
+## Evaluation des encadrants
+
+Donnez une note entre 0 et 20 de la qualité de l'encadrement proposées par les enseignants (professeur, assistant, élèves-assistants) 
+
+```{r teachers, exercise = TRUE}
+
+```
+
+```{r teachers-check}
+grade_result(
+  pass_if(~ is.numeric(.result) && .result >= 0 && .result <= 20, "Votre réponse à bien été enregistrée"),
+  fail_if(~ TRUE, "Oups, votre résultats n'est pas valable. Votre réponse doit être une valeur numérique comprise entre 0 et 20.")
+)
+```
+
+```{r teachers_advice, echo=FALSE}
+question_text(
+  "Proposez un élément que vos enseignants pourraient améliorer.",
+  answer("", TRUE, message = "Pas de commentaires... C'est dommage ... Sans votre avis, il est plus difficile de s'améliorer"),
+  incorrect = "Votre avis est enregistré.",
+  placeholder = "Entrez votre avis ici...",
+  allow_retry = TRUE
+)
+```
+
+## Conclusions
+
+Nous vous remercions pour vos réponses. 
+
+```{r comm, echo=FALSE}
+question_text(
+  "Si vous le souhaitez, laissez-nous un dernier commentaire sur votre ressenti en lien avec ce cours.",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

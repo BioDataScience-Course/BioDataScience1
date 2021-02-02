@@ -1,8 +1,5 @@
 # BioDataScience1 News
 
-## Changes in version 2020.4.4
-
-- A07La_proba removed 4 multiple-choice exercises. 
 
 ## Changes in version 2020.4.3
 

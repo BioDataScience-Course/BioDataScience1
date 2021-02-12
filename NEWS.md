@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.5.1
+
+- Value of an argument in last exercise of A08La_chi2 is specified: `rescale.p = FALSE` in order to avoid ambiguity on the values required for the other arguments.
+
 ## Changes in version 2020.5.0
 
 - "Tutorial" A99La_avis added to get a quick feedback from the students.

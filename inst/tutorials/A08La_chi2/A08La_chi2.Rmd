@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 8** Loi de distribution du Chi2 et test d'hypothèse associé."
 tutorial:
   id: "A08La_chi2"
-  version: 2.0.0/9
+  version: 2.0.1/9
 output:
   learnr::tutorial:
     progressive: true
@@ -284,7 +284,7 @@ knitr::kable(chimp2)
 # Création du jeu de données
 chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
-chisq.test(___, p = ___, rescale.p = ___)
+chisq.test(___, p = ___, rescale.p = FALSE)
 ```
 
 ```{r chi_test2_h3-hint-1}

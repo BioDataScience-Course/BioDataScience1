@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 8** Applications du test du Chi2."
 tutorial:
   id: "A08Lb_chi2b"
-  version: 2.0.0/10
+  version: 2.1.0/10
 output:
   learnr::tutorial:
     progressive: true
@@ -147,7 +147,15 @@ Maintenant, calculez le même test d'hypothèse, mais avec la fonction dédiée 
 
 💬 **Ce code correspond au snippet `.hcchi2bi`** [`.hc` = `h`ypothesis tests: `c`ontingency].
 
-```{r chi2_test_h2, exercise=TRUE}
+```{r tabac-prepare}
+tabac <- tibble::tibble(
+  genre        = c("fille",  "garçon", "fille",      "garçon"),
+  comportement = c("fumeur", "fumeur", "non fumeur", "non fumeur"),
+  freq          = c(11,       22,        28,            19))
+tabac_table <- xtabs(data = tabac, freq ~ genre + comportement)
+```
+
+```{r chi2_test_h2, exercise=TRUE, exercise.setup = "tabac-prepare"}
 (chi2. <- chisq.test(___, correct = FALSE)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
@@ -232,7 +240,17 @@ Calculez le test $\chi^2$ d'indépendance dans R pour ce jeu de données directe
 
 💬 **Ce code correspond au snippet `.hcchi2bi`.**
 
-```{r chi_blood_h2, exercise=TRUE}
+```{r blood-prepare}
+blood <- tibble::tibble(
+  group = c("A", "B", "AB", "O", "A", "B", "AB", "O", "A", "B", "AB", "O"),
+  state = c("Floride", "Floride", "Floride", "Floride",
+            "Iowa", "Iowa", "Iowa", "Iowa",
+            "Missouri", "Missouri", "Missouri", "Missouri"),
+  freq  = c(122, 117, 19, 244, 1781, 1351, 289, 3301, 353, 269, 60, 713))
+blood_table <- xtabs(data = blood, freq ~ group + state)
+```
+
+```{r chi_blood_h2, exercise=TRUE, exercise.setup = "blood-prepare"}
 (chi2. <- chisq.test(___)); cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 

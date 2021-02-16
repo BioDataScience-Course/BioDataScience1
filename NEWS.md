@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.6.0
+
+- Add to the exercice.setup tabac_table and blood_table for the exercises of A08Lb_chi2b
+
 ## Changes in version 2020.5.1
 
 - Value of an argument in last exercise of A08La_chi2 is specified: `rescale.p = FALSE` in order to avoid ambiguity on the values required for the other arguments.

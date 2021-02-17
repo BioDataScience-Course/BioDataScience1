@@ -1,7 +1,7 @@
 ---
 title: "Test t de Student"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 9** La distribution et le test t de Student."
+description: "**SDD I Module 9** La moyenne et le test t de Student."
 tutorial:
   id: "A09La_ttest"
   version: 2.0.0/9
@@ -33,38 +33,11 @@ La moyenne est un descripteur très employé pour résumer l'information. Il est
 
 - Savoir calculer la moyenne, l'écart-type ou encore la variance
 
-- Appréhender l’intervalle de confiance, savoir le calculer et l'utiliser
-
-- Comprendre les différentes variantes du test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
-
+- Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
 ## Moyenne
 
-Un échantillon représentatif d'une population peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l'écart-type ou encore le coefficient de variation.
-
-### Moyenne
-
-Un premier descripteur est donc la moyenne de l'échantillon qui est calculé via l'équation suivante :
-
-$$\bar{x}=\sum_{i=1}^n{\frac{x_i}{n}}$$
-
-En partant de la série de nombre ci-dessous, réalisez les calculs suivants :
-
-```{r, echo = TRUE}
-(var <- sample(x = 1:10, size = 3))
-```
-
-```{r qu_mean}
-question("Calculez la moyenne sur la série de nombre ci-dessus",
-         answer(sprintf("%.2f", mean(var)), correct = TRUE),
-         answer(sprintf("%.2f", sum(var))),
-         answer(sprintf("%.2f", (mean(var)+1))),
-         answer(sprintf("%.2f", (sum(var)/2))),
-         allow_retry = TRUE,
-         random_answer_order = TRUE,
-         incorrect = "Oups, vous avez commis une erreur. Relisez avec attention la formule proposée ci-dessus.",
-         correct = "Bravo, c'est correct ! Vous savez calculer une moyenne.")
-```
+Commençons par revoir les bases. Un échantillon représentatif d'une population peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l'écart-type ou encore le coefficient de variation.
 
 ### Moyenne du vecteur `vec`
 
@@ -85,6 +58,7 @@ vec <- c(14, 24, 32, 18, 19)
 # Calculez ci-dessous la moyenne de vec : 
 # Utilisez la foncion mean()
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r mean1_h2-solution}
@@ -119,6 +93,7 @@ vec2 <- c(14, 3, 32, NA, 40)
 # Calculez ci-dessous la moyenne de vec : 
 # Utilisez la foncion mean()
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r mean2_h3-hint-2}
@@ -168,6 +143,8 @@ vec3 <- c(22, 18, 4, 24, 34, 3, 9)
 ```{r sd1_h2-hint-1}
 vec3 <- c(22, 18, 4, 24, 34, 3, 9)
 # Calculez l'écart-type utilisez la fonction sd()
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r sd1_h2-solution}
@@ -205,6 +182,8 @@ vec3 <- c(22, 18, 4, 24, 34, 3, 9)
 ```{r cv1_h2-hint-1}
 vec3 <- c(22, 18, 4, 24, 34, 3, 9)
 # Calculez le coefficient de variation : utilisez la fonction sd() et la fonction mean
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r cv1_h2-solution}
@@ -220,118 +199,120 @@ grade_result(
 )
 ```
 
-## Croissance des dents de deux groupes de cochons d'Inde
+Ces premiers exercices vous ont permis de revoir les bases théoriques de l'utilisation de R et du calcul de la moyenne.
 
-### Tableau résumé
+## Indice de Masse Corporelle
 
-![Image par <a href="https://pixabay.com/fr/users/vantagepointfl-55562/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=242520">Vantage Point Graphics</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=242520">Pixabay</a>](images/guinea-pig.jpg){width=50%}
+Il est temps de passer à du concret. Vous allez vous intéresser à l'indice de masse corporelle dans une population d'adulte ayant strictement plus de 18 ans et de moins de 30 ans. Ce tableau de données ne vous est pas inconnu. Vous l'avez déjà employé à plusieurs reprises pour réaliser des graphiques.
 
-En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d'Inde, reproduisez le tableau ci-dessous.
+![](images/diet.jpg){width='60%'}
 
-```{r}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Résumé des données
-tooth_growth %>.%
-  group_by(., dose, supp) %>.%
-  summarise(., mean = mean(len), sd = sd(len), n = n())
-```
-
-Le tableau de données comprend les variables suivantes : `r colnames(tooth_growth)` 
-
-```{r, echo = TRUE}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Premières lignes du tableau
-head(tooth_growth)
-```
-
-```{r tab_h2, exercise = TRUE}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Résumé du tableau
-tooth_growth %>.%
-  ___(., dose,___) %>.%
-  summarise(., mean = ___(___), ___ = sd(___), n = n())
-```
-
-```{r tab_h2-hint-1}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Tableau
-tooth_growth %>.%
-  group_by(., dose, ___) %>.%
-  summarise(., mean = ___(___), ___ = sd(___), n = n())
-```
-
-```{r tab_h2-solution}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# tableau
-tooth_growth %>.%
-  group_by(., dose, supp) %>.%
-  summarise(., mean = mean(len), sd = sd(len), n = n())
-```
-
-```{r tab_h2-check}
-grade_code("Bien joué ! Vous avez proposé un tableau résumant l'information sur la longueur des dents en fonction des doses et des suppléments.", "Analysez avec attention le tableau que vous devez obtenir. Quelle est la variable dont vous devez déterminer la moyenne et l'écart-type ?")
-```
-
-### Test de Student
-
-Déterminez si la croissance des dents de cochons d'inde est similaire au seuil $\alpha$ de 0.05 lors de l'utilisation du supplément jus d'orange (OJ) par rapport au supplément vitamine C (VC). Utilisez un test t de Student bilatéral et de variance similaire.
-
-En partant du jeu de données proposé ci-dessous qui porte sur la croissance des dents de cochons d'Inde, reproduisez le tableau ci-dessous.
 
 ```{r, echo=TRUE}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
+biometry <- read("biometry", package = "BioDataScience", lang = "fr")
+glimpse(biometry)
 ```
 
-Le tableau de données comprend les variables suivantes : `r colnames(tooth_growth)` 
+Débutez par sélectionner les individus ayant strictement plus de 18 ans et 30 ans ou moins.
 
-```{r toothgrowth}
-# Importation du jeu de données ToothGrowth
-(tooth_growth <- read("ToothGrowth", package = "datasets"))
-# Premières lignes du tableau
-head(tooth_growth)
+```{r bio_filt_h2, exercise = TRUE}
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- ___(biometry, age ___ 18 ___ age ___ 30) 
+# Première ligne du tableau 
+head(biometry)
 ```
+
+```{r bio_filt_h2-hint-1}
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- filter(biometry, age > 18 ___ age ___ 30) 
+# Première ligne du tableau 
+head(biometry)
+```
+
+```{r bio_filt_h2-solution}
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- filter(biometry, age > 18 & age <= 30) 
+# Première ligne du tableau 
+head(biometry)
+```
+
+```{r bio_filt_h2-check}
+grade_code("Bien joué ! Vous avez proposé un filtre de votre tableau de données initiales.", "Oups, il semble que vous avez mal utilisé vos conditions.")
+```
+
+Vos supérieurs souhaitent savoir si il y a une différence significative de l'IMC entre les hommes et les femmes. La variable `bmi` est calculée pour vous.
+
+```{r, echo = TRUE}
+biometry %>.%
+  mutate(., bmi = (weight/(height/100)^2)) %>.%
+  labelise(., label = list(bmi = "IMC"), units = list(bmi = "")) -> biometry
+```
+
+Proposez un tableau résumé proposant la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes.
+
+```{r bio-prepare}
+biometry <- read("biometry", package = "BioDataScience") %>.%
+  filter(., age > 18 & age <= 30) %>.%
+  mutate(., bmi = (weight/(height/100)^2)) %>.%
+  labelise(., label = list(bmi = "IMC"), units = list(bmi = ""))
+```
+
+```{r bio_tab_h2, exercise = TRUE, exercise.setup = "bio-prepare"}
+biometry %>.%
+  ___(., ___) %>.%
+  summarise(., mean = ___(___), sd = ___(___), n = n())
+```
+
+```{r bio_tab_h2-hint-1}
+biometry %>.%
+  group_by(., gender) %>.%
+  summarise(., mean = ___(___), sd = ___(___), n = n())
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r bio_tab_h2-solution}
+biometry %>.%
+  group_by(., gender) %>.%
+  summarise(., mean = mean(bmi), sd = sd(bmi), n = n())
+```
+
+```{r bio_tab_h2-check}
+grade_code("Bien joué ! Vous avez proposé un tableau résumant l'information. Vous avez calculé la moyenne et l'écart-type de l'IMC en fonction du genre.", "Analysez avec attention le tableau que vous devez obtenir. Quelle est la variable dont vous devez déterminer la moyenne et l'écart-type ?")
+```
+
+Vous devez à présent comparer si l'indice de masse corporelle entre les hommes et les femmes. Utilisez un test t de Student bilatéral et de variance similaire. Vous devez fixer votre seuil $\alpha$ à 0.05. 
 
 💬 **Un snippet peut vous aider à réaliser cet exercice `.hmtestindep`.**
 
-```{r ttest_h2, exercise = TRUE, exercise.setup = "toothgrowth"}
-.hm
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Test de Student
+```{r bio_ttest_h2, exercise = TRUE, exercise.setup = "bio-prepare"}
 t.test(data = ___, ___ ~ ___,
   alternative = ___, conf.level = ___, var.equal = TRUE)
 ```
 
-```{r ttest_h2-hint-1}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Test de Student
+```{r bio_ttest_h2-hint-1}
 t.test(data = ___, ___ ~ ___,
   alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
 #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r ttest_h2-solution}
-# Importation du jeu de données ToothGrowth
-tooth_growth <- read("ToothGrowth", package = "datasets")
-# Test de Student
-t.test(data = tooth_growth, len ~ supp,
+```{r bio_ttest_h2-solution}
+t.test(data = biometry, bmi ~ gender,
   alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
 ```
 
-```{r ttest_h2-check}
+```{r bio_ttest_h2-check}
 grade_code("Bien joué ! Vous avez su compléter la fonction t.test().", "Ce n'est pas la bonne réponse. Relis avec attention l'énoncé et complète les éléments manquants dans cette fonction.")
 ```
 
 ```{r ttest_quiz}
 quiz(
-  question("Est ce que la croissance des dents de cochons d'Inde est similaire ?",
+  question("Est ce que l'indice de masse corporelle est similaire entre les hommes et les femmes ?",
            answer("oui", correct = TRUE),
            answer("non"),
            allow_retry = TRUE,
@@ -345,6 +326,7 @@ quiz(
            correct = "Bravo, c'est correct. Vous ne rejettez pas le $H_0$ au seuil $\alpha$ de 0.05")
 )
 ```
+
 
 ## Conclusion
 

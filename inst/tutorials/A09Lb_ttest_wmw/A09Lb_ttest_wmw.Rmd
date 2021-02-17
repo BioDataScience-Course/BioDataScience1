@@ -1,9 +1,9 @@
 ---
 title: "Student & Wilcoxon"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 9** Les tests de Student et de Wilcoxon/Mann-Withney."
+description: "**SDD I Module 9** Les tests t de Student et de Wilcoxon/Mann-Withney."
 tutorial:
-  id: "A09b_ttest_wmw"
+  id: "A09Lb_ttest_wmw"
   version: 2.0.0/11
 output:
   learnr::tutorial:
@@ -46,9 +46,8 @@ weight <- c(0.00, -1.10, -1.60, -0.30, -1.10, -0.90, -0.50, 0.70, -1.20,
            -1.10, 0.50, 0.50, 0.00, -0.50, 1.30, -1.40, 0.00, -0.80,
            -1.10, -1.30, -1.00, -1.70, -1.40, - 0.10, - 0.50, -1.60, 0.50,
            0.00, 0.30, -0.60, -0.30, 0.70, 0.20, -0.60, -0.90, 2.00)
-mcpp <- tibble(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
+mcpp <- tibble(weight = weight, treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9))
 
-mcpp$gender <- factor(mcpp$gender, levels = c("M", "F"))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
 
 mcpp
@@ -59,13 +58,12 @@ weight <- c(0.00, -1.10, -1.60, -0.30, -1.10, -0.90, -0.50, 0.70, -1.20,
            -1.10, 0.50, 0.50, 0.00, -0.50, 1.30, -1.40, 0.00, -0.80,
            -1.10, -1.30, -1.00, -1.70, -1.40, - 0.10, - 0.50, -1.60, 0.50,
            0.00, 0.30, -0.60, -0.30, 0.70, 0.20, -0.60, -0.90, 2.00)
-mcpp <- tibble(weight = weight, gender = rep(c("M","F"), each = 18), treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9), )
+mcpp <- tibble(weight = weight, treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9) )
 
-mcpp$gender <- factor(mcpp$gender, levels = c("M", "F"))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
 ```
 
-Le jeu de données mcpp comprend 3 variables dont la variable facteur `treatment` qui comprend 2 niveaux. 
+Le jeu de données mcpp comprend 2 variables dont la variable facteur `treatment` qui comprend 2 niveaux. 
 
 ```{r, echo = TRUE}
 levels(mcpp$treatment)
@@ -82,7 +80,7 @@ sample(variable)
 
 ```{r mcpp_tab_h2, exercise = TRUE, exercise.setup = "prepare_mcpp"}
 ___ %>.%
-  ___(., ) %>.%
+  ___(., ___) %>.%
   ___(., mean = ___(___), sd = ___(___), n = n())
 ```
 
@@ -105,19 +103,7 @@ grade_code("Bien joué ! Vous avez réalisé le tableau souhaité avec les élé
 
 ### Test de Student
 
-Réalisez à présent un test de Student pour comparer ces deux moyennes. Avant de vous lancer dans l'exécution d'un test, N'oubliez pas de les étapes suivantes :
-
-- vérifier si le test répond à votre question de recherche 
-- vérifier les conditions d'applications du test
-
-Pour rappel, les conditions sont les suivantes :
-
-- échantillon représentatif (échantillonnage aléatoire et individus indépendants les uns des autres),
-- observations indépendantes les unes des autres,
-- distribution de la population : 
-    + normale, alors le test basé sur la distribution t de Student sera exact,
-    + approximativement normale, le test sera approximativement exact,
-    + non normale, le test sera approximativement exact si n est grand.
+Réalisez à présent un test de Student pour comparer ces deux moyennes.
 
 💬 **Le code proposé ci-dessous correspond au snippet `.hmtestindep`**
 
@@ -139,7 +125,7 @@ Attardez vous d'abord sur la compréhension de chacun des arguments de la foncti
 
 **Lorsque les observations sont peu nombreuses (moins de 30 observations par groupe), il est conseillé d'employé le test de Welch qui est une variante du test de student lorsque la variance est considérée comme non homogènes (var.equal = FALSE)**
 
-Réalisez une test de welch unilatéral à gauche avec un seuil $\alpha$ de 5% afin d'aider les scienifiques.
+Réalisez une test de welch unilatéral à gauche avec un seuil $\alpha$ de 5% afin d'aider les scientifiques.
 
 ```{r mcpp_ttest_h2, exercise = TRUE, exercise.setup = "prepare_mcpp"}
 t.test(data = ___, ___ ~ ___,
@@ -193,19 +179,23 @@ Le toluène a t’il donc un effet sur la concentration en dopamine dans le cerv
 
 ```{r, echo = TRUE}
 dopamine <- tibble(treatment = rep(c("Cont", "Tol"), each = 6), 
-                      concentration = c(1.820, 1.843, 1.397, 1.803, 2.539, 
+                      conc = c(1.820, 1.843, 1.397, 1.803, 2.539, 
                                         1.990, 3.420, 2.314, 1.911, 2.464, 
                                         2.781, 2.803))
 dopamine$treatment<- as.factor(dopamine$treatment)
+dopamine <- labelise(dopamine, label = list(treatment = "Traitements", conc = "Concentration"))
+
 dopamine
 ```
 
 ```{r prepare_toluene, echo = TRUE}
 dopamine <- tibble(treatment = rep(c("Cont", "Tol"), each = 6), 
-                      concentration = c(1.820, 1.843, 1.397, 1.803, 2.539, 
+                      conc = c(1.820, 1.843, 1.397, 1.803, 2.539, 
                                         1.990, 3.420, 2.314, 1.911, 2.464, 
                                         2.781, 2.803))
 dopamine$treatment<- as.factor(dopamine$treatment)
+
+dopamine <- labelise(dopamine, label = list(treatment = "Traitements", conc = "Concentration"))
 ```
 
 Le jeu de données dopamine comprend 2 variables dont la variable facteur `treatment` qui comprend 2 niveaux. 
@@ -238,7 +228,7 @@ chart(data = dopamine, ___ ~ ___) +
 ```
 
 ```{r tolu_plot_h3-solution}
-chart(data = dopamine, concentration ~ treatment) +
+chart(data = dopamine, conc ~ treatment) +
   geom_boxplot()
 ```
 
@@ -273,7 +263,7 @@ wilcox.test(data = ___, ___ ~ ___,
 ```
 
 ```{r tolu_wmw_h2-solution}
-wilcox.test(data = dopamine, concentration ~ treatment,
+wilcox.test(data = dopamine, conc ~ treatment,
   alternative = "two.sided", conf.level = 0.95)
 ```
 

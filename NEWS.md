@@ -2,7 +2,9 @@
 
 ## Changes in version 2020.7.1
 
-- A09La_ttest version 2.1.0: use grade_code() in more exercices + general revision
+- A09La_ttest version 2.1.0: use grade_code() in more exercices + general revision.
+
+- A09Lb_ttest_wmw version 2.1.0: revision and refactoring.
 
 ## Changes in version 2020.7.0
 
@@ -12,7 +14,7 @@
 
 ## Changes in version 2020.6.0
 
-- Add to the exercice.setup tabac_table and blood_table for the exercises of A08Lb_chi2b
+- Add to the exercice.setup tabac_table and blood_table for the exercises of A08Lb_chi2b.
 
 ## Changes in version 2020.5.1
 

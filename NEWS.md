@@ -1,8 +1,13 @@
 # BioDataScience1 News
 
+## Changes in version 2020.7.1
+
+- A09La_ttest version 2.1.0: use grade_code() in more exercices + general revision
+
 ## Changes in version 2020.7.0
 
 - A09La_ttest updated to version 2.
+
 - A09Lb_ttest_wmw updated to version 2.
 
 ## Changes in version 2020.6.0

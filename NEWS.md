@@ -1,5 +1,10 @@
 # BioDataScience1 News
 
+## Changes in version 2020.7.0
+
+- A09La_ttest updated to version 2.
+- A09Lb_ttest_wmw updated to version 2.
+
 ## Changes in version 2020.6.0
 
 - Add to the exercice.setup tabac_table and blood_table for the exercises of A08Lb_chi2b

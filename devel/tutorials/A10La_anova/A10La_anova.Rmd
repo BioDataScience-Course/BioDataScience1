@@ -2,7 +2,7 @@
 title: "Analyse de la variance"
 subtitle: "Traitement des données I"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** Analyse de la variance et tests de comparaisons multiples."
+description: "**SDD I Module 10** ANOVA et tests post-hoc."
 tutorial:
   id: "A10a_anova"
   version: 1.0.999/10
@@ -31,7 +31,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèse associés. Vous êtes devenu des experts dans l'utilisation du test t de Student indépendant qui vous permet de comparer les moyennes de deux populations. Cependant, ce test ne permet pas de comparer les moyennes de 3 ou de 4 populations par exemple. 
+Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèses associés. Vous êtes devenu des experts dans l'utilisation du test t de Student indépendant qui vous permet de comparer les moyennes de deux populations. Cependant, ce test ne permet pas de comparer les moyennes de 3 ou de 4 populations par exemple. 
 
 Si vous pensez que faire des comparaisons 2 à 2 est une bonne idée, retournez directement lire le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/variance.html) de SDD I.
 
@@ -104,8 +104,7 @@ abline(h = 0, col = "gray") # Baseline
 grade_code("Le code pour obtenir ce graphique est un peu long... mais le snippet est là pour vous préremplir la majeure partie ! Vous avez cependant su convertir le nombre d'observations et le nombre de groupes en nombre de degrés de liberté intragroupe et intergroupe.", "Il semble que tu n'a pas su déterminer correctement les nombres de degrés de liberté. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
 ```
 
-
-## Croissance des dents de cochons d'Inde 
+## Croissance des dents de cochons d'Inde
 
 Il est temps de passer à une application plus concrète de l'analyse de variance.
 
@@ -114,7 +113,7 @@ Vous allez réaliser une analyse complète sur l'effet de la vitamine C sur la c
 ![](images/guinea-pig.jpg){width='50%'}
 
 
-Le jeu données comprend les informations suivantes :
+Le jeu de données comprend les variables suivantes\ :
 
 ```{r, echo = TRUE}
 # importation
@@ -125,18 +124,16 @@ glimpse(toothgrowth)
 
 Ce jeu de données comprend 3 variables :
 
-- len : Longueur des dents (mm)
-- supp : Supplément administré : OJ (jus d'orange) ou VC (solution de vitamine C)
-- dose : Dose administrée : 0.5 < 1 < 2 (mg/J)
-
-Vous pouvez observer qu'il y a 2 suppléments, du jus d'orange ou un solution de vitamine C. Les chercheurs décident également d'administrer 3 doses croissantes. 
+- `len`\ : longueur des dents (mm)
+- `supp`\ : supplément administré, OJ (jus d'orange contenant donc entre autres de la vitamine C) ou VC (vitamine C pure)
+- `dose`\ : dose de vitamine C administrée en trois rations différentes, 0.5, 1 et 2 mg/J
 
 ```{r, echo=TRUE}
-# Vérification des types des variables et ajout des lables
+# Vérification des types des variables et ajout des labels
 toothgrowth %>.%
   mutate(., 
     supp = factor(supp, levels = c("OJ", "VC")),
-    dose = factor(dose, levels = c(0.5, 1, 2), ordered = TRUE)) %>.%
+    dose = ordered(dose, levels = c(0.5, 1, 2))) %>.%
   labelise(toothgrowth, self = FALSE,
     label = list(
       len = "Longueur des dents",
@@ -150,17 +147,17 @@ toothgrowth %>.%
     ) -> toothgrowth
 ```
 
-**Cette étape est la première à réaliser après avoir importé les données. Il faut vérifier et adapter les types et les labels des variables.** 
+**Cette étape est la première à réaliser après avoir importé les données. Il faut vérifier et adapter les types et les labels des variables.** Il est particulièremenbt important que les variables qui définissent les sous-populations comparées soient bien encodées sous forme d'objets `factor` ou `ordered`\ !
 
-Nous allons nous concentrer uniquement sur les individus qui ont reçu un solution liquide de vitamine C. La question biologique est la suivante : **Y a t'il une différence de croissance des dents en fonction de la concentration en vitamine C administrée aux cochons d'Inde.**
+Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **Y a t'il une différence de croissance des dents en fonction de la ration journalière de vitamine C administrée\ ?**
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 tooth_vc <- filter(toothgrowth, supp == "VC")
 ```
 
-### Exploration des données
+### Description des données
 
-L'exploration des données est une étape indispensable pour traiter correctement vos données. Si vous avez des doutes, n'hésitez pas à relire les modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu3.html) de SDD I.
+Rappelez-vous que la description des données est une étape indispensable de leur analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu3.html) de SDD I).
 
 #### Réalisation d'un tableau résumé des données
 
@@ -203,7 +200,7 @@ tooth_vc <- labelise(tooth_vc, self = FALSE,
 anova. <- lm(data = tooth_vc, len ~ dose)
 ```
 
-```{r tooth_tab_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
+```{r tooth_tab_h2, exercise=TRUE, exercise.setup="tg_prepare"}
 ___ %>.%
   group_by(., ___) %>.%
   summarise(., mean = mean(___), sd = sd(___), count = sum(!is.na(___)))
@@ -224,7 +221,7 @@ tooth_vc %>.%
 ```
 
 ```{r tooth_tab_h2-check}
-grade_code("Vous obtenez le tableau adéquat qui permet de comparer les moyennes, les ecart-types et le nombre d'observations pour chaque dose de suppléments administrés.")
+grade_code("Vous obtenez le tableau adéquat qui permet de comparer les moyennes, les écart-types et le nombre d'observations pour chaque dose.")
 ```
 
 #### Réalisation de graphiques
@@ -256,7 +253,7 @@ Maintenant que vous avez pris connaissance de vos données grâce à un tableau 
 
 ### Vérification des conditions d'applications
 
-Pour réaliser une ANOVA, il faut respecter une série de conditions d'application 
+Pour réaliser une ANOVA, il faut respecter une série de conditions d'application\ :
 
 - échantillon représentatif (par exemple, aléatoire),
 - observations indépendantes,

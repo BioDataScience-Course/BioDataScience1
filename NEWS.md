@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.8.0
+
+- A10La_anova updated to version 2.
+
 ## Changes in version 2020.7.1
 
 - A09La_ttest version 2.1.0: use grade_code() in more exercices + general revision.

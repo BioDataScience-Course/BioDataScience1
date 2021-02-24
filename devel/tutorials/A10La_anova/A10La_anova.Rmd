@@ -35,13 +35,15 @@ Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèse assoc
 
 Si vous pensez que faire des comparaisons 2 à 2 est une bonne idée, retournez directement lire le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/variance.html) de SDD I.
 
-![](images/stop.png){width='30%'}
+![](images/red-traffic-lights.png){width='30%'}
 
 Si vous pensez qu'il serait judicieux de réaliser une analyse de variance (ANOVA), continuez ce tutoriel pour découvrir toutes les subtilités qui se cachent derrière ce test d'hypothèse.
 
+![](images/green-traffic-lights.png){width='30%'}
+
 Dans ce learnr, vous allez pouvoir auto-évaluer votre capacité à\ :
 
-- Pouvoir réaliser des graphiques relatifs à la distribution du F
+- Pouvoir réaliser des graphiques relatifs à la distribution F
 
 - Appliquer le modèle linéaire, anciennement analyse de variance (ANOVA).
 
@@ -49,7 +51,7 @@ Dans ce learnr, vous allez pouvoir auto-évaluer votre capacité à\ :
 
 ## Distribution F
 
-Avant de vous lancer dans une ANOVA, nous allons d'abord nous intéresser à la distribution associée à ce modèle qu'est la distribution F. La distribution F est une distribution asymétrique n’admettant que des valeurs nulles ou positives. 
+Avant de vous lancer dans une ANOVA, nous allons d'abord nous intéresser à la distribution associée à ce modèle qu'est la distribution F. La distribution F est une distribution asymétrique n’admettant que des valeurs nulles ou positives (cela devrait vous rappeler une distribution vue dans un des modules précédents).
 
 Afin de répondre à la question suivante, vous devez avoir bien assimilé la technique pour déterminer le nombre de degrés de liberté intragroupe et intergroupe ;) 
 
@@ -99,7 +101,7 @@ abline(h = 0, col = "gray") # Baseline
 ```
 
 ```{r fplot_h2-check}
-grade_code("Le code pour obtenir ce graphique est un peu long... mais le snippet est là pour vous préremplir la majeure partie ! Vous avez cependant su convertir le nombre d'observations et le nombre de groupe en nombre de degrés de liberté intrgroupes et intergroupes.")
+grade_code("Le code pour obtenir ce graphique est un peu long... mais le snippet est là pour vous préremplir la majeure partie ! Vous avez cependant su convertir le nombre d'observations et le nombre de groupes en nombre de degrés de liberté intragroupe et intergroupe.", "Il semble que tu n'a pas su déterminer correctement les nombres de degrés de liberté. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
 ```
 
 
@@ -112,7 +114,7 @@ Vous allez réaliser une analyse complète sur l'effet de la vitamine C sur la c
 ![](images/guinea-pig.jpg){width='50%'}
 
 
-Le jeu données comprend les informations suivantes. 
+Le jeu données comprend les informations suivantes :
 
 ```{r, echo = TRUE}
 # importation
@@ -158,11 +160,11 @@ tooth_vc <- filter(toothgrowth, supp == "VC")
 
 ### Exploration des données
 
-L'exploration des données est une étape indispensable pour traiter correctement vos données. Si vous avez des doutes, n'hésitez pas à relire les modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu3.html) de SDD1.
+L'exploration des données est une étape indispensable pour traiter correctement vos données. Si vous avez des doutes, n'hésitez pas à relire les modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/visu3.html) de SDD I.
 
 #### Réalisation d'un tableau résumé des données
 
-Réalisez un tableau proposant les moyennes et les écart-types de la longueur des dents des cochons d'Inde pour chaque dose administrée en vitamine C ainsi que le nombre d'observations par groupe. Le jeu de données a utiliser est donc `tooth_vc`.
+Réalisez un tableau proposant les moyennes et les écart-types de la longueur des dents des cochons d'Inde pour chaque dose administrée en vitamine C ainsi que le nombre d'observations par groupe. Le jeu de données à utiliser est donc `tooth_vc`.
 
 💬 **Ce code correspond au snippet `.hmanova1desc`**
 
@@ -208,7 +210,11 @@ ___ %>.%
 ```
 
 ```{r tooth_tab_h2-hint-1}
+tooth_vc %>.%
+  group_by(., ___) %>.%
+  summarise(., mean = mean(___), sd = sd(___), count = sum(!is.na(___)))
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_tab_h2-solution}
@@ -240,24 +246,24 @@ chart(data = tooth_vc, len ~ dose) +
 ```
 
 ```{r tooth_graph-check}
-grade_code("Tu obtiens le graphique adéquats qui permet de comparer la longueur des dents en focntion de la dose administrée.")
+grade_code("Vous obtenez le graphique adéquats qui permet de comparer la longueur des dents en focntion de la dose administrée.")
 ```
 
-*L'ANOVA a pour objectif de comparer des moyennes entre elles alors que la boîte de dispersion va vous représenter les 5 nombres qui sont des descripteurs non-paramétriques. Les boites de dispersion ne sont peut être pas le meilleur outils. Il est cependant très utilisé.*
+*L'ANOVA a pour objectif de comparer des moyennes entre elles alors que la boîte de dispersion va vous représenter les 5 nombres qui sont des descripteurs non-paramétriques.*
 
 Maintenant que vous avez pris connaissance de vos données grâce à un tableau et un graphique, vous pouvez réaliser votre test d'hypothèse. 
 
 
 ### Vérification des conditions d'applications
 
-L'ANOVA a une série de conditions d'application 
+Pour réaliser une ANOVA, il faut respecter une série de conditions d'application 
 
 - échantillon représentatif (par exemple, aléatoire),
 - observations indépendantes,
 - variable dite réponse quantitative,
 - une variable dite explicative qualitative à trois niveaux ou plus,
 - distribution normale des résidus,
-- homoscédasticité (même variance intragroupes, “homoscedasticity” en anglais, opposé à hétéroscédasticité = variance différente entre les groupes).
+- homoscédasticité (même variance intragroupe).
 
 Les deux dernières conditions **doivent être vérifiées**. 
 
@@ -269,42 +275,38 @@ Il existe plusieurs tests qui permettent de vérifier l'homoscédasticité. Nous
 
 💬 **Ce code correspond au snippet `.hvbartlett`**
 
-```{r tooth_bart_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
-___(data = ___, ___ ~ ___)
-```
-
-```{r tooth_bart_h2-hint-1}
+```{r tooth_bart, exercise = TRUE, exercise.setup = "tg_prepare"}
 bartlett.test(data = ___, ___ ~ ___)
 ```
 
-```{r tooth_bart_h2-solution}
+```{r tooth_bart-solution}
 bartlett.test(data = tooth_vc, len ~ dose)
 ```
 
-```{r tooth_bart_h2-check}
-grade_code("Tu as réalisé l'instruction correcte. Le plus important est encore à faire. Réponds donc à la question suivante.")
+```{r tooth_bart-check}
+grade_code("vous avez réalisé l'instruction correcte. Le plus important est encore à faire. Répondez donc à la question suivante.")
 ```
 
 ```{r bart_quiz1}
 question("Y a t'il homoscédasticité des variances ?",
   answer("oui", correct = TRUE),
   answer("non"),
-  correct = "Super, tu as su correctement analyser les résultats de ton test. ",
-  incorrect = "Il semble que tu n'as pas bien compris la notion d'homoscédasticité ou que tu n'as pas su définir correctement les hypothèses de ce test de Bartlett.",
+  correct = "Super,vous avez su correctement analyser les résultats de ton test. ",
+  incorrect = "Il semble que vous n'avez pas bien compris la notion d'homoscédasticité ou que vous n'avez pas su définir correctement les hypothèses de ce test de Bartlett.",
   allow_retry = TRUE)
 ```
 
 ### ANOVA
 
-Après avoir réalisé vérifié l'homoscédasticité, il est temps de réalisez l'analyse de variances. L'instruction ci-dessous corresponds au snippet `.hmaniva1`. Il est intéressant d'analyser cette instruction. 
+Après avoir réalisé vérifié l'homoscédasticité, il est temps de réaliser l'analyse de variances. L'instruction ci-dessous corresponds au snippet `.hmaniva1`. Il est intéressant d'analyser cette instruction. 
 
-La fonction `lm()` requiert un jeu de données et une formule. Vous êtes habitué à cet interface formule que vous utilisez dans la réalisation de vos graphiques ou de vos tests d'hypothèses précédents. Cette fonction calcule un objet de class `lm` assigné à `anova.` La fonction lm est fonction puissante qui permet de calculer des modèles linéaires que nous verrons dans le cadre du cours de SDD II. Une ANOVA est en fait une variante du modèle linéaire. De cet objet `anova.`, on calcule le tableau de l'ANOVA grâce à la fonction `anova()`.
+La fonction `lm()` requiert un jeu de données et une formule. Vous êtes habitué à cet interface formule que vous utilisez dans la réalisation de vos graphiques ou de vos tests d'hypothèse précédents. Cette fonction calcule un objet de class `lm` assigné à `anova.` La fonction lm est fonction puissante qui permet de calculer des modèles linéaires que nous verrons dans le cadre du cours de SDD II. Une ANOVA est en fait une variante du modèle linéaire. De cet objet `anova.`, on calcule le tableau de l'ANOVA grâce à la fonction `anova()`.
 
 ```{r, echo = TRUE, eval=FALSE}
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR))
 ```
 
-Réalisez votre modèle ANOVA qui porte donc sur la longeur des dents de cochons d'Inde en fonction de la dose administrée.
+Réalisez votre modèle ANOVA qui porte donc sur la longueur des dents de cochons d'Inde en fonction de la dose administrée.
 
 💬 **Ce code correspond au snippet `.hmanova1`**
 
@@ -314,6 +316,8 @@ anova(anova. <- lm(data = ___, ___ ~ ___))
 
 ```{r tooth_anova_h2-hint-1}
 anova(anova. <- lm(data = tooth_vc, ___ ~ ___))
+
+#### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_anova_h2-solution}
@@ -328,7 +332,7 @@ Une fois votre ANOVA réalisée, vous avez à votre disposition un snippet qui v
 
 Vérifiez la distribution normale des résidus de votre objet `.anova`
 
-💬 **Ce code correspond au snippet `.hmanovaqqplot`**
+💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`**
 
 ```{r tooth_qqplot_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
 plot(___, ___ = ___)
@@ -336,6 +340,8 @@ plot(___, ___ = ___)
 
 ```{r tooth_qqplot_h2-hint-1}
 plot(___, which = 2)
+
+#### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_qqplot_h2-solution}
@@ -351,7 +357,7 @@ question("Y a t'il un effet significatif de la dose administrée sur la croissan
          answer("oui", correct = TRUE),
          answer("non"),
   correct = "Bravo, vous avez correctement analysé votre tableau de l'analyse de la variance. L'ANOVA vous permet de savoir qu'au moins un des groupes diffère des autres. Vous allez devoir réaliser une analyse complémentaire pour déterminer quel groupe diffère des autres.",
-  incorrect = "Il semble que tu as mal analysé le tableau de l'analyse de la variance ou que les hypothèses nulle et alternative sont mal définies.",
+  incorrect = "Il semble que vous avez mal analysé le tableau de l'analyse de la variance ou que les hypothèses nulle et alternative sont mal définies.",
   allow_retry = TRUE)
 ```
 
@@ -374,7 +380,7 @@ summary(anovaComp. <- confint(multcomp::glht(anova.,
 ```
 
 ```{r tooth_post-check}
-grade_code("Avec l'aide des snippets, il est relativement simple de réaliser un test post hoc. Cette analyse se base sur l'objet .anova réalisé précédement. Le plus important va être d'interpréter ces résulats. Il est possible de le faire graphiquement ou sur base la sortie R. Les niveaux de la variable facteur votn être comparé 2 à 2 avec un correction via la méthode HSD de Tukey.")
+grade_code("Avec l'aide des snippets, il est relativement simple de réaliser un test post hoc. Cette analyse se base sur l'objet anova. réalisé précédement. Le plus important va être d'interpréter ces résulats. Il est possible de le faire graphiquement ou sur base la sortie R. Les niveaux de la variable facteur votn être comparé 2 à 2 avec un correction via la méthode HSD de Tukey.")
 ```
 
 ```{r post_quiz}

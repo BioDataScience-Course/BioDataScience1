@@ -273,7 +273,7 @@ grade_code("Vous avez proposé un tableau résumant l'information. Vous avez cal
 
 Vous devez à présent comparer l'indice de masse corporelle entre les hommes et les femmes. Utilisez un test t de Student bilatéral et de variance similaire. Vous devez fixer votre seuil $\alpha$ à 0.05. 
 
-💬 **Un snippet peut vous aider à réaliser cet exercice `.hmtestindep`.**
+💬 **Un snippet peut vous aider à réaliser cet exercice `.hmttestindep`.**
 
 ```{r bio_ttest_h2, exercise=TRUE, exercise.setup="bio-prepare"}
 t.test(data = ___, ___ ~ ___,

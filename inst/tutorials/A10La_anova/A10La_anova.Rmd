@@ -3,7 +3,7 @@ title: "ANOVA"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 10** ANOVA et tests post-hoc."
 tutorial:
-  id: "A10a_anova"
+  id: "A10La_anova"
   version: 2.0.0/10
 output:
   learnr::tutorial:

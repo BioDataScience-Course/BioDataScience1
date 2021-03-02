@@ -2,7 +2,7 @@
 
 ## Changes in version 2020.8.0
 
-- A10La_anova updated to version 2.
+- A10La_anova updated to version 2 (+ name changed in YAML also later on).
 
 ## Changes in version 2020.7.1
 

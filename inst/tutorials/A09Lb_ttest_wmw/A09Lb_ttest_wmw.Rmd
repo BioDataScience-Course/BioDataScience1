@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Les tests t de Student et de Wilcoxon/Mann-Whitney."
 tutorial:
   id: "A09Lb_ttest_wmw"
-  version: 2.1.0/11
+  version: 2.1.1/11
 output:
   learnr::tutorial:
     progressive: true
@@ -88,7 +88,7 @@ levels(mcpp$treatment)
 Réalisez un résumé des données en fonction du traitement administré. Les informations nécessaires dans le contexte sont la moyenne, l'écart type et le nombre de patients pour chaque traitement. Utilisez les éléments ci-dessous pour compléter les instructions R (les éléments peuvent être employé plusieurs fois).
 
 ```{r}
-variable <- c("mcpp", "treatment", "weight", "group_by", "summarise", "mean", "sd")
+variable <- c("mcpp", "treatment", "delta_weight", "group_by", "summarise", "mean", "sd")
 sample(variable)
 ```
 
@@ -120,7 +120,7 @@ grade_code("Vous avez réalisé le tableau souhaité avec les éléments qui vou
 
 Réalisez à présent un test de Student pour comparer les moyennes de `delta_weight` pour les deux traitements.
 
-💬 **Le code proposé ci-dessous correspond au snippet `.hmtestindep`**
+💬 **Le code proposé ci-dessous correspond au snippet `.hmttestindep`**
 
 ```{r, echo=TRUE, eval=FALSE}
 t.test(data = DF, YNUM ~ XFACTOR,

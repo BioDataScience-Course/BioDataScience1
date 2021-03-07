@@ -4,6 +4,8 @@
 
 - A09Lb_ttest_wmw version 2.1.1 : change weight by delta_weight in the instructions
 
+- Praise sentences in English are eliminated from result outputs of {gradethis}.
+
 ## Changes in version 2020.8.0
 
 - A10La_anova updated to version 2 (+ name changed in YAML also later on).

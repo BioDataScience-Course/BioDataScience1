@@ -11,6 +11,13 @@ learnr_setup <- function(cap = "Code R",
 debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0) {
   learndown::learndownLearnrSetup(config = BioDataScience::config(),
     sign_in = BioDataScience::sign_in(), cap = cap, debug = debug)
+  # Eliminate praise sentence in English before results
+  options(
+    # gradethis_glue_correct = "{ random_praise() } { .message } { .correct }",
+    gradethis_glue_correct = "{ .message } { .correct }",
+    # gradethis_glue_incorrect = "{ .message } { .incorrect } { random_encourage() }"
+    gradethis_glue_incorrect = "{ .message } { .incorrect }"
+  )
 }
 
 #' @rdname learnr_setup

@@ -2,452 +2,413 @@
 title: "ANOVA à 2 facteurs"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 11** Analyse de variance à deux facteurs, différents modèles."
-output:
-  learnr::tutorial
 tutorial:
-  id: "A11a_anova2"
-  version: 1.1.1
+  id: "A11La_anova2"
+  version: 2.0.0/11
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(knitr)
+BioDataScience1::learnr_setup()
 SciViews::R()
-
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
-tutorial_options(exercise.timelimit = 60)
-tutorial_options(exercise.cap = "Code R")
-knitr::opts_chunk$set(echo = FALSE, comment = NA)
-
-library(BioDataScience)
+# Data
+lait <- tibble(ration = ordered(rep(c("faible", "élevée"), each = 30), levels = c("faible", "élevée")), 
+  alimentation = factor(rep(rep(c("foin", "herbe", "aliments ensilés"), each = 10), times = 2)), 
+  rendement = c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13, 14, 10, 14, 13, 10, 14,
+    17, 13, 17, 14, 13, 13, 17, 14, 17, 13, 10, 9, 10, 12, 11, 9, 10, 12, 10, 11,
+    11, 9, 11, 11, 12, 10, 9, 13, 11, 10, 13, 12, 11, 15, 14, 11, 15, 13, 14, 12))
 ```
 
 ```{r, echo=FALSE}
-fixedRow(
-  column(9, div(
-    img(src = 'images/BioDataScience-128.png', align = "left"),
-    h1("Science des données biologiques"),
-    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
-  )),
-  column(3, div(
-    textInput("user", "Utilisateur :", ""),
-    textInput("email", "Email :", "")
-  ))
-)
-textOutput("user") # This is newer shown, but required to trigger an event!
-textOutput("email") # Idem!
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+BioDataScience1::learnr_server(input, output, session)
 ```
-
-## Préambule
-
-Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
-
-![](images/attention.jpg)
-
-> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
 
 ## Objectifs
 
-- Savoir effectuer une analyse de variance à 2 facteurs
+Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse pour différents niveaux d'une variable facteur. Dans le [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables facteurs avec une **ANOVA à deux facteurs**. 
 
-## Croissance des dents de cochons d'Inde
+Ce tutoriel vous permettra d'auto-évaluer votre aptitude à\ :
 
-Vous avez à plusieurs reprise étudié le jeu de données portant sur la croissance des dents de cochons d'Inde. 
+- présenter vos donnés avant une ANOVA à deux facteurs
 
-Tentez de répondre à la question suivante :
+- effectuer une ANOVA à deux facteurs 
 
-**Y a t'il une différence de croissance des dents de cochons d'Inde en fonction de la supplémentation et de la dose administrée?**
+- interpréter correctement les résultats obtenus
 
-Reprennons la suite logique de l'analyse d'un jeu de données étape par étape.
+Assurez-vous d'avoir compris les sections [11.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/anova-%25C3%25A0-deux-facteurs.html), [11.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/mod%25C3%25A8le-sans-interactions.html) et [11.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maitriser les différentes notions vue dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/variance.html) relatives à l’ANOVA à un facteur.
 
-### Importation des données
+## Rendement laitier
 
-L'importation des données est la première étape lors de l'analyse des données.
+Lors de ce tutoriel, vous allez réaliser une analyse visant à étudier l'influence du type et de la quantité d'alimention sur le rendement laitier. 
 
-```{r, echo = TRUE}
-# Importation
-tooth <- read("ToothGrowth", package = "datasets")
-# Première visualisation des données
-tooth
-```
+![](images/rendement_laitier.jpg)
 
-### Traitement des données
+Le jeu de données `lait` comprend les variables suivantes\ :
 
-Commencez par convertir votre jeu de données afin que les variables y soient encodées de manière correcte. 
-La variable dose doit être encodé selon une variable facteur ordonnée.
-
-Utilisez pour ce faire la fonction as.ordered() et utilisez la fonction levels pour vérifier la bonne conversion.
-
-```{r tg_prepare}
-tooth <- read("ToothGrowth", package = "datasets")
-```
-
-```{r tg1, exercise = TRUE, exercise.setup = "tg_prepare"}
-
-```
-
-```{r tg1-solution}
-# utilisez la fonction as.ordered
-tooth$dose <- as.ordered(tooth$dose)
-# utilisez la fonction levels pour visualiser votre conversion de variable
-levels(tooth$dose)
-```
-
-```{r tg1-check}
-#TODO
-```
-
-Vous devez également ajouter via la fonction labelise() les labels et unités à chacune de vos variables
-
-| Variables 	| Labels             	| Unités 	|
-|-----------	|--------------------	|--------	|
-| len       	| Longueur des dents 	| mm     	|
-| supp      	| Supplémentation    	| NA     	|
-| dose      	| Dose               	| mg/J   	|
-
-```{r tg_prepare1}
-tooth <- read("ToothGrowth", package = "datasets")
-tooth$dose <- as.ordered(tooth$dose)
-```
-
-```{r tg2, exercise = TRUE, exercise.setup = "tg_prepare1"}
-DF <- labelise(DF, self = FALSE, label = list(), units = list())
-```
-
-```{r tg2-solution}
-tooth <- labelise(tooth, self = FALSE,
-  label = list(
-    len = "Longueur des dents",
-    supp = "Supplémentation",
-    dose = "Dose"
-  ),
-  units = list(
-    len = "mm",
-    supp = NA,
-    dose = "mg/J"
-  )
-)
-```
-
-```{r tg2-check}
-#TODO
-```
-
-Votre jeu de données est enfin prêt à être employé.
-
-### Visualisation des données sous la forme de graphique
-
-```{r tg_prepare2}
-tooth <- read("ToothGrowth", package = "datasets")
-tooth$dose <- as.ordered(tooth$dose)
-tooth <- labelise(tooth, self = FALSE,
-  label = list(
-    len = "Longueur des dents",
-    supp = "Supplémentation",
-    dose = "Dose"
-  ),
-  units = list(
-    len = "mm",
-    supp = NA,
-    dose = "mg/J"
-  )
-)
-```
+- `ration`\ : la quantité d'alimentation apportée (ration faible ou ration élevée)
+- `alimentation`\ : le type d'alimentation fourni foin, herbe ou aliments ensilés
+- `rendement`\ : la quantité de lait en L/jour
 
 ```{r}
-tooth <- read("ToothGrowth", package = "datasets")
-tooth$dose <- as.ordered(tooth$dose)
-tooth <- labelise(tooth, self = FALSE,
-  label = list(
-    len = "Longueur des dents",
-    supp = "Supplémentation",
-    dose = "Dose"
-  ),
-  units = list(
-    len = "mm",
-    supp = NA,
-    dose = "mg/J"
-  )
-)
+glimpse(lait)
 ```
 
-Réalisez un premier graphique de type : 
+La question biologique à laquelle vous allez essayer de répondre est la suivante : **y a t'il une différence de rendement dans la production de lait en fonction de la ration et du type d'alimentation donnée aux vaches ?**
 
-- boites de dispersion 
+### Description graphique des données
 
-Reproduisez le graphique suivant
+Différents graphiques vous permettent de visualiser correctement les observations de votre jeu de données avant la réalisation de votre ANOVA à deux facteurs. À partir du jeu de données (`lait`), réalisez un premier graphique représentant la moyenne du rendement de la production de lait (`rendement`) en fonction de la quantité d'alimentation apportée (`ration`) et en utilisant de la couleur pour le type d'alimentation (`alimentation`). Utilisez l'intervalle de confiance ("mean_cl_normal") à 95% comme barres d'erreur.
 
-```{r}
-chart(data = tooth, len ~ supp %fill=% dose) +
-  geom_boxplot()
-```
+💬 **Le code ci-dessous correspond au snippet `.cberrbar2`.**
 
-Le snippet correspondant à cette instructions est **.cbbox**
-
-```{r, echo = TRUE, eval=FALSE}
-chart(data = DF, YNUM ~ XFACTOR) +
-  geom_boxplot()
-```
-
-```{r tg3, exercise = TRUE, exercise.setup = "tg_prepare2"}
-
-```
-
-```{r tg3-solution}
-chart(data = tooth, len ~ supp %fill=% dose) +
-  geom_boxplot()
-```
-
-```{r tg3-check}
-#TODO
-```
-
-- moyenne avec l'écart-type 
-
-Repoduisez le graphique suivant 
-
-```{r}
-chart(data = tooth, len ~ supp %col=% dose) +
+```{r lait_graph_h2, exercise = TRUE}
+chart(data = ___, ___ ~ ___ %col=% ___) +
   geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
   stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
   stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_sdl", fun.args = list(mult = 1))
+    fun.data = ___, fun.args = list(conf.int = ___))
 ```
 
-Vous avez à votre dispostion les instructions suivantes :
-
-```{r, echo = TRUE, eval = FALSE}
-chart(data = DF, YNUM ~ XFACTOR %col=% XFACTOR2) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_sdl", fun.args = list(mult = 1))
-```
-
-```{r tg4, exercise = TRUE, exercise.setup = "tg_prepare2"}
-
-```
-
-```{r tg4-solution}
-chart(data = tooth, len ~ supp %col=% dose) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_sdl", fun.args = list(mult = 1))
-```
-
-```{r tg4-check}
-#TODO
-```
-
-- moyenne avec l'intervalle de confiance
-
-Reproduisez le graphique suivant 
-
-```{r}
-chart(data = tooth, len ~ supp %col=% dose) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_cl_normal", fun.args = list(conf.int = 0.95))
-```
-
-Le snippet correspondant à cette instructions est **.cberrbar2**
-
-```{r, echo = TRUE, eval = FALSE}
+```{r lait_graph_h2-hint-1}
 chart(data = DF, YNUM ~ XFACTOR1 %col=% XFACTOR2) +
   geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
   stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
   stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_cl_normal", fun.args = list(conf.int = 0.95))
+    fun.data = "mean_cl_normal", fun.args = list(conf.int = ___))
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tg5, exercise = TRUE, exercise.setup= "tg_prepare2"}
-
-```
-
-```{r tg5-solution}
-chart(data = tooth, len ~ supp %col=% dose) +
+```{r lait_graph_h2-solution}
+chart(data = lait, rendement ~ ration %col=% alimentation) +
   geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
   stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
   stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
     fun.data = "mean_cl_normal", fun.args = list(conf.int = 0.95))
 ```
 
-```{r tg5-check}
-#TODO
+```{r lait_graph_h2-check}
+grade_code("Le graphique que vous venez de réalisez permet de comparer le rendement laitier en fonction de la ration par types d'alimentation. Notez que vous pouvez aussi présenter une variante en utilisant l'écart-type à la place de l'intervalle de confiance à 95%.")
 ```
 
-### Visualisation des données sous la forme d'un tableau
+### Visualisation graphique des interactions 
 
-Reproduisez le tableau de données suivants :
+Dans un modèle d'ANOVA à deux facteurs, il faut aussi considérer que l'effet d'un facteur sur la variable explicative peut-être différent suivant les modalités de l'autre facteur mis en jeu. On parle alors d'interactions. Il est possible de les explorer en réalisant un graphique des interactions qui vous permettra de visualiser les écarts des moyennes respectives des différentes sous-populations. 
 
-```{r}
-tooth %>.%
-  group_by(., supp, dose) %>.%
-  summarise(., mean = mean(len), sd = sd(len), count = sum(!is.na(len)))
+Réalisez sur le jeu de données `lait` le graphique permettant de visualiser les interactions entre les variables facteurs (`ration` et `alimentation`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration. Réalisez ensuite un graphique du rendement moyen en fonction des rations par types d'alimentation en reliant les points des moyennes par des lignes pour chaque type d'alimentation. 
+
+
+```{r interaction_h3, exercise = TRUE}
+___ %>.%
+  # regroupement par type d'alimentation et par ration
+  ___(., ___, ___) %>.%
+  # moyenne du rendement 
+  ___(., rendement_moyen = ___(___)) %>.%
+  # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) +
+  # lignes
+  ___() +
+  # points
+  ___()
 ```
 
-Le snippet correspondant à cette instructions est **.hmanovadesc2**
-
-```{r, echo = TRUE, eval=FALSE}
+```{r interaction_h3-hint-1}
 DF %>.%
-  group_by(., XFACTOR1, XFACTOR2) %>.%
-  summarise(., mean = mean(YNUM), sd = sd(YNUM), count = sum(!is.na(YNUM)))
+  # regroupement par type et quantité d'alimentation
+  group_by(., FACTOR1, FACTOR2) %>.%
+  # moyenne du rendement 
+  summarise(., rendement_moyen = mean(VARNUM)) %>.%
+  # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) +
+  # lignes
+  ___() +
+  # points
+  ___()
 ```
 
-```{r tg7, exercise = TRUE, exercise.setup = "tg_prepare2"}
+```{r interaction_h3-hint-2}
+lait %>.%
+  # regroupement par type et quantité d'alimentation
+  group_by(., alimentation, quantite) %>.%
+  # moyenne du rendement 
+  summarise(., rendement_moyen = mean(rendement)) %>.%
+  # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ., VARNUM ~ FACTOR1 %col=% FACTOR2 %group=% FACTOR2) +
+  # lignes
+  ___() +
+  # points
+  ___()
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tg7-solution} 
-tooth %>.%
-  group_by(., supp, dose) %>.%
-  summarise(., mean = mean(len), sd = sd(len), count = sum(!is.na(len)))
+```{r interaction_h3-solution}
+lait %>.%
+  # regroupement par type et quantité d'alimentation
+  group_by(., alimentation, ration) %>.%
+  # moyenne du rendement 
+  summarise(., rendement_moyen = mean(rendement)) %>.%
+  # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ., rendement_mean ~ quantite %col=% alimentation %group=% alimentation) +
+  # lignes
+  geom_line() +
+  # points
+  geom_point()
 ```
 
-```{r tg7-check} 
-#TODO
+```{r interaction_h3-check}
+grade_code("Ce graphique permet d'analyser les interactions entre les prédicteurs (rations et types d'alimentation) et la réponse (rendement laitier). Lorsque les lignes sont parallèles, il n'y a pas d'interaction à l'inverse, lorsque les lignes ne sont pas parallèles, il existe probablement une interaction. Moins les lignes sont parallèles plus l'interaction sera forte.")
 ```
 
-Vous avez employé différents outils afin de visualiser vos données. Vous pouvez à présent répondre à la question suivante avec un regard plus avisé :
+### Description numérique sous la forme d'un tableau
 
-**Y a t'il une différence de croissance des dents de cochons d'Inde en fonction de la supplémentation et de la dose administrée?**
+Vous pouvez également résumer vos données sous la forme d'un tableau. À partir du jeu de données `lait`, réalisez un tableau de résumé contenant la moyenne et  l'écart-type du rendement de la production de lait (`rendement`) par type d'alimentation (`alimentation`) et par quantité des rations (`ration`). Ajoutez également le nombre d'observation par sous-groupe. 
 
-### Anova à 2 facteurs
+💬 **Le code ci-dessous correspond au snippet `.hmanova2desc`.**
 
-Avant de pouvoir utiliser une analyse de variance à 2 faceurs, vous devez vérifier l'homoscédasticité.
-
-Utilisez un test de bartlett avec intéraction. Le snippet correspondant à cette instructions est **.hvbartlett**
-
-```{r, eval=FALSE, echo=TRUE}
-bartlett.test(data = DF, YNUM ~ interaction(XFACTOR1, XFACTOR2)
+```{r lait_tab_h2, exercise=TRUE}
+___ %>.%
+  group_by(., ___, ___) %>.%
+  summarise(., moyenne = ___(___), `écart type` = ___(___),
+    n = sum(!is.na(___)))
 ```
 
-```{r tg8, exercise = TRUE, exercise.setup ="tg_prepare2"}
+```{r lait_tab_h2-hint-1}
+tooth_vc %>.%
+  group_by(., ___) %>.%
+  summarise(., moyenne = mean(___), `écart type` = sd(___),
+    n = sum(!is.na(___)))
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tg8-solution}
-bartlett.test(data = tooth, len ~ interaction(supp,dose))
+```{r lait_tab_h2-solution}
+lait %>.%
+  group_by(., alimentation, ration) %>.%
+  summarise(., moyenne = mean(rendement), `écart type` = sd(rendement),
+    n = sum(!is.na(rendement)))
 ```
 
-```{r tg8-check}
-#TODO
+```{r lait_tab_h2-check} 
+grade_code("Le tableau que vous avez obtenu est parfait pour présenter vos résultats avant de réaliser une ANOVA à deux facteurs.")
 ```
 
-```{r quiz1}
-question("Y a t'il homogénéité des variances ?",
+Les graphiques et la table de résumé des données que vous venez de réaliser vous ont permis de prendre connaissance des données sur lesquelles vous travaillez. Vous allez maintenant pouvoir passer à la réalisation de votre test d'hypothèse. Vous commencez maintenant à avoir l'habitude, avant de pouvoir le réaliser, vous allez devoir vérifier si les conditions d'application du test sont respectées. 
+
+### Vérification des conditions d'applications
+
+Si vous souhaitez réaliser une ANOVA à deux facteurs, vous devez respecter les conditions d'application suivantes\ :
+
+- échantillon représentatif,
+- observations indépendantes,
+- une variable réponse quantitative,
+- deux variables explicatives qualitatives à deux niveaux ou plus,
+- distribution **normale** des résidus,
+- **homoscédasticité** (même variance intragroupe).
+
+Pour vérifier si l'échantillonage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous pouvez vous référer au protocole expérimental. Dans le cas de cette étude, les individus ont bien été sélectionnés par un processus aléatoire. L'attribution des niveaux de la ration (faible ou élevée) et du type d'alimentation (herbe, foin et aliments ensilés) a également été réalisée de manière aléatoire. 
+
+Le type de variable peut se vérifier en consultant les données. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont bien des objets de type `factor` ou `ordered` dans R.  
+
+Vous allez maintenant pouvoir vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permetant de vérifier l'homoscédasticité des variances. Vous devrez aussi vérifier que la distribution des résidus suit bien une distribution Normale. Cette étape se fait après la réalisation du test de l'ANOVA à deux facteurs mais avant son interprétation. 
+
+### Test de Bartlett
+
+Pour évaluer l'homoscédasticité de vos données, vous allez utiliser le test de Bartlett. Afin d'interpréter correctement le test que vous allez réaliser, commencez par poser les hypothèses de départ. Le test de Barlett doit se faire sur toutes les sous-populations. Pour cela, vous pouvez utiliser la fonction `interaction()` en lui renseignant les variables explicatives. Cette fonction, qui calculera pour vous tous les sous-groupe possible, peut directement être utilsée dans la formule. 
+
+Réalisez un test de bartlett avec interaction sur les données du jeu `lait`.
+
+💬 **Le code ci-dessous correspond au snippet `.hvbartlett`.**
+
+```{r lait_bart_h2, exercise = TRUE}
+bartlett.test(data = ___, ___ ~ ___(___, ___))
+```
+
+```{r lait_bart_h2-hint-1}
+bartlett.test(data = DF, YNUM ~ interaction(XFACTOR1, XFACTOR2))
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r lait_bart_h2-solution}
+bartlett.test(data = lait, rendement ~ interaction(ration, alimentation))
+```
+
+```{r lait_bart_h2-check}
+grade_code("Vous avez correctement réaliser l'instruction R pour ce test. Saurez-vous l'interpréter correctement en répondant à la question suivante ? ")
+```
+
+```{r lait_bart_quiz}
+question("Si vous choissez un seuil alpha de 5%, y a t'il homoscédasticité (égalité des variances entre sous-populations)?",
          answer("Oui", correct = TRUE),
          answer("Non"),
          allow_retry = TRUE,
          random_answer_order = TRUE,
-         incorrect = "Recommencez afin de trouver la bonne réponse",
-         correct = "Bravo, c'est correct")
+         incorrect = "Avez-vous bien défini les hypothèses H0 et H1 de votre test de Bartlett ?",
+         correct = "Bravo, c'est correct. La valeur de p que vous avez obtenue étant plus grande que le seuil alpha de 5%, vous ne rejettez donc pas H0 et pouvez considérer qu'il y a homoscédasticité.")
 ```
 
-Vous pouvez maintenant réaliser une analyse de variances à 2 facteurs. Le snippet correspondant à cette instructions est **.hmanova2**.
+## Anova à 2 facteurs
 
-```{r, echo= TRUE, eval=FALSE}
+### Anova à 2 facteurs avec interactions
+
+Vous allez maintenant pouvoir réaliser une ANOVA à 2 facteurs avec interaction.
+
+Comme pour l'ANOVA à un facteur, vous allez utiliser la fonction `lm()` qui demande un jeu de données et une formule avant de lui appliquer la méthode `anova()` afin de produire le tableau de l'analyse de la variance.
+
+Le modèle croisé avec interactions peut s'écrire de 2 manières dans R.
+
+```{r, echo=TRUE, eval=FALSE}
+anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 + XFACTOR2 + XFACTOR1:XFACTOR2))
+```
+
+où `XFACTOR1:XFACTOR2` représente le terme correspondant à l'interaction. 
+
+Ce modèle peut aussi se simplifier en utilisant `*` à la place du `+` entre les deux variables facteurs ce qui signifiera implicitement de tenir compte des interactions. Cela donne, 
+
+```{r, echo=TRUE, eval=FALSE}
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 * XFACTOR2))
 ```
 
-```{r tg10, exercise = TRUE, exercise.setup = "tg_prepare2"}
+Réalisez votre modèle ANOVA à deux facteurs avec interactions sur le rendement de lait en fonction de la rations et du type d'alimentation
 
+💬 **Le code ci-dessous correspond au snippet `.hmanova2`**.
+
+```{r lait_interaction_h2, exercise = TRUE}
+anova(anova. <- lm(data = ___, ___ ~ ___ * ___))
 ```
 
-```{r tg10-solution}
-anova(anova. <- lm(data = tooth, len ~ supp * dose))
+```{r lait_interaction_h2-hint-1}
+anova(anova. <- lm(data = lait, ___ ~ ___ * ___))
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tg10-check}
-#TODO
+```{r lait_interaction_h2-solution}
+anova(anova. <- lm(data = lait, rendement ~ ration * alimentation))
 ```
 
-```{r quiz2}
-quiz(question("Y a t'il une différence significative entre les deux supplémentations administrées au seuil alpha de 5% ?",
+```{r lait_interaction_h2-check}
+grade_code("Bravo, vous avez encodé correctement votre modèle. N'oubliez pas qu'avant de pouvoir interpréter vos résultats vous devez vérifier la normalité des résidus. Dans cette analyse, les résidus suivent une distribution normale, les conditions de votre ANOVA à deux facteurs sont donc remplies. Vous pouvez interpréter vos résultats en répondant à la question ci-dessous.")
+```
+
+```{r lait_interaction_quiz}
+question("Y a t'il une intéraction significative entre les rations et les types d'alimention au seuil alpha de 5% ?",
+     answer("oui"),
+     answer("non", correct = TRUE),
+     allow_retry = TRUE,
+     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur de p obtenue au seuil alpha 5%.",
+     correct = "Bravo, c'est correct. Il n'y a pas d'interactions entre les 2 facteurs. Avant de continuez l'analyse, vous allez simplifier le modèle en retirant le terme correspondant à l'interaction.")
+```
+
+### Anova à 2 facteurs sans interactions
+
+Lorsque vous n'avez pas d'interactions, vous pouvez simplifier votre modèle en supprimant le terme correspondant à l'interaction. Votre modèle s'écrit donc de cette manière. 
+
+```{r, echo=TRUE, eval=FALSE}
+anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 + XFACTOR2))
+```
+
+Réalisez votre modèle ANOVA à deux facteurs sans interactions sur le rendement de lait en fonction de la ration et du type d'alimentation.
+
+💬 **Le code ci-dessous correspond au snippet `.hmanova2noint`**.
+
+```{r lait_croise_h2, exercise = TRUE}
+anova(anova. <- lm(data = ___, ___ ~ ___ + ___))
+```
+
+```{r lait_croise_h2-hint-1}
+anova(anova. <- lm(data = lait, ___ ~ ___ + ___))
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r lait_croise_h2-solution}
+anova(anova. <- lm(data = lait, rendement ~ ration + alimentation))
+```
+
+```{r lait_croise_h2-check}
+grade_code("Bravo, vous avez réussi à simplifier votre modèle. Dans cette analyse, les résidus suivent également une distribution normale, les conditions de votre ANOVA à deux facteurs sont donc également remplies. Vous pouvez interpréter vos résultats en répondant aux questions ci-dessous.")
+```
+
+```{r lait_croise_quiz}
+quiz(question("Y a t'il une différence significative entre les deux rations au seuil alpha de 5% ?",
      answer("oui", correct = TRUE),
      answer("non"),
      allow_retry = TRUE,
-     incorrect = "Recommencez afin de trouver la bonne réponse",
-     correct = "Bravo, c'est correct"),
-     question("Y a t'il une différence significative entre les trois doses administrées au seuil alpha de 5% ?",
+     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur de p obtenue au seuil alpha 5%.",
+     correct = "Votre interprétation est correct, il y a bien une différence significative, au seuil alpha de 5%, entre les rations données sur le rendement de lait."),
+     question("Y a t'il une différence significative entre les trois types d'alimentation au seuil alpha de 5% ?",
      answer("oui", correct = TRUE),
      answer("non"),
      allow_retry = TRUE,
-     incorrect = "Recommencez afin de trouver la bonne réponse",
-     correct = "Bravo, c'est correct"),
-     question("Y a t'il une intéraction significative entre les  doses et les suppléments administrés au seuil alpha de 5% ?",
-     answer("oui", correct = TRUE),
-     answer("non"),
-     allow_retry = TRUE,
-     incorrect = "Recommencez afin de trouver la bonne réponse",
-     correct = "Bravo, c'est correct")
+     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur de p obtenue au seuil alpha 5%.",
+     correct = "Votre interprétation est correct, il y a bien une différence significative, au seuil alpha de 5%, entre les types d'alimentation donnés sur le rendement de lait.")
      )
 ```
 
-Réalisez à présent une analyse complémentaire de l'anova. Le snippet correspondant à cette instructions est **.hmanovamult**.
+## Tests post-hoc
 
-```{r tg_prepare3}
-tooth <- read("ToothGrowth", package = "datasets")
-tooth$dose <- as.ordered(tooth$dose)
-tooth <- labelise(tooth, self = FALSE,
-  label = list(
-    len = "Longueur des dents",
-    supp = "Supplémentation",
-    dose = "Dose"
-  ),
-  units = list(
-    len = "mm",
-    supp = NA,
-    dose = "mg/J"
-  )
-)
-anova. <- lm(data = tooth, len ~ supp * dose)
+Votre ANOVA à 2 facteurs sans interactions indique qu'il y a une différence significative entre les rations données et qu'il y a au moins une des moyennes qui est significativement différente des autres au seuil $\alpha$ de 5% pour le type d'alimentation. Un test post-hoc de comparaisons multiples vous permettra d'avoir plus de précision. 
+
+💬 **Ce code correspond au snippet `.hmanovamult`**
+
+```{r lait_prepa}
+anova. <- lm(data = lait, rendement ~ ration + alimentation)
 ```
 
-```{r, echo= TRUE, eval=FALSE}
+```{r lait_post_h2, exercise = TRUE, exercise.setup = "lait_prepa"}
 summary(anovaComp. <- confint(multcomp::glht(anova.,
-  linfct = multcomp::mcp(XFACTOR = "Tukey")))) # Add a second factor if you want
+  linfct = multcomp::mcp(___ = "Tukey", ___ = "Tukey")))) # Add a second factor if you want
 .oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
 ```
 
-```{r tg11, exercise = TRUE, exercise.setup = "tg_prepare3"}
+```{r lait_post_h2-hint-1}
+summary(anovaComp. <- confint(multcomp::glht(anova.,
+  linfct = multcomp::mcp(XFACTOR1 = "Tukey", XFACTOR2 = "Tukey")))) # Add a second factor if you want
+.oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
 
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tg11-solution}
+```{r lait_post_h2-solution}
 summary(anovaComp. <- confint(multcomp::glht(anova.,
-  linfct = multcomp::mcp(supp = "Tukey", dose = "Tukey")))) # Add a second factor if you want
+  linfct = multcomp::mcp(ration = "Tukey", alimentation = "Tukey")))) # Add a second factor if you want
 .oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
 ```
 
-```{r tg11-check}
-#TODO
+```{r lait_post-check}
+grade_code("Le test de comparaison n'est pas vraiment nécessaire dans le cas de la variable ration puisque vous n'avez que 2 niveaux. Mais cela vous permet de voir comment procéder lorsque le nombre de niveaux est plus important. Par contre, il prend tout son sens dans le cas de la variable alimentation pour identifier les paires de moyennes qui sont différentes. Identifiez les niveaux qui sont significativement différents en répondant à la question suivante.")
 ```
 
-Vous venez de boucler votre analyse, sur l'analyse de la croissance des dents de cochons d'Inde.
+```{r lait_post_quiz}
+question("Quels sont les niveaux significativement différents au seuil alpha de 5% ?",
+         answer("foin par rapport à aliments ensilés", correct = TRUE),
+         answer("herbe par rapport à aliments ensilés", correct = TRUE),
+         answer("herbe par rapport à foin", correct = FALSE), 
+  allow_retry = TRUE, correct = "Très bien ! En effet, la moyennes des aliments ensilés est différentes de celle du foin ou de l'herbe.",
+  incorrect = "Votre réponse est peut-être incomplète ou vous avez commis une erreur dans l'interprétation. Regardez bien le tableau et le graphique issus de l'analyse post hoc.")
+```
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+Félicitation ! Vous avez réalisé une ANOVA à deux facteurs complète. N'oubliez pas de bien vérifier vos conditions d'application de test avant d'interpréter vos résultats. N'hésitez pas à simplifier votre modèle lorsque cela s'avère nécessaire.
 
-Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utilisez un dièse (`#`) devant vos phrases.
 
-```{r comm, exercise=TRUE, exercise.lines = 8}
-# Ajout de commentaires 
-# ...
-```
-
-```{r comm-check}
-# Not yet...
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur cet outil pédagogique",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
 ```

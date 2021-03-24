@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 11** Analyse de variance à deux facteurs, différents modèles."
 tutorial:
   id: "A11La_anova2"
-  version: 2.0.0/11
+  version: 2.0.1/11
 output:
   learnr::tutorial:
     progressive: true
@@ -104,14 +104,15 @@ grade_code("Le graphique que vous venez de réalisez permet de comparer le rende
 
 Dans un modèle d'ANOVA à deux facteurs, il faut aussi considérer que l'effet d'un facteur sur la variable explicative peut-être différent suivant les modalités de l'autre facteur mis en jeu. On parle alors d'interactions. Il est possible de les explorer en réalisant un graphique des interactions qui vous permettra de visualiser les écarts des moyennes respectives des différentes sous-populations. 
 
-Réalisez sur le jeu de données `milk_production` le graphique permettant de visualiser les interactions entre les variables facteurs (`feed` et `ration`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration. Réalisez ensuite un graphique du rendement moyen en fonction des rations par types d'alimentation en reliant les points des moyennes par des lignes pour chaque type d'alimentation. 
+Réalisez sur le jeu de données `milk_production` le graphique permettant de visualiser les interactions entre les variables facteurs (`feed` et `ration`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration. 
 
+Réalisez ensuite un graphique du rendement moyen en fonction du type d'alimentation et par ration.
 
 ```{r interaction_h3, exercise = TRUE}
 ___ %>.%
-  ___(., ___, ___) %>.% 
+  ___(., ___, ___) %>.% # regroupement par type d'alimentation et par ration
   ___(., milk_mean = ___(___)) %>.%  # moyenne du rendement 
-  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction du types d'alimentation et par ration
   ___() + # lignes
   ___() # points
 ```
@@ -120,7 +121,7 @@ ___ %>.%
 DF %>.%
   group_by(., FACTOR1, FACTOR2) %>.% # regroupement par type d'alimentation et par ration
   summarise(., milk_mean = mean(VARNUM)) %>.%   # moyenne du rendement 
-  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction du types d'alimentation et par ration
   ___() + # lignes
   # points
   ___()
@@ -128,8 +129,8 @@ DF %>.%
 
 ```{r interaction_h3-hint-2}
 milk_production %>.%
-  group_by(., feed, ration) %>.% # regroupement par type et quantité d'alimentation
-  summarise(., milk_mean = mean(milk)) %>.% # moyenne du rendement 
+  group_by(., feed, ration) %>.% # regroupement par type d'alimentation et par ration
+  summarise(., milk_mean = mean(milk)) %>.% 
   chart(data = ., VARNUM ~ FACTOR1 %col=% FACTOR2 %group=% FACTOR2) +
   ___() + # lignes
   ___() # points
@@ -140,7 +141,7 @@ milk_production %>.%
 ```{r interaction_h3-solution}
 milk_production %>.%
   group_by(., feed, ration) %>.% # regroupement par type et quantité d'alimentation
-  summarise(., milk_mean = mean(milk)) %>.%  # moyenne du rendement 
+  summarise(., milk_mean = mean(milk)) %>.%  
   chart(data = ., milk_mean ~ feed %col=% ration %group=% ration) + 
   geom_line() + # lignes
   geom_point() # points

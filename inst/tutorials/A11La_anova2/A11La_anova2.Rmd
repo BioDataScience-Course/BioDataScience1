@@ -15,12 +15,21 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
-# Data
-lait <- tibble(ration = ordered(rep(c("faible", "élevée"), each = 30), levels = c("faible", "élevée")), 
-  alimentation = factor(rep(rep(c("foin", "herbe", "aliments ensilés"), each = 10), times = 2)), 
-  rendement = c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13, 14, 10, 14, 13, 10, 14,
+# data ----
+set.seed(43)
+production <- c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13, 14, 10, 14, 13, 10, 14,
     17, 13, 17, 14, 13, 13, 17, 14, 17, 13, 10, 9, 10, 12, 11, 9, 10, 12, 10, 11,
-    11, 9, 11, 11, 12, 10, 9, 13, 11, 10, 13, 12, 11, 15, 14, 11, 15, 13, 14, 12))
+    11, 9, 11, 11, 12, 10, 9, 13, 11, 10, 13, 12, 11, 15, 14, 11, 15, 13, 14, 12) 
+production <- round(production + rnorm(n = length(production), sd = 0.5), 1)
+
+milk_production <- tibble(
+  ration = ordered(rep(c("low", "high"), each = 30), levels = c("low", "high")), 
+  feed = factor(rep(rep(c("hay", "grass", "maize silage"), each = 10), times = 2)), 
+  milk = production)
+
+milk_production <- labelise(milk_production, 
+  label = list(ration = "Ration", feed = "Type d'alimentation", milk = "Quantité de lait"),
+  units = list(milk = "L/J"))
 ```
 
 ```{r, echo=FALSE}
@@ -51,157 +60,127 @@ Lors de ce tutoriel, vous allez réaliser une analyse visant à étudier l'influ
 
 ![](images/rendement_laitier.jpg)
 
-Le jeu de données `lait` comprend les variables suivantes\ :
+Le jeu de données `milk_production` comprend les variables suivantes\ :
 
-- `ration`\ : la quantité d'alimentation apportée (ration faible ou ration élevée)
-- `alimentation`\ : le type d'alimentation fourni foin, herbe ou aliments ensilés
-- `rendement`\ : la quantité de lait en L/jour
+- `ration`\ : la quantité d'alimentation apportée (low = ration faible ou high = ration élevée)
+- `feed`\ : le type d'alimentation fourni (hay = foin, grass = herbe ou maize silage = maïs ensilés)
+- `milk`\ : la quantité de lait en L/jour
 
 ```{r}
-glimpse(lait)
+glimpse(milk_production)
 ```
 
 La question biologique à laquelle vous allez essayer de répondre est la suivante : **y a t'il une différence de rendement dans la production de lait en fonction de la ration et du type d'alimentation donnée aux vaches ?**
 
 ### Description graphique des données
 
-Différents graphiques vous permettent de visualiser correctement les observations de votre jeu de données avant la réalisation de votre ANOVA à deux facteurs. À partir du jeu de données (`lait`), réalisez un premier graphique représentant la moyenne du rendement de la production de lait (`rendement`) en fonction de la quantité d'alimentation apportée (`ration`) et en utilisant de la couleur pour le type d'alimentation (`alimentation`). Utilisez l'intervalle de confiance ("mean_cl_normal") à 95% comme barres d'erreur.
-
-💬 **Le code ci-dessous correspond au snippet `.cberrbar2`.**
+Différents graphiques vous permettent de visualiser correctement les observations de votre jeu de données avant la réalisation de votre ANOVA à deux facteurs. À partir du jeu de données (`milk_production`), réalisez un premier graphique représentant la moyenne du rendement de la production de lait (`milk`) en fonction du type d'alimentation (`feed`) et en utilisant la couleur pour la quantité d'alimentation apportée (`ration`). 
 
 ```{r lait_graph_h2, exercise = TRUE}
-chart(data = ___, ___ ~ ___ %col=% ___) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = ___, fun.args = list(conf.int = ___))
+chart(___, ___ ~ ___ %col=% ___) +
+  geom_point(alpha = 0.4, position = position_dodge2(0.4, padding = 0.1)) +
+  stat_summary(geom = "point", fun = "mean", position = position_dodge(0.4), size = 4)
 ```
 
 ```{r lait_graph_h2-hint-1}
-chart(data = DF, YNUM ~ XFACTOR1 %col=% XFACTOR2) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_cl_normal", fun.args = list(conf.int = ___))
+chart(milk_production, ___ ~ feed %col=% ___) +
+  geom_point(alpha = 0.4, position = position_dodge2(0.4, padding = 0.1)) +
+  stat_summary(geom = "point", fun = "mean", position = position_dodge(0.4), size = 4)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r lait_graph_h2-solution}
-chart(data = lait, rendement ~ ration %col=% alimentation) +
-  geom_jitter(alpha = 0.4, position = position_dodge(0.4)) +
-  stat_summary(geom = "point", fun.y = "mean", position = position_dodge(0.4)) +
-  stat_summary(geom = "errorbar", width = 0.1, position = position_dodge(0.4),
-    fun.data = "mean_cl_normal", fun.args = list(conf.int = 0.95))
+chart(milk_production, milk ~ feed %col=% ration) +
+  geom_point(alpha = 0.4, position = position_dodge2(0.4, padding = 0.1)) +
+  stat_summary(geom = "point", fun = "mean", position = position_dodge(0.4), size = 4)
 ```
 
 ```{r lait_graph_h2-check}
-grade_code("Le graphique que vous venez de réalisez permet de comparer le rendement laitier en fonction de la ration par types d'alimentation. Notez que vous pouvez aussi présenter une variante en utilisant l'écart-type à la place de l'intervalle de confiance à 95%.")
+grade_code("Le graphique que vous venez de réalisez permet de comparer le rendement laitier en fonction de la ration par types d'alimentation. Le choix du nuage de point avec l'ajout de la moyenne est tout indiqué lorsque le nombre d'observations est faible. Les aliments ensilés permettent d'avoir mettent en avant une production plus importante de lait par jour.")
 ```
 
 ### Visualisation graphique des interactions 
 
 Dans un modèle d'ANOVA à deux facteurs, il faut aussi considérer que l'effet d'un facteur sur la variable explicative peut-être différent suivant les modalités de l'autre facteur mis en jeu. On parle alors d'interactions. Il est possible de les explorer en réalisant un graphique des interactions qui vous permettra de visualiser les écarts des moyennes respectives des différentes sous-populations. 
 
-Réalisez sur le jeu de données `lait` le graphique permettant de visualiser les interactions entre les variables facteurs (`ration` et `alimentation`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration. Réalisez ensuite un graphique du rendement moyen en fonction des rations par types d'alimentation en reliant les points des moyennes par des lignes pour chaque type d'alimentation. 
+Réalisez sur le jeu de données `milk_production` le graphique permettant de visualiser les interactions entre les variables facteurs (`feed` et `ration`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration. Réalisez ensuite un graphique du rendement moyen en fonction des rations par types d'alimentation en reliant les points des moyennes par des lignes pour chaque type d'alimentation. 
 
 
 ```{r interaction_h3, exercise = TRUE}
 ___ %>.%
-  # regroupement par type d'alimentation et par ration
-  ___(., ___, ___) %>.%
-  # moyenne du rendement 
-  ___(., rendement_moyen = ___(___)) %>.%
-  # graphique du rendement moyen en fonction de la quantité d'aliment par type
-  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) +
-  # lignes
-  ___() +
-  # points
-  ___()
+  ___(., ___, ___) %>.% 
+  ___(., milk_mean = ___(___)) %>.%  # moyenne du rendement 
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  ___() + # lignes
+  ___() # points
 ```
 
 ```{r interaction_h3-hint-1}
 DF %>.%
-  # regroupement par type et quantité d'alimentation
-  group_by(., FACTOR1, FACTOR2) %>.%
-  # moyenne du rendement 
-  summarise(., rendement_moyen = mean(VARNUM)) %>.%
-  # graphique du rendement moyen en fonction de la quantité d'aliment par type
-  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) +
-  # lignes
-  ___() +
+  group_by(., FACTOR1, FACTOR2) %>.% # regroupement par type d'alimentation et par ration
+  summarise(., milk_mean = mean(VARNUM)) %>.%   # moyenne du rendement 
+  chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction de la quantité d'aliment par type
+  ___() + # lignes
   # points
   ___()
 ```
 
 ```{r interaction_h3-hint-2}
-lait %>.%
-  # regroupement par type et quantité d'alimentation
-  group_by(., alimentation, quantite) %>.%
-  # moyenne du rendement 
-  summarise(., rendement_moyen = mean(rendement)) %>.%
-  # graphique du rendement moyen en fonction de la quantité d'aliment par type
+milk_production %>.%
+  group_by(., feed, ration) %>.% # regroupement par type et quantité d'alimentation
+  summarise(., milk_mean = mean(milk)) %>.% # moyenne du rendement 
   chart(data = ., VARNUM ~ FACTOR1 %col=% FACTOR2 %group=% FACTOR2) +
-  # lignes
-  ___() +
-  # points
-  ___()
+  ___() + # lignes
+  ___() # points
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r interaction_h3-solution}
-lait %>.%
-  # regroupement par type et quantité d'alimentation
-  group_by(., alimentation, ration) %>.%
-  # moyenne du rendement 
-  summarise(., rendement_moyen = mean(rendement)) %>.%
-  # graphique du rendement moyen en fonction de la quantité d'aliment par type
-  chart(data = ., rendement_mean ~ quantite %col=% alimentation %group=% alimentation) +
-  # lignes
-  geom_line() +
-  # points
-  geom_point()
+milk_production %>.%
+  group_by(., feed, ration) %>.% # regroupement par type et quantité d'alimentation
+  summarise(., milk_mean = mean(milk)) %>.%  # moyenne du rendement 
+  chart(data = ., milk_mean ~ feed %col=% ration %group=% ration) + 
+  geom_line() + # lignes
+  geom_point() # points
 ```
 
 ```{r interaction_h3-check}
-grade_code("Ce graphique permet d'analyser les interactions entre les prédicteurs (rations et types d'alimentation) et la réponse (rendement laitier). Lorsque les lignes sont parallèles, il n'y a pas d'interaction à l'inverse, lorsque les lignes ne sont pas parallèles, il existe probablement une interaction. Moins les lignes sont parallèles plus l'interaction sera forte.")
+grade_code("Ce graphique permet d'analyser les interactions entre les prédicteurs (rations et types d'alimentation) et la réponse (rendement laitier). Lorsque les lignes sont parallèles, il n'y a pas d'interaction à l'inverse, lorsque les lignes ne sont pas parallèles, il existe probablement une interaction. Moins les lignes sont parallèles plus l'interaction sera forte. Dans notre cas, nous serions tenté de penser qu'il n'y a pas d'intéractions. Cependant, il reste plus sur de réaliser un modèle croisé complet dans un premier temps. Puis de réaliser un modèle croisé sans intéractions si cela se justifie.")
 ```
 
 ### Description numérique sous la forme d'un tableau
 
-Vous pouvez également résumer vos données sous la forme d'un tableau. À partir du jeu de données `lait`, réalisez un tableau de résumé contenant la moyenne et  l'écart-type du rendement de la production de lait (`rendement`) par type d'alimentation (`alimentation`) et par quantité des rations (`ration`). Ajoutez également le nombre d'observation par sous-groupe. 
+Vous pouvez également résumer vos données sous la forme d'un tableau. À partir du jeu de données `milk_production`, réalisez un tableau de résumé contenant la moyenne et  l'écart-type du rendement de la production de lait (`milk`) par type d'alimentation (`feed`) et par quantité des rations (`ration`). Ajoutez également le nombre d'observation par sous-groupe. 
 
 💬 **Le code ci-dessous correspond au snippet `.hmanova2desc`.**
 
 ```{r lait_tab_h2, exercise=TRUE}
 ___ %>.%
   group_by(., ___, ___) %>.%
-  summarise(., moyenne = ___(___), `écart type` = ___(___),
-    n = sum(!is.na(___)))
+  summarise(., mean = mean(___), sd = sd(___), count = sum(!is.na(___)))
 ```
 
 ```{r lait_tab_h2-hint-1}
-tooth_vc %>.%
-  group_by(., ___) %>.%
-  summarise(., moyenne = mean(___), `écart type` = sd(___),
-    n = sum(!is.na(___)))
+DF %>.%
+  group_by(., XFACTOR1, XFACTOR2) %>.%
+  summarise(., mean = mean(YNUM), sd = sd(YNUM), count = sum(!is.na(YNUM)))
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r lait_tab_h2-solution}
-lait %>.%
-  group_by(., alimentation, ration) %>.%
-  summarise(., moyenne = mean(rendement), `écart type` = sd(rendement),
-    n = sum(!is.na(rendement)))
+milk_production %>.%
+  group_by(., feed, ration) %>.%
+  summarise(., mean = mean(milk), sd = sd(milk), count = sum(!is.na(milk)))
 ```
 
 ```{r lait_tab_h2-check} 
-grade_code("Le tableau que vous avez obtenu est parfait pour présenter vos résultats avant de réaliser une ANOVA à deux facteurs.")
+grade_code("Le tableau que vous avez obtenu est parfait pour présenter vos résultats avant de réaliser une ANOVA à deux facteurs. Attention, ce tableau est en anglais. N'oubliez pas de le traduire si votre rapport est en français.")
 ```
 
-Les graphiques et la table de résumé des données que vous venez de réaliser vous ont permis de prendre connaissance des données sur lesquelles vous travaillez. Vous allez maintenant pouvoir passer à la réalisation de votre test d'hypothèse. Vous commencez maintenant à avoir l'habitude, avant de pouvoir le réaliser, vous allez devoir vérifier si les conditions d'application du test sont respectées. 
+Les graphiques et la tableau résumant des données que vous venez de réaliser vous ont permis de prendre connaissance des données sur lesquelles vous travaillez. Vous allez maintenant pouvoir passer à la réalisation de votre test d'hypothèse. Vous commencez maintenant à avoir l'habitude, avant de pouvoir le réaliser, vous allez devoir vérifier si les conditions d'application du test sont respectées. 
 
 ### Vérification des conditions d'applications
 
@@ -214,9 +193,9 @@ Si vous souhaitez réaliser une ANOVA à deux facteurs, vous devez respecter les
 - distribution **normale** des résidus,
 - **homoscédasticité** (même variance intragroupe).
 
-Pour vérifier si l'échantillonage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous pouvez vous référer au protocole expérimental. Dans le cas de cette étude, les individus ont bien été sélectionnés par un processus aléatoire. L'attribution des niveaux de la ration (faible ou élevée) et du type d'alimentation (herbe, foin et aliments ensilés) a également été réalisée de manière aléatoire. 
+Pour vérifier si l'échantillonage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous pouvez vous référer au protocole expérimental. Dans le cas de cette étude, les individus ont bien été sélectionnés par un processus aléatoire. L'attribution des niveaux de la ration et du type d'alimentation a également été réalisée de manière aléatoire. 
 
-Le type de variable peut se vérifier en consultant les données. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont bien des objets de type `factor` ou `ordered` dans R.  
+Le type de variable peut se vérifier en consultant les données. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont bien de type facteur non ordonné (`factor`) ou facteur ordonné (`ordered`) dans R.  
 
 Vous allez maintenant pouvoir vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permetant de vérifier l'homoscédasticité des variances. Vous devrez aussi vérifier que la distribution des résidus suit bien une distribution Normale. Cette étape se fait après la réalisation du test de l'ANOVA à deux facteurs mais avant son interprétation. 
 
@@ -224,7 +203,7 @@ Vous allez maintenant pouvoir vérifier les deux dernières conditions sur votre
 
 Pour évaluer l'homoscédasticité de vos données, vous allez utiliser le test de Bartlett. Afin d'interpréter correctement le test que vous allez réaliser, commencez par poser les hypothèses de départ. Le test de Barlett doit se faire sur toutes les sous-populations. Pour cela, vous pouvez utiliser la fonction `interaction()` en lui renseignant les variables explicatives. Cette fonction, qui calculera pour vous tous les sous-groupe possible, peut directement être utilsée dans la formule. 
 
-Réalisez un test de bartlett avec interaction sur les données du jeu `lait`.
+Réalisez un test de bartlett avec interaction sur les données du jeu `milk_production` de la quantité de lait (`milk`) en fonction du type d'alimentation (`feed`) et de la ration (`ration`) .
 
 💬 **Le code ci-dessous correspond au snippet `.hvbartlett`.**
 
@@ -239,7 +218,7 @@ bartlett.test(data = DF, YNUM ~ interaction(XFACTOR1, XFACTOR2))
 ```
 
 ```{r lait_bart_h2-solution}
-bartlett.test(data = lait, rendement ~ interaction(ration, alimentation))
+bartlett.test(data = milk_production, milk ~ interaction(feed, ration))
 ```
 
 ```{r lait_bart_h2-check}
@@ -247,7 +226,7 @@ grade_code("Vous avez correctement réaliser l'instruction R pour ce test. Saure
 ```
 
 ```{r lait_bart_quiz}
-question("Si vous choissez un seuil alpha de 5%, y a t'il homoscédasticité (égalité des variances entre sous-populations)?",
+question("Au seuil alpha de 5%, y a t'il homoscédasticité ?",
          answer("Oui", correct = TRUE),
          answer("Non"),
          allow_retry = TRUE,
@@ -278,7 +257,7 @@ Ce modèle peut aussi se simplifier en utilisant `*` à la place du `+` entre le
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 * XFACTOR2))
 ```
 
-Réalisez votre modèle ANOVA à deux facteurs avec interactions sur le rendement de lait en fonction de la rations et du type d'alimentation
+Réalisez votre modèle ANOVA à deux facteurs avec interactions sur le rendement de lait en fonction du type d'alimentation et de la ration.
 
 💬 **Le code ci-dessous correspond au snippet `.hmanova2`**.
 
@@ -287,13 +266,13 @@ anova(anova. <- lm(data = ___, ___ ~ ___ * ___))
 ```
 
 ```{r lait_interaction_h2-hint-1}
-anova(anova. <- lm(data = lait, ___ ~ ___ * ___))
+anova(anova. <- lm(data = milk_production, ___ ~ ___ * ___))
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r lait_interaction_h2-solution}
-anova(anova. <- lm(data = lait, rendement ~ ration * alimentation))
+anova(anova. <- lm(data = milk_production, milk ~ feed * ration))
 ```
 
 ```{r lait_interaction_h2-check}
@@ -332,7 +311,7 @@ anova(anova. <- lm(data = lait, ___ ~ ___ + ___))
 ```
 
 ```{r lait_croise_h2-solution}
-anova(anova. <- lm(data = lait, rendement ~ ration + alimentation))
+anova(anova. <- lm(data = milk_production, milk ~ feed + ration))
 ```
 
 ```{r lait_croise_h2-check}
@@ -362,7 +341,7 @@ Votre ANOVA à 2 facteurs sans interactions indique qu'il y a une différence si
 💬 **Ce code correspond au snippet `.hmanovamult`**
 
 ```{r lait_prepa}
-anova. <- lm(data = lait, rendement ~ ration + alimentation)
+anova. <- lm(data = milk_production, milk ~ feed + ration)
 ```
 
 ```{r lait_post_h2, exercise = TRUE, exercise.setup = "lait_prepa"}
@@ -381,11 +360,11 @@ summary(anovaComp. <- confint(multcomp::glht(anova.,
 
 ```{r lait_post_h2-solution}
 summary(anovaComp. <- confint(multcomp::glht(anova.,
-  linfct = multcomp::mcp(ration = "Tukey", alimentation = "Tukey")))) # Add a second factor if you want
+  linfct = multcomp::mcp(feed = "Tukey", ration = "Tukey")))) # Add a second factor if you want
 .oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
 ```
 
-```{r lait_post-check}
+```{r lait_post_h2-check}
 grade_code("Le test de comparaison n'est pas vraiment nécessaire dans le cas de la variable ration puisque vous n'avez que 2 niveaux. Mais cela vous permet de voir comment procéder lorsque le nombre de niveaux est plus important. Par contre, il prend tout son sens dans le cas de la variable alimentation pour identifier les paires de moyennes qui sont différentes. Identifiez les niveaux qui sont significativement différents en répondant à la question suivante.")
 ```
 

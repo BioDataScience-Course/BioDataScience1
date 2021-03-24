@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.9.0
+
+- A11La_anova2 updated to version 2.
+
 ## Changes in version 2020.8.1
 
 - A09Lb_ttest_wmw version 2.1.1 : change weight by delta_weight in the instructions

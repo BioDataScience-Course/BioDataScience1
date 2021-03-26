@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.10.0
+
+- A11Lb_syntaxr updated to version 2
+
 ## Changes in version 2020.9.1
 
 - A11La_anova2 : improved exercise guidelines for interaction plot

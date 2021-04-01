@@ -27,7 +27,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-L'association entre deux variables peut être quantifié grâce à différentes descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman. On définit 3 niveaux d'association impliquant des hypothèses de plus en plus fortes sur le mécanismes sou-jacent liant ces deux variables. On a la corrélation, la relation et la causalité. Les indices de corrélation et les tests de corrélation permettent comme leur nom l'indique de mettre un avant une corrélation entre deux variables. La corrélation est simplement l’association de deux variable sans élaborer plus d’explication sur le mécanisme sous-jacent qui lie ces variables.
+L'association entre deux variables peut être quantifiée grâce à différentes descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman. On définit 3 niveaux d'association impliquant des hypothèses de plus en plus fortes sur le mécanismes sou-jacent liant ces deux variables. On a la corrélation, la relation et la causalité. Les indices de corrélation et les tests de corrélation permettent comme leur nom l'indique de mettre un avant une corrélation entre deux variables. La corrélation est simplement l’association de deux variable sans élaborer plus d’explication sur le mécanisme sous-jacent qui lie ces variables.
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à\ :
 
@@ -41,7 +41,7 @@ L'étude porte sur les variations morphologiques des fleurs de trois espèces d'
 
 Edgar Anderson a récolté les trois espèces d'iris en Gaspésie (Québec, Canada) en 1935 au moment de la floraison. La péninsule de Gaspésie est entourée par l'estuaire du fleuve Saint-Laurent, le golfe du Saint-Laurent et la baie des chaleurs.
 
-Cinquante plants par espèces sont prélevés afin d'étudier la biométrie de leurs fleurs. La longueur et la largeur des pétales et sépales sont mesurées (en centimètre).
+Cinquante plants par espèce sont prélevés afin d'étudier la biométrie de leurs fleurs. La longueur et la largeur des pétales et sépales sont mesurées (en centimètre).
 
 ![](images/iris.jpg)   
 
@@ -78,7 +78,7 @@ Réalisez une matrice de corrélation afin de mettre en avant la corrélation li
 
 💬 **Un snippet est disponible pour réaliser cet exercice `.escor: correlation matrix`.**
 
-```{r is_corr_h2, exercise = TRUE, exercise.setup = "iris_prepa"}
+```{r is_corr_h2, exercise=TRUE, exercise.lines=1, exercise.setup="iris_prepa"}
 iris_corr <- correlation(___[, ___:___], use = "complete.obs", method = "___")
 summary(iris_corr)
 ```
@@ -101,14 +101,14 @@ summary(iris_corr)
 grade_code("Le résume de la matrice de corrélation utilise un système de légende particulier pour mettre en avant les variables les plus corrélées. Assurez-vous de bien comprendre les symboles utilisés ., + ou encore B.")
 ```
 
-Réalisez un graphique de votre objet `iris_corr`. N'affichez que la partie supérieur de votre matrice.
+Réalisez un graphique de votre objet `iris_corr`. N'affichez que la partie supérieur de votre matrice. Tout comme le résumé de la matrice ne montre que la partie inférieure de la matrice, il n'est pas utile de représenter la matrice complète sous forme graphique. La matrice est symétrique.
 
 ```{r iris_corr}
 iris <- read("iris", package = "datasets", lang = "FR")
 iris_corr <- correlation(iris[, 1:4], use = "complete.obs", method = "pearson")
 ```
 
-```{r is_plot_h2, exercise = TRUE, exercise.setup = "iris_corr"}
+```{r is_plot_h2, exercise=TRUE, exercise.lines=1, exercise.setup="iris_corr"}
 ___(iris_corr, type = "___")
 ```
  
@@ -123,7 +123,7 @@ plot(iris_corr, type = "upper")
 ```
 
 ```{r is_plot_h2-check}
-grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'ellipse et le sens de l'ellipse sont porteur d'informatio sur la corrélation entre les paires de variabls étudées. indique l'importance de la corrélation.L'é Par exemple, le bleu foncé met en avant  Répondez à la question suivante.")
+grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'éllipse et le sens de l'ellipse sont porteur d'information sur la corrélation entre les paires de variabls étudiées. Répondez à la question suivante.")
 ```
 
 ```{r quiz_corr}
@@ -134,7 +134,7 @@ question("Quelles sont les variables les plus fortement corrélées ?(sélection
          answer("petal_width", correct = TRUE),
            allow_retry = TRUE,
            incorrect = "Recommencez afin de trouver la bonne réponse",
-           correct = "Bravo, c'est correct")
+           correct = "Bravo, c'est correct. Vous avez su décoder avec succès votre matrice de corrélation")
 ```
 
 ## Test de corrélation 
@@ -143,7 +143,7 @@ Suite à votre matrice de corrélation linéaire avec l'indice de corrélation d
 
 Utilisez un test de corrélation afin de répondre à la question suivante : **est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ? **
 
-```{r cortest_h2, exercise = TRUE, exercise.setup = "iris_prepa"}
+```{r cortest_h2, exercise=TRUE, exercise.lines=3, exercise.setup="iris_prepa"}
 cor.test(data = ___, ~ ___ + ___,
   alternative = "two.sided", method = "___")
 ```
@@ -168,9 +168,9 @@ grade_code("Bravo ! Vous venez de réaliser un test de corrélation de Pearson. 
 question("Est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ?",
   answer("Oui", correct = TRUE),
   answer("Non"),
-  correct = "Bravo, c'est exact ! En effet, l'hypothèse nulle est que la corrélation entre les deux variables est nulle. Avec une valeur inférieur au seuil alpha, il y a rejet de l'hypothèse nulle.", 
+  correct = "Bravo, c'est exact ! Avec une valeur inférieur au seuil alpha, il y a rejet de l'hypothèse nulle.", 
   incorrect = "Il semble que vous n'avez pas su déterminer correctement l'hypothèse nulle et l'hypothèse alternative.", 
-  try_again = TRUE)
+  allow_retry = TRUE)
 ```
 
 ## Conclusion

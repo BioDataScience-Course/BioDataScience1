@@ -5,133 +5,128 @@ description: "**SDD I Module 12** Le coefficient de corrélation et le test de c
 output:
   learnr::tutorial
 tutorial:
-  id: "A12a_correlation"
-  version: 1.0.0
+  id: "A12La_correlation"
+  version: 2.0.0/5
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-library(learnr)
-library(knitr)
+BioDataScience1::learnr_setup()
 SciViews::R()
-
-options(tutorial.event_recorder = BioDataScience::record_sdd)
-tutorial_options(exercise.checker = BioDataScience::checker_sdd)
-tutorial_options(exercise.timelimit = 60)
-tutorial_options(exercise.cap = "Code R")
-knitr::opts_chunk$set(echo = FALSE, comment = NA)
-
-library(BioDataScience)
-#dataset
-urchin <- read("urchin_bio", package = "data.io", lang = "fr")
 ```
 
 ```{r, echo=FALSE}
-fixedRow(
-  column(9, div(
-    img(src = 'images/BioDataScience-128.png', align = "left"),
-    h1("Science des données biologiques"),
-    "Réalisé par le service d'Écologie numérique des Milieux aquatiques, Université de Mons (Belgique)"
-  )),
-  column(3, div(
-    textInput("user", "Utilisateur :", ""),
-    textInput("email", "Email :", "")
-  ))
-)
-textOutput("user") # This is newer shown, but required to trigger an event!
-textOutput("email") # Idem!
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-output$user <- renderText({BioDataScience::user_name(input$user);""})
-output$email <- renderText({BioDataScience::user_email(input$email);""})
-updateTextInput(session, "user", value = BioDataScience::user_name())
-updateTextInput(session, "email", value = BioDataScience::user_email())
+BioDataScience1::learnr_server(input, output, session)
 ```
 
-## Préambule
-
-Si vous n'avez jamais utilisé de tutoriel "learnr", familiarisez-vous d'abord avec son interface [ici](http://biodatascience-course.sciviews.org/sdd-umons/learnr.html).
-
-![](images/attention.jpg)
-
-> Conformément au RGPD ([Règlement Général sur la Protection des Données](https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/principles-gdpr_fr)), nous sommes tenus de vous informer de ce que vos résultats seront collecté afin de suivre votre progression. **Les données seront enregistrées au nom de l'utilisateur apparaissant en haut de cette page. Corrigez si nécessaire !** En utilisant ce tutoriel, vous marquez expressément votre accord pour que ces données puissent être collectées par vos enseignants et utilisées pour vous aider et vous évaluer. Après avoir été anonymisées, ces données pourront également servir à des études globales dans un cadre scientifique et/ou éducatif uniquement.
+----
 
 ## Objectifs
 
+L'association entre deux variables peut être quantifié grâce à différentes descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman. On définit 3 niveaux d'association impliquant des hypothèses de plus en plus fortes sur le mécanismes sou-jacent liant ces deux variables. On a la corrélation, la relation et la causalité. Les indices de corrélation et les tests de corrélation permettent comme leur nom l'indique de mettre un avant une corrélation entre deux variables. La corrélation est simplement l’association de deux variable sans élaborer plus d’explication sur le mécanisme sous-jacent qui lie ces variables.
+
+Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à\ :
+
 - Comprendre les différents niveaux d’association de deux variables numériques.
 
-## La corrélation
+- Réaliser et interpréter un test de corrélation
 
-Vous avez à votre disposition un jeu de données sur la biométrie d'Iris.
+## Biométrie de trois espèces d'Iris
+
+L'étude porte sur les variations morphologiques des fleurs de trois espèces d'iris que sont *Iris setosa* Pall. ex Link (1820) , *Iris versicolor* L. (1753) et *Iris virginica* L.. Ces espèces appartiennent à la famille des Iridaceae. Ces trois espèces se développent dans des milieux humides. 
+
+Edgar Anderson a récolté les trois espèces d'iris en Gaspésie (Québec, Canada) en 1935 au moment de la floraison. La péninsule de Gaspésie est entourée par l'estuaire du fleuve Saint-Laurent, le golfe du Saint-Laurent et la baie des chaleurs.
+
+Cinquante plants par espèces sont prélevés afin d'étudier la biométrie de leurs fleurs. La longueur et la largeur des pétales et sépales sont mesurées (en centimètre).
+
+![](images/iris.jpg)   
+
+Vous avez à votre disposition un jeu de données sur des mesures biométriques d'iris.
 
 ```{r, echo = TRUE}
 # Importation des données
 (iris <- read("iris", package = "datasets", lang = "fr"))
 ```
 
-Utilisez la matrice de corrélation afin de mettre en avant la corrélation entre l'ensemble des vairables numérique disponible.
+
+La fonction `skim()` du package `skimr` est une fonction très intéressante dans un carnet de notes pour découvrir les données. Avec une seule fonction, on obtient une première idée sur le nombre d'observations, le type des variables, la présence de valeurs manquantes,...
+
+```{r, echo=TRUE}
+skimr::skim(iris)
+```
+
+Le jeu de données iris est parfaitement balancé avec 50 individus par groupe. Il comprends 4 variables numériques et 1 variable facteur non-ordonnée. Il ne comprend pas de valeurs manquantes.
 
 ```{r iris_prepa}
-iris <- read("iris", package = "datasets")
+iris <- read("iris", package = "datasets", lang = "FR")
 ```
 
-Vous avez à votre disposition le snippet : 
+Avant de poursuivre votre exploration des données, réalisez différents graphiques en fonction des différents variables. 
 
-```{r, echo, eval = FALSE, echo = TRUE}
-correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+```{r scatterplot_noscore, exercise=TRUE, exercise.setup = "iris_prepa"}
+chart(data = iris, ___ ~ ___ %col=% species) +
+  geom_point()
 ```
 
-N'oubliez pas de sélectionner les variables que vous souhaitez étudier.
+## Matrice de corrélation 
 
-```{r corr1, exercise = TRUE, exercise.setup = "iris_prepa"}
+Réalisez une matrice de corrélation afin de mettre en avant la corrélation linéaire entre l'ensemble des variables numérique disponibles. Proposez ensuite un résumé de cette matrice.
 
+💬 **Un snippet est disponible pour réaliser cet exercice `.escor: correlation matrix`.**
+
+```{r is_corr_h2, exercise = TRUE, exercise.setup = "iris_prepa"}
+iris_corr <- correlation(___[, ___:___], use = "complete.obs", method = "___")
+summary(iris_corr)
 ```
 
-```{r corr1-solution}
-correlation(iris[, 1:4], use = "complete.obs", method = "pearson")
+```{r is_corr_h2-hint-1}
+iris_corr <- correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
+summary(iris_corr)
+# La sélection se fait sur base des indices des colonnes en R de base. 
+# Vous ne devez sélectionner que les variables numériques.
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r corr1-check}
-# TODO
+```{r is_corr_h2-solution}
+iris_corr <- correlation(iris[, 1:4], use = "complete.obs", method = "pearson")
+summary(iris_corr)
 ```
 
-
-Vous pouvez également réaliser un graphique avec l'instruction suivante :
-
-```{r, echo = TRUE, eval = FALSE}
-plot(correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson"))
+```{r is_corr_h2-check}
+grade_code("Le résume de la matrice de corrélation utilise un système de légende particulier pour mettre en avant les variables les plus corrélées. Assurez-vous de bien comprendre les symboles utilisés ., + ou encore B.")
 ```
 
-```{r corr2, exercise = TRUE, exercise.setup = "iriss_prepa"}
+Réalisez un graphique de votre objet `iris_corr`. N'affichez que la partie supérieur de votre matrice.
 
+```{r iris_corr}
+iris <- read("iris", package = "datasets", lang = "FR")
+iris_corr <- correlation(iris[, 1:4], use = "complete.obs", method = "pearson")
+```
+
+```{r is_plot_h2, exercise = TRUE, exercise.setup = "iris_corr"}
+___(iris_corr, type = "___")
 ```
  
-```{r corr2-solution}
-plot(correlation(iris[, 1:4], use = "complete.obs", method = "pearson"))
+```{r is_plot_h2-hint-1}
+plot(iris_corr, type = "___")
+
+#### ATTENTION: Hint suivant = solution !####
+```
+ 
+```{r is_plot_h2-solution}
+plot(iris_corr, type = "upper")
 ```
 
-```{r corr2-check}
-# TODO
+```{r is_plot_h2-check}
+grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'ellipse et le sens de l'ellipse sont porteur d'informatio sur la corrélation entre les paires de variabls étudées. indique l'importance de la corrélation.L'é Par exemple, le bleu foncé met en avant  Répondez à la question suivante.")
 ```
 
-En ajoutant l'argument type = "upper", vous pouvez n'afficher que la partie supérieur de votre graphique.
-
-```{r corr3, exercise = TRUE, exercise.setup = "iris_prepa"}
-
-```
-
-```{r corr3-solution}
-plot(correlation(iris[, 1:4], use = "complete.obs", method = "pearson"), type = "upper")
-```
-
-```{r corr3-check}
-# TODO
-```
-
-Répondez à présent à la question suivante.
-
-```{r quiz1}
+```{r quiz_corr}
 question("Quelles sont les variables les plus fortement corrélées ?(sélectionnez les deux variables les plus corrélées)",
          answer("sepal_length"),
          answer("sepal_width"),
@@ -142,68 +137,52 @@ question("Quelles sont les variables les plus fortement corrélées ?(sélection
            correct = "Bravo, c'est correct")
 ```
 
-Nous pouvons nous poser la question suivante :
+## Test de corrélation 
 
-- **est ce que la largeur des sépales (sepal_width) et la longeur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ? **
+Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un indice de corrélation supérieur à 0.9. Cependant, avoir une valeur élevé ne permet pas d'affirmer qu'il y une corrélation significative entre ces deux variables. 
 
-```{r, echo = TRUE, eval = FALSE}
-cor.test(data = DF, ~ YNUM + XNUM,
-         alternative = "two.sided", method = "pearson")
+Utilisez un test de corrélation afin de répondre à la question suivante : **est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ? **
+
+```{r cortest_h2, exercise = TRUE, exercise.setup = "iris_prepa"}
+cor.test(data = ___, ~ ___ + ___,
+  alternative = "two.sided", method = "___")
 ```
 
-```{r corr4, exercise = TRUE, exercise.setup = "iris_prepa"}
+```{r cortest_h2-hint-1}
+cor.test(data = iris, ~ ___ + ___, 
+  alternative = "two.sided", method = "___")
 
+#### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r corr4-solution}
-cor.test(data = iris, ~ petal_length + sepal_width,
-         alternative = "two.sided", method = "pearson")
+```{r cortest_h2-solution}
+cor.test(data = iris, ~ petal_width + petal_length, 
+  alternative = "two.sided", method = "pearson")
 ```
 
-```{r corr4-check}
-# TODO
+```{r cortest_h2-check}
+grade_code("Bravo ! Vous venez de réaliser un test de corrélation de Pearson. Il ne vous reste plus qu'à répondre à la question ci-dessous. Pour vous assurer que vous êtes capable de d'interpréter ce test d'hypothèse.")
 ```
 
-```{r quiz2}
-question("Y a t'il une différence significative au seuil alpha de 5% ?",
-         answer("Oui", correct = TRUE),
-         answer("Non"))
+```{r quiz_test}
+question("Est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ?",
+  answer("Oui", correct = TRUE),
+  answer("Non"),
+  correct = "Bravo, c'est exact ! En effet, l'hypothèse nulle est que la corrélation entre les deux variables est nulle. Avec une valeur inférieur au seuil alpha, il y a rejet de l'hypothèse nulle.", 
+  incorrect = "Il semble que vous n'avez pas su déterminer correctement l'hypothèse nulle et l'hypothèse alternative.", 
+  try_again = TRUE)
 ```
-
-
-- **est ce que la largeur des sépales (sepal_width) et la longeur des sépales () sont significativement corrélées au seuil alpha de 5% ? **
-
-```{r corr5, exercise = TRUE, exercise.setup = "iris_prepa"}
-
-```
-
-```{r corr5-solution}
-cor.test(data = iris, ~ sepal_length + sepal_width,
-         alternative = "two.sided", method = "pearson")
-```
-
-```{r corr5-check}
-# TODO
-```
-
-```{r quiz3}
-question("Y a t'il une différence significative au seuil alpha de 5% ?",
-         answer("Oui"),
-         answer("Non", correct = TRUE))
-```
-
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+Bravo! Vous venez de terminer le tutoriel sur la premier niveau d'association de paires de variables qu'est la corrélation.
 
-Laissez nous vos impressions sur cet outil pédagogique ou expérimentez encore dans la zone ci-dessous. Rappelez-vous que pour placer un commentaire dans une zone de code R, vous devez utilisez un dièse (`#`) devant vos phrases.
-
-```{r comm, exercise=TRUE, exercise.lines = 8}
-# Ajout de commentaires 
-# ...
-```
-
-```{r comm-check}
-# Not yet...
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur cet outil pédagogique",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
 ```

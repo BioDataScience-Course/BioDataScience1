@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.11.0
+
+- A12La_correlation updated to version 2
+
 ## Changes in version 2020.10.0
 
 - A11Lb_syntaxr updated to version 2

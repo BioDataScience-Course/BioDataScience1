@@ -1,7 +1,7 @@
 ---
 title: "Corrélation"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 12** Le coefficient de corrélation et le test de corrélation."
+description: "**SDD I Module 12** Les coefficients et le test de corrélation."
 output:
   learnr::tutorial
 tutorial:
@@ -27,7 +27,11 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-L'association entre deux variables peut être quantifiée grâce à différentes descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman. On définit 3 niveaux d'association impliquant des hypothèses de plus en plus fortes sur le mécanismes sou-jacent liant ces deux variables. On a la corrélation, la relation et la causalité. Les indices de corrélation et les tests de corrélation permettent comme leur nom l'indique de mettre un avant une corrélation entre deux variables. La corrélation est simplement l’association de deux variable sans élaborer plus d’explication sur le mécanisme sous-jacent qui lie ces variables.
+L'association entre deux variables peut être quantifiée grâce à différents descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman. 
+
+On définit 3 niveaux d'association impliquant des hypothèses de plus en plus fortes sur le mécanisme sous-jacent liant ces deux variables. On a la corrélation, la relation et la causalité. 
+
+La corrélation est simplement l’association de deux variables sans élaborer plus d’explication sur le mécanisme sous-jacent qui lie ces variables.
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à\ :
 
@@ -35,7 +39,7 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à\ :
 
 - Réaliser et interpréter un test de corrélation
 
-## Biométrie de trois espèces d'Iris
+## Biométrie de trois espèces d'iris
 
 L'étude porte sur les variations morphologiques des fleurs de trois espèces d'iris que sont *Iris setosa* Pall. ex Link (1820) , *Iris versicolor* L. (1753) et *Iris virginica* L.. Ces espèces appartiennent à la famille des Iridaceae. Ces trois espèces se développent dans des milieux humides. 
 
@@ -123,7 +127,7 @@ plot(iris_corr, type = "upper")
 ```
 
 ```{r is_plot_h2-check}
-grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'éllipse et le sens de l'ellipse sont porteur d'information sur la corrélation entre les paires de variabls étudiées. Répondez à la question suivante.")
+grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'ellipse et le sens de l'ellipse sont porteur d'information sur la corrélation entre les paires de variabls étudiées. Répondez à la question suivante.")
 ```
 
 ```{r quiz_corr}
@@ -168,7 +172,7 @@ grade_code("Bravo ! Vous venez de réaliser un test de corrélation de Pearson. 
 question("Est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ?",
   answer("Oui", correct = TRUE),
   answer("Non"),
-  correct = "Bravo, c'est exact ! Avec une valeur inférieur au seuil alpha, il y a rejet de l'hypothèse nulle.", 
+  correct = "Bravo, c'est exact ! Avec une valeur de p inférieure au seuil alpha, il y a rejet de l'hypothèse nulle.", 
   incorrect = "Il semble que vous n'avez pas su déterminer correctement l'hypothèse nulle et l'hypothèse alternative.", 
   allow_retry = TRUE)
 ```

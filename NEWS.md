@@ -1,5 +1,9 @@
 # BioDataScience1 News
 
+## Changes in version 2020.11.1
+
+- A12La_correlation : minor modifications to improve exercise guidelines
+
 ## Changes in version 2020.11.0
 
 - A12La_correlation updated to version 2

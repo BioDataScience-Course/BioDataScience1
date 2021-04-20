@@ -82,7 +82,7 @@ Réalisez une matrice de corrélation afin de mettre en avant la corrélation li
 
 💬 **Un snippet est disponible pour réaliser cet exercice `.escor: correlation matrix`.**
 
-```{r is_corr_h2, exercise=TRUE, exercise.lines=1, exercise.setup="iris_prepa"}
+```{r is_corr_h2, exercise=TRUE, exercise.lines=2, exercise.setup="iris_prepa"}
 iris_corr <- correlation(___[, ___:___], use = "complete.obs", method = "___")
 summary(iris_corr)
 ```
@@ -145,7 +145,7 @@ question("Quelles sont les variables les plus fortement corrélées ?(sélection
 
 Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un indice de corrélation supérieur à 0.9. Cependant, avoir une valeur élevé ne permet pas d'affirmer qu'il y une corrélation significative entre ces deux variables. 
 
-Utilisez un test de corrélation afin de répondre à la question suivante : **est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ? **
+Utilisez un test de corrélation de Pearson afin de répondre à la question suivante : **est ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ? **
 
 ```{r cortest_h2, exercise=TRUE, exercise.lines=3, exercise.setup="iris_prepa"}
 cor.test(data = ___, ~ ___ + ___,

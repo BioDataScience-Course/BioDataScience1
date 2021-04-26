@@ -80,6 +80,8 @@ chart(data = iris, ___ ~ ___ %col=% species) +
 
 Réalisez une matrice de corrélation afin de mettre en avant la corrélation linéaire entre l'ensemble des variables numérique disponibles. Proposez ensuite un résumé de cette matrice.
 
+<!-- Attention que le snippet se réfère à cor() alors qu'on utilise correlation() ici => homogénéiser, ou au moins le préciser. Ce serait aussi utile de rappeler les variables du tableau en début de cet exercice car on est passé à une autre page! -->
+
 💬 **Un snippet est disponible pour réaliser cet exercice `.escor: correlation matrix`.**
 
 ```{r is_corr_h2, exercise=TRUE, exercise.lines=2, exercise.setup="iris_prepa"}

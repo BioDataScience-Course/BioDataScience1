@@ -1,9 +1,9 @@
 # Limits of the axes for a scatterplot
-learndown::learndownShinyVersion("1.0.0") # Set app version
+learnitdown::learnitdownShinyVersion("1.0.0") # Set app version
 conf <- BioDataScience::config()
 
 library(shiny)
-library(learndown)
+library(learnitdown)
 library(BioDataScience1)
 library(ggplot2)
 library(chart)
@@ -11,7 +11,7 @@ library(chart)
 urchin <- data.io::read("urchin_bio", package = "data.io", lang = "fr")
 
 ui <- fluidPage(
-  learndownShiny("Ajustement manuel des limites de l'axe X et de l'axe Y"),
+  learnitdownShiny("Ajustement manuel des limites de l'axe X et de l'axe Y"),
 
   sidebarPanel(
     sliderInput("limits_x",

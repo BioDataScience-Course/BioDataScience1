@@ -4,9 +4,9 @@
 \alias{learnr_setup}
 \alias{learnr_banner}
 \alias{learnr_server}
-\title{Prepare a learnr tutorial for learndown recording}
+\title{Prepare a learnr tutorial for learnitdown recording}
 \usage{
-learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNDOWN_DEBUG", 0) != 0)
+learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNITDOWN_DEBUG", 0) != 0)
 
 learnr_banner(simple = FALSE)
 
@@ -16,7 +16,7 @@ learnr_server(input, output, session)
 \item{cap}{The caption of learnr R code widgets.}
 
 \item{debug}{Do we issue debugging messages (by default, yes if the
-environment variables \code{LEARNDOWN_DEBUG} is not \code{0}).}
+environment variables \code{LEARNITDOWN_DEBUG} is not \code{0}).}
 
 \item{simple}{Do we use a simple banner without title or not?}
 
@@ -27,5 +27,5 @@ environment variables \code{LEARNDOWN_DEBUG} is not \code{0}).}
 \item{session}{The Shiny session.}
 }
 \description{
-These functions add recording functionalities through the learndown approach.
+These functions add recording through the learnitdown approach.
 }

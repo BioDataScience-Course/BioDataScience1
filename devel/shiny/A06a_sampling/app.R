@@ -1,9 +1,9 @@
 # Sampling a distribution
-learndown::learndownShinyVersion("1.0.0")
+learnitdown::learnitdownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 
 library(shiny)
-library(learndown)
+library(learnitdown)
 library(BioDataScience1)
 library(tibble)
 library(ggplot2)
@@ -15,7 +15,7 @@ mean_pop <- mean(pop)
 sd_pop <- sd(pop)
 
 ui <- fluidPage(
-  learndownShiny("Population & Echantillon"),
+  learnitdownShiny("Population & Echantillon"),
 
   sidebarPanel(
     p("Effet de la taille d'un échantillon sur l'estimation de la moyenne."),

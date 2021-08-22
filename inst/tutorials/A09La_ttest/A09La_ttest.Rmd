@@ -25,21 +25,21 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
 La moyenne est un descripteur très employé pour résumer l'information. Il est très courant de comparer un moyenne à une valeurs de référence ou deux moyennes entre elles. Dans votre carrière scientifique, il est indispensable de maîtriser la moyenne et ses subtilités.
 
-- Être capable de calculer la moyenne, l'écart-type et la variance
+-   Être capable de calculer la moyenne, l'écart-type et la variance
 
-- Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
+-   Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
-Vous devez maîtrise le calcul de probabilités ([module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html) relatif au test du Chi^2^. Enfin, vous devez avoir vu la première partie du [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
+Vous devez maîtrise le calcul de probabilités ([module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le module 8](<https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html>) relatif au test du Chi^2^. Enfin, vous devez avoir vu la première partie du [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
 
 ## Moyenne
 
-Commençons par revoir les bases. Un échantillon représentatif d'une population peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l'écart-type ou la variance. La moyenne de la variable $y$ se note $\bar{y}$ qui se dit "y barre". Son calcul se fait comme ceci\ :
+Commençons par revoir les bases. Un échantillon représentatif d'une population peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l'écart-type ou la variance. La moyenne de la variable $y$ se note $\bar{y}$ qui se dit "y barre". Son calcul se fait comme ceci :
 
 $$\bar{y} = \sum_{i = 1}^n \frac{{y_i}}{n}$$
 
@@ -61,14 +61,26 @@ ___(___)
 vec <- c(14, 24, 32, 18, 19)
 mean(___)
 
- #### ATTENTION: Hint suivant = solution !####
+#### ATTENTION: Hint suivant = solution !####
 ```
 
+```{=html}
+<!--
+Obfuscation trial: use this argument in the parameters of h2-hint-1
+code=._("w1CFYFoBT8odLtPsPD8RsFH0m3LC+PCT46uyW0Gbn95uYbhbr5Ls4OwiAQ0Rv4J97lsYgpsosrPWYOtJo7N2Q8Nt7dV3nWUnUt4YqIAwO6NREeVuYDFiDPZ5RcD4ExNE")
+ -->
+```
 ```{r mean1_h2-solution}
 vec <- c(14, 24, 32, 18, 19)
 mean(vec)
 ```
 
+```{=html}
+<!--
+obfuscation trial: use this argument in the parameters of h2-solution
+code=._("w1CFYFoBT8odLtPsPD8RsFH0m3LC+PCT46uyW0Gbn96HPng1pvpUrHJXuEmBoIJP")
+ -->
+```
 ```{r mean1_h2-check}
 grade_code("La fonction mean() effectue ce calcul. Si des valeurs manquantes (exercice suivant) se trouvent dans le vacteur, il faut prendre une précaution supplémentaire pour obtenir une estimation de la moyenne.")
 ```
@@ -109,11 +121,11 @@ grade_code("Retenez que, dans R, pour toute fonction qui propose un argument na.
 
 ### Ecart-type
 
-Un second descripteur d'un échantillon est l'écart-type qui est calculé via l'équation suivante\ :
+Un second descripteur d'un échantillon est l'écart-type qui est calculé via l'équation suivante :
 
 $$s_y = \sqrt {s_y^2}$$
 
-L'écart-type est la racine carré de la variance $s_y^2$ de la variable $y$ qui est également un descripteur statistique de l'échantillon. La variance de l'échantillon est calculée comme suit\ :
+L'écart-type est la racine carré de la variance $s_y^2$ de la variable $y$ qui est également un descripteur statistique de l'échantillon. La variance de l'échantillon est calculée comme suit :
 
 $$s_y^2 = \sum\limits_{i=1}^n \frac{(y_i - \bar y)^2}{n-1}$$
 
@@ -146,7 +158,7 @@ grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom s
 
 ### Coefficient de variation
 
-Un autre descripteur est le coefficient de variation de l'échantillon qui est calculé via 
+Un autre descripteur est le coefficient de variation de l'échantillon qui est calculé via
 
 $$cv_y \ (\%) = \frac{s_y}{\bar y} \times 100$$
 
@@ -188,7 +200,7 @@ Ces premiers exercices vous ont permis de revoir les principaux descripteurs cen
 
 Il est temps de passer à un exemple concret. Vous allez vous intéresser à l'indice de masse corporelle dans une population d'adultes ayant plus de 18 ans et jusqu'à 30 ans. Ce tableau de données ne vous est pas inconnu. Vous l'avez déjà employé à plusieurs reprises pour réaliser des graphiques notamment (nous préférons toujours rester en "terrain connu" lorsque nous abordons pour la première fois une technique statistique).
 
-![](images/diet.jpg){width='60%'}
+![](images/diet.jpg){width="60%"}
 
 ```{r, echo=TRUE}
 biometry <- read("biometry", package = "BioDataScience", lang = "fr")
@@ -271,7 +283,7 @@ biometry %>.%
 grade_code("Vous avez proposé un tableau résumant l'information. Vous avez calculé la moyenne et l'écart-type de l'IMC en fonction du genre. Maintenant, nous voulons déterminer si ces moyennes diffèrent de manière significative ou non en fonction du genre.", "Analysez avec attention le tableau que vous devez obtenir. Quelle est la variable dont vous devez déterminer la moyenne et l'écart-type ?")
 ```
 
-Vous devez à présent comparer l'indice de masse corporelle entre les hommes et les femmes. Utilisez un test t de Student bilatéral et de variance similaire. Vous devez fixer votre seuil $\alpha$ à 0.05. 
+Vous devez à présent comparer l'indice de masse corporelle entre les hommes et les femmes. Utilisez un test t de Student bilatéral et de variance similaire. Vous devez fixer votre seuil $\alpha$ à 0.05.
 
 💬 **Un snippet peut vous aider à réaliser cet exercice `.hmttestindep`.**
 
@@ -315,7 +327,7 @@ quiz(
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr". 
+Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

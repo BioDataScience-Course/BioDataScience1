@@ -34,7 +34,7 @@
 run <- function(tutorial, ..., update = ask, ask = interactive()) {
   if (missing(tutorial))
     tutorial <- NULL
-  learndown::run(tutorial = tutorial, package = "BioDataScience1",
+  learnitdown::run(tutorial = tutorial, package = "BioDataScience1",
     github_repos = "BioDataScience-course/BioDataScience1",
     ..., update = update, ask = ask)
 }
@@ -45,7 +45,7 @@ run_app <- function(app, ..., update = ask, ask = interactive(),
 in.job = TRUE) {
   if (missing(app))
     app <- NULL
-  learndown::run_app(app = app, package = "BioDataScience1",
+  learnitdown::run_app(app = app, package = "BioDataScience1",
     github_repos = "BioDataScience-course/BioDataScience1",
     ..., update = update, ask = ask, in.job = in.job)
 }
@@ -53,5 +53,5 @@ in.job = TRUE) {
 #' @rdname run
 #' @export
 update_pkg <- function()
-  learndown::update_pkg(package = "BioDataScience1",
+  learnitdown::update_pkg(package = "BioDataScience1",
     github_repos = "BioDataScience-course/BioDataScience1")

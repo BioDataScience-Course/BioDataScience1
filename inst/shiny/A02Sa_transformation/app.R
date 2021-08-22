@@ -1,9 +1,9 @@
 # Transformation of the axes of a scatterplot
-learndown::learndownShinyVersion("1.0.0")
+learnitdown::learnitdownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 
 library(shiny)
-library(learndown)
+library(learnitdown)
 library(BioDataScience1)
 library(data.io)
 library(dplyr)
@@ -13,7 +13,7 @@ library(chart)
 urchin <- data.io::read("urchin_bio", package = "data.io", lang = "fr")
 
 ui <- fluidPage(
-  learndownShiny("Transformation des données : linéarisation"),
+  learnitdownShiny("Transformation des données : linéarisation"),
 
   sidebarPanel(
     selectInput(

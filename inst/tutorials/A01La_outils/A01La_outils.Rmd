@@ -37,54 +37,6 @@ BioDataScience1::learnr_server(input, output, session)
 
 Répondez aux questions ci-dessous après avoir lu attentivement la théorie correspondante.
 
-```{r qu_intro}
-quiz(
-  question("Définissez 'SciViews Box'",
-    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés",
-      correct = TRUE),
-    answer("Un environnement de développement intégré"),
-    answer("Un logiciel de gestion de versions"),
-    answer("Un service web d'hébergement de projet"),
-    answer("Un langage avec une syntaxe facile à lire et à écrire"),
-    answer("Aucune des réponses proposées n'est correcte"),
-    allow_retry = TRUE, random_answer_order = TRUE
-    ),
-  question("Définissez 'RStudio'",
-    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
-    answer("Un environnement de développement intégré", correct = TRUE),
-    answer("Un logiciel de gestion de versions"),
-    answer("Un service web d'hébergement de projet"),
-    answer("Un langage avec une syntaxe facile à lire et à écrire"),
-    answer("Aucune des réponses proposées n'est correcte"),
-    allow_retry = TRUE, random_answer_order = TRUE),
-  question("Définissez 'Git'",
-    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
-    answer("Un environnement de développement intégré"),
-    answer("Un logiciel de gestion de versions", correct = TRUE),
-    answer("Un service web d'hébergement de projet"),
-    answer("Un langage avec une syntaxe facile à lire et à écrire"),
-    answer("Aucune des réponses proposées n'est correcte"),
-    allow_retry = TRUE, random_answer_order = TRUE),
-  question("Définissez 'GitHub'",
-    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
-    answer("Un environnement de développement intégré"),
-    answer("Un logiciel de gestion de versions"),
-    answer("Un service web d'hébergement de projet", correct = TRUE),
-    answer("Un langage avec une syntaxe facile à lire et à écrire"),
-    answer("Aucune des réponses proposées n'est correcte"),
-    allow_retry = TRUE, random_answer_order = TRUE),
-  question("Définissez 'Markdown'",
-    answer("Une machine virtuelle dédiée à la recherche scientifique avec de nombreux programmes préconfigurés"),
-    answer("Un environnement de développement intégré"),
-    answer("Un logiciel de gestion de versions"),
-    answer("Un service web d'hébergement de projet"),
-    answer("Un langage avec une syntaxe facile à lire et à écrire", correct = TRUE),
-    answer("Aucune des réponses proposées n'est correcte"),
-    allow_retry = TRUE, random_answer_order = TRUE)
-)
-```
-
-
 ## Analyse de situation Git
 
 ### Situation 1
@@ -98,13 +50,13 @@ Sur base de l'image ci-dessous et de la situation précisée précédemment, ré
 ```{r qu_git1}
 quiz(
   question("Qualifiez la situation **A**",
-    answer("commit", correct = TRUE),
-    answer("clone"),
-    answer("push"),
-    answer("pull"),
-    answer("fetch"),
-    answer("fork"),
-    answer("pull request"),
+    ans(-5,   "commit"),
+    ans(63,   "clone"),
+    ans(14,   "push"),
+    ans(-15,  "pull"),
+    ans(-67,  "fetch"),
+    ans(13,   "fork"),
+    ans(-26,  "pull request"),
     allow_retry = TRUE, random_answer_order = TRUE
     ),
   question("Qualifiez la situation **B**",

@@ -5,7 +5,7 @@
 #' @docType package
 #' @name BioDataScience1-package
 #'
-#' @importFrom learndown run learndownLearnrBanner learndownLearnrServer
+#' @importFrom learnitdown run learnitdownLearnrBanner learnitdownLearnrServer
 #' @importFrom BioDataScience config sign_in sign_out
 #' @importFrom shiny dialogViewer observeEvent selectInput stopApp runGadget
 #' @importFrom miniUI gadgetTitleBar miniContentPanel miniPage miniTitleBarButton miniTitleBarCancelButton

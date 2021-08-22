@@ -3,7 +3,7 @@ learnitdown::learnitdownShinyVersion("1.0.0")
 conf <- BioDataScience::config()
 
 library(shiny)
-library(learndown)
+library(learnitdown)
 library(BioDataScience1)
 library(ggplot2)
 library(chart)

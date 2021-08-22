@@ -11,6 +11,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 ---
+
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
@@ -24,23 +25,22 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Préambule
 
-Vous vous trouvez au sein d'un tutoriel interactif construit avec `learnr`. La première chose à vérifier à l’ouverture du tutoriel interactif est votre `nom d’utilisateur` et votre `adresse email`. En effet, votre progression sera enregistrée, mais cela ne peut se faire que si vous renseignez ces données correctement avant de travailler dans le tutoriel learnr.
+Vous vous trouvez au sein d'un tutoriel interactif construit avec `learnr`. La première chose à vérifier à l'ouverture du tutoriel interactif est votre `nom d’utilisateur` et votre `adresse email`. En effet, votre progression sera enregistrée, mais cela ne peut se faire que si vous renseignez ces données correctement avant de travailler dans le tutoriel learnr.
 
 Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels interactifs comprenant des illustrations, des questions à choix multiples, des exercices R, ...
 
-Des questions ouvertes (sous la forme zones de code R) vous sont proposées dans les exercices. Elles vous permettent d’expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, recliquez `Run Code`, etc… jusqu’à ce que vous soyez satisfait du résultat. Finissez l’exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
+Des questions ouvertes (sous la forme zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, recliquez `Run Code`, etc... jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
 Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons-2020/learnr.html).
 
-
 ## Objectifs
 
-- Découvrir les quiz de type `learnr` composés de questions ouvertes et de questions à choix multiples.
-- Bien comprendre la logique d'utilisation des zones de code R.
+-   Découvrir les quiz de type `learnr` composés de questions ouvertes et de questions à choix multiples.
+-   Bien comprendre la logique d'utilisation des zones de code R.
 
 ## Questions à choix multiples
 
@@ -85,15 +85,15 @@ quiz(
 
 Comme vous avez pu vous en rendre compte en répondant aux questions ci-dessus, elles peuvent être recommencées afin de trouver la bonne réponse. De plus, les réponses bonnes comme mauvaises peuvent être associées à une explication complémentaire. Elles servent essentiellement à votre **auto-évaluation** pour que vous puissiez vérifier que vous avez bien compris les concepts abordés.
 
-En pratique dans le cours, il est fortement conseillé de revoir la matière immédiatement si vous constatez que vous n'arrivez pas à répondre aux questions... sinon vous risquez d'accumuler un retard qui pourrait devenir irrattrapable à la longue. Si vous trichez ici, la seule personne qui en payera le prix, c'est vous\ : cliquer et recommencer au hasard sans réfléchir est une *très mauvaise stratégie* qui ne vous donnera que l'illusion d'avancer. Dans ce cas, vous n'arriverez pas à faire les exercices plus compliqués qui arriveront ensuite, et vous finirez tout de même en échec\ !
+En pratique dans le cours, il est fortement conseillé de revoir la matière immédiatement si vous constatez que vous n'arrivez pas à répondre aux questions... sinon vous risquez d'accumuler un retard qui pourrait devenir irrattrapable à la longue. Si vous trichez ici, la seule personne qui en payera le prix, c'est vous : cliquer et recommencer au hasard sans réfléchir est une *très mauvaise stratégie* qui ne vous donnera que l'illusion d'avancer. Dans ce cas, vous n'arriverez pas à faire les exercices plus compliqués qui arriveront ensuite, et vous finirez tout de même en échec !
 
 ## Questions ouvertes
 
-Répondez aux questions ouvertes suivantes\ : 
+Répondez aux questions ouvertes suivantes :
 
 La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 2020. D'après les dernières recherches la température de cette mer augmente de 0.053°C annuellement.
 
-- Quelle sera la température moyenne en 2030\ ?
+-   Quelle sera la température moyenne en 2030 ?
 
 *Utilisez la zone de code R ci-dessous pour répondre à la question. Vous pouvez l'utiliser comme une calculatrice.*
 
@@ -130,7 +130,7 @@ grade_result(
 )
 ```
 
-- Quelle sera la température moyenne en 2100 (utilisez une formulation qui vous permettra de faire facilement le calcul pour n'importe quelle autre année avec un changement minimal, c'est-à-dire, juste l'année désirée)\ ?
+-   Quelle sera la température moyenne en 2100 (utilisez une formulation qui vous permettra de faire facilement le calcul pour n'importe quelle autre année avec un changement minimal, c'est-à-dire, juste l'année désirée) ?
 
 *Quelquefois, un bouton offrant la solution est proposé, comme ci-dessous. N'utilisez-le qu'en dernier recours, si vous n'arrivez vraiment pas à solutionner le problème. Certains exercices demanderont que vous écriviez votre code R d'une façon bien précise. C'est le cas ici.*
 
@@ -155,13 +155,13 @@ t0 + deltat * (y1 - y0)
 grade_code("Vos début en code R sont impressionnants.")
 ```
 
-Comme vous pouvez le constater, la réponse de l'exercice peut être donnée comme dernier indice de la question (bouton `Hints`) ou via le bouton `Solution`. **Encore une fois, autant pour les suggestions que pour les solutions, utiliser ces aides sans réfléchir juste pour répondre à la question en trichant ne trompera que vous\ : vous serez toujours incapable de répondre réellement à ce genre de question... et donc incapable de résoudre les exercices plus difficiles qui suivront\ !**
+Comme vous pouvez le constater, la réponse de l'exercice peut être donnée comme dernier indice de la question (bouton `Hints`) ou via le bouton `Solution`. **Encore une fois, autant pour les suggestions que pour les solutions, utiliser ces aides sans réfléchir juste pour répondre à la question en trichant ne trompera que vous : vous serez toujours incapable de répondre réellement à ce genre de question... et donc incapable de résoudre les exercices plus difficiles qui suivront !**
 
 Si vous avez été incapable de répondre à la question sans aller jusqu'à visualiser la réponse, essayez de décortiquer cette réponse pour déterminer ce que vous n'avez pas bien compris. Revoyez la matière correspondante du cours, discutez-en avec vos collègues, ou posez des questions à vos enseignants.
 
 ## Conclusion
 
-Bravo\! Vous venez de terminer votre séance d'exercices dans un tutoriel `learnr`. Rappelez-vous qu'il s'agit d'un outil d'**auto-évaluation** mis à votre disposition pour vérifier que vous avez bien compris et assimilé les concepts de base avant de passer à des exercices plus difficiles. Utilisez-le de manière responsable.
+Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel `learnr`. Rappelez-vous qu'il s'agit d'un outil d'**auto-évaluation** mis à votre disposition pour vérifier que vous avez bien compris et assimilé les concepts de base avant de passer à des exercices plus difficiles. Utilisez-le de manière responsable.
 
 ```{r quiz_eval_noscore}
 question("Comment évalueriez-vous globalement cet outils pédagogiques ?",
@@ -174,7 +174,7 @@ question("Comment évalueriez-vous globalement cet outils pédagogiques ?",
   type = "single", correct = "Merci, votre avis est enregistré.")
 ```
 
-Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changer d'ordinateur ou d'explorateur web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute)\ !
+Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changer d'ordinateur ou d'explorateur web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute) !
 
 ```{r comm_noscore, echo=FALSE}
 question_text(
@@ -186,9 +186,9 @@ question_text(
 )
 ```
 
-Si vous voulez, vous pouvez encore tester d'autres commandes R ci-dessous\ :
+Si vous voulez, vous pouvez encore tester d'autres commandes R ci-dessous :
 
-```{r code_noscore, exercise=TRUE, exercise.lines=8, exercise.checker=learndown::checker_ack_learnr}
+```{r code_noscore, exercise=TRUE, exercise.lines=8, exercise.checker=learnitdown::checker_ack_learnr}
 # Un commentaire est toujours précédé d'un '#' en R
 ```
 

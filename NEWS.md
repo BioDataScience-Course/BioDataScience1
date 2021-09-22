@@ -1,5 +1,9 @@
 # BioDataScience1 2021.0.0
 
+-   `A01LA_outils` updated to version 3.
+
+# BioDataScience1 2021.0.0
+
 -   Dependency moved from {learndown} to {learnitdown}. Preparation of the 2021-2020 series.
 
 -   Obfuscation trial

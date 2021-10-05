@@ -1,6 +1,10 @@
-# BioDataScience1 2021.0.0
+# BioDataScience1 2021.1.1
 
--   `A01LA_outils` updated to version 3.
+- `A02Lc_nuage` : correction in the instructions of an exercise
+
+# BioDataScience1 2021.1.0
+
+-   `A01La_outils` updated to version 3.
 
 # BioDataScience1 2021.0.0
 

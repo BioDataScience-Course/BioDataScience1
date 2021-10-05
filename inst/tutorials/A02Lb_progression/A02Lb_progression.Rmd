@@ -161,7 +161,7 @@ chart(biometry, height ~ weight %col=% gender) +
 
 ## L'obésité
 
-Plusieurs médias publient ou ont publié récemment des articles avec des titres accrocheurs comme [obésité, le mal du siècle](https://www.lesechos.fr/idees-debats/cercle/cercle-166670-obesite-le-mal-du-siecle-2067263.php), [13% de la population adulte mondiale est obèse, 20% pourrait l’être en 2025](https://www.lemonde.fr/sante/article/2016/04/01/13-de-la-population-adulte-mondiale-est-obese-20-pourrait-bientot-l-etre_4893671_1651302.html) ou  encore [obésité et malnutrition, fléaux du XXI^e^ siècle](http://www.natura-sciences.com/sante/obesite-malnutrition.html). Ils se basent sur plusieurs déclarations de l'Organisation Mondiale de la Santé (OMS) indiquant que la lutte contre l'obésité sera l'un des défis majeurs pour la santé publique au 21^ième^ siècle. L'OMS estime que 1.5 milliards de personnes sont en surpoids actuellement et ce chiffre augmentera si rien ne change.
+Plusieurs médias publient ou ont publié récemment des articles avec des titres accrocheurs comme obésité, le mal du siècle, [13% de la population adulte mondiale est obèse, 20% pourrait l’être en 2025](https://www.lemonde.fr/sante/article/2016/04/01/13-de-la-population-adulte-mondiale-est-obese-20-pourrait-bientot-l-etre_4893671_1651302.html) ou  encore [obésité et malnutrition, fléaux du XXI^e^ siècle](http://www.natura-sciences.com/sante/obesite-malnutrition.html). Ils se basent sur plusieurs déclarations de l'Organisation Mondiale de la Santé (OMS) indiquant que la lutte contre l'obésité sera l'un des défis majeurs pour la santé publique au 21^ième^ siècle. L'OMS estime que 1.5 milliards de personnes sont en surpoids actuellement et ce chiffre augmentera si rien ne change.
 
 
 ![](images/belly.jpg){width=50%}
@@ -322,13 +322,13 @@ grade_code("C'est tout simplement parfait... que dire de plus.")
 
 ## Encodage d'un tableau de données 
 
-Il devient rapidement évident qu'il est plus simple que nos observations de terrain soient rassemblées en un jeu de données structuré. Pour cela vous allez créer ce qu'on appelle un **"data frame"** (qui se traduit en français par "tableau de données") dans R. La fonction qui permet de le créer est `data_frame()`. Cette dernière permet de combiner vos différents vecteurs colonne par colonne dans un tableau.
+Il devient rapidement évident qu'il est plus simple que nos observations de terrain soient rassemblées en un jeu de données structuré. Pour cela vous allez créer ce qu'on appelle un **"data frame"** (qui se traduit en français par "tableau de données") dans R. La fonction qui permet de le créer est `tibble()`. Cette dernière permet de combiner vos différents vecteurs colonne par colonne dans un tableau.
 
-Dans `data_frame()`, vous entrerez vos différents vecteurs comme autant d'**arguments** de la fonction, séparés par une `,`. De plus, vous pouvez nommer vos colonnes en donnant des noms aux arguments de type `nom = valeur`. Analysez avec attention l'exemple ci-dessous.
+Dans `tibble()`, vous entrerez vos différents vecteurs comme autant d'**arguments** de la fonction, séparés par une `,`. De plus, vous pouvez nommer vos colonnes en donnant des noms aux arguments de type `nom = valeur`. Analysez avec attention l'exemple ci-dessous.
 
 ```{r, echo=TRUE}
 # Création du tableau de données (data frame)
-woman <- data_frame(
+woman <- tibble(
   id     = 3:7,       # Valeurs numériques
   sex    = rep("W", times = 5), # Chaines de caractères (! guillemets)
   weight = weight_w,  # Vecteur de masses fait précédemment
@@ -350,6 +350,8 @@ Réalisez-les mêmes opérations sur les individus de 8 à 12 (inspirez vous des
 | 11 |    M   |      61     |     172     |
 | 12 |    M   |      95     |     190     |
 
+*Utilisez les vecteurs `weight_m` et `height_m` que vous avez réalisé à l'exercice précédent.*
+
 ```{r vec_man_setup}
 # Assignation des valeurs de masses dans un vecteur `weight_m`
 weight_m <- c(82, 73, 105, 61, 95)
@@ -359,7 +361,7 @@ height_m <- c(1.74, 1.86, 2.03, 1.72, 1.90)
 
 ```{r vec_man, exercise=TRUE, exercise.setup="vec_man_setup"}
 # Encoder le jeu de données
-man <- data_frame(
+man <- tibble(
   id     = ___,
   sex    = ___,
   weight = ___,
@@ -371,7 +373,7 @@ ___
 
 ```{r vec_man-solution}
 # Encoder le jeu de données
-man <- data_frame(
+man <- tibble(
   id     = 8:12,
   sex    = rep("M", times = 5),
   weight = weight_m,
@@ -408,7 +410,7 @@ weight_m <- c(82, 73, 105, 61, 95)
 # Assignation des valeurs de tailles dans un vecteur `height_m`
 height_m <- c(1.74, 1.86, 2.03, 1.72, 1.90)
 # Dataset
-man <- data_frame(
+man <- tibble(
   id     = 8:12,
   sex    = rep("M", times = 5),
   weight = weight_m,

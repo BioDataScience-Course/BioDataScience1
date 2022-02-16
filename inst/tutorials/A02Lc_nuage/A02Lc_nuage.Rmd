@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Réalisation de graphiques en nuages de points dans R."
 tutorial:
   id: "A02Lc_nuage"
-  version: 2.1.0/6
+  version: 2.2.0/6
 output:
   learnr::tutorial:
     progressive: true
@@ -300,7 +300,7 @@ b <- chart(urchin, formula = log(height) ~ log(weight) %col=% origin) +
 combine_charts(list(a,b), labels = NULL, common.legend = TRUE, legend = "right")
 ```
 
-Réalisez un nuage de points montrant le **logarithme de la masse**  en ordonnée et le **logarithme de la masse immergée** en abscisse. Utilisez la couleur afin de différencier l'origine des individus et précisez à nouveau qu'il y a des valeurs manquantes.
+Réalisez un nuage de points montrant le **logarithme de la hauteur**  en ordonnée et le **logarithme de la masse** en abscisse. Utilisez la couleur afin de différencier l'origine des individus et précisez à nouveau qu'il y a des valeurs manquantes.
 
 ```{r log_log_h4, exercise = TRUE}
 chart(___, formula = ___ ~ ___ ___ ___) +

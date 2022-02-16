@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 3** Réalisation de différents graphiques univariés."
 tutorial:
   id: "A03La_univaries"
-  version: 2.0.0/8
+  version: 2.0.1/8
 output:
   learnr::tutorial:
     progressive: true
@@ -42,8 +42,6 @@ BioDataScience1::learnr_server(input, output, session)
 
 - Vérifier l'acquisition des notions relatives aux diagrammes en violon
 
-<!--- **Ce test comporte des questions théoriques ainsi que des questions pratiques. Ce test est certificatif.** -->
-
 ## Biométrie humaine
 
 Intéressez vous au jeu de données sur la biométrie humaine ci-dessous.
@@ -63,24 +61,24 @@ chart(biometry, formula = ~ age | gender) +
 ```
 
 ```{r histo_h3, exercise = TRUE}
-chart(___, formula = ~ ___ ___ ___) + 
+chart(data = ___, ~ ___ ___ ___) + 
   ___(___)
 ```
 
 ```{r histo_h3-hint-1}
-chart(DF, formula = ~ ___ | ___) + 
+chart(data = DF, ~ ___ | ___) + 
   geom_histogram(___)
 ```
 
 ```{r histo_h3-hint-2}
-chart(biometry, formula = ~ NUM | FACTOR) + 
+chart(data = biometry, ~ NUM | FACTOR) + 
   geom_histogram(bins = ___)
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r histo_h3-solution}
-chart(biometry, formula = ~ age | gender) +
+chart(data = biometry, ~ age | gender) +
   geom_histogram(bins = 30)
 ```
 
@@ -93,29 +91,29 @@ grade_code("Vous venez de réaliser votre premier histogramme !")
 Reproduisez le graphique suivant qui représente la répartition de la densité de la hauteur (`height`) en fonction du genre (`gender`) des individus présents dans le jeu de données `biometry`. 
 
 ```{r density_intro}
-chart(biometry, formula = ~ height %fill=% gender) +
+chart(data = biometry, ~ height %fill=% gender) +
   geom_density()
 ```
 
 ```{r density_h3, exercise = TRUE}
-chart(___, formula = ~ ___ ___ ___) +
+chart(data = ___, ~ ___ ___ ___) +
   ___()
 ```
 
 ```{r density_h3-hint-1}
-chart(DF, formula = ~ ___ %fill=% ___) +
+chart(data = DF, ~ ___ %fill=% ___) +
   geom_density()
 ```
 
 ```{r density_h3-hint-2}
-chart(biometry, formula = ~ NUM %fill=% FACTOR) +
+chart(data = biometry, ~ NUM %fill=% FACTOR) +
   geom_density()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r density_h3-solution}
-chart(biometry, formula = ~ height %fill=% gender) +
+chart(data = biometry, ~ height %fill=% gender) +
   geom_density()
 ```
 
@@ -130,29 +128,29 @@ Reproduisez le graphique suivant qui représente la répartition de la densité 
 **Nom du jeu de données et des variables importantes** 
 
 ```{r violin_intro}
-chart(biometry, formula = height ~ gender) +
+chart(data = biometry, height ~ gender) +
   geom_violin()
 ```
 
 ```{r violin_h3, exercise = TRUE}
-chart(___, formula = ___ ~ ___) +
+chart(data = ___, ___ ~ ___) +
   ___()
 ```
 
 ```{r violin_h3-hint-1}
-chart(DF, formula = ___ ~ ___) +
+chart(data = DF, ___ ~ ___) +
   geom_violin()
 ```
 
 ```{r violin_h3-hint-2}
-chart(biometry, formula = NUM ~ FACTOR) +
+chart(data = biometry, NUM ~ FACTOR) +
   geom_violin()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r violin_h3-solution}
-chart(biometry, formula = height ~ gender) +
+chart(data = biometry, height ~ gender) +
   geom_violin()
 ```
 
@@ -178,25 +176,25 @@ Reproduisez le graphique suivant qui représente la répartition de taille (`siz
 **Nom du jeu de données et des variables importantes** 
 
 ```{r violin2_intro}
-chart(copepoda, size ~ class %fill=% class) +
+chart(data = copepoda, size ~ class %fill=% class) +
   geom_violin(show.legend = FALSE) +
   coord_flip()
 ```
 
 ```{r violin2_h3, exercise = TRUE}
-chart(___, ___ ~ ___ ___ ___) +
+chart(data = ___, ___ ~ ___ ___ ___) +
   geom_violin(show.legend = ___) +
   ___
 ```
 
 ```{r violin2_h3-hint-1}
-chart(DF, ___ ~ ___ %fill=% ___) +
+chart(data = DF, ___ ~ ___ %fill=% ___) +
   geom_violin(show.legend = ___) +
   ___
 ```
 
 ```{r violin2_h3-hint-2}
-chart(biometry, NUM ~ FACTOR %fill=% FACTOR) +
+chart(data = biometry, NUM ~ FACTOR %fill=% FACTOR) +
   geom_violin(show.legend = FALSE) +
   ___
 
@@ -204,7 +202,7 @@ chart(biometry, NUM ~ FACTOR %fill=% FACTOR) +
 ```
 
 ```{r violin2_h3-solution}
-chart(copepoda, size ~ class %fill=% class) +
+chart(data = copepoda, size ~ class %fill=% class) +
   geom_violin(show.legend = FALSE) +
   coord_flip()
 ```
@@ -218,25 +216,25 @@ grade_code("Et une nouvelle fonction de plus pour améliorer la représentation 
 Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) des copépodes présents dans le jeu de données `copepoda` en utilisant la fonction `geom_density_ridges()` du package `ggridges`. Masquez la légende en utilisant l'argument `show.legend`  
 
 ```{r ggridges_intro}
-chart(copepoda, class ~ size %fill=% class) +
+chart(data = copepoda, class ~ size %fill=% class) +
   ggridges::geom_density_ridges(show.legend = FALSE) 
 ```
 
 ```{r ggridges_h3, exercise = TRUE}
 library(ggridges)
-chart(___, ___ ~ ___ ___ ___) +
+chart(data = ___, ___ ~ ___ ___ ___) +
   ___(___) 
 ```
 
 ```{r ggridges_h3-hint-1}
 library(ggridges)
-chart(DF, ___ ~ ___ %fill=% ___) +
+chart(data = DF, ___ ~ ___ %fill=% ___) +
   geom_density_ridges(___) 
 ```
 
 ```{r ggridges_h3-hint-2}
 library(ggridges)
-chart(copepoda, FACTOR ~ NUM %fill=% FACTOR) +
+chart(data = copepoda, FACTOR ~ NUM %fill=% FACTOR) +
   geom_density_ridges(show.legend = ___) 
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -244,7 +242,7 @@ chart(copepoda, FACTOR ~ NUM %fill=% FACTOR) +
 
 ```{r ggridges_h3-solution}
 library(ggridges)
-chart(copepoda, class ~ size %fill=% class) +
+chart(data = copepoda, class ~ size %fill=% class) +
   geom_density_ridges(show.legend = FALSE) 
 ```
 
@@ -257,19 +255,19 @@ grade_code("Félicitation ! Vous maitrisez un nouveau type de graphique.")
 Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) du zooplancton présent dans le jeu de données `zooplankton` en utilisant la fonction `geom_density_ridges()` du package `ggridges`. 
 
 ```{r ggridges2_intro}
-chart(zooplankton, class ~ size) +
+chart(data = zooplankton, class ~ size) +
   ggridges::geom_density_ridges() 
 ```
 
 ```{r ggridges2_h2, exercise = TRUE}
 library(ggridges)
-chart(___, ___ ~ ___) +
+chart(data = ___, ___ ~ ___) +
   ___() 
 ```
 
 ```{r ggridges2_h2-hint}
 library(ggridges)
-chart(DF, FACTOR ~ NUM) +
+chart(data = DF, FACTOR ~ NUM) +
   geom_density_ridges() 
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -277,7 +275,7 @@ chart(DF, FACTOR ~ NUM) +
 
 ```{r ggridges2_h2-solution}
 library(ggridges)
-chart(zooplankton, class ~ size) +
+chart(data = zooplankton, class ~ size) +
   geom_density_ridges() 
 ```
 
@@ -299,29 +297,29 @@ Intéressez vous au jeu de données sur la biométrie d'oursin ci-dessous.
 À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'orgine (`origin`) de ces derniers est mis en évidence par la couleur. 
 
 ```{r np_intro}
-chart(urchin, height ~ weight %col=% origin) +
+chart(data = urchin, height ~ weight %col=% origin) +
   geom_point()
 ```
 
 ```{r np_h3, exercise = TRUE}
-chart(___, ___ ~ ___ ___ ___) +
+chart(data = ___, ___ ~ ___ ___ ___) +
   ___()
 ```
 
 ```{r np_h3-hint-1}
-chart(DF, ___ ~ ___ %col=% ___) +
+chart(data = DF, ___ ~ ___ %col=% ___) +
   geom_point()
 ```
 
 ```{r np_h3-hint-2}
-chart(urchin, NUM ~ NUM %col=% FACTOR) +
+chart(data = urchin, NUM ~ NUM %col=% FACTOR) +
   geom_point()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r np_h3-solution}
-chart(urchin, height ~ weight %col=% origin) +
+chart(data = urchin, height ~ weight %col=% origin) +
   geom_point()
 ```
 
@@ -334,34 +332,33 @@ grade_code("C'est parfait ! Vous vous souvenez comment on fait un graphique en n
 À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'orgine (`origin`) et le sexe (`sex`) de ces derniers sont mis en évidence par la couleur et la forme, respectivement. 
 
 ```{r np2_intro}
-chart(urchin, height ~ weight %col=% origin %shape=% sex) +
+chart(data = urchin, height ~ weight %col=% origin %shape=% sex) +
   geom_point()
 ```
 
 ```{r np2_h3, exercise = TRUE}
 # Utiliser la couleur en tant que premier argument et la forme en second
-___(___, ___  ~ ___ ___ ___ ___ ___) +
+___(data = ___, ___  ~ ___ ___ ___ ___ ___) +
   ___()
 ```
 
 ```{r np2_h3-hint-1}
 # Utiliser la couleur en tant que premier argument et la forme en second
-chart(DF, ___ ~ ___ %col=% ___ %shape=% ___) +
+chart(data = DF, ___ ~ ___ %col=% ___ %shape=% ___) +
   geom_point()
 ```
 
 ```{r np2_h3-hint-2}
 # Utiliser la couleur en tant que premier argument et la forme en second
-chart(urchin, NUM ~ NUM %col=% FACTOR %shape=% FACTOR) +
+chart(data = urchin, NUM ~ NUM %col=% FACTOR %shape=% FACTOR) +
   geom_point()
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r np2_h3-solution}
 # Utiliser la couleur en tant que premier argument et la forme en second
-chart(urchin, height ~ weight %col=% origin %shape=% sex) +
+chart(data = urchin, height ~ weight %col=% origin %shape=% sex) +
   geom_point()
-
 ```
 
 ```{r np2_h3-check}

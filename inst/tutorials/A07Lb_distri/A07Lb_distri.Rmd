@@ -55,7 +55,7 @@ quiz(
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Recommencez afin de trouver la bonne réponse",
     correct = "C'est correct ! Si l'on considère une distribution aléatoire des individus dans la réserve, du moins, pour cet exemple fictif."),
-  question("Calculez la probabilité d'observer au minimum 3 mâles parmi ces 10 individus.",
+  question("Calculez la probabilité d'observer au minimum quatre mâles parmi ces dix individus.",
     answer("0.117"),
     answer("0.161"), 
     answer("0.172"),
@@ -66,7 +66,7 @@ quiz(
 )
 ```
 
-Calculez la table des probabilités possibles pour tous les évènements depuis 0 jusqu'à 10 lions mâles observés sur dix individus au total, avec R.
+Calculez la table des probabilités possibles pour tous les évènements depuis zéro jusqu'à dix lions mâles observés sur dix individus au total, avec R.
 
 💬 **Ce code correspond au snippet `.ibtable`** [`.ib`= (d)istribution: `b`inomial].
 

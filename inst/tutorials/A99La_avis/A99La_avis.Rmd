@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I** Vos commentaires et suggestions..."
 tutorial:
   id: "A99La_avis"
-  version: 2.0.0/0
+  version: 2.0.1/0
 output:
   learnr::tutorial:
     progressive: true
@@ -48,13 +48,13 @@ question("Quelle partie du cours évaluez-vous ?",
   answer("**AA inférence (Q2, modules 7-12)**", correct = TRUE),
   answer("**Tout le cours**", correct = TRUE),
   allow_retry = TRUE,
-  type = "single", correct = "OK, indiquez maintenant vous commentaires relatifs à cette partie ci-dessous.")
+  type = "single", correct = "OK, indiquez maintenant vos commentaires relatifs à cette partie ci-dessous.")
 ```
 
 ```{r feedback_plus_noscore, echo=FALSE}
 question_text(
   "Indiquez un ou plusieurs aspects positifs",
-  answer("", TRUE, message = "Pas de commentaire... N'y a t'il aucun point positif dans le cours, vraiment ?"),
+  answer("", TRUE, message = "Pas de commentaire... N'y a-t-il aucun point positif dans le cours, vraiment ?"),
   incorrect = "Votre avis est enregistré, merci.",
   placeholder = "Entrez vos suggestions ici...",
   allow_retry = TRUE
@@ -64,7 +64,7 @@ question_text(
 ```{r feedback_minus_noscore, echo=FALSE}
 question_text(
   "Indiquez un ou plusieurs aspects négatifs",
-  answer("", TRUE, message = "Pas de commentaire... N'y a t'il vraiment aucun aspect négatif dans le cours, nous en doutons !"),
+  answer("", TRUE, message = "Pas de commentaire... N'y a-t-il vraiment aucun aspect négatif dans le cours, nous en doutons !"),
   incorrect = "Votre avis est enregistré.",
   placeholder = "Entrez vos suggestions ici...",
   allow_retry = TRUE

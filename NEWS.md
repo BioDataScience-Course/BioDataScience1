@@ -1,6 +1,10 @@
+# BioDataScience1 2021.1.2
+
+-   All learnr tutorials from module 9 to 99 included are proof-readed.
+
 # BioDataScience1 2021.1.1
 
-- `A02Lc_nuage` : correction in the instructions of an exercise
+-   `A02Lc_nuage` : correction in the instructions of an exercise
 
 # BioDataScience1 2021.1.0
 

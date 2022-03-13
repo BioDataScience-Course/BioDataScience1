@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 11** Exploration de différents styles de syntaxe dans R."
 tutorial:
   id: "A11Lb_syntaxr"
-  version: 2.0.0/11
+  version: 2.0.1/11
 output:
   learnr::tutorial:
     progressive: true
@@ -29,18 +29,19 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Il existe différentes syntaxes dans R dont les 3 principales sont la syntaxe de base (également appelé la syntaxe dollar), la syntaxe formule ou la syntaxe tidyverse. Il est important de comprendre chacune des trois syntaxes même si on a une préférence pour l'une ou l'autre. Vous avez du vous rendre compte que dans ce cours de sciences des données I, on vous propose principalement la syntaxe formule et la syntaxe tidyverse avec des petites touches en plus pour vous proposer le style **Sciviews-R**. Les objectifs de ce tutoriel sont de :
+Il existe différentes syntaxes dans R dont les trois principales sont la syntaxe de base (également appelé la syntaxe "dollar"), la syntaxe formule ou la syntaxe tidyverse. Il est important de comprendre chacune des trois syntaxes même si on a une préférence pour l'une ou l'autre. Vous avez dû vous rendre compte que, dans ce cours de sciences des données I, nous utilisons principalement la syntaxe formule et la syntaxe tidyverse avec des petites touches en plus pour vous proposer le style **SciViews-R**. Les objectifs de ce tutoriel sont de\ :
 
-- Comprendre différents types de syntaxe 
-- Comparer des instructions équivalentes
+- Comprendre différents types de syntaxe dans R
 
-Vous devez avoir assimilé la matière du [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/variance2.html) du cours, et en particulier la [section 11.6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/syntaxe-de-r.html). Au cours de ce learnr vous allez pouvoirauto-évaluer vos acquis relatifs à l'utilisation de différentes syntaxes de R. 
+- Comparer des instructions équivalentes écrites en syntaxes différentes
+
+Vous devez avoir assimilé la matière du [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance2.html) du cours, et en particulier la [section 11.6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/syntaxe-de-r.html). Avec ce tutoriel vous allez pouvoir auto-évaluer vos acquis relatifs à la diversité syntaxique de R. 
 
 ## Syntaxe dans R
 
-Dans ce learnr, deux jeux de données que vous commencez à bien connaitre seront employés en parallèle. Le premier `biometry`, constitué de données sur la biométrie humaine, sera utilisé pour les explications. Le second, `urchin`, traitant de la biométrie des oursins servira pour les exercices que vous allez réaliser. 
+Dans ce tutoriel, deux jeux de données que vous commencez à bien connaitre seront employés en parallèle. Le premier `biometry`, constitué de données sur la biométrie humaine, sera utilisé pour les explications. Le second, `urchin`, traitant de la biométrie des oursins servira pour les exercices que vous allez réaliser.
 
-Le jeu de données sur la biométrie humaine comprend 7 variables et 395 individus. 
+Le jeu de données sur la biométrie humaine contient sept variables et 395 individus. 
 
 ```{r}
 (biometry <- read("biometry", package = "BioDataScience", lang = "fr"))
@@ -54,7 +55,7 @@ Le jeu de données sur la biométrie des oursins comprend 19 variables et 421 in
 
 ## Calcul d'une nouvelle variable
 
-Lors de vos analyses, vous pourrez être amené à transformer, convertir ou calculer des variables. Par exemple, dans le jeu de données `biometry`, la taille (`height`) est exprimée en centimètre et vous souhaitez la convertir en mètre. Vous avez jusqu'à présent appris à le faire en utilisant le style SciViews-R. Le calcul de la nouvelle variable se fait grâce à la fonction `mutate()` qui prend comme premier argument un `tibble` ou un `data.frame` avant de spécifier comme deuxième argument le nom de votre nouvelle variable suivi d'un signe `=` et de votre calcul dans lequel vous utilisez directement le nom de la variable a modifié.   
+Lors de vos analyses, vous pourrez être amené à transformer, convertir ou calculer des variables. Par exemple, dans le jeu de données `biometry`, la taille (`height`) est exprimée en centimètre et vous souhaitez la convertir en mètre. Vous avez jusqu'à présent appris à le faire en utilisant le style SciViews-R qui reprend ici la syntaxe tidyverse. Le calcul de la nouvelle variable se fait grâce à la fonction `mutate()` qui prend comme premier argument un `tibble` ou un `data.frame` avant de spécifier comme deuxième argument le nom de votre nouvelle variable suivi d'un signe `=` et de votre calcul dans lequel vous utilisez directement le nom de la variable à modifier.
 
 ```{r, echo = TRUE}
 biometry %>.%
@@ -63,7 +64,7 @@ biometry %>.%
 head(biometry)
 ```
 
-Vous pouvez réaliser la même opération avec la syntaxe R de base. L'utilisation de l'opérateur `$` vous permettra d'extraire un élement du tableau sous la forme d'un vecteur en suivant la syntaxe `DF$VARIABLE`. Vous pourrez ensuite calculer votre nouvelle variable. Pour assigner (`<-`) le résultat obtenu à votre tableau de départ, utilisez à nouveau l'opérateur `$` en renseignant cette fois le nom de votre nouvelle variable. En pratique cela donne : 
+Vous pouvez réaliser la même opération avec la syntaxe R de base. L'utilisation de l'opérateur `$` vous permet d'extraire une variable (colonne) du tableau sous la forme d'un vecteur à l'aide de `DF$VARIABLE`. Vous pourrez ensuite calculer votre nouvelle variable. Pour assigner (`<-`) le résultat obtenu à votre tableau de départ, utilisez à nouveau l'opérateur `$` en renseignant cette fois le nom de votre nouvelle variable. En pratique cela donne\ :
 
 ```{r, echo = TRUE}
 biometry$height_m <- biometry$height/100
@@ -71,17 +72,15 @@ biometry$height_m <- biometry$height/100
 head(biometry)
 ```
 
-Calculez le diamètre moyen en utilisant la formule suivante sur les données de `urchin` : 
+Calculez maintenant le diamètre moyen en utilisant la formule suivante sur les données de `urchin`\ : 
 
 $$diameter \ = \ \frac{(diameter1 + diameter2)}{2}$$
 
-Vous devez donc calculer la variable `diameter` grace à `diameter1` et `diameter2` et ajouter cette nouvelle variable au tableau `urchin`.
+Vous devez donc calculer la variable `diameter` à partir de `diameter1` et `diameter2` et ajouter cette nouvelle variable au tableau `urchin`. Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`
 
-Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`
+Réalisez ces deux étapes dans un premier temps avec la syntaxe SciViews-R/tidyverse et dans un second temps avec la syntaxe R de base.
 
-Réalisez ces deux étapes dans un premier temps avec la syntaxe proposée par le style SciViews-R et dans un second temps avec la syntaxe R de base.
-
-### Sciviews::R et tidyverse
+### SciViews::R et tidyverse
 
 ```{r mutate1_h2, exercise = TRUE}
 # calcul de la variable diameter
@@ -110,7 +109,7 @@ head(urchin)
 ```
 
 ```{r mutate1_h2-check}
-grade_code("Félicitation, vous êtes parvenu à calculer votre nouvelle variable. Vous pouvez également utiliser des fonctions tel que `log()`, `exp()`, `sqrt()`, *etc* pour transformer vos données. Essayez maintenant de faire cette transformation en R de base.")
+grade_code("Félicitation, vous êtes parvenu à calculer votre nouvelle variable. Vous pouvez également utiliser des fonctions tel que `log()`, `exp()`, `sqrt()`, ... pour transformer vos données. Essayez maintenant de faire cette même transformation en R de base.")
 ```
 
 ### R de base
@@ -137,14 +136,14 @@ head(urchin)
 ```
 
 ```{r mutate2_h2-check}
-grade_code("Bravo! Vous avez bien compris la logique pour avoir accès à une variable dans un tableau avec l'opérateur `$` en R de base.")
+grade_code("Bravo ! Vous avez bien compris la logique pour avoir accès à une variable dans un tableau avec l'opérateur `$` en R de base.")
 ```
 
 ## Sélection de variables dans un jeu de données I
 
-Lorsque vous serez confronté à un jeu de données comportant un grand nombre de variables, vous souhaiterez peut-être le réduire pour ne conserver que les variables dont vous aurez besoin pour votre analyse. Actuellement, vous savez le faire en utilisant le style SciViews-R, où la sélection de variables se fait avec la fonction `select()`. Vous commencez par définir comme premier argument votre jeu de données avant de préciser les différentes variables que vous souhaitez conserver. 
+Lorsque vous serez confronté à un jeu de données comportant un grand nombre de variables, vous souhaiterez peut-être le réduire pour ne conserver que les variables dont vous aurez besoin pour votre analyse. Actuellement, vous savez le faire en utilisant le style SciViews-R/tidyverse, où la sélection de variables se fait avec la fonction `select()`. Vous commencez par définir comme premier argument votre jeu de données avant de préciser les différentes variables que vous souhaitez conserver. 
 
-Si l'on souhaite réduire le jeu de données `biometry` pour obtenir un sous tableau comprenant uniquement les variables `gender`, `weight` et `height`, vous le réaliserez comme indiqué ci-dessous.
+Si vous souhaitez réduire le jeu de données `biometry` pour obtenir un sous tableau comprenant uniquement les variables `gender`, `weight` et `height`, vous le réaliserez comme ci-dessous.
 
 ```{r, echo = TRUE}
 biometry %>.%
@@ -155,7 +154,7 @@ head(biom_sub)
 
 Il est également possible de réduire un tableau de données en utilisant la syntaxe R de base. Pour cela, vous allez devoir utiliser l'indiçage en utilisant l'opérateur `[]`. Cet indiçage fonctionne pour les vecteurs mais aussi pour des objets bi- ou multidimensionnels. Pour ces derniers, vous devrez utiliser deux ou plusieurs instructions d'indiçage dans les `[]` séparées par des virgules. Dans le cas d'un data frame, le premier élément vous permettra de sélectionner les lignes et le second les colonnes. 
 
-Pour garder certaines colonnes en conservant toutes les lignes, vous laisserez vide le premier élément et spécifierez les colonnes que vous devez conserver dans le second. Vous pouvez spécifier les colonnes à conserver de différentes manières : 
+Pour garder certaines colonnes en conservant toutes les lignes, vous laisserez vide le premier élément et spécifierez les colonnes que vous devez conserver dans le second. Vous pouvez spécifier les colonnes à conserver de différentes manières\ :
 
 - soit en utilisant le **nom** des variables d'intérêts
 
@@ -170,16 +169,14 @@ head(biom_sub)
 
 ```{r, echo = TRUE}
 # avec la position des variables d'intérêts
-biom_sub <- biometry[ , c(1,3,4)]
+biom_sub <- biometry[ , c(1, 3, 4)]
 # visualisation des premières lignes du nouveau tableau
 head(biom_sub)
 ```
 
-Essayez maintenant de sélectionner les variables `origin`, `height` et `weight` du jeu de données `urchin` grâce au nom des variables.
+Essayez maintenant de sélectionner les variables `origin`, `height` et `weight` du jeu de données `urchin` grâce au nom des variables. Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
 
-Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
-
-Réalisez ces deux étapes dans un premier temps avec la syntaxe proposée par Sciviews::R et tidyverse et dans un second temps avec la syntaxe R de base.
+Réalisez ces deux étapes dans un premier temps avec la syntaxe proposée par SciViews::R et tidyverse et dans un second temps avec la syntaxe R de base.
 
 ### SciViews::R et tidyverse
 
@@ -243,7 +240,7 @@ grade_code("Bon travail, vous êtes parvenu à conserver les colonnes d'intérê
 
 ### R de base et la position des variables d'intérêts
 
-Utilisez la position des variables que vous souhaitez conserver. Les variables sont en position 1, 4 et 6
+Utilisez la position des variables que vous souhaitez conserver. Les variables sont en position 1, 4 et 6.
 
 ```{r select3_h2, exercise = TRUE}
 # avec le nom des variables d'intérêts
@@ -269,14 +266,14 @@ head(urchin_sub)
 ```
 
 ```{r select3_h2-check}
-grade_code("Très bon travail. Vous avez maintenant plusieurs outils vous permettant de conserver des variables d'intérêt.")
+grade_code("Très bon travail. Vous avez maintenant plusieurs outils vous permettant de sélectionner les variables d'intérêt.")
 ```
 
 ## Sélection de variables dans un jeu de données II
 
-Lorsque vous souhaitez conserver certaines variables dans votre jeu de données, vous venez de voir que vous pouviez le faire en sélectionnant les variables qui vous intéressent. Il est également possible de réaliser cette opération en supprimant les variables dont vous n'aurez pas l'utilité pour la suite de votre analyse. Pour le faire avec le style SciViews-R, vous utilisez la fonction `select()` en définissant comme premier argument votre jeu de données suivi des noms des variables que vous souhaitez supprimer précédé du signe `-`.  
+Lorsque vous souhaitez conserver certaines variables dans votre jeu de données, vous venez de voir que vous pouviez le faire en indiquant les variables qui vous intéressent. Il est également possible de réaliser cette opération en **supprimant** les variables dont vous n'aurez pas l'utilité pour la suite de votre analyse. Pour le faire avec le style SciViews-R/tidyverse, vous utilisez la fonction `select()` en définissant comme premier argument votre jeu de données suivi des noms des variables que vous souhaitez supprimer précédé du signe `-`.
 
-Si vous souhaitez, par exemple, réduire le jeu de données `biometry` pour conserver un sous tableau comprenant toutes les variables à l'exception des variables `wrist`, `year_measure` et `age`, vous procèderez donc comme suit : 
+Si vous souhaitez, par exemple, réduire le jeu de données `biometry` pour conserver un sous tableau comprenant toutes les variables à l'exception des variables `wrist`, `year_measure` et `age`, vous procéderez donc comme suit\ :
 
 ```{r, echo = TRUE}
 biometry %>.%
@@ -285,7 +282,7 @@ biometry %>.%
 head(biom_sub)
 ```
 
-Il est également possible de cibler les variables à supprimer d'un tableau de données avec la syntaxe R de base pour créer un sous tableau réduit. Vous devrez à nouveau utiliser l'opérateur `[]` associé à l'indiçage numérique. Vous précéderez le vecteur contenant les numéros de colonnes à retirer du signe `-`. Voici deux manières de procéder.
+Il est également possible de cibler les variables à supprimer d'un tableau de données avec la syntaxe R de base pour créer un sous-tableau réduit. Vous devrez à nouveau utiliser l'opérateur `[]` associé à l'indiçage numérique. Vous précéderez le vecteur contenant les numéros de colonnes à retirer du signe `-`. Voici deux manières de procéder\ :
 
 ```{r, echo = TRUE}
 # avec les positions des variables d'intérêts
@@ -294,18 +291,18 @@ biom_sub <- biometry[ , -c(5, 6, 7)]
 head(biom_sub)
 ```
 
+Comme les trois colonnes sont successives, vous pouvez simplifier le travail en indiquant de manière plus compacte `indice_debut:indice_fin`. Dans ce cas, vous **devez** utiliser des parenthèses avant le signe moins, sinon, la séquence générée ira de `-indice_debut` jusqu'à `indice_fin`, ce qui n'a pas de sens et produira une erreur dans R (il n'accepte pas un mélange d'indices négatifs et positifs dans la même instruction d'indiçage).
+
 ```{r, echo = TRUE}
 # avec les positions des variables d'intérêts en utilisant l'opérateur `:`
-biom_sub <- biometry[ , -c(5:7)]
+biom_sub <- biometry[ , -(5:7)]
 # visualisation des premières lignes du nouveau tableau
 head(biom_sub)
 ```
 
-Essayez maintenant de réduire le jeu de données `urchin` afin d'obtenir un sous tableau comprenant toutes les variables à l'exception des variables `origin`, `diameter1` et `diameter2`.
+Essayez maintenant de réduire le jeu de données `urchin` afin d'obtenir un sous-tableau contenant toutes les variables à l'exception de `origin`, `diameter1` et `diameter2`. Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
 
-Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
-
-Réalisez ces deux étapes dans un premier temps avec le style SciViews-R et dans un second temps avec la syntaxe R de base.
+Réalisez ces deux étapes dans un premier temps avec le style SciViews-R/tidyverse et dans un second temps avec la syntaxe R de base.
 
 ### SciViews::R et tidyverse
 
@@ -333,10 +330,10 @@ head(urchin_sub)
 ```
 
 ```{r select4_h2-check}
-grade_code("Vous voyez qu'il est aussi possible de créer un sous tableau en ciblant les variables que l'on souhaite retirer en les précédant du signe `-`. Et en R de base, ca donne quoi ?")
+grade_code("Vous voyez qu'il est aussi possible de créer un sous-tableau en ciblant les variables que l'on souhaite retirer en les précédant du signe `-`. Et en R de base, cela donne quoi ?")
 ```
 
-###  R de base 
+###  R de base
 
 Utilisez l'opérateur `:` pour indiquer la position des variables que vous devez retirer du tableau. Les variables à retirer sont les variables 1, 2 et 3
 
@@ -355,13 +352,13 @@ head(urchin_sub)
 ```
 
 ```{r select5_h2-solution}
-urchin_sub <- urchin[ , -c(1:3)]
+urchin_sub <- urchin[ , -(1:3)]
 # visualisation des premières lignes du nouveau tableau
 head(urchin_sub)
 ```
 
 ```{r select5_h2-check}
-grade_code("Parfait ! En utilisant l'indiçage numérique et le signe `-`, vous êtes parvenu à créer un sous tableau en ciblant les variables que vous ne souhaitiez pas conserver.")
+grade_code("Parfait ! En utilisant l'indiçage numérique et le signe `-`, vous êtes parvenu à créer un sous-tableau en ciblant les variables que vous ne souhaitiez pas conserver.")
 ```
 
 ## Sélectionner des individus dans un jeu de données
@@ -370,11 +367,11 @@ Lors de vos analyses, vous serez sans doute amenés à réduire votre jeu de don
 
 Si vous souhaitez considérer uniquement les hommes du jeu de données `biometry`, vous pourrez filtrer les lignes du tableau de données en utilisant comme critère `gender == "M"` (notez bien que l'égalité s'écrit avec **deux** signes égaux dans votre test de condition). 
 
-Vous pouvez retrouver les conditions ci-dessous.
+Le tableau suivant résume les différents opérateurs de tests de conditions dans R que vous pouvez utiliser pour filtrer les lignes de votre jeu de données.
 
 |Condition                  | Représentation |
 |:--------------------------|:--------------:|
-| Egal à                    |      `==`      |
+| Égal à                    |      `==`      |
 | Différent de              |      `!=`      |
 | Supérieur à               |      `>`       |
 | Inférieur à               |      `<`       |
@@ -390,19 +387,19 @@ biometry %>.%
 head(biom_sub)
 ```
 
-Il est également possible de sélectionner certaines lignes d'un tableau de données en utilisant la syntaxe R de base et l'opérateur `[]`. Pour garder certaines lignes en conservant toutes les colonnes, vous devrez spécifier votre test de condition dans le premier élément et laisser vide le second. Pour réaliser votre test de condition, vous pourrez obtenir la variable d'intérêt en utilisant l'opérateur `$` après avoir spécifié votre jeu de données comme le montre l'exemple ci-dessous.  
+Il est également possible de sélectionner certaines lignes d'un tableau de données en utilisant la syntaxe R de base et l'opérateur `[]`. Pour garder certaines lignes en conservant toutes les colonnes, vous devrez spécifier votre test de condition dans le premier argument de `[]` et laisser vide le second en n'indiquant rien après la virgule. Pour réaliser votre test de condition, vous pourrez obtenir la variable d'intérêt en utilisant l'opérateur `$` après avoir spécifié votre jeu de données comme le montre l'exemple ci-dessous.
 
 ```{r, echo = TRUE}
-biom_sub <- biometry[ biometry$gender=="M", ]
+biom_sub <- biometry[ biometry$gender == "M", ]
 # visualisation des premières lignes du nouveau tableau
 head(biom_sub)
 ```
 
-Essayez maintenant d'obtenir un sous tableau constitué uniquement des individus dont la hauteur (`height`) est strictement supérieure à 30 mm dans le jeu de données `urchin`.
+**Notez bien la distinction entre les fonctions de tidyverse qui comprennent que si vous travaillez sur le tableau `biometry`, alors `gender` se réfère à sa colonne du même nom, alors que pour les fonctions en R de base, il est indispensable d'être plus explicite et d'indiquer partout `biometry$gender`\ !**
 
-Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
+Essayez maintenant d'obtenir un sous-tableau constitué uniquement des individus dont la hauteur (`height`) est strictement supérieure à 30 mm dans le jeu de données `urchin`. Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
 
-Réalisez ces deux étapes dans un premier temps avec le style Sciviews-R et dans un second temps avec la syntaxe R de base.
+Réalisez ces deux étapes dans un premier temps avec le style SciViews-R/tidyverse, et dans un second temps avec la syntaxe R de base.
 
 ### SciViews::R et tidyverse
 
@@ -430,7 +427,7 @@ head(urchin_sub)
 ```
 
 ```{r filter1_h2-check}
-grade_code("Très facile de sélectionner des individus avec une caractéristique particulière grâce à la fonction `filter()` et les tests de condition. Peut-on aussi le faire en R de base ? ")
+grade_code("Il est très facile de sélectionner des individus avec une caractéristique particulière grâce à la fonction `filter()` et les tests de condition. Peut-on aussi le faire en R de base ? ")
 ```
 
 ### R de base 
@@ -456,14 +453,14 @@ head(urchin_sub)
 ```
 
 ```{r filter2_h2-check}
-grade_code("Bon travail ! Vous êtes parvenus à conserver tous les individus ayant une hauteur strictement supérieure à 30.")
+grade_code("Bon travail ! Vous êtes parvenus à conserver tous les individus ayant une hauteur strictement supérieure à 30 mm.")
 ```
 
 ## Filtrer des lignes et sélectionner de colonnes
 
 Vous venez de voir qu'il était possible de sélectionner certaines colonnes ou filtrer des lignes de manière séparée. Vous pouvez également réaliser ces deux opérations en une seule fois. Pour le réaliser en SciViews::R et tidyverse, vous pouvez chaîner les instructions avec l'opérateur `%>.%`.
 
-Si vous souhaitez produire un sous tableau de `biometry` comprenant les individus du genre (`gender`) féminin et dont la taille (`height`) est supérieure ou égale à 180 cm en ne conservant que les variables `gender`, `height` et `weigth`, vous procèderez comme indiqué ci-dessous.
+Si vous souhaitez produire un sous-tableau de `biometry` reprenant les individus du genre (`gender`) féminin et dont la taille (`height`) est supérieure ou égale à 180 cm en ne conservant que les variables `gender`, `height` et `weight`, vous procéderez comme ceci\ :
 
 ```{r, echo = TRUE}
 biometry %>.%
@@ -473,7 +470,7 @@ biometry %>.%
 head(biom_sub)
 ```
 
-Comme précédemment, vous pouvez le faire en utilisant la syntaxe R de base et l'opérateur `[]`. Dans ce cas, vous devrez spécifier votre test de condition dans le premier élément et les colonnes que vous conservez dans le second. Si vous souhaitez utiliser plusieurs tests de condition, vous pouvez utiliser les opérateurs `&` ou `|` qui signifie "et" et "ou", respectivement. Constatez ce que cela donne pour notre exemple dans le code ci-dessous.  
+Comme précédemment, vous pouvez le faire en utilisant la syntaxe R de base et l'opérateur `[]`. Dans ce cas, vous devrez spécifier votre test de condition dans le premier argument et les colonnes que vous conservez dans le second, et vous pouvez faire cela dans la même instruction\ ! Si vous souhaitez utiliser plusieurs tests de condition, vous pouvez utiliser les opérateurs `&` ou `|` qui signifie "et" et "ou", respectivement. Constatez ce que cela donne pour notre exemple dans le code ci-dessous.
 
 ```{r, echo = TRUE}
 biom_sub <- biometry[biometry$gender == "W" & biometry$height >= 180, c(1, 3, 4)]
@@ -481,11 +478,9 @@ biom_sub <- biometry[biometry$gender == "W" & biometry$height >= 180, c(1, 3, 4)
 head(biom_sub)
 ```
 
-Essayez maintenant de réduire le jeu de données `urchin` pour obtenir un sous tableau comprenant uniquement les individus provenant d'élevage ("Farm" dans la variable `origin`)  et dont la hauteur (`height`) est strictement supérieure à 30 mm. De plus, vous ne conserverez que les variables `height`, `weight` et `skeleton`.
+Essayez maintenant de réduire le jeu de données `urchin` pour obtenir un sous-tableau reprenant uniquement les individus provenant d'élevage (`"Farm"` dans la variable `origin`)  et dont la hauteur (`height`) est strictement supérieure à 30 mm. De plus, vous ne conserverez que les variables `height`, `weight` et `skeleton`. Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
 
-Affichez ensuite les premières lignes de votre nouveau tableau avec la fonction `head()`.
-
-Réalisez ces deux étapes dans un premier temps avec le style SciViews-R et dans un second temps avec la syntaxe R de base.
+Réalisez ces deux étapes dans un premier temps avec le style SciViews-R/tidyverse, et dans un second temps avec la syntaxe R de base.
 
 ### Avec SciViews::R et tidyverse
 
@@ -516,12 +511,12 @@ head(urchin_sub)
 ```
 
 ```{r filter3_h2-check}
-grade_code("Bien. Notez l'utilité du pipe (`%>.%`) qui vous permet de passez le résultat d'une fonction à une autre et comme il est dès lors facile de filtrer des individus en fonction de certaines conditions et de sélectionner les variables d'intérêt. Pensez-vous pouvoir le faire en R de base ?")
+grade_code("Bien. Notez l'utilité du pipe (`%>.%`, dites \"païpe\" comme en anglais) qui vous permet de passez le résultat d'une fonction à une autre et comme il est dès lors facile de filtrer des individus en fonction de certaines conditions et de sélectionner les variables d'intérêt. Pensez-vous pouvoir le faire en R de base ?")
 ```
 
 ### Avec R de base
 
-La sélecton des variables doit se faire grâce aux noms des variables.
+La sélection des variables doit se faire en utilisant leurs noms cette fois-ci pour l'exercice, et non pas les indices.
 
 ```{r filter4_h2, exercise = TRUE}
 urchin_sub <- ___[___ == ___ & ___ > ___, ___]
@@ -549,7 +544,7 @@ grade_code("Excellent ! Vous commencez à vraiment bien maitriser la syntaxe R d
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'auto-évaluation learnr. Vous maitrisez maitenant différentes syntaxes dans R.  
+Bravo\ ! Vous venez de terminer ce tutoriel d'auto-évaluation. Vous maîtrisez maintenant différentes syntaxes dans R pour les opérations de base de remaniement de jeux de données.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

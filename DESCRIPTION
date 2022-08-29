@@ -1,5 +1,5 @@
 Package: BioDataScience1
-Version: 2021.1.2
+Version: 2022.0.0
 Title: A Series of Learnr Documents for Biological Data Science 1
 Description: Interactive documents using learnr and shiny applications for studying biological data science.
 Authors@R: c(
@@ -8,9 +8,9 @@ Authors@R: c(
   person("Guyliann", "Engels", role = "aut",
   email = "guyliann.engels@umons.ac.be"))
 Maintainer: Philippe Grosjean <phgrosjean@sciviews.org>
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.1.0)
 Imports: learnitdown, BioDataScience, shiny, miniUI
-Suggests: SciViews, ggplot2, ggpubr, data.io, flow, chart, covr, knitr, rmarkdown, testthat, gradethis
+Suggests: SciViews, ggplot2, ggpubr, data.io, svMisc, svBase, svFlow, chart, covr, knitr, rmarkdown, testthat, gradethis
 Remotes: BioDataScience-Course/BioDataScience, rstudio/gradethis, SciViews/learnitdown, SciViews/data.io, SciViews/flow, SciViews/chart, SciViews/SciViews
 License: MIT + file LICENSE
 URL: https://github.com/BioDataScience-Course/BioDataScience1

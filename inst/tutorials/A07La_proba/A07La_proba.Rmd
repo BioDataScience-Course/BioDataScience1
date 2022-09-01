@@ -25,17 +25,17 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
-<!-- TODO: il manque des exercices qui comparent population de taille infinie ou non et qui mette en lumière les différences au niveau du calcul des probabilités (conditionnelles) -->
+<!-- TODO: il manque des exercices qui comparent population de taille infinie ou non et qui mettent en lumière les différences au niveau du calcul des probabilités (conditionnelles) -->
 
 ## Objectifs
 
-Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercez et bien en comprendre les subtilités. Ce tutoriel vous permet de\ :
+Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercez et bien en comprendre les subtilités. Ce tutoriel vous permet de :
 
-- Appréhender le calculs de probabilités
+-   Appréhender le calculs de probabilités
 
-- Calculer des probabilités sur base d'un tableau de contingence
+-   Calculer des probabilités sur base d'un tableau de contingence
 
 Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
@@ -79,7 +79,6 @@ quiz(
 )
 ```
 
-
 ## Calculer des probabilités
 
 ![](images/calculation.jpg)
@@ -88,21 +87,19 @@ quiz(
 
 ![](images/stress.jpg)
 
-Le résultat d'une enquête relative au stress dans une population active en fonction de leurs revenus professionnels est le suivant\ : 
+Le résultat d'une enquête relative au stress dans une population active en fonction de leurs revenus professionnels est le suivant :
 
 ```{r}
-stress <- data.frame(
+stress <- dtf(
   `Revenus faibles` = c( 526, 1954, 2480),
   `Revenus moyens`  = c( 274, 1680, 1954),
   `Revenus élevés`  = c( 216, 1899, 2115),
-  Total             = c(1016, 5533, 6549),
-  row.names         = c("Stressé", "Non stressé", "Total"),
-  check.names = FALSE
-)
+  Total             = c(1016, 5533, 6549))
+rownames(stress) <- c("Stressé", "Non stressé", "Total")
 knitr::kable(stress)
 ```
 
-Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous aider d'une calculette)\ :
+Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous aider d'une calculette) :
 
 ```{r qu_calcul}
 quiz(caption = "Stress et revenus",
@@ -145,7 +142,7 @@ quiz(caption = "Stress et revenus",
 
 ![](images/pills.jpg)
 
-Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d’effets secondaires (patients « sensibles »). Considérant un nouveau malade arrivant à l'hôpital, quelle est la probabilité qu’il ne puisse pas être soigné par ce traitement\ ?
+Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d'effets secondaires (patients « sensibles »). Considérant un nouveau malade arrivant à l'hôpital, quelle est la probabilité qu'il ne puisse pas être soigné par ce traitement ?
 
 ```{r medic1_h3, exercise=TRUE}
 
@@ -178,7 +175,7 @@ grade_result(
 )
 ```
 
-Un médecin a trois patients atteints de la maladie en question dans sa salle d’attente ((ils ne se connaissent pas et ne sont pas de la même famille). Quelle est la probabilité que ce médecin puisse soigner l’ensemble de ses patients à l'aide du nouveau médicament\ ?
+Un médecin a trois patients atteints de la maladie en question dans sa salle d'attente ((ils ne se connaissent pas et ne sont pas de la même famille). Quelle est la probabilité que ce médecin puisse soigner l'ensemble de ses patients à l'aide du nouveau médicament ?
 
 ```{r medic2_h2, exercise=TRUE}
 
@@ -205,7 +202,7 @@ grade_result(
 
 ## Conclusion
 
-Bravo\ ! Vous venez de vérifier votre bonne compréhension des probabilités et des calculs de probabilités. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de progresser dans la matière.
+Bravo ! Vous venez de vérifier votre bonne compréhension des probabilités et des calculs de probabilités. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de progresser dans la matière.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

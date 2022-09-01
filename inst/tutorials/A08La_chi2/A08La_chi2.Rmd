@@ -25,15 +25,15 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici\ :
+La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici :
 
-- Pouvoir calculer des quantiles ou des probabilités relatifs à la distribution du $\chi^2$
+-   Pouvoir calculer des quantiles ou des probabilités relatifs à la distribution du $\chi^2$
 
-- Appréhender le test d'hypothèse du $\chi^2$ univarié
+-   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
 Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html) relatives aux calculs de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
@@ -73,7 +73,7 @@ abline(h = 0, col = "gray") # Baseline
 grade_code("Le code est prérempli par le snippet et il vous suffit d'indiquer les degrés de libertés de la distribution souhaitée. Il s'agit d'une loi de distribution très asymétrique et qui commence à {0, 0}. Notez que plus le quantile est grand, plus la densité de probabilité est faible.")
 ```
 
-Sur base de cette distribution à trois degrés de liberté, calculez la probabilité d'une valeur de $\chi^2$ supérieure au quantile 15. 
+Sur base de cette distribution à trois degrés de liberté, calculez la probabilité d'une valeur de $\chi^2$ supérieure au quantile 15.
 
 💬 **Ce code correspond au snippet `.icproba`.**
 
@@ -121,21 +121,21 @@ grade_code("La fonction `qchisq()` calcule un quantile délimitant une aire qui 
 
 ![](images/chimpanze.jpg)
 
-Une expérience vise à déterminer les préférences alimentaires des chimpanzés. On propose à 45 chimpanzés trois fruits différents comme source de nourriture. Pour chacun, on note leur premier choix. Voici les résultats obtenus\ :
+Une expérience vise à déterminer les préférences alimentaires des chimpanzés. On propose à 45 chimpanzés trois fruits différents comme source de nourriture. Pour chacun, on note leur premier choix. Voici les résultats obtenus :
 
 ```{r, echo=TRUE}
-chimp <- tibble::tibble(Pomme = 16, Banane = 22, Orange = 7)
+chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 knitr::kable(chimp)
 ```
 
-Ce sont nos **fréquences observées** $a_i$. Si les chimpanzés n'ont pas de préférence alimentaire, les **probabilités** de choix pour chaque fruit devraient être identiques\ :
+Ce sont nos **fréquences observées** $a_i$. Si les chimpanzés n'ont pas de préférence alimentaire, les **probabilités** de choix pour chaque fruit devraient être identiques :
 
 ```{r, echo=TRUE}
-chimp_proba <- tibble::tibble(Pomme = 1/3, Banane = 1/3, Orange = 1/3)
+chimp_proba <-dtx(Pomme = 1/3, Banane = 1/3, Orange = 1/3)
 knitr::kable(chimp_proba)
 ```
 
-Multipliez les probabilités de chaque fruit par le nombre d'observations totales (donc de chimpanzés) pour obtenir les **fréquences théoriques** $\alpha_i$\ :
+Multipliez les probabilités de chaque fruit par le nombre d'observations totales (donc de chimpanzés) pour obtenir les **fréquences théoriques** $\alpha_i$ :
 
 ```{r qu_freq}
 question("Quelles sont les fréquences théoriques sous l'hypothèse nulle que les chimpanzés n'ont pas de préférence alimentaire ?)",
@@ -147,7 +147,7 @@ question("Quelles sont les fréquences théoriques sous l'hypothèse nulle que l
   correct = "C'est correct ! Les fréquences théoriques sont l'hypothèse qu'il n'y a pas de différences sont les probabilités multipliées par l'effectif total.")
 ```
 
-Calculez à la main la valeur du $\chi^2$ observé à l'aide de la formule (aidez-vous d'une calculette)\ :
+Calculez à la main la valeur du $\chi^2$ observé à l'aide de la formule (aidez-vous d'une calculette) :
 
 $\chi^2_{obs} = \sum_i\frac{(a_i - \alpha_i)^2}{\alpha_i}$
 
@@ -163,13 +163,13 @@ question("Valeur du Chi^2 observé.",
 
 ## Test du $\chi^2$ univarié
 
-Donc, pour notre expérience de préférences alimentaires des chimpanzés, nous avions les données suivantes (fréquences observées)\ :
+Donc, pour notre expérience de préférences alimentaires des chimpanzés, nous avions les données suivantes (fréquences observées) :
 
 ```{r}
 knitr::kable(chimp)
 ```
 
-Or, sous H~0~ de non préférences alimentaires, nous nous attendions à observer à peu près le même nombre de premiers choix pour chaque fruit. Ces écart sont-ils révélateurs de préférences marquées, ou peuvent-il être obtenus par le biais du hasard\ ? Pour le vérifier, nous avions calculé la valeur du $\chi^2_{obs}$ comme étant 7.601.
+Or, sous H~0~ de non préférences alimentaires, nous nous attendions à observer à peu près le même nombre de premiers choix pour chaque fruit. Ces écart sont-ils révélateurs de préférences marquées, ou peuvent-il être obtenus par le biais du hasard ? Pour le vérifier, nous avions calculé la valeur du $\chi^2_{obs}$ comme étant 7.601.
 
 Cette valeur doit maintenant être confrontée à la distribution théorique du $\chi^2$ à deux degrés de liberté (nombre de niveaux de la variable qualitative `fruit` moins un, donc ici (3 - 1) = 2) représentée ci-dessous.
 
@@ -209,15 +209,15 @@ pchisq(7.601, df = 2, lower.tail = FALSE)
 grade_code("Cette probabilité est appelée valeur p.")
 ```
 
-Pour tirer une conclusion avec le **test d'hypothèse** du $\chi^2$ univarié, vous comparez la valeur *p* ainsi obtenue au seuil $\alpha$ que vous avez fixé préalablement (choix réalisé *avant* de faire le test pour ne pas être influencé par le résultat). Souvent, on prend $\alpha$ = 5% en biologie. Les hypothèse (H~0~ = hypothèse nulle et H~1~ ou H~A~ = hypothèse alternative) du test $\chi^2$ univarié sont\ :
+Pour tirer une conclusion avec le **test d'hypothèse** du $\chi^2$ univarié, vous comparez la valeur *p* ainsi obtenue au seuil $\alpha$ que vous avez fixé préalablement (choix réalisé *avant* de faire le test pour ne pas être influencé par le résultat). Souvent, on prend $\alpha$ = 5% en biologie. Les hypothèse (H~0~ = hypothèse nulle et H~1~ ou H~A~ = hypothèse alternative) du test $\chi^2$ univarié sont :
 
-- H~0~ : $a_i = \alpha_i$ pour tout $i$
-- H~1~ : $a_i \neq \alpha_i$ pour au moins un $i$
+-   H~0~ : $a_i = \alpha_i$ pour tout $i$
+-   H~1~ : $a_i \neq \alpha_i$ pour au moins un $i$
 
-Les règles pour décider si nous rejetons ou non H~0~ sont\ :
+Les règles pour décider si nous rejetons ou non H~0~ sont :
 
-- Valeur *p* < $\alpha$ => rejet de H~0~
-- Valeur *p* ≥ $\alpha$ => non rejet de H~0~
+-   Valeur *p* \< $\alpha$ =\> rejet de H~0~
+-   Valeur *p* ≥ $\alpha$ =\> non rejet de H~0~
 
 Sur base de tout ceci, tirez des conclusions concernant l'expérience de préférence alimentaire chez le chimpanzé.
 
@@ -232,37 +232,36 @@ question("Que décidez-vous au seuil alpha de 5% ?",
 
 ### Test $\chi^2$ avec `chisq.test()`
 
-Pour réaliser votre test $\chi^2$, vous ne devez heureusement pas passer par tous ces calculs à la main. En effet, R mets à votre disposition une fonction qui le fait toute seule\ : `chisq.test()`. Utilisez maintenant cette fonction pour faire le même calcul sur l'expérience de préférence alimentaire des chimpanzés.
+Pour réaliser votre test $\chi^2$, vous ne devez heureusement pas passer par tous ces calculs à la main. En effet, R mets à votre disposition une fonction qui le fait toute seule : `chisq.test()`. Utilisez maintenant cette fonction pour faire le même calcul sur l'expérience de préférence alimentaire des chimpanzés.
 
 💬 **Ce code correspond (pour la dernière ligne) au snippet `.hcchi2uni`** [`.hc` = `h`ypothesis tests: `c`ontingency].
 
 ```{r chi_test_h3, exercise=TRUE}
 # Création du jeu de données
-chimp <- tibble::tibble(Pomme = 16, Banane = 22, Orange = 7)
+chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 # Test Chi^2 univarié
 chisq.test(___, p = ___, rescale.p = ___)
 ```
 
 ```{r chi_test_h3-hint-1}
 # Création du jeu de données
-chimp <- tibble::tibble(Pomme = 16, Banane = 22, Orange = 7)
+chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 # Test Chi^2 univarié
 chisq.test(___, p = c(Pomme = ___, Banane = ___, Orange = ___), rescale.p = FALSE)
 ```
 
 ```{r chi_test_h3-hint-2}
 # Création du jeu de données
-chimp <- tibble::tibble(Pomme = 16, Banane = 22, Orange = 7)
+chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 # Test Chi^2 univarié
 chisq.test(___, p = c(Pomme = 1/3, Banane = ___, Orange = ___), rescale.p = FALSE)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
-
 ```{r chi_test_h3-solution}
 # Création du jeu de données
-chimp <- tibble::tibble(Pomme = 16, Banane = 22, Orange = 7)
+chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 # Test Chi^2 univarié
 chisq.test(chimp, p = c(Pomme = 1/3, Banane = 1/3, Orange = 1/3), rescale.p = FALSE)
 ```
@@ -276,27 +275,27 @@ grade_code("La fonction `chisq.test()` utilise les probabilités théoriques fou
 Calculez à nouveau un test de $\chi^2$ univarié, mais cette fois-ci avec dix fois plus de chimpanzés, et les mêmes proportions observées.
 
 ```{r}
-chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
+chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 knitr::kable(chimp2)
 ```
 
 ```{r chi_test2_h3, exercise=TRUE}
 # Création du jeu de données
-chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
+chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
 chisq.test(___, p = ___, rescale.p = FALSE)
 ```
 
 ```{r chi_test2_h3-hint-1}
 # Création du jeu de données
-chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
+chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
 chisq.test(___, p = c(Pomme = ___, Banane = ___, Orange = ___), rescale.p = FALSE)
 ```
 
 ```{r chi_test2_h3-hint-2}
 # Création du jeu de données
-chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
+chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
 chisq.test(___, p = c(Pomme = 1/3, Banane = ___, Orange = ___), rescale.p = FALSE)
 
@@ -305,25 +304,25 @@ chisq.test(___, p = c(Pomme = 1/3, Banane = ___, Orange = ___), rescale.p = FALS
 
 ```{r chi_test2_h3-solution}
 # Création du jeu de données
-chimp2 <- tibble::tibble(Pomme = 160, Banane = 220, Orange = 70)
+chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
 chisq.test(chimp2, p = c(Pomme = 1/3, Banane = 1/3, Orange = 1/3), rescale.p = FALSE)
 ```
 
 ```{r chi_test2_h3-check}
-grade_code("Le valeur du Chi^2 obs est beaucoup plus grande ici et la valeur p est plus petite.")
+grade_code("Le valeur du Chi^2^ obs est beaucoup plus grande ici et la valeur p est plus petite.")
 ```
 
-Plus l'échantillon a une taille *n* importante, plus nous avons des données à disposition et nous pourrons donc rejeter H~0~ si elle est fausse *même si l'écart entre les $a_i$ et les $\alpha_i$ est très petit.* Par contre, si cet écart est très grand, un petit nombre d'observations suffira pour rejeter H~0~. A cause de cet effet de *n*, nous ne dirons *jamais* que nous **acceptons** H~1~, mais nous dirons que nous **ne rejetons pas H~0~**. Car, dans cette situation, deux cas sont possibles\ :
+Plus l'échantillon a une taille *n* importante, plus nous avons des données à disposition et nous pourrons donc rejeter H~0~ si elle est fausse *même si l'écart entre les* $a_i$ et les $\alpha_i$ est très petit. Par contre, si cet écart est très grand, un petit nombre d'observations suffira pour rejeter H~0~. A cause de cet effet de *n*, nous ne dirons *jamais* que nous **acceptons** H~1~, mais nous dirons que nous **ne rejetons pas H~0~**. Car, dans cette situation, deux cas sont possibles :
 
-1. H~0~ est effectivement vraie
-2. H~0~ est fausse, mais l'écart est faible et *n* est trop petit pour le détecter, ou nous n'avons pas pu le détecter par le hasard de l'échantillonnage
+1.  H~0~ est effectivement vraie
+2.  H~0~ est fausse, mais l'écart est faible et *n* est trop petit pour le détecter, ou nous n'avons pas pu le détecter par le hasard de l'échantillonnage
 
 A l'inverse, lorsque l'on travaille avec une taille d'échantillon *n* extrêmement grande, on peut être amené à rejeter H~0~ pour des écarts entre $a_i$ et $\alpha_i$ tellement faibles qu'ils ne signifient plus rien, biologiquement parlant. **C'est pour cette raison qu'il faut toujours comparer les fréquences observées et les fréquences théoriques en cas de rejet de H~0~**, afin de se faire une idée de l'amplitude des écarts et des niveaux qu'ils concernent.
 
 ## Conclusion
 
-La distribution du $\chi^2$ et son test d'hypothèse univarié n'ayant plus de secrets pour vous, nous aborderons une autre variante\ : le test $\chi^2$ d'indépendance dans le prochain learnr.
+La distribution du $\chi^2$ et son test d'hypothèse univarié n'ayant plus de secrets pour vous, nous aborderons une autre variante : le test $\chi^2$ d'indépendance dans le prochain learnr.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

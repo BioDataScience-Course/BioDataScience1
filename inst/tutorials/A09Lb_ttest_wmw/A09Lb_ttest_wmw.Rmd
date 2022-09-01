@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Tests t de Student et de Wilcoxon/Mann-Whitney."
 tutorial:
   id: "A09Lb_ttest_wmw"
-  version: 2.1.2/11
+  version: 2.2.0/11
 output:
   learnr::tutorial:
     progressive: true
@@ -25,27 +25,27 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-Le test *t* de Student, ou plutôt les tests de Student puisqu’il en existe plusieurs variantes, utilisent la distribution *t* de Student comme distribution de référence pour comparer une moyenne par rapport à une valeur cible ou pour comparer deux moyennes entre elles. Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à\ :
+Le test *t* de Student, ou plutôt les tests de Student puisqu'il en existe plusieurs variantes, utilisent la distribution *t* de Student comme distribution de référence pour comparer une moyenne par rapport à une valeur cible ou pour comparer deux moyennes entre elles. Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
-- Comprendre les différentes variantes du test *t* de Student et les utiliser pour résoudre des questions pratiques en biologie
+-   Comprendre les différentes variantes du test *t* de Student et les utiliser pour résoudre des questions pratiques en biologie
 
-- Faire de même pour le test de Wilcoxon/Mann-Whitney, et pouvoir déterminer quand l’utiliser à la place du test *t* de Student
+-   Faire de même pour le test de Wilcoxon/Mann-Whitney, et pouvoir déterminer quand l'utiliser à la place du test *t* de Student
 
 N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A09La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/moyenne.html) du cours.
 
 ## Efficacité du mCPP sur la perte de poids
 
-![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Gerd Altmann</a> via <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Pixabay</a>](images/weight.jpg){width=50%}
+![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Gerd Altmann</a> via <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=162952">Pixabay</a>](images/weight.jpg){width="50%"}
 
-Vous avez à votre disposition un jeu de données dont la thématique est la perte de poids. Des chercheurs se sont intéressés à l’effet d'une molécule, le mCPP ou métachlorophénylpipérazine (qui est, soit dit en passant, une drogue de synthèse\ !) sur la variation de masse de deux groupes de patients obèses. Un groupe va recevoir le comprimé contenant le mCPP et le second un comprimé placebo.
+Vous avez à votre disposition un jeu de données dont la thématique est la perte de poids. Des chercheurs se sont intéressés à l'effet d'une molécule, le mCPP ou métachlorophénylpipérazine (qui est, soit dit en passant, une drogue de synthèse !) sur la variation de masse de deux groupes de patients obèses. Un groupe va recevoir le comprimé contenant le mCPP et le second un comprimé placebo.
 
 Le principe de comparaison à un groupe placebo recevant un comprimé libre de tout principe actif est une approche **indispensable** en statistique pour éviter tout effet psychologique indésirable dans une direction ou une autre, et qui influencerait les résultats. Le principe ne fonctionne, naturellement, que si les patients *ne savent pas* s'ils reçoivent la molécule ou le placebo. Nous pouvons même aller encore plus loin en ne l'indiquant *pas non plus* au médecin et au personnel soignant en contact avec le patient. Ceci évite un effet indésirable du médecin involontairement enclin à soigner différemment un patient test ou un patient placebo. Ce type de protocole s'appelle une étude en **double aveugle** et est le meilleur choix pour éviter les biais cognitifs dans l'expérience. C'est ce protocole qui a été utilisé ici.
 
-Chaque patient est pesé au début et à la fin de l’expérience pour déterminer la variation de sa masse. L'intervalle de temps entre les deux pesées est le même pour tous les patients. Aidez les chercheurs à déterminer si le mCPP a un effet significatif ou non sur la perte de poids.
+Chaque patient est pesé au début et à la fin de l'expérience pour déterminer la variation de sa masse. L'intervalle de temps entre les deux pesées est le même pour tous les patients. Aidez les chercheurs à déterminer si le mCPP a un effet significatif ou non sur la perte de poids.
 
 Voici les données obtenues sur quatre groupes de neuf patients tous indépendants les uns des autres et ayant été attribués aléatoirement aux deux traitements (ici vous pouvez considérer que l'échantillonnage est bien aléatoire et que la distribution au hasard des patients entre les deux groupes a été correctement réalisée, bref, que l'échantillon est bien *représentatif*).
 
@@ -55,8 +55,9 @@ delta_weight <- c(
   -1.10,  0.50,  0.50,  0.00, -0.50,  1.30, -1.40,  0.00, -0.80, # placebo
   -1.10, -1.30, -1.00, -1.70, -1.40, -0.10, -0.50, -1.60,  0.50, # mcpp
    0.00,  0.30, -0.60, -0.30,  0.70,  0.20, -0.60, -0.90,  2.00) # placebo
-mcpp <- tibble(delta_weight = delta_weight,
-  treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9))
+mcpp <- dtx(
+  delta_weight = delta_weight,
+  treatment    = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9L))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
 mcpp
 ```
@@ -67,15 +68,16 @@ delta_weight <- c(
   -1.10,  0.50,  0.50,  0.00, -0.50,  1.30, -1.40,  0.00, -0.80, # placebo
   -1.10, -1.30, -1.00, -1.70, -1.40, -0.10, -0.50, -1.60,  0.50, # mcpp
    0.00,  0.30, -0.60, -0.30,  0.70,  0.20, -0.60, -0.90,  2.00) # placebo
-mcpp <- tibble(delta_weight = delta_weight,
-  treatment = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9))
+mcpp <- dtx(
+  delta_weight = delta_weight,
+  treatment    = rep(c("mcpp","placebo", "mcpp", "placebo"), each = 9L))
 mcpp$treatment <- factor(mcpp$treatment, levels = c("placebo", "mcpp"))
 ```
 
-Le jeu de données `mcpp` comprend deux variables\ : 
+Le jeu de données `mcpp` comprend deux variables :
 
-- `delta_weight` est une variable quantitative qui mesure la différence de masse en kg entre la pesée au début et la pesée à la fin de l'expérience du même patient,
-- `treatment` est une variable qualitative à deux niveaux `placebo` et `mcpp`.
+-   `delta_weight` est une variable quantitative qui mesure la différence de masse en kg entre la pesée au début et la pesée à la fin de l'expérience du même patient,
+-   `treatment` est une variable qualitative à deux niveaux `placebo` et `mcpp`.
 
 Il n'y a pas de données manquantes dans ce jeu de données.
 
@@ -88,28 +90,32 @@ levels(mcpp$treatment)
 Réalisez un résumé des données en fonction du traitement administré. Les informations nécessaires dans le contexte sont la moyenne, l'écart type et le nombre de patients pour chaque traitement. Utilisez les éléments ci-dessous pour compléter les instructions R (les éléments peuvent être employé plusieurs fois).
 
 ```{r}
-variable <- c("mcpp", "treatment", "delta_weight", "group_by", "summarise", "mean", "sd")
+variable <- c("mcpp", "treatment", "delta_weight", "group_by",
+  "summarise", "mean", "sd")
 sample(variable)
 ```
 
 ```{r mcpp_tab_h2, exercise=TRUE, exercise.setup="prepare_mcpp"}
 ___ %>.%
-  ___(., ___) %>.%
-  ___(., mean = ___(___), sd = ___(___), n = n())
+  ___(., ___) |> ___(
+    mean = ___(___), sd = ___(___), n = n()) %>.%
+  ___(.)
 ```
 
 ```{r mcpp_tab_h2-hint-1}
 mcpp %>.% 
-  group_by(., ___) %>.%
-  summarise(., mean = ___(___), sd = ___(___), n = n())
+  group_by(., ___) |> summarise(
+    mean = ___(___), sd = ___(___), n = n()) %>.%
+  collect_dtx(.)
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r mcpp_tab_h2-solution}
 mcpp %>.% 
-  group_by(., treatment) %>.%
-  summarise(., mean = mean(delta_weight), sd = sd(delta_weight), n = n())
+  group_by(., treatment) |> summarise(
+    mean = mean(delta_weight), sd = sd(delta_weight), n = n()) %>.%
+  collect_dtx(.)
 ```
 
 ```{r mcpp_tab_h2-check}
@@ -129,20 +135,20 @@ t.test(data = DF, YNUM ~ XFACTOR,
 
 Détaillons un peu les arguments de la fonction `t.test()`.
 
-- `data = DF`\ : vous devez spécifier le nom de jeu de données
-- `YNUM ~ XFACTOR`\ : c'est la formule qui identifie les variables utilisées pour le test. `YNUM` est la variable numérique dont ont étudie la moyenne et `XFACTOR` est la variable facteur à deux niveaux qui indique à laquelle des deux sous-populations chaque individu appartient
-- `alternative = "two.sided"` : vous devez spécifier si le test est  
-    + un test bilatéral\ : `"two.sided"`, l'hypothèse alternative $H_1$ indique que la différence peut se faire dans les deux sens
-    + un test unilatéral à gauche\ : `"less"`, $H_1$ n'accepte qu'une différence plus petite que la valeur sous $H_0$
-    + un test unilatéral à droite\ : `"greater"`, $H_1$ n'accepte qu'une différence plus grande que la valeur sous $H_0$
-- `conf.level = 0.95`\ : le niveau de confiance du test que vous fixez à l'avance, sachant que ce niveau de confiance est 1 - $\alpha$ (complément à un de alpha)
-- `var.equal = TRUE`\ : considérez-vous que les variances de vos deux sous-populations sont équivalentes (= test *t* de Student classique), ou pas (variante de Welch en indiquant `FALSE`). Si vous ne savez pas, il vaut mieux indiquer `FALSE` ici
+-   `data = DF` : vous devez spécifier le nom de jeu de données
+-   `YNUM ~ XFACTOR` : c'est la formule qui identifie les variables utilisées pour le test. `YNUM` est la variable numérique dont ont étudie la moyenne et `XFACTOR` est la variable facteur à deux niveaux qui indique à laquelle des deux sous-populations chaque individu appartient
+-   `alternative = "two.sided"` : vous devez spécifier si le test est
+    -   un test bilatéral : `"two.sided"`, l'hypothèse alternative $H_1$ indique que la différence peut se faire dans les deux sens
+    -   un test unilatéral à gauche : `"less"`, $H_1$ n'accepte qu'une différence plus petite que la valeur sous $H_0$
+    -   un test unilatéral à droite : `"greater"`, $H_1$ n'accepte qu'une différence plus grande que la valeur sous $H_0$
+-   `conf.level = 0.95` : le niveau de confiance du test que vous fixez à l'avance, sachant que ce niveau de confiance est 1 - $\alpha$ (complément à un de alpha)
+-   `var.equal = TRUE` : considérez-vous que les variances de vos deux sous-populations sont équivalentes (= test *t* de Student classique), ou pas (variante de Welch en indiquant `FALSE`). Si vous ne savez pas, il vaut mieux indiquer `FALSE` ici
 
 **Lorsque les observations sont peu nombreuses (moins de 30 observations par sous-population pour donner un ordre de grandeur à ne pas respecter de manière stricte), il n'est pas possible de déterminer avec certitude si les variances diffèrent ou non uniquement sur base de l'échantillon et il est conseillé d'employer le test de Welch avec `var.equal = FALSE` en cas de doute.**
 
-Une information supplémentaire externe aux données elles-mêmes est nécessaire pour décider si nous réalisons un test bilatéral, unilatéral à gauche ou à droite. Si, hors hypothèse nulle, la différence entre la moyenne du premier niveau de la variable facteur et son second niveau peut très bien être soit positif, soit négatif, nous choisissons un test bilatéral. Si, par contre, il est impossible que la différence soit positive, nous ferons un test unilatéral à gauche et si l'hypothèse alternative ne peut pas prendre de valeur négative, nous ferons un test unilatéral à droite. Gauche et droite se réfèrent ici à la position sur l'axe par rapport à la valeur sous l'hypothèse nulle\ : la convention veut que les valeurs plus petites soient représentées à gauche sur cet axe ("lower") et les valeurs plus grandes à droite ("greater"). Visualisez donc cet axe mentalement pour vous rappeler qui fait quoi.
+Une information supplémentaire externe aux données elles-mêmes est nécessaire pour décider si nous réalisons un test bilatéral, unilatéral à gauche ou à droite. Si, hors hypothèse nulle, la différence entre la moyenne du premier niveau de la variable facteur et son second niveau peut très bien être soit positif, soit négatif, nous choisissons un test bilatéral. Si, par contre, il est impossible que la différence soit positive, nous ferons un test unilatéral à gauche et si l'hypothèse alternative ne peut pas prendre de valeur négative, nous ferons un test unilatéral à droite. Gauche et droite se réfèrent ici à la position sur l'axe par rapport à la valeur sous l'hypothèse nulle : la convention veut que les valeurs plus petites soient représentées à gauche sur cet axe (`"lower"`) et les valeurs plus grandes à droite (`"greater"`). Visualisez donc cet axe mentalement pour vous rappeler qui fait quoi.
 
-En fouillant dans la littérature scientifique, vous trouvez plusieurs études qui démontrent que le mCPP joue un rôle de suppresseur de l'appétit chez l'être humain. Vous pouvez donc en déduire qu'il est fort probable qu'en cas d'effet du mCPP, celui-ci aura tendance à provoquer une diminution de la consommation d'aliments, et donc par conséquent, une perte de masse. Vos informations *a priori* tendent donc à vous démontrer que l'hypothèse alternative $H_1$ ne peut vraisemblablement varier que dans un sens\ : celui d'un `delta_weight` plus faible avec le mCPP. Selon l'ordre de vos niveaux dans `treatment` (R les classent par ordre alphabétique, sauf indication contraire de votre part lors de la conversion de `character` en `factor`), le calcul réalisé par le test est `delta_weight[placebo] - delta_weight[mcpp]`, ce qui donne une valeur *positive* de ce calcul en cas d'effet d'amaigrissement plus important avec le mCPP qu'avec le placebo (sous $H_0$, sa valeur sera nulle).
+En fouillant dans la littérature scientifique, vous trouvez plusieurs études qui démontrent que le mCPP joue un rôle de suppresseur de l'appétit chez l'être humain. Vous pouvez donc en déduire qu'il est fort probable qu'en cas d'effet du mCPP, celui-ci aura tendance à provoquer une diminution de la consommation d'aliments, et donc par conséquent, une perte de masse. Vos informations *a priori* tendent donc à vous démontrer que l'hypothèse alternative $H_1$ ne peut vraisemblablement varier que dans un sens : celui d'un `delta_weight` plus faible avec le mCPP. Selon l'ordre de vos niveaux dans `treatment` (R les classent par ordre alphabétique, sauf indication contraire de votre part lors de la conversion de `character` en `factor`), le calcul réalisé par le test est `delta_weight[placebo] - delta_weight[mcpp]`, ce qui donne une valeur *positive* de ce calcul en cas d'effet d'amaigrissement plus important avec le mCPP qu'avec le placebo (sous $H_0$, sa valeur sera nulle).
 
 Vous décidez donc de réaliser un test de Welch unilatéral à droite avec un seuil $\alpha$ de 5% afin d'aider ces scientifiques.
 
@@ -188,16 +194,16 @@ quiz(
 
 ## Dopamine
 
-![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Gerd Altmann</a> via <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Pixabay</a>](images/motivation.jpg){width=50%}
+![Image par <a href="https://pixabay.com/fr/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Gerd Altmann</a> via <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2481808">Pixabay</a>](images/motivation.jpg){width="50%"}
 
 La dopamine est un neurotransmetteur qui affecte la motivation et la curiosité au niveau comportemental. Une baisse de la dopamine s'observe souvent en cas de dépression mentale, de phobie sociale, et d'autres troubles psychologiques. Au contraire, un taux anormalement élevé de dopamine a été observé chez des individus atteints d'addictions, ou de schizophrénie, entre autres.
 
-Le toluène est une molécule organique très employée dans un ensemble de procédés chimiques. Ce composant affecte le système nerveux central. Des chercheurs ont étudié l’effet de cette molécule sur des rats. Ils ont dosé la dopamine dans le cerveau, mesurée en µg de dopamine par g de cerveau, comme indicateur d'un effet chez ces rats ayant inhalé ou non du toluène. 
+Le toluène est une molécule organique très employée dans un ensemble de procédés chimiques. Ce composant affecte le système nerveux central. Des chercheurs ont étudié l'effet de cette molécule sur des rats. Ils ont dosé la dopamine dans le cerveau, mesurée en µg de dopamine par g de cerveau, comme indicateur d'un effet chez ces rats ayant inhalé ou non du toluène.
 
-Le toluène a-t-il un effet sur la concentration en dopamine dans le cerveau\ ? Sur douze rats étudiés, six sont exposés au toluène et six sont utilisés comme contrôles, avec une sélection aléatoire des rats mis en expérience, ainsi qu'une attribution également aléatoire des rats aux deux traitements.
+Le toluène a-t-il un effet sur la concentration en dopamine dans le cerveau ? Sur douze rats étudiés, six sont exposés au toluène et six sont utilisés comme contrôles, avec une sélection aléatoire des rats mis en expérience, ainsi qu'une attribution également aléatoire des rats aux deux traitements.
 
 ```{r, echo=TRUE}
-dopamine <- tibble(
+dopamine <- dtx(
   treatment = rep(c("contrôle", "toluène"), each = 6), 
   conc      = c(1.820, 1.843, 1.397, 1.803, 2.539, 1.990,  # contrôle
                 3.420, 2.314, 1.911, 2.464, 2.781, 2.803)) # toluène
@@ -210,7 +216,7 @@ dopamine
 ```
 
 ```{r prepare_toluene}
-dopamine <- tibble(
+dopamine <- dtx(
   treatment = rep(c("contrôle", "toluène"), each = 6), 
   conc      = c(1.820, 1.843, 1.397, 1.803, 2.539, 1.990,  # contrôle
                 3.420, 2.314, 1.911, 2.464, 2.781, 2.803)) # toluène
@@ -221,18 +227,18 @@ dopamine <- labelise(dopamine,
   units = list(conc = "µg/g"))
 ```
 
-Le jeu de données `dopamine` contient deux variables\ :
+Le jeu de données `dopamine` contient deux variables :
 
-- `treatment`\ : une variable qualitative à deux niveaux `contrôle` et `toluène`
-- `conc`\ : une variable quantitative correspondant à la concentration en dopamine en µg/g de cerveau
+-   `treatment` : une variable qualitative à deux niveaux `contrôle` et `toluène`
+-   `conc` : une variable quantitative correspondant à la concentration en dopamine en µg/g de cerveau
 
-Aucune donnée n'est manquante. Nous savons que l'*ordre* des niveaux de la variable `treatment` peut avoir une importance en cas de choix d'un test unilatéral. La fonction `levels()` appliquée à une variable `factor` indique quel est le label de chaque niveau, ainsi que leur ordre. Servez-vous-en à chaque fois que cela est nécessaire\ :
+Aucune donnée n'est manquante. Nous savons que l'*ordre* des niveaux de la variable `treatment` peut avoir une importance en cas de choix d'un test unilatéral. La fonction `levels()` appliquée à une variable `factor` indique quel est le label de chaque niveau, ainsi que leur ordre. Servez-vous-en à chaque fois que cela est nécessaire :
 
 ```{r, echo=TRUE}
 levels(dopamine$treatment)
 ```
 
-### Description graphique 
+### Description graphique
 
 Représentez graphiquement la concentration en dopamine en fonction du traitement administré en utilisant un graphique en boites de dispersion.
 
@@ -319,7 +325,7 @@ quiz(
 )
 ```
 
-**Attention\ :** lorsque vous faites un test de Wilcoxon/Mann-Whitney, vous comparez globalement les distributions des deux sous-populations. Ce n'est plus les moyennes qui sont comparées (vous pouvez à la rigueur parler de comparaison de médianes, mais ce n'est même pas à 100% exact). Par contre, dans le test *t* de Student, vous **devez** indiquer clairement que ce sont les moyennes qui sont comparées, et ce, aussi bien dans la spécification de vos hypothèses que dans les conclusions que vous tirez de votre analyse.
+**Attention :** lorsque vous faites un test de Wilcoxon/Mann-Whitney, vous comparez globalement les distributions des deux sous-populations. Ce n'est plus les moyennes qui sont comparées (vous pouvez à la rigueur parler de comparaison de médianes, mais ce n'est même pas à 100% exact). Par contre, dans le test *t* de Student, vous **devez** indiquer clairement que ce sont les moyennes qui sont comparées, et ce, aussi bien dans la spécification de vos hypothèses que dans les conclusions que vous tirez de votre analyse.
 
 ## Puissance d'un test d'hypothèse
 
@@ -351,7 +357,7 @@ quiz(
 
 ## Conclusion
 
-Félicitations\ ! Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon/Mann-Whitney. Dans le cours et dans les exercices de vos assignations GitHub vous rencontrerez encore d'autres variantes de ces tests\ : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
+Félicitations ! Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon/Mann-Whitney. Dans le cours et dans les exercices de vos assignations GitHub vous rencontrerez encore d'autres variantes de ces tests : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

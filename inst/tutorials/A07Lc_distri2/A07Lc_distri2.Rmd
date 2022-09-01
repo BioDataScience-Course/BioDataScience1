@@ -25,15 +25,15 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-La loi de distribution Normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez\ :
+La loi de distribution Normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez :
 
-- Vérifier que vous comprenez bien la logique des calculs autour de la distribution Normale 
+-   Vérifier que vous comprenez bien la logique des calculs autour de la distribution Normale
 
-- Réaliser et interpréter un graphique quantile-quantile
+-   Réaliser et interpréter un graphique quantile-quantile
 
 Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html) du cours, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A07La_proba")`).
 
@@ -96,7 +96,7 @@ grade_code("Le code pour obtenir ce graphique est un peu long... mais le snippet
 
 Ceci est un graphique de base R. Vous avez beaucoup plus utilisé les graphiques {ggplot2} jusqu'ici. Leurs logiques diffèrent. Par exemple, pour ajouter un élément à un graphique de base, nous ferons appel à une instruction supplémentaire *sans* utiliser l'opérateur `+`, contrairement à {ggplot2}.
 
-Ajoutez maintenant le libellé de la distribution à côté de sa courbe sur le graphique avec la fonction `text()` (dernière ligne du code à compléter). Pour cela, vous devez rajouter ceci à la fin\ :
+Ajoutez maintenant le libellé de la distribution à côté de sa courbe sur le graphique avec la fonction `text()` (dernière ligne du code à compléter). Pour cela, vous devez rajouter ceci à la fin :
 
 ```{r, echo=FALSE, eval=FALSE}
 text(.mu-.s, .d(.mu-.s), .label, pos = 2, col = .col) # Label at left
@@ -189,7 +189,7 @@ pnorm(100, mean = 145, sd = 22, lower.tail = TRUE)
 grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = FALSE` dans la fonction `pnorm()`.")
 ```
 
-Calculez la probabilités d'avoir un plant de maïs dont la hauteur est comprise entre 120 et 150 cm en utilisant les aires à gauche des quantiles. 
+Calculez la probabilités d'avoir un plant de maïs dont la hauteur est comprise entre 120 et 150 cm en utilisant les aires à gauche des quantiles.
 
 ```{r normal4_h3, exercise=TRUE}
 pnorm(___, mean = ___, sd = ___, lower.tail = ___) -
@@ -282,7 +282,7 @@ car::qqPlot(crabs[["length"]], distribution = "norm",
 grade_code("Rappelez-vous de la syntaxe `DF$VAR` pour se référer à la variable nommée `VAR` dans le dataframe `DF`. Vous voyez ici que `length` suit une distribution Normale parce que tous les points (ou quasi-tous dans d'autres situations) sont à l'intérieur de l'enveloppe de confiance à 95% représenté par les courbes en pointillés bleus.")
 ```
 
-Est-ce que la longueur de carapace suit une distribution log-Normale chez ces mêmes crabes\ ?
+Est-ce que la longueur de carapace suit une distribution log-Normale chez ces mêmes crabes ?
 
 ```{r qqnorm2_h2, exercise=TRUE}
 SciViews::R()

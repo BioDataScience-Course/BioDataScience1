@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 11** Analyse de variance à deux facteurs, différents modèles."
 tutorial:
   id: "A11La_anova2"
-  version: 2.0.1/11
+  version: 2.1.0/11
 output:
   learnr::tutorial:
     progressive: true
@@ -17,19 +17,25 @@ BioDataScience1::learnr_setup()
 SciViews::R()
 # data ----
 set.seed(43)
-production <- c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13, 14, 10, 14, 13, 10, 14,
-    17, 13, 17, 14, 13, 13, 17, 14, 17, 13, 10, 9, 10, 12, 11, 9, 10, 12, 10, 11,
-    11, 9, 11, 11, 12, 10, 9, 13, 11, 10, 13, 12, 11, 15, 14, 11, 15, 13, 14, 12) 
+production <- c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13,
+  14, 10, 14, 13, 10, 14, 17, 13, 17, 14, 13, 13, 17, 14, 17, 13, 10, 9,
+  10, 12, 11, 9, 10, 12, 10, 11, 11, 9, 11, 11, 12, 10, 9, 13, 11, 10,
+  13, 12, 11, 15, 14, 11, 15, 13, 14, 12) 
 production <- round(production + rnorm(n = length(production), sd = 0.5), 1)
 
-milk_production <- tibble(
-  ration = ordered(rep(c("low", "high"), each = 30), levels = c("low", "high")), 
-  feed = factor(rep(rep(c("hay", "grass", "maize silage"), each = 10), times = 2)), 
-  milk = production)
+milk_production <- dtx(
+  ration = ordered(rep(c("low", "high"), each = 30L), levels = c("low", "high")), 
+  food   = factor(rep(rep(c("hay", "grass", "maize silage"), each = 10L), times = 2L)), 
+  milk   = production)
 
 milk_production <- labelise(milk_production, 
-  label = list(ration = "Ration", feed = "Type d'alimentation", milk = "Quantité de lait"),
-  units = list(milk = "L/J"))
+  label = list(
+    ration = "Ration",
+    food   = "Type d'alimentation",
+    milk   = "Quantité de lait"),
+  units = list(
+    milk = "L/J"
+))
 ```
 
 ```{r, echo=FALSE}
@@ -42,39 +48,39 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable qualitative (de type `factor` dans R). Dans le [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables facteurs avec une **ANOVA à deux facteurs**. 
+Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable qualitative (de type `factor` dans R). Dans le [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables facteurs avec une **ANOVA à deux facteurs**.
 
-Ce tutoriel vous permet d'auto-évaluer votre aptitude à\ :
+Ce tutoriel vous permet d'auto-évaluer votre aptitude à :
 
-- présenter vos données avant une ANOVA à deux facteurs
+-   présenter vos données avant une ANOVA à deux facteurs
 
-- effectuer une ANOVA à deux facteurs 
+-   effectuer une ANOVA à deux facteurs
 
-- interpréter correctement les résultats obtenus
+-   interpréter correctement les résultats obtenus
 
-Assurez-vous d'avoir compris les sections [11.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/anova-%25C3%25A0-deux-facteurs.html), [11.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/mod%25C3%25A8le-sans-interactions.html) et [11.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vue dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance.html) relatives à l’ANOVA à un facteur.
+Assurez-vous d'avoir compris les sections [11.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/anova-%25C3%25A0-deux-facteurs.html), [11.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/mod%25C3%25A8le-sans-interactions.html) et [11.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vue dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance.html) relatives à l'ANOVA à un facteur.
 
 ## Rendement laitier
 
-Dans ce tutoriel, vous allez réaliser une analyse visant à étudier l'influence du type et de la quantité d'alimentation de vaches sur le rendement laitier. 
+Dans ce tutoriel, vous allez réaliser une analyse visant à étudier l'influence du type et de la quantité d'alimentation de vaches sur le rendement laitier.
 
 ![](images/rendement_laitier.jpg)
 
-Le jeu de données `milk_production` contient les variables suivantes\ :
+Le jeu de données `milk_production` contient les variables suivantes :
 
-- `ration`\ : la quantité d'alimentation apportée (`"low"` = ration faible ou `"high"` = ration élevée)
-- `feed`\ : le type d'alimentation fourni (`" hay"` = foin, `"grass"` = herbe ou `"maize silage"` = maïs ensilés)
-- `milk`\ : la quantité de lait produit en L/j
+-   `ration` : la quantité d'alimentation apportée (`"low"` = ration faible ou `"high"` = ration élevée)
+-   `food` : le type d'alimentation fourni (`" hay"` = foin, `"grass"` = herbe ou `"maize silage"` = maïs ensilés)
+-   `milk` : la quantité de lait produit en L/j
 
 ```{r}
 glimpse(milk_production)
 ```
 
-La question biologique à laquelle vous allez essayer de répondre est la suivante : **y a-t-il une différence de rendement dans la production de lait en fonction de la ration et du type d'alimentation donnée aux vaches ?**
+La question biologique à laquelle vous allez essayer de répondre est la suivante : **y a-t-il une différence de rendement dans la production de lait en fonction de la ration et du type d'alimentation donné aux vaches ?**
 
 ### Description graphique des données
 
-Différents graphiques vous permettent de visualiser les observations de votre jeu de données avant la réalisation de votre ANOVA à deux facteurs. À partir du jeu de données (`milk_production`), réalisez un premier graphique représentant la moyenne du rendement de la production de lait (`milk`) en fonction du type d'alimentation (`feed`) en utilisant la couleur pour la quantité d'alimentation apportée (`ration`). 
+Différents graphiques vous permettent de visualiser les observations de votre jeu de données avant la réalisation de votre ANOVA à deux facteurs. À partir du jeu de données (`milk_production`), réalisez un premier graphique représentant la moyenne du rendement de la production de lait (`milk`) en fonction du type d'alimentation (`food`) en utilisant la couleur pour la quantité d'alimentation apportée (`ration`).
 
 ```{r lait_graph_h2, exercise = TRUE}
 chart(___, ___ ~ ___ %col=% ___) +
@@ -83,7 +89,7 @@ chart(___, ___ ~ ___ %col=% ___) +
 ```
 
 ```{r lait_graph_h2-hint-1}
-chart(milk_production, ___ ~ feed %col=% ___) +
+chart(milk_production, ___ ~ food %col=% ___) +
   geom_point(alpha = 0.4, position = position_dodge2(0.4, padding = 0.1)) +
   stat_summary(geom = "point", fun = "mean", position = position_dodge(0.4), size = 4)
 
@@ -91,7 +97,7 @@ chart(milk_production, ___ ~ feed %col=% ___) +
 ```
 
 ```{r lait_graph_h2-solution}
-chart(milk_production, milk ~ feed %col=% ration) +
+chart(milk_production, milk ~ food %col=% ration) +
   geom_point(alpha = 0.4, position = position_dodge2(0.4, padding = 0.1)) +
   stat_summary(geom = "point", fun = "mean", position = position_dodge(0.4), size = 4)
 ```
@@ -102,35 +108,34 @@ grade_code("Le graphique que vous venez de réalisez permet de comparer le rende
 
 ### Visualisation graphique des interactions
 
-Dans un modèle d'ANOVA à deux facteurs, il faut aussi considérer que l'effet d'un facteur sur la variable explicative peut être différent suivant les modalités de l'autre facteur mis en jeu. On parle alors d'**interactions**. Il est possible de les explorer en réalisant un graphique des interactions qui vous permettra de visualiser les écarts des moyennes respectives des différentes sous-populations. 
+Dans un modèle d'ANOVA à deux facteurs, il faut aussi considérer que l'effet d'un facteur sur la variable explicative peut être différent suivant les modalités de l'autre facteur mis en jeu. On parle alors d'**interactions**. Il est possible de les explorer en réalisant un graphique des interactions qui vous permettra de visualiser les écarts des moyennes respectives des différentes sous-populations.
 
-Réalisez sur le jeu de données `milk_production` le graphique permettant de visualiser les interactions entre les variables facteurs (`feed` et `ration`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration.
+Réalisez sur le jeu de données `milk_production` le graphique permettant de visualiser les interactions entre les variables facteurs (`food` et `ration`). Commencez par calculer la moyenne du rendement par types d'alimentation et par ration.
 
 Réalisez ensuite un graphique du rendement moyen en fonction du type d'alimentation et par ration.
 
 ```{r interaction_h3, exercise = TRUE}
-___ %>.%
-  ___(., ___, ___) %>.% # regroupement par type d'alimentation et par ration
-  ___(., milk_mean = ___(___)) %>.%  # moyenne du rendement 
+___ %>.% # regroupement par type d'alimentation et par ration
+  ___(., ___, ___) |> ___(milk_mean = ___(___)) %>.%  # moyenne du rendement
+  ___(.) %>.% # collecter les résultats
   chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction du types d'alimentation et par ration
   ___() + # lignes
   ___() # points
 ```
 
 ```{r interaction_h3-hint-1}
-DF %>.%
-  group_by(., FACTOR1, FACTOR2) %>.% # regroupement par type d'alimentation et par ration
-  summarise(., milk_mean = mean(VARNUM)) %>.%   # moyenne du rendement 
+DF %>.% # regroupement par type d'alimentation et par ration
+  group_by(., FACTOR1, FACTOR2) |> summarise(., milk_mean = mean(VARNUM)) %>.%  # moyenne du rendement
+  collect_dtx(.) %>.% # collecter les résultats
   chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + # graphique du rendement moyen en fonction du types d'alimentation et par ration
   ___() + # lignes
-  # points
-  ___()
+  ___() # points
 ```
 
 ```{r interaction_h3-hint-2}
-milk_production %>.%
-  group_by(., feed, ration) %>.% # regroupement par type d'alimentation et par ration
-  summarise(., milk_mean = mean(milk)) %>.% 
+milk_production %>.% # regroupement par type d'alimentation et par ration
+  group_by(., food, ration) |> summarise(milk_mean = mean(milk)) %>.% # moyenne du rendement
+  collect_dtx(.) %>.% # collecter les résultats
   chart(data = ., VARNUM ~ FACTOR1 %col=% FACTOR2 %group=% FACTOR2) +
   ___() + # lignes
   ___() # points
@@ -139,10 +144,10 @@ milk_production %>.%
 ```
 
 ```{r interaction_h3-solution}
-milk_production %>.%
-  group_by(., feed, ration) %>.% # regroupement par type et quantité d'alimentation
-  summarise(., milk_mean = mean(milk)) %>.%  
-  chart(data = ., milk_mean ~ feed %col=% ration %group=% ration) + 
+milk_production %>.% # regroupement par type et quantité d'alimentation
+  group_by(., food, ration) |> summarise(milk_mean = mean(milk)) %>.% # moyenne du rendement
+  collect_dtx(.) %>.% # collecter les résultats
+  chart(data = ., milk_mean ~ food %col=% ration %group=% ration) + 
   geom_line() + # lignes
   geom_point() # points
 ```
@@ -153,58 +158,61 @@ grade_code("Ce graphique permet d'analyser les interactions entre les prédicteu
 
 ### Description numérique (tableau)
 
-Vous pouvez également résumer vos données sous la forme d'un tableau. À partir du jeu de données `milk_production`, réalisez un tableau de résumé contenant la moyenne et l'écart-type du rendement de la production de lait (`milk`) par type d'alimentation (`feed`) et par quantité des rations (`ration`). Ajoutez également le nombre d'observations par sous-groupe. 
+Vous pouvez également résumer vos données sous la forme d'un tableau. À partir du jeu de données `milk_production`, réalisez un tableau de résumé contenant la moyenne et l'écart-type du rendement de la production de lait (`milk`) par type d'alimentation (`food`) et par quantité des rations (`ration`). Ajoutez également le nombre d'observations par sous-groupe.
 
 💬 **Le code ci-dessous correspond au snippet `.hmanova2desc`.**
 
 ```{r lait_tab_h2, exercise=TRUE}
 ___ %>.%
-  group_by(., ___, ___) %>.%
-  summarise(., mean = mean(___), sd = sd(___), count = sum(!is.na(___)))
+  group_by(., ___, ___) |> summarise(
+    mean = mean(___), sd = sd(___), count = sum(!is.na(___))) %>.%
+  ___(.)
 ```
 
 ```{r lait_tab_h2-hint-1}
 DF %>.%
-  group_by(., XFACTOR1, XFACTOR2) %>.%
-  summarise(., mean = mean(YNUM), sd = sd(YNUM), count = sum(!is.na(YNUM)))
+  group_by(., XFACTOR1, XFACTOR2) |> summarise(
+    mean = mean(YNUM), sd = sd(YNUM), count = sum(!is.na(YNUM))) %>.%
+  collect_dtx(.)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r lait_tab_h2-solution}
 milk_production %>.%
-  group_by(., feed, ration) %>.%
-  summarise(., mean = mean(milk), sd = sd(milk), count = sum(!is.na(milk)))
+  group_by(., food, ration) |> summarise(
+    mean = mean(milk), sd = sd(milk), count = sum(!is.na(milk))) %>.%
+  collect_dtx(.)
 ```
 
-```{r lait_tab_h2-check} 
+```{r lait_tab_h2-check}
 grade_code("Le tableau que vous avez obtenu est parfait pour présenter vos données avant de réaliser une ANOVA à deux facteurs. Attention, ce tableau est en anglais. N'oubliez pas de le traduire si votre rapport est en français.")
 ```
 
-Les graphiques et la tableau que vous venez de réaliser vous ont permis de prendre connaissance des données sur lesquelles vous travaillez. Vous allez maintenant pouvoir passer à la réalisation de votre test d'hypothèse. Vous commencez à avoir l'habitude\ : avant de pouvoir le réaliser, vous allez devoir vérifier si les conditions d'application du test sont respectées.
+Les graphiques et la tableau que vous venez de réaliser vous ont permis de prendre connaissance des données sur lesquelles vous travaillez. Vous allez maintenant pouvoir passer à la réalisation de votre test d'hypothèse. Vous commencez à avoir l'habitude : avant de pouvoir le réaliser, vous allez devoir vérifier si les conditions d'application du test sont respectées.
 
 ### Vérification des conditions d'applications
 
-Si vous souhaitez réaliser une ANOVA à deux facteurs, vous devez respecter les conditions d'application suivantes\ :
+Si vous souhaitez réaliser une ANOVA à deux facteurs, vous devez respecter les conditions d'application suivantes :
 
-- échantillon représentatif,
-- observations indépendantes,
-- une variable réponse quantitative,
-- deux variables explicatives qualitatives à deux niveaux ou plus,
-- distribution **Normale** des résidus,
-- **homoscédasticité** (même variance intragroupe).
+-   échantillon représentatif,
+-   observations indépendantes,
+-   une variable réponse quantitative,
+-   deux variables explicatives qualitatives à deux niveaux ou plus,
+-   distribution **Normale** des résidus,
+-   **homoscédasticité** (même variance intragroupe).
 
-Pour vérifier si l’échantillonnage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous pouvez vous référer au protocole expérimental. Dans le cas de cette étude, vous considérerez, sur base de la discussion du protocole utilisé avec les fermiers (considérez que vous l'avez fait), que les individus ont bien été sélectionnés par un processus aléatoire. Considérez aussi que vous constatez que l'attribution des vaches aux niveaux de la ration et du type d'alimentation a également été réalisée de manière aléatoire.
+Pour vérifier si l'échantillonnage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous pouvez vous référer au protocole expérimental. Dans le cas de cette étude, vous considérerez, sur base de la discussion du protocole utilisé avec les fermiers (considérez que vous l'avez fait), que les individus ont bien été sélectionnés par un processus aléatoire. Considérez aussi que vous constatez que l'attribution des vaches aux niveaux de la ration et du type d'alimentation a également été réalisée de manière aléatoire.
 
 Le type de variable peut se vérifier en consultant les données. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont bien type facteur non ordonné (`factor`) ou facteur ordonné (`ordered`) dans R.
 
-Vous allez maintenant pouvoir vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permettant de vérifier l'homoscédasticité (homogénéité des variances). Vous devrez aussi vérifier que la distribution des résidus est Normale. Cette étape se fait après la réalisation du test de l'ANOVA à deux facteurs mais avant son interprétation. 
+Vous allez maintenant pouvoir vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permettant de vérifier l'homoscédasticité (homogénéité des variances). Vous devrez aussi vérifier que la distribution des résidus est Normale. Cette étape se fait après la réalisation du test de l'ANOVA à deux facteurs mais avant son interprétation.
 
 ### Test de Bartlett
 
-Pour évaluer l'homoscédasticité de vos données, vous allez utiliser le test de Bartlett. Afin d'interpréter correctement le test que vous allez réaliser, commencez par poser les hypothèses de départ. Le test de Bartlett doit se faire sur toutes les sous-populations. Pour cela, vous pouvez utiliser la fonction `interaction()` en lui renseignant les variables explicatives. Cette fonction, qui calculera pour vous tous les sous-groupes possibles, peut directement être utilisée dans la formule. 
+Pour évaluer l'homoscédasticité de vos données, vous allez utiliser le test de Bartlett. Afin d'interpréter correctement le test que vous allez réaliser, commencez par poser les hypothèses de départ. Le test de Bartlett doit se faire sur toutes les sous-populations. Pour cela, vous pouvez utiliser la fonction `interaction()` en lui renseignant les variables explicatives. Cette fonction, qui calculera pour vous tous les sous-groupes possibles, peut directement être utilisée dans la formule.
 
-Effectuez maintenant un test de Bartlett sur les données du jeu `milk_production` de la quantité de lait (`milk`) en fonction du type d'alimentation (`feed`) et de la ration (`ration`).
+Effectuez maintenant un test de Bartlett sur les données du jeu `milk_production` de la quantité de lait (`milk`) en fonction du type d'alimentation (`food`) et de la ration (`ration`).
 
 💬 **Le code ci-dessous correspond au snippet `.hvbartlett`.**
 
@@ -219,7 +227,7 @@ bartlett.test(data = DF, YNUM ~ interaction(XFACTOR1, XFACTOR2))
 ```
 
 ```{r lait_bart_h2-solution}
-bartlett.test(data = milk_production, milk ~ interaction(feed, ration))
+bartlett.test(data = milk_production, milk ~ interaction(food, ration))
 ```
 
 ```{r lait_bart_h2-check}
@@ -228,12 +236,12 @@ grade_code("Vous avez correctement encodé l'instruction R pour ce test. Saurez-
 
 ```{r lait_bart_quiz}
 question("Au seuil alpha de 5%, y a-t-il homoscédasticité ?",
-         answer("Oui", correct = TRUE),
-         answer("Non"),
-         allow_retry = TRUE,
-         random_answer_order = TRUE,
-         incorrect = "Avez-vous bien défini les hypothèses H0 et H1 de votre test de Bartlett ?",
-         correct = "Bravo, c'est correct. La valeur P que vous avez obtenue étant plus grande que le seuil alpha de 5%, vous ne rejetez donc pas H0 et pouvez considérer qu'il y a homoscédasticité.")
+  answer("Oui", correct = TRUE),
+  answer("Non"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE,
+  incorrect = "Avez-vous bien défini les hypothèses H0 et H1 de votre test de Bartlett ?",
+  correct = "Bravo, c'est correct. La valeur P que vous avez obtenue étant plus grande que le seuil alpha de 5%, vous ne rejetez donc pas H0 et pouvez considérer qu'il y a homoscédasticité.")
 ```
 
 ## ANOVA à deux facteurs
@@ -248,9 +256,9 @@ Comme pour l'ANOVA à un facteur, vous allez utiliser la fonction `lm()` qui dem
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 + XFACTOR2 + XFACTOR1:XFACTOR2))
 ```
 
-où `XFACTOR1:XFACTOR2` représente le terme correspondant aux interactions entre `XFACTOR1` et `XFACTOR2`. 
+où `XFACTOR1:XFACTOR2` représente le terme correspondant aux interactions entre `XFACTOR1` et `XFACTOR2`.
 
-Ce modèle peut aussi être écrit de manière plus simple en utilisant `*` à la place du `+` entre les deux variables facteurs ce qui signifiera implicitement de tenir compte également des interactions. Cela donne\ :
+Ce modèle peut aussi être écrit de manière plus simple en utilisant `*` à la place du `+` entre les deux variables facteurs ce qui signifiera implicitement de tenir compte également des interactions. Cela donne :
 
 ```{r, echo=TRUE, eval=FALSE}
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 * XFACTOR2))
@@ -271,7 +279,7 @@ anova(anova. <- lm(data = milk_production, ___ ~ ___ * ___))
 ```
 
 ```{r lait_interaction_h2-solution}
-anova(anova. <- lm(data = milk_production, milk ~ feed * ration))
+anova(anova. <- lm(data = milk_production, milk ~ food * ration))
 ```
 
 ```{r lait_interaction_h2-check}
@@ -280,16 +288,16 @@ grade_code("Bravo, vous avez encodé correctement votre modèle. N'oubliez pas q
 
 ```{r lait_interaction_quiz}
 question("Y a-t-il des intéractions significatives entre les rations et les types d'alimentation au seuil alpha de 5% ?",
-     answer("oui"),
-     answer("non", correct = TRUE),
-     allow_retry = TRUE,
-     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha 5%.",
-     correct = "Bravo, c'est correct. Il n'y a pas d'interactions entre les deux facteurs. Avant de continuez l'analyse, vous allez simplifier le modèle en retirant le terme correspondant aux interactions.")
+  answer("oui"),
+  answer("non", correct = TRUE),
+  allow_retry = TRUE,
+  incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha 5%.",
+  correct = "Bravo, c'est correct. Il n'y a pas d'interactions entre les deux facteurs. Avant de continuez l'analyse, vous allez simplifier le modèle en retirant le terme correspondant aux interactions.")
 ```
 
 ### ANOVA à deux facteurs sans interactions
 
-Lorsque vous n'avez pas d'interactions significatives, vous pouvez choisir de simplifier votre modèle en supprimant le terme correspondant. Votre nouveau modèle s'écrit donc de cette manière. 
+Lorsque vous n'avez pas d'interactions significatives, vous pouvez choisir de simplifier votre modèle en supprimant le terme correspondant. Votre nouveau modèle s'écrit donc de cette manière.
 
 ```{r, echo=TRUE, eval=FALSE}
 anova(anova. <- lm(data = DF, YNUM ~ XFACTOR1 + XFACTOR2))
@@ -310,7 +318,7 @@ anova(anova. <- lm(data = lait, ___ ~ ___ + ___))
 ```
 
 ```{r lait_croise_h2-solution}
-anova(anova. <- lm(data = milk_production, milk ~ feed + ration))
+anova(anova. <- lm(data = milk_production, milk ~ food + ration))
 ```
 
 ```{r lait_croise_h2-check}
@@ -318,19 +326,20 @@ grade_code("Bravo, vous avez réussi à simplifier votre modèle. Dans cette ana
 ```
 
 ```{r lait_croise_quiz}
-quiz(question("Y a-t-il une différence significative entre les deux rations au seuil alpha de 5% ?",
-     answer("oui", correct = TRUE),
-     answer("non"),
-     allow_retry = TRUE,
-     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha de 5%.",
-     correct = "Votre interprétation est correcte, il y a bien une différence significative au seuil alpha de 5% entre les rations données sur le rendement de lait."),
-     question("Y a-t-il une différence significative entre les trois types d'alimentation au seuil alpha de 5% ?",
-     answer("oui", correct = TRUE),
-     answer("non"),
-     allow_retry = TRUE,
-     incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P¨ obtenue au seuil alpha 5%.",
-     correct = "Votre interprétation est correcte, il y a bien une différence significative, au seuil alpha de 5%, entre les types d'alimentation donnés sur le rendement de lait.")
-     )
+quiz(
+  question("Y a-t-il une différence significative entre les deux rations au seuil alpha de 5% ?",
+    answer("oui", correct = TRUE),
+    answer("non"),
+    allow_retry = TRUE,
+    incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha de 5%.",
+    correct = "Votre interprétation est correcte, il y a bien une différence significative au seuil alpha de 5% entre les rations données sur le rendement de lait."),
+  question("Y a-t-il une différence significative entre les trois types d'alimentation au seuil alpha de 5% ?",
+    answer("oui", correct = TRUE),
+    answer("non"),
+    allow_retry = TRUE,
+    incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P¨ obtenue au seuil alpha 5%.",
+    correct = "Votre interprétation est correcte, il y a bien une différence significative, au seuil alpha de 5%, entre les types d'alimentation donnés sur le rendement de lait.")
+)
 ```
 
 ## Tests post-hoc
@@ -340,7 +349,7 @@ Votre ANOVA à deux facteurs sans interactions indique qu'il y a une différence
 💬 **Ce code correspond au snippet `.hmanovamult`**
 
 ```{r lait_prepa}
-anova. <- lm(data = milk_production, milk ~ feed + ration)
+anova. <- lm(data = milk_production, milk ~ food + ration)
 ```
 
 ```{r lait_post_h2, exercise = TRUE, exercise.setup = "lait_prepa"}
@@ -359,7 +368,7 @@ summary(anovaComp. <- confint(multcomp::glht(anova.,
 
 ```{r lait_post_h2-solution}
 summary(anovaComp. <- confint(multcomp::glht(anova.,
-  linfct = multcomp::mcp(feed = "Tukey", ration = "Tukey")))) # Add a second factor if you want
+  linfct = multcomp::mcp(food = "Tukey", ration = "Tukey")))) # Add a second factor if you want
 .oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
 ```
 
@@ -369,28 +378,28 @@ grade_code("Le test de comparaison n'est pas vraiment nécessaire dans le cas de
 
 ```{r lait_post_quiz}
 question("Quels sont les niveaux significativement différents au seuil alpha de 5% pour les types d'aliments ?",
-         answer("foin par rapport à maïs ensilé", correct = TRUE),
-         answer("herbe par rapport à maïs ensilé", correct = TRUE),
-         answer("herbe par rapport à foin", correct = FALSE), 
+  answer("foin par rapport à maïs ensilé", correct = TRUE),
+  answer("herbe par rapport à maïs ensilé", correct = TRUE),
+  answer("herbe par rapport à foin", correct = FALSE), 
   allow_retry = TRUE, correct = "Très bien ! En effet, la moyennes pour le maïs ensilé est différentes de celle du foin et de l'herbe.",
   incorrect = "Votre réponse est peut-être incomplète ou vous avez commis une erreur dans l'interprétation. Regardez bien le tableau et le graphique issus de l'analyse post-hoc.")
 ```
 
 ## Conclusion
 
-Félicitation\ ! Vous avez réalisé une ANOVA à deux facteurs complète. N'oubliez pas de bien vérifier vos conditions d'application de test avant d'interpréter vos résultats. N'hésitez pas à simplifier votre modèle lorsque cela s'avère nécessaire. Bien sûr, vous devez vérifier la Normalité des résidus avec un graphique quantile-quantile exactement de la même façon que nous l'avons fait pour l'ANOVA à un facteur dans le tutoriel précédent... Ici, nous avons court-circuité cette étape pour rester focalisé sur l'ANOVA et son interprétation\ ! Voici ce que cela donne\ :
+Félicitation ! Vous avez réalisé une ANOVA à deux facteurs complète. N'oubliez pas de bien vérifier vos conditions d'application de test avant d'interpréter vos résultats. N'hésitez pas à simplifier votre modèle lorsque cela s'avère nécessaire. Bien sûr, vous devez vérifier la Normalité des résidus avec un graphique quantile-quantile exactement de la même façon que nous l'avons fait pour l'ANOVA à un facteur dans le tutoriel précédent... Ici, nous avons court-circuité cette étape pour rester focalisé sur l'ANOVA et son interprétation ! Voici ce que cela donne :
 
 💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`**
 
 ```{r final_model, echo=FALSE}
-anova. <- lm(data = milk_production, milk ~ feed + ration)
+anova. <- lm(data = milk_production, milk ~ food + ration)
 ```
 
 ```{r normality_test, echo=TRUE}
 plot(anova., which = 2)
 ```
 
-Les points sont proches de la droite, mise à part une légère dérive en haut à droite du graphique. Celle-ci étant légère, et l'ANOVA étant relativement robuste face à de petites déviations de la Normale, nous en concluons donc que les résidus du modèle ANOVA à deux facteurs sans interactions ne s'éloignent pas de manière problématique d'une distribution Normale. Nous pouvons considérer (avec le résultat complémentaire du test de Bartlett) que les conditions d'application sont suffisamment bien rencontrées. **Notez bien ici la nuance relative à la robustesse du modèle face à de petites dérives qui est importante\ !**.
+Les points sont proches de la droite, mise à part une légère dérive en haut à droite du graphique. Celle-ci étant légère, et l'ANOVA étant relativement robuste face à de petites déviations de la Normale, nous en concluons donc que les résidus du modèle ANOVA à deux facteurs sans interactions ne s'éloignent pas de manière problématique d'une distribution Normale. Nous pouvons considérer (avec le résultat complémentaire du test de Bartlett) que les conditions d'application sont suffisamment bien rencontrées. **Notez bien ici la nuance relative à la robustesse du modèle face à de petites dérives qui est importante !**.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

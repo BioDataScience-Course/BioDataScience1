@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Moyenne et test t de Student."
 tutorial:
   id: "A09La_ttest"
-  version: 2.1.1/9
+  version: 2.2.0/9
 output:
   learnr::tutorial:
     progressive: true
@@ -118,7 +118,7 @@ mean(vec2, na.rm = TRUE)
 ```
 
 ```{r mean2_h3-check}
-grade_code("Retenez que, dans R, toute fonction qui a un argument na.rm= (toujours mis à FALSE par défaut), si vous indiquez TRUE, vous souhaitez d'abord éliminer les valeurs manquantes afin d'estimer le résultat sur les données observées restantes.")
+grade_code("Retenez que, dans R, toute fonction qui a un argument `na.rm=` (toujours mis à FALSE par défaut), si vous indiquez TRUE vous souhaitez d'abord éliminer les valeurs manquantes afin d'estimer le résultat sur les données observées restantes.")
 ```
 
 ### Écart-type
@@ -155,7 +155,7 @@ sd(vec3)
 ```
 
 ```{r sd1_h2-check}
-grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom sd() de la fonction en abbrégé. Pour la variance, il s'agit de la fonction var(). Ces deux fonctions utilisent aussi l'argument na.rm= si nécessaire.")
+grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom `sd()` de la fonction en abbrégé. Pour la variance, il s'agit de la fonction `var()`. Ces deux fonctions utilisent aussi l'argument `na.rm=` si nécessaire.")
 ```
 
 ### Coefficient de variation
@@ -224,7 +224,7 @@ head(biometry)
 # Importation des données
 biometry <- read("biometry", package = "BioDataScience") 
 # Sélection des données
-biometry <- filter(biometry, age > 18 ___ age ___ 30) 
+biometry <- fsubset(biometry, age > 18 ___ age ___ 30) 
 # Premières lignes du tableau (pour vérification)
 head(biometry)
 
@@ -235,7 +235,7 @@ head(biometry)
 # Importation des données
 biometry <- read("biometry", package = "BioDataScience") 
 # Sélection des données
-biometry <- filter(biometry, age > 18 & age <= 30) 
+biometry <- fsubset(biometry, age > 18 & age <= 30) 
 # Premières lignes du tableau (pour vérification)
 head(biometry)
 ```
@@ -248,7 +248,7 @@ Vous souhaitez déterminer s'il y a une différence significative de l'IMC entre
 
 ```{r, echo=TRUE}
 biometry %>.%
-  mutate(., bmi = (weight / (height/100)^2)) %>.%
+  fmutate(., bmi = (weight / (height/100)^2)) %>.%
   labelise(., label = list(bmi = "IMC"), units = list(bmi = "")) -> biometry
 ```
 
@@ -256,29 +256,32 @@ Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le n
 
 ```{r bio-prepare}
 biometry <- read("biometry", package = "BioDataScience") %>.%
-  filter(., age > 18 & age <= 30) %>.%
-  mutate(., bmi = (weight/(height/100)^2)) %>.%
+  fsubset(., age > 18 & age <= 30) %>.%
+  fmutate(., bmi = (weight/(height/100)^2)) %>.%
   labelise(., label = list(bmi = "IMC"), units = list(bmi = ""))
 ```
 
 ```{r bio_tab_h2, exercise=TRUE, exercise.setup="bio-prepare"}
 biometry %>.%
-  ___(., ___) %>.%
-  summarise(., mean = ___(___), sd = ___(___), n = n())
+  ___(., ___) |> summarise(
+    mean = ___(___), sd = ___(___), n = n()) %>.%
+  ___(.)
 ```
 
 ```{r bio_tab_h2-hint-1}
 biometry %>.%
-  group_by(., gender) %>.%
-  summarise(., mean = ___(___), sd = ___(___), n = n())
+  group_by(., gender) |> summarise(
+    mean = ___(___), sd = ___(___), n = n()) %>.%
+  collect_dtx(.)
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r bio_tab_h2-solution}
 biometry %>.%
-  group_by(., gender) %>.%
-  summarise(., mean = mean(bmi), sd = sd(bmi), n = n())
+  group_by(., gender) |> summarise(
+    mean = mean(bmi), sd = sd(bmi), n = n()) %>.%
+  collect_dtx(.)
 ```
 
 ```{r bio_tab_h2-check}

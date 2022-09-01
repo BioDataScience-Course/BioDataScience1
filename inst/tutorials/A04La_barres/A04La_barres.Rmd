@@ -5,7 +5,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
 tutorial:
   id: "A04La_barres"
-  version: 2.0.0/4
+  version: 2.1.0/4
 output:
   learnr::tutorial:
     progressive: true
@@ -18,10 +18,14 @@ runtime: shiny_prerendered
 BioDataScience1::learnr_setup()
 SciViews::R()
 library(BioDataScience)
-library(ggridges)
+
 # Dataset
 set.seed(2710)
-e_mathaei <- data_frame(id = 1:345, variety = c(rep("black", times = 236), rep("purple" , times = 40), rep("brown", times = 35), rep("green", times = 34)), site = sample(c("site_A", "site_B"), size = 345, replace = TRUE))
+e_mathaei <- dtx(
+  id      = 1:345,
+  variety = c(rep("black", times = 236L), rep("purple" , times = 40L),
+    rep("brown", times = 35L), rep("green", times = 34L)),
+  site    = sample(c("site_A", "site_B"), size = 345L, replace = TRUE))
 crabs <- read("crabs", package = "MASS", lang = "fr")
 ```
 
@@ -33,27 +37,27 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-- Vérifier l'acquisition des notions relatives à la réalisation de graphiques en barres.
+-   Vérifier l'acquisition des notions relatives à la réalisation de graphiques en barres.
 
 ## Oursins perforant dans la baie de Tuléar (Madagascar)
 
-La jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*. 
+La jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*.
 
 ```{r echino_data, echo = TRUE}
 # Visualisation de quelques lignes du tableau de données
 e_mathaei[c(200, 250, 300, 340), ]
 ```
 
-### Dénombrement d'oursin 
+### Dénombrement d'oursin
 
 Les scientifiques produisent le graphique suivant :
 
 ```{r}
-chart(e_mathaei, formula = ~ variety) +
+chart(e_mathaei, ~variety) +
   geom_bar() +
   coord_flip()
 ```
@@ -61,19 +65,19 @@ chart(e_mathaei, formula = ~ variety) +
 A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`).
 
 ```{r bar1_h3, exercise=TRUE}
-chart(___, formula = ~ ___) +
+chart(___, ~___) +
   ___() +
   ___()
 ```
 
 ```{r bar1_h3-hint-1}
-chart(DF, formula = ~ ___) +
+chart(DF, ~___) +
   geom_bar() +
   ___()
 ```
 
 ```{r bar1_h3-hint-2}
-chart(e_mathaei, formula = ~ FACTOR) +
+chart(e_mathaei, ~FACTOR) +
   geom_bar() +
   coord_flip()
 
@@ -81,7 +85,7 @@ chart(e_mathaei, formula = ~ FACTOR) +
 ```
 
 ```{r bar1_h3-solution}
-chart(e_mathaei, formula = ~ variety) +
+chart(e_mathaei, ~variety) +
   geom_bar() +
   coord_flip()
 ```
@@ -92,34 +96,34 @@ grade_code("Vous venez de réaliser votre premier graphique en barre. Félicitat
 
 ### Dénombrement d'oursin par site
 
-Les scientifiques etudient ensuite le dénombrement par site et produisent le graphique suivant :
+Les scientifiques étudient ensuite le dénombrement par site et produisent le graphique suivant :
 
 ```{r}
-chart(e_mathaei, formula = ~ site %fill=% variety) +
+chart(e_mathaei, ~site %fill=% variety) +
   geom_bar()
 ```
 
 A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`) en fonction du site (`site`).
 
 ```{r bar2_h3, exercise=TRUE}
-chart(___, formula = ~ ___ ___ ___) +
+chart(___, ~___ ___ ___) +
   ___()
 ```
 
 ```{r bar2_h3-hint-1}
-chart(DF, formula = ~ ___ %fill=% ___) +
+chart(DF, ~___ %fill=% ___) +
   geom___()
 ```
 
 ```{r bar2_h3-hint-2}
-chart(e_mathaei, formula = ~ FACTOR %fill=% FACTOR) +
+chart(e_mathaei, ~FACTOR %fill=% FACTOR) +
   geom_bar()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r bar2_h3-solution}
-chart(e_mathaei, formula = ~ site %fill=% variety) +
+chart(e_mathaei, ~site %fill=% variety) +
   geom_bar() 
 ```
 
@@ -133,11 +137,13 @@ Par défaut, l'argument `position =` a pour valeur `stack`. Les chercheurs réal
 
 ```{r}
 # position = "dodge"
-a <- chart(e_mathaei, formula = ~ site %fill=% variety) +
+a <- chart(e_mathaei, ~site %fill=% variety) +
   geom_bar(position = "dodge") 
+
 # position = "fill"
-b <- chart(e_mathaei, formula = ~ site %fill=% variety) +
+b <- chart(e_mathaei, ~site %fill=% variety) +
   geom_bar(position = "fill") 
+
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)
 ```
@@ -146,33 +152,39 @@ A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus repr�
 
 ```{r bar3_h3, exercise=TRUE}
 # position = "dodge"
-a <- chart(___, formula = ~ ___ ___ ___) +
-  geom_bar(___) 
+a <- chart(___, ~___ ___ ___) +
+  geom_bar(___)
+
 # position = "fill"
-b <- chart(___, formula = ~ ___ ___ ___) +
-  geom_bar(___) 
+b <- chart(___, ~___ ___ ___) +
+  geom_bar(___)
+
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)
 ```
 
 ```{r bar3_h3-hint-1}
 # position = "dodge"
-a <- chart(DF, formula = ~ ___ %fill=% ___) +
-  geom_bar(position = ___) 
+a <- chart(DF, ~___ %fill=% ___) +
+  geom_bar(position = ___)
+
 # position = "fill"
-b <- chart(___, formula = ~ ___ ___ ___) +
-  geom_bar(___) 
+b <- chart(___, ~___ ___ ___) +
+  geom_bar(___)
+
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)
 ```
 
 ```{r bar3_h3-hint-2}
 # position = "dodge"
-a <- chart(e_mathaei, formula = ~ FACTOR %fill=% FACTOR) +
-  geom_bar(position = ___) 
+a <- chart(e_mathaei, ~FACTOR1 %fill=% FACTOR2) +
+  geom_bar(position = ___)
+
 # position = "fill"
 b <- chart(DF, formula = ~ ___ %fill=% ___) +
-  geom_bar(position = ___) 
+  geom_bar(position = ___)
+
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)
 
@@ -181,11 +193,13 @@ combine_charts(list(a, b), common.legend = TRUE)
 
 ```{r bar3_h3-solution }
 # position = "dodge"
-a <- chart(e_mathaei, formula = ~ site %fill=% variety) +
-  geom_bar(position = "dodge") 
+a <- chart(e_mathaei, ~site %fill=% variety) +
+  geom_bar(position = "dodge")
+
 # position = "fill"
-b <- chart(e_mathaei, formula = ~ site %fill=% variety) +
-  geom_bar(position = "fill") 
+b <- chart(e_mathaei, ~site %fill=% variety) +
+  geom_bar(position = "fill")
+
 # Combinaison des deux graphiques
 combine_charts(list(a, b), common.legend = TRUE)
 ```
@@ -196,7 +210,7 @@ grade_code("Vous connaissez maintenant les différentes valeurs que peuvent pren
 
 ## Biométrie de crabes
 
-Des scientifiques étudient la biométrie de *Leptograpsus variegatus* et ont obtenu le tableau ci-dessous.
+Des scientifiques étudient la biométrie du crabe *Leptograpsus variegatus* et ont obtenu le tableau ci-dessous.
 
 ```{r crabs_data, echo = TRUE}
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
@@ -205,11 +219,11 @@ Des scientifiques étudient la biométrie de *Leptograpsus variegatus* et ont ob
 Il décident de réaliser le graphique ci-dessous.
 
 ```{r}
-chart(crabs, length ~ sex %fill=% sex | species ) +
+chart(crabs, length ~ sex %fill=% sex | species) +
   stat_summary(geom = "col", fun.y = "mean")
 ```
 
-Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représante la moyenne de la longueur de la carapace (`length`) en fonction du sexe (`sex`) pour chacune des variétés d'oursins (`species`). Utilisez aussi de la couleur pour mettre en évidence le sexe. 
+Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représente la moyenne de la longueur de la carapace (`length`) en fonction du sexe (`sex`) pour chacune des variétés d'oursins (`species`). Utilisez aussi de la couleur pour mettre en évidence le sexe.
 
 ```{r bar4_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___ ___ ___ ) +
@@ -222,7 +236,7 @@ chart(DF, ___ ~ ___ %fill=% ___ | ___ ) +
 ```
 
 ```{r bar4_h3-hint-2}
-chart(crabs, NUM ~ FACTOR %fill=% FACTOR | FACTOR) +
+chart(crabs, NUM ~ FACTOR1 %fill=% FACTOR1 | FACTOR2) +
   stat_summary(geom = "col", fun.y = "mean")
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -241,7 +255,7 @@ grade_code("Bravo ! Vous maitrisez maintenant une nouvelle famille de fonctions 
 
 Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
 
-Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques. 
+Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(
@@ -252,4 +266,3 @@ question_text(
   allow_retry = TRUE
 )
 ```
-

@@ -5,7 +5,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
 tutorial:
   id: "A04Lc_boxplot"
-  version: 2.0.0/7
+  version: 2.1.0/7
 output:
   learnr::tutorial:
     progressive: true
@@ -18,7 +18,7 @@ runtime: shiny_prerendered
 BioDataScience1::learnr_setup()
 SciViews::R()
 library(BioDataScience)
-library(ggridges)
+
 # Dataset
 crabs <- read("crabs", package = "MASS", lang = "fr")
 ```
@@ -31,11 +31,11 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-- Vérifier l'acquisition des notions relatives à la réalisation des boites de dispersions 
+-   Vérifier l'acquisition des notions relatives à la réalisation des boites de dispersions
 
 ## Biométrie de crabes
 
@@ -50,11 +50,11 @@ Des scientifiques étudient la biométrie de *Leptograpsus variegatus* et ont ob
 Il décident de réaliser le graphique ci-dessous pour commencer.
 
 ```{r}
-chart(data = crabs, length ~ species) +
+chart(crabs, length ~ species) +
   geom_boxplot()
 ```
 
-Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représante la longueur de la carapace (`length`) en fonction de l'espèce (`species`). 
+Reproduisez, à partir des données contenues dans `crabs`, le graphique ci-dessus qui représante la longueur de la carapace (`length`) en fonction de l'espèce (`species`).
 
 ```{r boxplot1_h3, exercise=TRUE}
 ___(___, ___ ~ ___ ) +
@@ -84,34 +84,34 @@ grade_code("Bravo ! Vous venez de réaliser vos premières boites de dispersion.
 
 ### Longueur de la carapace par espèce et par sexe
 
-Les chercheurs décident ensuite d'approfondir leur analyse et proposent le graphique suivant : 
+Les chercheurs décident ensuite d'approfondir leur analyse et proposent le graphique suivant :
 
 ```{r}
-chart(data = crabs, length ~ species %fill=% sex) +
+chart(crabs, length ~ species %fill=% sex) +
   geom_boxplot()
 ```
 
-A partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la longueur de la carapace (`length`) en fonction de l'espèce (`species`) et coloré par le sexe (`sex`). 
+A partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la longueur de la carapace (`length`) en fonction de l'espèce (`species`) et coloré par le sexe (`sex`).
 
 ```{r boxplot2_h3, exercise=TRUE}
-chart(data = ___, ___ ~ ___ ___ ___) +
+chart(___, ___ ~ ___ ___ ___) +
   ___() 
 ```
 
 ```{r boxplot2_h3-hint-1}
-chart(data = DF, ___ ~ ___ %fill=% ___) +
+chart(DF, ___ ~ ___ %fill=% ___) +
   geom___() 
 ```
 
 ```{r boxplot2_h3-hint-2}
-chart(data = crabs, NUM ~ FACTOR %fill=% FACTOR) +
+chart(crabs, NUM ~ FACTOR1 %fill=% FACTOR2) +
   geom_boxplot()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r boxplot2_h3-solution}
-chart(data = crabs, length ~ species %fill=% sex) +
+chart(crabs, length ~ species %fill=% sex) +
   geom_boxplot()
 ```
 
@@ -121,47 +121,48 @@ grade_code("Vous êtes doué ! Continuez comme ça, les graphiques en R n'auront
 
 ### Taille du lobe frontal
 
-Les chercheurs décident ensuite d'étudier la taille du lobe frontal et proposent le graphique suivant : 
+Les chercheurs décident ensuite d'étudier la taille du lobe frontal et proposent le graphique suivant :
 
 ```{r}
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 
-chart(data = crabs, front ~ species %fill=% sex) +
+chart(crabs, front ~ species %fill=% sex) +
   geom_boxplot() +
-  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, position = position_dodge(0.75))
+  stat_summary(fun.data = give_n, geom = "text",
+    hjust = 0.5, position = position_dodge(0.75))
 ```
 
-A partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la taille du lobe frontal (`front`) en fonction de l'espèce (`species`) et coloré par le sexe (`sex`). N'oubliez pas de préciser le nombre d'observation pour chacune des boites de dispersion. 
+A partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la taille du lobe frontal (`front`) en fonction de l'espèce (`species`) et coloré par le sexe (`sex`). N'oubliez pas de préciser le nombre d'observation pour chacune des boites de dispersion.
 
 ```{r boxplot3_h3, exercise=TRUE, exercise.lines=7}
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 
-chart(data = ___, ___ ~ ___ ___ ___) +
+chart(___, ___ ~ ___ ___ ___) +
   ___() +
-  stat_summary(fun.data = ___, geom = "text", hjust = 0.5,
-    position = position_dodge(0.75))
+  stat_summary(fun.data = ___, geom = "text",
+    hjust = 0.5, position = position_dodge(0.75))
 ```
 
 ```{r boxplot3_h3-hint-1}
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 
-chart(data = DF, ___ ~ ___ %fill=% ___) +
+chart(DF, ___ ~ ___ %fill=% ___) +
   geom___() +
-  stat_summary(fun.data = ___, geom = "text", hjust = 0.5,
-    position = position_dodge(0.75))
+  stat_summary(fun.data = ___, geom = "text",
+    hjust = 0.5, position = position_dodge(0.75))
 ```
 
 ```{r boxplot3_h3-hint-2}
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 
-chart(data = crabs, NUM ~ FACTOR %fill=% FACTOR) +
+chart(crabs, NUM ~ FACTOR1 %fill=% FACTOR2) +
   geom_boxplot() +
-  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5,
-    position = position_dodge(0.75))
+  stat_summary(fun.data = give_n, geom = "text",
+    hjust = 0.5, position = position_dodge(0.75))
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
@@ -170,15 +171,15 @@ chart(data = crabs, NUM ~ FACTOR %fill=% FACTOR) +
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 
-chart(data = crabs, front ~ species %fill=% sex) +
+chart(crabs, front ~ species %fill=% sex) +
   geom_boxplot() +
-  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5, position = position_dodge(0.75))
+  stat_summary(fun.data = give_n, geom = "text",
+    hjust = 0.5, position = position_dodge(0.75))
 ```
 
 ```{r boxplot3_h3-check}
 grade_code("Vous maitrisez maintenant le code pour réaliser des boxplots et y associer le nombre d'individus par sous-groupe.")
 ```
-
 
 ## QCM : La boite de dispersion
 
@@ -187,46 +188,45 @@ Répondez aux questions à choix multiples ci-dessous.
 ```{r quiz}
 quiz(
   question("La boite de dispersion permet de résumer les données d'une variable numérique, quels sont les descripteurs employés ?",
-           answer("la médiane", correct = TRUE),
-           answer("la moyenne"),
-           answer("l'espace inter-quartile", correct = TRUE),
-           answer("la valeur maximale et la valeur minimale", correct = TRUE),
-           answer("l'écart-type"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE),
+    answer("la médiane", correct = TRUE),
+    answer("la moyenne"),
+    answer("l'espace inter-quartile", correct = TRUE),
+    answer("la valeur maximale et la valeur minimale", correct = TRUE),
+    answer("l'écart-type"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE),
   question("Sur base de la suite de nombre suivante : 0.1, 4.3, 9.4, 5, 4.9, 2.9, 3.8, 4.2 que vaut la médiane ?",
-           answer("4.25", correct = TRUE),
-           answer("3.35"),
-           answer("4.95"),
-           answer("4.2"),
-           answer("4.3"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE),
+    answer("4.25", correct = TRUE),
+    answer("3.35"),
+    answer("4.95"),
+    answer("4.2"),
+    answer("4.3"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE),
   question("Sur base de la suite de nombre suivante : 0.1, 4.3, 9.4, 5, 4.9, 2.9, 3.8, 4.2 que vaut le premier quartile ?",
-           answer("4.25"),
-           answer("3.35", correct = TRUE),
-           answer("4.95"),
-           answer("3.8"),
-           answer("2.9"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE),
+    answer("4.25"),
+    answer("3.35", correct = TRUE),
+    answer("4.95"),
+    answer("3.8"),
+    answer("2.9"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE),
   question("Sur base de la suite de nombre suivante : 0.1, 4.3, 9.4, 5, 4.9, 2.9, 3.8, 4.2 que vaut le troisième quartile ?",
-           answer("4.95", correct = TRUE),
-           answer("3.35"),
-           answer("4.25"),
-           answer("3.8"),
-           answer("2.9"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE)
+    answer("4.95", correct = TRUE),
+    answer("3.35"),
+    answer("4.25"),
+    answer("3.8"),
+    answer("2.9"),
+   random_answer_order = TRUE,
+   allow_retry = TRUE)
 )
 ```
-
 
 ## Conclusion
 
 Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
 
-Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques. 
+Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(
@@ -237,4 +237,3 @@ question_text(
   allow_retry = TRUE
 )
 ```
-

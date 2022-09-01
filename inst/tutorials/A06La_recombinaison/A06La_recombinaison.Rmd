@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 6** Remodelage de tableaux"
 tutorial:
   id: "A06La_recombinaison"
-  version: 2.0.0/5
+  version: 2.1.0/5
 output:
   learnr::tutorial:
     progressive: true
@@ -25,205 +25,192 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-
 ## Objectifs
 
-- Recombiner des tableaux larges en longs
-- Recombiner des tableaux longs en larges
-- Séparer et unifier des colonnes dans un tableau de données
-
+-   Recombiner des tableaux larges en longs
+-   Recombiner des tableaux longs en larges
+-   Séparer et unifier des colonnes dans un tableau de données
 
 ## De large vers long
 
-Le format long d’un tableau de données correspond à un encodage en un minimum de colonnes, les données étant réparties sur un plus grand nombre de lignes en comparaison du format large qui regroupe les données dans plusieurs colonnes successives. Il est assez courant de devoir transformer un tableau large vers un tableau long. Cela permet souvent d'obtenir un tableau cas par variables correct. La fonction utile pour cela est la fonction pivot_longer()
+Le format long d'un tableau de données correspond à un encodage en un minimum de colonnes, les données étant réparties sur un plus grand nombre de lignes en comparaison du format large qui regroupe les données dans plusieurs colonnes successives. Il est assez courant de devoir transformer un tableau large vers un tableau long. Cela permet souvent d'obtenir un tableau cas par variables correct. La fonction utile pour cela est la fonction `pivot_longer()`. C'est une fonction tidy. Donc, pensez bien à utiliser `collect_dtx()` ou les assignations alternatives `%<-%` ou `%->%` ensuite.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF %>.%
-  pivot_longer(., cols = SELECTION, names_to = NEWVAR1, values_to = NEWVAR2) -> DF1
+DF1 %<-% pivot_longer(DF, cols = SELECTION, names_to = NEWVAR1, values_to = NEWVAR2)
 ```
 
-La fonction `pivot_longer()` utilise les arguments suivants :
+La fonction `pivot_longer()` a les arguments suivants :
 
-- `cols =` les variables qui doivent être pivotées
-- `names_to =` le nom de la nouvelle variable qui comprend le nom des colonnes pivotées.
-- `values_to =` le nom de la nouvelle variable qui comprend les valeurs des colonnes pivotées
-
+-   `cols =` les variables qui doivent être pivotées
+-   `names_to =` le nom de la nouvelle variable qui reprend le nom des colonnes pivotées.
+-   `values_to =` le nom de la nouvelle variable qui reprend les valeurs des colonnes pivotées
 
 ```{r wide-init}
 time <- 1989:1995
 tree <- rep(c("arbre_1", "arbre_2"), each = length(time))
-size <- c((time - 1990 + 12)*2, (time - 1990 + 15)*2.5)
+size <- c((time - 1990 + 12) * 2, (time - 1990 + 15) * 2.5)
 
-long <- tibble(
-  year = c(time, time),
-  tree = tree,
+long <- dtx(
+  year    = c(time, time),
+  tree    = tree,
   circumf = size
 )
 
-width <- pivot_wider(long, names_from = year, values_from = circumf)
-long1 <- pivot_longer(width, cols= "1989":"1995", names_to = "year", values_to = "circumf")
-
-#long11 <- pivot_longer(width, !tree, names_to = "year", values_to = "circumf")
-#long12 <- pivot_longer(width, starts_with("19"), names_to = "year", values_to = "circumf")
+wide <- pivot_wider(long, names_from = year, values_from = circumf)
+long1 <- pivot_longer(wide, cols = "1989":"1995", names_to = "year",
+  values_to = "circumf")
 ```
 
-Sur base du tableau ci-dessous :
+Sur base du tableau ci-dessous :
 
 ```{r}
-knitr::kable(width)
+knitr::kable(wide)
 ```
 
-Modifiez le tableau `width` afin d'obtenir le tableau suivant que vous nommerez `long`:
+Modifiez le tableau `wide` afin d'obtenir le tableau suivant que vous nommerez `long` :
 
 ```{r,}
 knitr::kable(long1)
 ```
 
-### Premiere variantes de l'argument cols
+### Première variante de l'argument cols
 
-Complétez la fonction suivante afin d'obtenir le tableau `long`.
+Complétez le code afin d'obtenir le tableau `long`.
 
 ```{r wide-prep}
 time <- 1989:1995
 tree <- rep(c("arbre_1", "arbre_2"), each = length(time))
 size <- c((time - 1990 + 12)*2, (time - 1990 + 15)*2.5)
 
-long <- tibble(
-  year = c(time, time),
-  tree = tree,
+long <- dtx(
+  year    = c(time, time),
+  tree    = tree,
   circumf = size
 )
 
-width <- pivot_wider(long, names_from = year, values_from = circumf)
+wide <- pivot_wider(long, names_from = year, values_from = circumf)
 ```
 
 ```{r wide1_h3, exercise = TRUE, exercise.setup = "wide-prep"}
-___ %>.%
-  ___(., cols = "___":"___", names_to = "___", values_to = "___") -> ___
+___ %<-% ___(___, cols = "___":"___", names_to = "___",
+  values_to = "___")
 head(___)
 ```
 
 ```{r wide1_h3-hint-1}
-width %>.%
-  pivot_longer(., cols = "___":"___", names_to = "___", values_to = "___") -> long
+long %<-% pivot_longer(wide, cols = "___":"___", names_to = "___",
+  values_to = "___")
 head(long)
 ```
 
 ```{r wide1_h3-hint-2}
-width %>.%
-  pivot_longer(., cols = "1989":"1995", names_to = "___", values_to = "___") -> long
+long %<-% pivot_longer(wide, cols = "1989":"1995", names_to = "___",
+  values_to = "___") 
+
 head(long)
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r wide1_h3-solution}
-width %>.%
-  pivot_longer(., cols = "1989":"1995", names_to = "year", values_to = "circumf") -> long
+long %<-% pivot_longer(wide, cols = "1989":"1995", names_to = "year",
+  values_to = "circumf")
 head(long)
 ```
 
 ```{r wide1_h3-check}
-grade_code("Bravo ! Vous venez de réaliser votre premier pivot")
+grade_code("Bravo ! Vous venez de réaliser votre premier pivot de tableau.")
 ```
 
-### Seconde variante de l'argument cols = 
+### Seconde variante de l'argument cols =
 
-L'argument `cols =` de la fonction pivot accepte plusieurs solutions afin de spécifier les colonnes d'intérêts, tentez cette fois-ci de retirer la colonne qui ne doit pas subir le pivot.
-
-Complétez la fonction suivante afin d'obtenir le tableau `long`.
+L'argument `cols =` de la fonction pivot accepte plusieurs écritures afin de spécifier les colonnes d'intérêts. Retirez la colonne qui ne doit pas subir le pivot dans la variante suivante pour à nouveau obtenir votre tazbleau `long`.
 
 ```{r wide2_h2, exercise = TRUE, exercise.setup = "wide-prep"}
-___ %>.%
-  ___(., cols = !___, names_to = "___", values_to = "___") -> ___
+___ %<-% ___(___, cols = ___, names_to = "___",
+  values_to = "___")
 head(___)
 ```
 
 ```{r wide2_h2-hint-1}
-width %>.%
-  pivot_longer(., cols = !___, names_to = "year", values_to = "circumf") -> long
+long %<-% pivot_longer(wide, cols = !___, names_to = "year",
+  values_to = "circumf")
 head(___)
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r wide2_h2-solution}
-width %>.%
-  pivot_longer(., cols = !tree, names_to = "year", values_to = "circumf") -> long
+long %<-% pivot_longer(wide, cols = !tree, names_to = "year",
+  values_to = "circumf")
 head(long)
 ```
 
 ```{r wide2_h2-check}
-grade_code("Bravo ! Vous venez de réaliser votre premier pivot")
+grade_code("Excellent ! Cette variante est parfois plus pratique, surtout avec des grands tableaux.")
 ```
 
-### Autre variante de l'argument cols =  
+### Troisième variante de l'argument cols =
 
-L'argument `cols =` de la fonction pivot accepte plusieurs solutions afin de spécifier les colonnes d'intérêts, tentez cette fois-ci d'utiliser la fonction start_with() afin de sélectionner les colonnes qui doivent subir le pivot.
-
-Complétez la fonction suivante afin d'obtenir le tableau `long`.
+Pour l'argument `cols =` vous pouvez aussi utiliser `start_with()` afin de sélectionner les colonnes dont le nom commence par une chaîne de caractères donnée pour le pivot. Créez à nouveau un tableau nommé `long` à partir du tableau `wide`.
 
 ```{r wide3_h2, exercise = TRUE, exercise.setup = "wide-prep"}
-___ %>.%
-  ___(., cols = starts_with("___"), names_to = "___", values_to = "___") -> ___
+___ %<-% ___(., cols = ___("___"), names_to = "___",
+  values_to = "___")
 head(___)
 ```
 
 ```{r wide3_h2-hint-1}
-width %>.%
-  pivot_longer(., cols = starts_with("___"), names_to = "year", values_to = "circumf") -> long
+long %<-% pivot_longer(wide, cols = starts_with("___"), names_to = "year",
+  values_to = "circumf")
 head(long)
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r wide3_h2-solution}
-width %>.%
-  pivot_longer(., cols = starts_with("19"), names_to = "year", values_to = "circumf") -> long
+long %<-% pivot_longer(wide, cols = starts_with("19"), names_to = "year",
+  values_to = "circumf")
 head(long)
 ```
 
 ```{r wide3_h2-check}
-grade_code("Bravo ! Vous venez de réaliser votre troisième pivot")
+grade_code("Mais oui, c'est parfait !")
 ```
 
 ## De long vers large
 
-Il est plus rare de passer d'un tableau long vers un tableau large. Cela est souvent utilisé lorsque l'on souhaite transformer ce tableau afin de le rendre plus compact et présentable dans un rapport ou dans une présentation. La fonction utile pour cette transformation est pivot_wider()
+Il est plus rare de passer d'un tableau long vers un tableau large. Cela est souvent utilisé lorsque l'on souhaite transformer ce tableau afin de le rendre plus compact pour l'inclure dans un rapport ou dans une présentation. La fonction utile pour cette transformation est `pivot_wider()`. C'est également une fonction tidy.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF %>.%
-  pivot_wider(., names_from = VAR1, values_from = VAR2) -> DF1
+DF1 %<-% pivot_wider(DF, names_from = VAR1, values_from = VAR2)
 ```
 
-La fonction `pivot_wider()` requiert pour l'argument 
+La fonction `pivot_wider()` requiert pour argument :
 
-- `cols =` les variables qui doivent être pivotées
-- `names_from =` le nom de la variable dont les valeurs vont être employées comme les noms des nouvelles variables.
-- `values_from =` le nom de la variable dont les valeurs vont être employées comme les valeurs des nouvelles variables.
-
+-   `names_from =` le nom de la variable dont les valeurs vont être employées comme les noms des nouvelles variables.
+-   `values_from =` le nom de la variable dont les valeurs vont être employées comme les valeurs des nouvelles variables.
 
 ```{r long-init}
 gr_age <- c("Jeune", "Adulte","Senior")
 period <- c(1992, 1995, 1998)
-popu <- c(2185103, 6311109, 1525785, 
-          2196799, 6337067, 1596532,
-          2180816, 6332857, 1678591)
+popu   <- c(2185103, 6311109, 1525785, 
+            2196799, 6337067, 1596532,
+            2180816, 6332857, 1678591)
 
-demography <- tibble(
-  groupe_age = rep(gr_age, times = 3),
-  year = rep(period, each= 3),
+demography <- dtx(
+  groupe_age = rep(gr_age, times = 3L),
+  year       = rep(period, each = 3L),
   population = popu
 )
 
 demo <- pivot_wider(demography, names_from = year, values_from = population)
-#demo1 <- spread(demography, key = year, value = population)
 ```
 
-Sur base du tableau ci-dessous :
+Sur base du tableau ci-dessous :
 
 ```{r}
 knitr::kable(demography)
 ```
 
-Modifiez le tableau `demography` afin d'obtenir le tableau suivant que vous nommerez `demo`:
+Modifiez le tableau `demography` afin d'obtenir le tableau suivant que vous nommerez `demo` :
 
 ```{r}
 knitr::kable(demo)
@@ -232,105 +219,103 @@ knitr::kable(demo)
 ```{r long-prep}
 gr_age <- c("Jeune", "Adulte","Senior")
 period <- c(1992, 1995, 1998)
-popu <- c(2185103, 6311109, 1525785, 
-          2196799, 6337067, 1596532,
-          2180816, 6332857, 1678591)
+popu   <- c(2185103, 6311109, 1525785, 
+            2196799, 6337067, 1596532,
+            2180816, 6332857, 1678591)
 
-demography <- tibble(
-  groupe_age = rep(gr_age, times= 3),
-  year = rep(period, each= 3),
+demography <- dtx(
+  groupe_age = rep(gr_age, times = 3L),
+  year       = rep(period, each = 3L),
   population = popu
 )
 ```
 
-Complétez la fonction ci-dessous.
+Complétez l'instruction ci-dessous.
 
 ```{r long_h2, exercise = TRUE, exercise.setup = "long-prep"}
-___ %>.%
-  ___(., names_from = ___, values_from = ___) -> ___
+___ %<-% ___(___, names_from = ___, values_from = ___)
 head(___)
 ```
 
 ```{r long_h2-hint-1}
-demography %>.%
-  pivot_wider(., names_from = ___, values_from = ___) -> demo
+demo %<-% pivot_wider(demography, names_from = ___, values_from = ___)
 head(demo)
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r long_h2-solution}
-demography %>.%
-  pivot_wider(., names_from = year, values_from = population) -> demo
+demo %<-% pivot_wider(demography, names_from = year, values_from = population)
 head(demo)
 ```
 
 ```{r long_h2-check}
-grade_code("Bravo ! Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre pivot_wider() et pivot_longer().")
+grade_code("Bravo ! Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre ``pivot_wider()` et `pivot_longer()`. Elles se complètent parfaitement.")
 ```
 
 ## Diviser des colonnes dans un tableau
 
-La fonction est `separate()` est utile afin de séparer une colonne d'un tableau en plusieurs colonnes.  La fonction `unite()` est la fonction complémentaire de `separate()`
+La fonction à utiliser pour créer plusieurs variables en séparant les éléments qui se trouvent dans une seule colonne est `separate()`. La fonction `unite()` est complémentaire de `separate()` et crée une variable à partir de pliusieurs. Attention ! Ces fonctions sont tidy. Pensez à collecter le tableau à la fin.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF %>.%
-  separate(., col = VARNAME, into = c("VAR1", "VAR2"), sep = "[^[:alnum:]]+") -> DF2
+DF1 %<-% separate(as_dtf(DF), col = VARNAME, into = c("VAR1", "VAR2"),
+  sep = "[^[:alnum:]]+")
 ```
 
-La fonction `separate()` utilise les arguments suivants : 
+La fonction `separate()` prend les arguments suivants :
 
-- `col =` le nom de la variable à scinder
-- `into =` le nom des nouvelles variables
-- `sep =` le séparateur qui permet de scinder la variable sélectionnée en `col =`
+-   `col =` le nom de la variable à scinder
+-   `into =` le nom des nouvelles variables
+-   `sep =` le séparateur qui permet de scinder la variable sélectionnée en `col =`
+
+Ici, nous utilisons `as_dtf()` pour transformer d'abord notre tableau en **data.frame** parce que la fonction `separate()` est boguée sur des **data.table**s.
 
 ```{r separate_init}
-bacteria <- tibble(
-  measure = paste(rep(c("ind1", "ind2", "ind3"), each = 3), 
-                 rep(c("2019-04-25", "2019-04-26", "2019-04-27"), times = 3), 
-                 sep = "_"),
+bacteria <- dtx(
+  batch = paste(
+    rep(c("ind1", "ind2", "ind3"), each = 3L),
+    rep(c("2019-04-25", "2019-04-26", "2019-04-27"), times = 3L),
+    sep = "_"),
   value = c((11:13)^3, (11:13)^4, (11:13)^5)
 )
 
-bact <- separate(bacteria, col = measure, into = c("rep", "date"), sep = "_" )
+bact %<-% separate(as_dtf(bacteria), col = batch, into = c("rep", "date"), sep = "_" )
 ```
 
-Sur base du tableau ci-dessous :
+Sur base du tableau ci-dessous :
 
 ```{r}
 knitr::kable(bacteria)
 ```
 
-Modifiez le tableau `bacteria` afin d'obtenir le tableau suivant que vous nommerez `bact`:
+Modifiez le tableau `bacteria` afin d'obtenir le tableau suivant que vous nommerez `bact` :
 
 ```{r}
 knitr::kable(bact)
 ```
 
 ```{r separate_prep}
-bacteria <- tibble(
-  measure = paste(rep(c("ind1", "ind2", "ind3"), each = 3), 
-                 rep(c("2019-04-25", "2019-04-26", "2019-04-27"), times = 3), 
-                 sep = "_"),
+bacteria <- dtx(
+  batch = paste(
+    rep(c("ind1", "ind2", "ind3"), each = 3L),
+    rep(c("2019-04-25", "2019-04-26", "2019-04-27"), times = 3L),
+    sep = "_"),
   value = c((11:13)^3, (11:13)^4, (11:13)^5)
 )
 ```
 
 ```{r separate_h2, exercise = TRUE, exercise.setup = "separate_prep"}
-___ %>.%
-  ___(., col = ___, into = c("___", "___"), sep = "___") -> ___
+___ %<-% ___(___, col = ___, into = c("___", "___"), sep = "___")
 head(___)
 ```
 
 ```{r separate_h2-hint-1}
-bacteria %>.%
-  separate(., col = measure, into = c("___", "___"), sep = "___") -> bact
+bact %<-% separate(as_dtf(bacteria), col = batch, into = c("___", "___"), sep = "___")
 head(bact)
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r separate_h2-solution}
-bacteria %>.%
-  separate(., col = measure, into = c("rep", "date"), sep = "_" ) -> bact
+bact %<-% separate(as_dtf(bacteria), col = batch, into = c("rep", "date"), sep = "_" )
 head(bact)
 ```
 
@@ -340,7 +325,7 @@ grade_code("Bravo ! Vous venez de scinder une colonne de votre tableau.")
 
 ## Conclusion
 
-Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
+Félicitation ! Vous êtes maintenant capables de convertir des tableaux de long en large et inversement et de scinder des variables.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

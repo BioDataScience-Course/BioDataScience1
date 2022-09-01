@@ -5,7 +5,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
 tutorial:
   id: "A04Ld_fig_composees"
-  version: 2.0.1/5
+  version: 2.1.0/5
 output:
   learnr::tutorial:
     progressive: true
@@ -18,9 +18,12 @@ runtime: shiny_prerendered
 BioDataScience1::learnr_setup()
 SciViews::R()
 library(BioDataScience)
-library(ggridges)
+
 # Dataset
-e_mathaei <- data_frame(id = 1:345, variety = c(rep("black", times = 236), rep("purple" , times = 40), rep("brown", times = 35), rep("green", times = 34)))
+e_mathaei <- data_frame(
+  id      = 1:345,
+  variety = c(rep("black", times = 236L), rep("purple" , times = 40L),
+    rep("brown", times = 35L), rep("green", times = 34L)))
 marphy <- read("marphy", package = "pastecs", lang = "fr")
 marphy$Station <- 1:68
 crabs <- read("crabs", package = "MASS", lang = "fr")
@@ -34,11 +37,11 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-- Vérifier l'acquisition des notions relatives à la réalisation de figures composées
+-   Vérifier l'acquisition des notions relatives à la réalisation de figures composées
 
 ## Transect entre Nice et la Corse
 
@@ -57,10 +60,10 @@ Les chercheurs souhaitent tout d'abord représenter la température en fonction 
 chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Température [C°]")
+  labs(y = "Température [°C]")
 ```
 
-Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]"). 
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]").
 
 ```{r line1_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +
@@ -77,7 +80,7 @@ chart(DF, ___ ~ ___) +
 ```
 
 ```{r line1_h3-hint-2}
-chart(marphy, NUM ~ NUM) +
+chart(marphy, YNUM ~ XNUM) +
   geom_line() +
   geom_point() +
   labs(y = ___)
@@ -89,14 +92,14 @@ chart(marphy, NUM ~ NUM) +
 chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Température [C°]")
+  labs(y = "Température [°C]")
 ```
 
 ```{r line1_h3-check}
 grade_code("Vous maitrisez maintenant la réalisation d'un nouveau type de graphique.")
 ```
 
-### Salinité 
+### Salinité
 
 Les chercheurs souhaitent ensuite représenter la salinté (`Salinity`) en fonction des stations.
 
@@ -107,7 +110,7 @@ chart(marphy, Salinity ~ Station) +
   labs(y = "Salinité")
 ```
 
-Reproduisez le graphique ci-dessus. 
+Reproduisez le graphique ci-dessus.
 
 ```{r line2_h2, exercise=TRUE}
 chart(___, ___ ~ ___) +
@@ -117,7 +120,7 @@ chart(___, ___ ~ ___) +
 ```
 
 ```{r line2_h2-hint-1}
-chart(DF, NUM ~ NUM) +
+chart(DF, YNUM ~ XNUM) +
   geom___() +
   geom___() +
   labs(y = ___)
@@ -142,7 +145,7 @@ Ils decident pour finir de représenter les deux graphiques ensembles dans une f
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Température [C°]")
+  labs(y = "Température [°C]")
 
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +
@@ -152,7 +155,7 @@ b <- chart(marphy, Salinity ~ Station) +
 combine_charts(list(a, b))
 ```
 
-Reproduisez le graphique ci-dessus en utilisant les mêmes variables que pour les graphiques précédents. 
+Reproduisez le graphique ci-dessus en utilisant les mêmes variables que pour les graphiques précédents.
 
 ```{r comb1_h3, exercise=TRUE}
 # Graphique de la température 
@@ -172,12 +175,12 @@ combine_charts(list(___, ___))
 
 ```{r comb1_h3-hint-1}
 # Graphique de la température 
-a <- chart(DF, NUM ~ NUM) +
+a <- chart(DF, YNUM ~ XNUM) +
   geom_line() +
   geom_point() +
   labs(___)
 # Graphique de la salinité
-b <- chart(DF, NUM ~ NUM) +
+b <- chart(DF, YNUM ~ XNUM) +
   geom_line() +
   geom_point() +
   labs(___)
@@ -190,7 +193,7 @@ combine_charts(list(___, ___))
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Température [C°]")
+  labs(y = "Température [°C]")
 # Graphique de la salinité
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +
@@ -207,7 +210,7 @@ combine_charts(list(___, ___))
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
-  labs(y = "Température [C°]")
+  labs(y = "Température [°C]")
 # Graphique de la salinité
 b <- chart(marphy, Salinity ~ Station) +
   geom_line() +
@@ -228,27 +231,26 @@ Répondez aux questions à choix multiples ci-dessous.
 ```{r quiz}
 quiz(
   question("Lorsque je souhaite représenter une variable numérique en fonction d'une seconde variable numérique, j'utilise",
-           answer("un nuage de de points", correct = TRUE),
-           answer("une boite de dispersion"),
-           answer("un diagramme en violon"),
-           answer("un graphique de densité"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE),
+    answer("un nuage de de points", correct = TRUE),
+    answer("une boite de dispersion"),
+    answer("un diagramme en violon"),
+    answer("un graphique de densité"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE),
   question("Lorsque je souhaite représenter une variable facteur et donc d'en faire son dénombrement j'utilise",
-           answer("un graphique en barres", correct = TRUE),
-           answer("un graphique en violon"),
-           answer("un graphique en camembert", correct = TRUE),
-           answer("un graphique en nuage de points"),
-  random_answer_order = TRUE,
-  allow_retry = TRUE))
-
+    answer("un graphique en barres", correct = TRUE),
+    answer("un graphique en violon"),
+    answer("un graphique en camembert", correct = TRUE),
+    answer("un graphique en nuage de points"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE))
 ```
 
 ## Conclusion
 
 Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
 
-Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques. 
+Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(
@@ -259,4 +261,3 @@ question_text(
   allow_retry = TRUE
 )
 ```
-

@@ -5,7 +5,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
 tutorial:
   id: "A04Lb_camembert"
-  version: 2.0.0/3
+  version: 2.1.0/3
 output:
   learnr::tutorial:
     progressive: true
@@ -18,9 +18,12 @@ runtime: shiny_prerendered
 BioDataScience1::learnr_setup()
 SciViews::R()
 library(BioDataScience)
-library(ggridges)
+
 # Dataset
-e_mathaei <- data_frame(id = 1:345, variety = c(rep("black", times = 236), rep("purple" , times = 40), rep("brown", times = 35), rep("green", times = 34)))
+e_mathaei <- dtx(
+  id      = 1:345,
+  variety = c(rep("black", times = 236L), rep("purple" , times = 40L),
+    rep("brown", times = 35L), rep("green", times = 34L)))
 ```
 
 ```{r, echo=FALSE}
@@ -31,17 +34,17 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Objectifs
 
-- Vérifier l'acquisition des notions relatives à la réalisation des graphiques en camembert.
+-   Vérifier l'acquisition des notions relatives à la réalisation des graphiques en camembert.
 
 ## Dénombrement d'oursins perforant dans la baie de Tuléar (Madagascar)
 
 ### Graphique en camembert
 
-La jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*. 
+La jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*.
 
 ```{r echino_data, echo = TRUE}
 # Visualisation de quelques lignes du tableau de données
@@ -51,7 +54,7 @@ e_mathaei[c(200, 250, 300, 340), ]
 Les scientifiques produisent le graphique suivant :
 
 ```{r}
-chart(data = e_mathaei, ~ factor(0) %fill=% variety) +
+chart(e_mathaei, ~factor(0) %fill=% variety) +
   geom_bar(width = 1) + 
   coord_polar("y", start = 0) +
   theme_void() +
@@ -62,7 +65,7 @@ chart(data = e_mathaei, ~ factor(0) %fill=% variety) +
 A partir du jeu de donnée `e_mathaei`, reproduisez le graphique en camembert ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`).
 
 ```{r pie1_h2, exercise=TRUE}
-chart(data = ___, ~ ___ %fill=% ___) +
+chart(___, ~___ %fill=% ___) +
   ___(width = 1) + 
   coord_polar("y", start = 0) +
   theme_void() +
@@ -71,7 +74,7 @@ chart(data = ___, ~ ___ %fill=% ___) +
 ```
 
 ```{r pie1_h2-hint}
-chart(data = e_mathaei, ~ factor(0) %fill=% FACTOR) +
+chart(e_mathaei, ~factor(0) %fill=% FACTOR) +
   geom___(width = 1) + 
   coord_polar("y", start = 0) +
   theme_void() +
@@ -82,7 +85,7 @@ chart(data = e_mathaei, ~ factor(0) %fill=% FACTOR) +
 ```
 
 ```{r pie1_h2-solution}
-chart(data = e_mathaei, ~ factor(0) %fill=% variety) +
+chart(e_mathaei, ~factor(0) %fill=% variety) +
   geom_bar(width = 1) + 
   coord_polar("y", start = 0) +
   theme_void() +
@@ -96,10 +99,10 @@ grade_code("Vous êtes impressionnant ! Les graphiques n'auront bientôt plus de
 
 ### Graphique en barres
 
-Les chercheurs hésitent à proposer ce graphique en camembert dans l'article qu'ils écrivent. Ils décident donc de réaliser le graphique en barres suivant avec les mêmes données. 
+Les chercheurs hésitent à proposer ce graphique en camembert dans l'article qu'ils écrivent. Ils décident donc de réaliser le graphique en barres suivant avec les mêmes données.
 
 ```{r}
-chart(e_mathaei, formula = ~ variety %fill=% variety) +
+chart(e_mathaei, ~variety %fill=% variety) +
   geom_bar(show.legend = FALSE) +
   coord_flip() + 
   scale_fill_viridis_d()
@@ -108,21 +111,21 @@ chart(e_mathaei, formula = ~ variety %fill=% variety) +
 A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`). Associez de la couleur à la variété et masquez la légende
 
 ```{r bar1_h3, exercise=TRUE}
-chart(___, formula = ~ ___ ___ ___) +
+chart(___, ~___ ___ ___) +
   ___(___) +
   ___() + 
   scale_fill_viridis_d()
 ```
 
 ```{r bar1_h3-hint-1}
-chart(DF, formula = ~ ___ %fill=% ___) +
+chart(DF, ~___ %fill=% ___) +
   geom_bar(___ = ___) +
   ___() + 
   scale_fill_viridis_d()
 ```
 
 ```{r bar1_h3-hint-2}
-chart(e_mathaei, formula = ~ FACTOR %fill=% FACTOR) +
+chart(e_mathaei, ~FACTOR %fill=% FACTOR) +
   geom_bar(show.legend = ___) +
   coord_flip() + 
   scale_fill_viridis_d()
@@ -131,7 +134,7 @@ chart(e_mathaei, formula = ~ FACTOR %fill=% FACTOR) +
 ```
 
 ```{r bar1_h3-solution}
-chart(e_mathaei, formula = ~ variety %fill=% variety) +
+chart(e_mathaei, ~variety %fill=% variety) +
   geom_bar(show.legend = FALSE) +
   coord_flip() + 
   scale_fill_viridis_d()
@@ -143,24 +146,28 @@ grade_code("Vous seriez à leur place, quel graphique utiliseriez-vous pour pré
 
 ### Graphique en barres 2
 
-Les chercheurs optent finalement pour le graphique en barres et ils souhaitent maintenant le générer entièrement en français. 
+Les chercheurs optent finalement pour le graphique en barres et ils souhaitent maintenant le générer entièrement en français.
 
 ```{r}
-e_mathaei$variety <- factor(e_mathaei$variety, levels = c("black", "brown", "green", "purple"), labels = c("noir", "brun", "vert", "mauve"))
+e_mathaei$variety <- factor(e_mathaei$variety,
+  levels = c("black", "brown", "green", "purple"),
+  labels = c("noir", "brun", "vert", "mauve"))
 
-chart(e_mathaei, formula = ~ variety %fill=% variety) +
+chart(e_mathaei, ~variety %fill=% variety) +
   geom_bar(show.legend = FALSE) + 
   labs(x = "Variété", y  = "Dénombrement") +
   coord_flip() + 
   scale_fill_viridis_d()
 ```
 
-A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`). Attention que le graphique doit être entièrement en français !  
+A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`). Attention que le graphique doit être entièrement en français !
 
 ```{r bar2_h3, exercise=TRUE}
-e_mathaei$variety <- factor(___, levels = ___, labels = ___)
+e_mathaei$variety <- factor(___,
+  levels = ___,
+  labels = ___)
 
-chart(___, formula = ~ ___) +
+chart(___, ~___) +
   ___(___) + 
   ___(x = ___, y  = ___) +
   coord_flip() + 
@@ -168,9 +175,11 @@ chart(___, formula = ~ ___) +
 ```
 
 ```{r bar2_h3-hint-1}
-e_mathaei$variety <- factor(e_mathaei$___, levels = c(___, ___, ___, ___), labels = c(___, ___, ___, ___))
+e_mathaei$variety <- factor(e_mathaei$___,
+  levels = c(___, ___, ___, ___),
+  labels = c(___, ___, ___, ___))
 
-chart(___, formula = ~ ___ %fill=% ___) +
+chart(___, ~___ %fill=% ___) +
   geom_bar(___ = ___)  + 
   ___(x = ___, y  = ___) +
   coord_flip() + 
@@ -178,9 +187,11 @@ chart(___, formula = ~ ___ %fill=% ___) +
 ```
 
 ```{r bar2_h3-hint-2}
-e_mathaei$variety <- factor(e_mathaei$variety, levels = c("black", "brown", "green", "purple"), labels = c("noir", "brun", "vert", "mauve"))
+e_mathaei$variety <- factor(e_mathaei$variety,
+  levels = c("black", "brown", "green", "purple"),
+  labels = c("noir", "brun", "vert", "mauve"))
 
-chart(___, formula = ~ FACTOR %fill=% FACTOR) +
+chart(___, ~FACTOR %fill=% FACTOR) +
   geom_bar(show.legend = ___) +
   labs(x = ___, y  = ___)  + 
   coord_flip() + 
@@ -190,9 +201,11 @@ chart(___, formula = ~ FACTOR %fill=% FACTOR) +
 ```
 
 ```{r bar2_h3-solution}
-e_mathaei$variety <- factor(e_mathaei$variety, levels = c("black", "brown", "green", "purple"), labels = c("noir", "brun", "vert", "mauve"))
+e_mathaei$variety <- factor(e_mathaei$variety,
+  levels = c("black", "brown", "green", "purple"),
+  labels = c("noir", "brun", "vert", "mauve"))
 
-chart(e_mathaei, formula = ~ variety %fill=% variety) +
+chart(e_mathaei, ~variety %fill=% variety) +
   geom_bar(show.legend = FALSE) + 
   labs(x = "Variété", y  = "Dénombrement") +
   coord_flip() + 
@@ -207,7 +220,7 @@ grade_code("Vos progrès en R sont époustouflants !")
 
 Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
 
-Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques. 
+Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(
@@ -218,4 +231,3 @@ question_text(
   allow_retry = TRUE
 )
 ```
-

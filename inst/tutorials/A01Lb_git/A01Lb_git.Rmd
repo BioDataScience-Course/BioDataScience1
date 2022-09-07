@@ -1,0 +1,136 @@
+---
+title: "Gestion de versions avec git"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 1** Vocabulaire lié à la gestion de versions avec git."
+tutorial:
+  id: "A01La_outils"
+  version: 2.0.0/6
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+------------------------------------------------------------------------
+
+## Objectifs
+
+-   Auto-évaluer sa compréhension des différentes actions 'Git'.
+
+## Analyse de situation Git
+
+Le gestionnaire de version Git est un outil puissant, mais complexe. C'est souvent le cas lorsqu'on utilise un outil professionnel. Git a une terminologie qui lui est propre. Vous devez vous assurer d'avoir compris les termes suivants : **dépôt** (*repository*), **commit**, **clone**, **push**, **pull**, **fork**, **pull request**. Analysez les situations suivantes basées sur les images schématisant la situation.
+
+### Situation 1
+
+Deux chercheurs distants de plusieurs centaines de kilomètres collaborent sur un projet commun. Ils ont pour cela décidé d'employer un outil de gestion de version et d'héberger ce projet sur un système d'hébergement web dédié pour cela.
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/gestion-version.drawio.png)
+
+```{r qu_git1}
+quiz(
+  question("Qualifiez la situation **A**",
+    ans(-5,   "commit"),
+    ans(63,   "clone"),
+    ans(14,   "push"),
+    ans(-15,  "pull"),
+    ans(-67,  "fetch"),
+    ans(13,   "fork"),
+    ans(-26,  "pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit"),
+    answer("clone"),
+    answer("push", correct = TRUE),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull", correct = TRUE),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+### Situation 2
+
+Le chercheur 2 s'intéresse au projet du chercheur 1, travaille dessus et propose des modifications afin de l'améliorer.
+
+Sur base de l'image ci-dessous et de la situation précisée précédemment, répondez aux questions suivantes.
+
+![](images/fork.png)
+
+```{r qu_git2}
+quiz(
+  question("Qualifiez la situation **A**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork", correct = TRUE),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **B**",
+    answer("commit", correct = TRUE),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request"),
+    allow_retry = TRUE, random_answer_order = TRUE
+    ),
+  question("Qualifiez la situation **C**",
+    answer("commit"),
+    answer("clone"),
+    answer("push"),
+    answer("pull"),
+    answer("fetch"),
+    answer("fork"),
+    answer("pull request", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE
+    )
+)
+```
+
+## Conclusion
+
+Vous allez utiliser abondamment git (et GitHub) dans la suite du cours. Il est important de bien comprendre son fonctionnement de base.
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

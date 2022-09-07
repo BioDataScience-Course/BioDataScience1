@@ -1,7 +1,7 @@
 ---
-title: "ANOVA à 2 facteurs"
+title: "ANOVA à deux facteurs"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 11** Analyse de variance à deux facteurs, différents modèles."
+description: "**SDD I Module 11** ANOVAs à deux facteurs, modèles simple, complet et  hiérarchisé."
 tutorial:
   id: "A11La_anova2"
   version: 2.1.0/11

@@ -1,7 +1,7 @@
 ---
 title: "Test t de Student"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 9** Moyenne et test t de Student."
+description: "**SDD I Module 9** Distribution t de Student et test du même nom."
 tutorial:
   id: "A09La_ttest"
   version: 2.2.0/9

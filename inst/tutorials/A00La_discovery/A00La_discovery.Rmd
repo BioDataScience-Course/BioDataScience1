@@ -1,9 +1,9 @@
 ---
 title: "Découverte de learnr"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I** Quelques exercices simples pour découvrir learnr."
+description: "**SDD I** Découverte des tutoriels de type \"learnr\"."
 tutorial:
-  id: "A00La_decouverte"
+  id: "A00La_discovery"
   version: 2.0.0/5
 output:
   learnr::tutorial:

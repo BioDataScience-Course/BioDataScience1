@@ -1,9 +1,9 @@
 ---
 title: "Recombinaison de tableaux"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 6** Remodelage de tableaux"
+description: "**SDD I Module 6** Recombiner des tableaux de long en large et vice versa."
 tutorial:
-  id: "A06La_recombinaison"
+  id: "A06La_recombination"
   version: 2.1.0/5
 output:
   learnr::tutorial:
@@ -28,7 +28,9 @@ BioDataScience1::learnr_server(input, output, session)
 ## Objectifs
 
 -   Recombiner des tableaux larges en longs
+
 -   Recombiner des tableaux longs en larges
+
 -   Séparer et unifier des colonnes dans un tableau de données
 
 ## De large vers long

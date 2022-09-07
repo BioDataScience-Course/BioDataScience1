@@ -1,7 +1,7 @@
 ---
-title: "Progression R"
+title: "Progression dans R"
 author : "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 2** Familiarisation avec R en utilisant une étude sur l'obésité."
+description: "**SDD I Module 2** Progression dans R via l'étude d'un cas concret."
 tutorial:
   id: "A02Lb_progression"
   version: 2.2.0/10

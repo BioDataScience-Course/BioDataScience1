@@ -1,10 +1,10 @@
 ---
-title: "Boite de dispersion"
+title: "Boites de dispersion"
 subtitle: "Visualisation III"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
+description: "**SDD I Module 4** Faire des boites de dispersion (parallèles) dans R."
 tutorial:
-  id: "A04Lc_boxplot"
+  id: "A04Lb_boxplot"
   version: 2.1.0/7
 output:
   learnr::tutorial:

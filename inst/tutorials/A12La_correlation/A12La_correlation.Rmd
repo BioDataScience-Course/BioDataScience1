@@ -1,7 +1,7 @@
 ---
 title: "Corrélation"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 12** Coefficients et test de corrélation."
+description: "**SDD I Module 12** Coefficients et tests de corrélation."
 output:
   learnr::tutorial
 tutorial:

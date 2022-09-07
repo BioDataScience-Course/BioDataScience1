@@ -1,10 +1,10 @@
 ---
-title: "Les figures composées"
+title: "Figures composées"
 subtitle: "Visualisation III"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 4** Exploration de graphiques plus avancés dans R."
+description: "**SDD I Module 4** Créer des figures composées en assemblant des graphiques."
 tutorial:
-  id: "A04Ld_fig_composees"
+  id: "A04Lc_comp_fig"
   version: 2.1.0/5
 output:
   learnr::tutorial:

@@ -1,7 +1,7 @@
 ---
-title: "Chi2 (suite)"
+title: "Test Chi2 d'indépendance"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 8** Applications du test du Chi2."
+description: "**SDD I Module 8** Comprendre et interpréter le test Chi2 d'indépendance."
 tutorial:
   id: "A08Lb_chi2b"
   version: 2.1.0/10

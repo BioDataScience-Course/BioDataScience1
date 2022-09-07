@@ -1,9 +1,9 @@
 ---
-title: "Nuage de points"
+title: "Graphique en nuage de points"
 author : "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 2** Réalisation de graphiques en nuages de points dans R."
+description: "**SDD I Module 2** Réalisation de graphiques en nuage de points."
 tutorial:
-  id: "A02Lc_nuage"
+  id: "A02Lc_scatterplot"
   version: 2.3.0/6
 output:
   learnr::tutorial:

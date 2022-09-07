@@ -2,6 +2,8 @@
 
 -   All learnr exercices tested with svbox2022.
 
+-   The learnr tutorials are restructured.
+
 # BioDataScience1 2022.0.0
 
 -   New version for academic year 2022-2023.

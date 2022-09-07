@@ -1,7 +1,7 @@
 ---
-title: "Distributions (suite)"
+title: "Distributions continues"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 7** Distribution Normale et graphique quantile-quantile."
+description: "**SDD I Module 7** Distributions Normale et log-Normale, graphique quantile-quantile."
 tutorial:
   id: "A07Lc_distri2"
   version: 2.0.0/7

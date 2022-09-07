@@ -1,7 +1,7 @@
 ---
-title: "Distributions"
+title: "Distributions discrètes"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 7** Distributions binomiale et Poisson."
+description: "**SDD I Module 7** Distributions binomiale et de Poisson."
 tutorial:
   id: "A07Lb_distri"
   version: 2.0.0/9

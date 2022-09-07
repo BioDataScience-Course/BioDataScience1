@@ -1,9 +1,9 @@
 ---
 title: "Traitements multi-tableaux"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 6** Traitements multi-tableaux"
+description: "**SDD I Module 6** Gérer les jointures entre deux tableaux de données."
 tutorial:
-  id: "A06Lb_multi_tableau"
+  id: "A06Lb_multi_table"
   version: 2.1.0/3
 output:
   learnr::tutorial:

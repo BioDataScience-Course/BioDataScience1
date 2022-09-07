@@ -1,7 +1,7 @@
 ---
-title: "Chi2"
+title: "Test Chi2 univarié"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 8** Loi de distribution du Chi2 et test d'hypothèse associé."
+description: "**SDD I Module 8** Distribution du Chi2, et test Chi2 univarié."
 tutorial:
   id: "A08La_chi2"
   version: 2.0.1/9

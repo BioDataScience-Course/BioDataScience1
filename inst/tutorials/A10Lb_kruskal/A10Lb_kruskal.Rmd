@@ -1,0 +1,39 @@
+---
+title: "Test de Kruskal-Wallis"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 10** Utilisation du test de Kruskal-Wallis à la place de l'ANOVA."
+tutorial:
+  id: "A10Lb_kruskal"
+version: 2.0.0/0
+output:
+  learnr::tutorial:
+  progressive: true
+allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience3::learnr_setup()
+SciViews::R()
+library(mlearning)
+
+# ...
+```
+
+```{r, echo=FALSE}
+BioDataScience3::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience3::learnr_server(input, output, session)
+```
+
+------------------------------------------------------------------------
+
+## Objectifs
+
+-   ...
+
+## Test de Kruskal-Wallis
+
+TODO: ce tutoriel doit encore être écrit. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !

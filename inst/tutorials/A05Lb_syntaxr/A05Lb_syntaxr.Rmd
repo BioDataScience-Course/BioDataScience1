@@ -1,9 +1,9 @@
 ---
 title: "Syntaxe de R"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 11** Exploration de différents styles de syntaxe dans R."
+description: "**SDD I Module 05** Différents styles de syntaxe dans R."
 tutorial:
-  id: "A11Lb_syntaxr"
+  id: "A05Lb_syntaxr"
   version: 2.1.0/11
 output:
   learnr::tutorial:

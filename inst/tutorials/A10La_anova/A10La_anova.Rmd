@@ -1,7 +1,7 @@
 ---
-title: "ANOVA"
+title: "ANOVA à un facteur"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** ANOVA et tests post-hoc."
+description: "**SDD I Module 10** Réalisation d'une ANOVA à un facteur et des tests post-hocs."
 tutorial:
   id: "A10La_anova"
   version: 2.1.0/10

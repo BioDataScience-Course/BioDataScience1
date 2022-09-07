@@ -1,9 +1,9 @@
 ---
-title: "Traitement de données I"
+title: "Remaniement de données"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 5** Traitement des données élémentaires."
+description: "**SDD I Module 5** Importer et remanier des données dans R."
 tutorial:
-  id: "A05La_traitement"
+  id: "A05La_wrangling"
   version: 2.1.0/3
 output:
   learnr::tutorial:

@@ -3,7 +3,7 @@ title: "Avis SDD I"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I** Vos commentaires et suggestions..."
 tutorial:
-  id: "A99La_avis"
+  id: "A99La_feedback"
   version: 2.0.1/0
 output:
   learnr::tutorial:
@@ -24,11 +24,11 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-----
+------------------------------------------------------------------------
 
 ## Donnez-nous votre avis sur SDD I...
 
-Ceci est un bref formulaire visant à améliorer le cours de science des données. Donnez-nous vos impressions positives et négatives. Soyez concis et constructif\ ! Vous pouvez aussi nous donner une note sur 20 si vous le souhaitez.
+Ceci est un bref formulaire visant à améliorer le cours de science des données. Donnez-nous vos impressions positives et négatives. Soyez concis et constructif ! Vous pouvez aussi nous donner une note sur 20 si vous le souhaitez.
 
 ```{r feedback_topic_noscore}
 question("Quelle partie du cours évaluez-vous ?",

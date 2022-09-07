@@ -1,7 +1,7 @@
 ---
-title: "Student & Wilcoxon"
+title: "Tests de Student & Wilcoxon"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 9** Tests t de Student et de Wilcoxon/Mann-Whitney."
+description: "**SDD I Module 9** Comparaison des tests de Student et de Wilcoxon/Mann-Whitney."
 tutorial:
   id: "A09Lb_ttest_wmw"
   version: 2.2.0/11

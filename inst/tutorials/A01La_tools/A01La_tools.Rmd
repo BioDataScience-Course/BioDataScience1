@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Familiarisation avec les logiciels du cours."
 tutorial:
   id: "A01La_tools"
-  version: 2.2.0/4
+  version: 2.2.1/4
 output: 
   learnr::tutorial:
     progressive: true
@@ -40,30 +40,46 @@ quiz(
   question( "Quel outil est un logiciel de gestion de versions ?",
     answer("Git", correct = TRUE, message = "En effet, Git est un gestionnaire de version très employé."),
     answer("RStudio", message = "RStudio est un environnement complet et optimisé pour réaliser vos analyses, vos graphiques et vos rapports."),
-    answer("Renku", message = "Renku permet de lancer une fenêtre RStudio avec tous les packages dont nous avons besoin pour réaliser des analyses en sciences des données."),
+    answer("Saturn Cloud", message = "Saturn Cloud permet de lancer une fenêtre RStudio avec tous les packages dont nous avons besoin pour réaliser des analyses en sciences des données."),
     answer("GitHub", message = "GitHub est un réseau social centré sur un gestionnaire de versions de projet."),
-    allow_retry = TRUE, random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE,
+    correct = "Bravo ! Vous avez trouvé la bonne réponse.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse.",
+    submit_button = "Soumettre une réponse",
+    try_again_button = "Resoumettre une réponse"
   ),
   question("Quel est le rôle de la fenêtre `Console` dans RStudio ?",
     answer("Cette fenêtre est dédiée à l'exécution de code R.", correct = TRUE),
     answer("Cette fenêtre permet de lire les pages d'aide des fonctions."),
     answer("Cette fenêtre permet de visualiser un graphique."),
     answer("Cette fenêtre est dédiée à l'édition de documents."),
-    allow_retry = TRUE, random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE,
+    correct = "Bravo ! Vous avez trouvé la bonne réponse.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. RStudio comprend quatre fenêtres. Assurez vous de bien comprendre toutes les fenêtres.",
+    submit_button = "Soumettre une réponse",
+    try_again_button = "Resoumettre une réponse"
     ),
   question("Dans un projet RStudio fictif,quel est le rôle du fichier terminant par l'extension `.Rproj` ?",
-    answer("Ce fichier sert à configurer le projet RStudio.", correct = TRUE),
-    answer("Ce fichier sert à exclure des fichiers du gestionnaire de versions."),
+    answer("Ce fichier sert à configurer le projet RStudio.", correct = TRUE, message = "Effectivement, l'extension `.Rproj` permet de configurer une projet RStudio."),
+    answer("Ce fichier sert à exclure des fichiers du gestionnaire de versions.", message = "C'est le fichier `.gitignore` qui permet d'exclure des fichiers du gestionnaire de versions."),
     answer("Ce fichier comprend toutes les instructions R du projet."),
     answer("Il s'agit d'un dossier compressé qui comprend toutes les figures générées dans un projet."),
-    allow_retry = TRUE, random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE,
+    correct = "Bravo ! Vous avez trouvé la bonne réponse.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse.",
+    submit_button = "Soumettre une réponse",
+    try_again_button = "Resoumettre une réponse"
     ),
   question("Que sont les Issues sur GitHub ?",
-    answer("Il s'agit d'un espace de discussion qui permet de mettre en avant un problème ou une idée d'amélioration sur un projet.", correct = TRUE),
-    answer("Il s'agit d'une messagerie instantanée comme Facebook Messenger ou WhatsApp."),
-    answer("Il s'agit d'une interface qui permet de lancer une fenêtre RStudio."),
+    answer("Il s'agit d'un espace de discussion qui permet de mettre en avant un problème ou une idée d'amélioration sur un projet.", correct = TRUE, message = "C'est une définition correcte des Issues."),
+    answer("Il s'agit d'une messagerie instantanée comme Facebook Messenger ou WhatsApp.", message = "Il faut bien faire la différence entre une messagerie instantanée et des Issues. Elles n'ont pas le même objectif."),
+    answer("Il s'agit d'une interface qui permet de lancer une fenêtre RStudio.", message = "Cette description est lié à Saturn Cloud."),
     answer("Il s'agit d'une machine virtuelle qui permet de lancer des outils professionnels liés à la science des données."),
-    allow_retry = TRUE, random_answer_order = TRUE
+    allow_retry = TRUE, random_answer_order = TRUE,
+    correct = "Bravo ! Vous avez trouvé la bonne réponse.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Révisez la section sur GitHub. Il semble que vous n'avez pas compris le rôle des Issues.",
+    submit_button = "Soumettre une réponse",
+    try_again_button = "Resoumettre une réponse"
     )
 )
 ```
@@ -78,6 +94,8 @@ question_text(
   answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
   incorrect = "Vos commentaires sont enregistrés.",
   placeholder = "Entrez vos commentaires ici...",
+  submit_button = "Soumettre une réponse",
+  try_again_button = "Resoumettre une réponse",
   allow_retry = TRUE
 )
 ```

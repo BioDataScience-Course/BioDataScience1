@@ -1,5 +1,5 @@
 ---
-title: "Gestion de versions avec git"
+title: "Gestion de versions avec Git"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Vocabulaire lié à la gestion de versions avec git."
 tutorial:
@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
--   Auto-évaluer sa compréhension des différentes actions 'Git'.
+-   Auto-évaluer sa compréhension des différentes actions dans Git.
 
 ## Analyse de situation Git
 
@@ -45,7 +45,7 @@ Sur base de l'image ci-dessous et de la situation précisée précédemment, ré
 
 ```{r qu_git1}
 quiz(
-  question("Qualifiez la situation **A**",
+  question("Qualifiez l'action **A**",
     answer("commit", correct = TRUE, message = "Un commit permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -59,7 +59,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Qualifiez la situation **B**",
+  question("Qualifiez l'action **B**",
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", correct = TRUE, message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -73,7 +73,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Qualifiez la situation **C**",
+  question("Qualifiez l'action **C**",
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -100,7 +100,7 @@ Sur base de l'image ci-dessous et de la situation précisée précédemment, ré
 
 ```{r qu_git2}
 quiz(
-  question("Qualifiez la situation **A**",
+  question("Qualifiez l'action **A**",
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -114,7 +114,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Qualifiez la situation **B**",
+  question("Qualifiez l'action **B**",
     answer("commit", correct = TRUE, message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -128,7 +128,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Qualifiez la situation **C**",
+  question("Qualifiez l'action **C**",
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
@@ -147,7 +147,7 @@ quiz(
 
 ## Conclusion
 
-Vous allez utiliser abondamment git (et GitHub) dans la suite du cours. Il est important de bien comprendre son fonctionnement de base.
+Vous allez utiliser abondamment Git (et GitHub) dans la suite du cours. Il est important de bien comprendre son fonctionnement de base.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

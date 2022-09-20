@@ -29,13 +29,23 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Préambule
 
-Vous vous trouvez au sein d'un tutoriel interactif construit avec `learnr`. La première chose à vérifier à l'ouverture du tutoriel interactif est votre `nom d’utilisateur` et votre `adresse email`. En effet, votre progression sera enregistrée, mais cela ne peut se faire que si vous renseignez ces données correctement avant de travailler dans le tutoriel learnr.
+Vous vous trouvez au sein d'un tutoriel interactif construit avec **learnr**. La première chose à vérifier à l'ouverture du tutoriel interactif est votre identité. En effet, votre progression sera enregistrée, mais cela ne peut se faire que si vous êtes bien reconnu. Lorsque vous démarrez le tutoriel dans la SciViews Box, un encadré bleu indique que l'enregistrement est actif pour <votre_login>. Et dans l'onglet **Jobs** il est indiqué "Recording enabled for <votre_login>".
+
+![](images/record_ok1.png)
+
+![](images/record_ok2.png)
+
+Si vous êtes mal reconnu, vous verrez plutôt "Utilisateur anonyme, aucun enregistrement !" et un message du genre "No login, no records!" dans l'onglet **Jobs**. Si vous suivez le cours à l'UMONS, réglez le problème *avant* de vous plonger dans ce tutoriel.
+
+![](images/record_notok1.png)
+
+![](images/record_notok2.png)
 
 Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels interactifs comprenant des illustrations, des questions à choix multiples, des exercices R, ...
 
-Des questions ouvertes (sous la forme zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, recliquez `Run Code`, etc... jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
+Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc... jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
-Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons-2020/learnr.html).
+Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/learnr.html).
 
 ## Objectifs
 
@@ -85,7 +95,7 @@ quiz(
 
 Comme vous avez pu vous en rendre compte en répondant aux questions ci-dessus, elles peuvent être recommencées afin de trouver la bonne réponse. De plus, les réponses bonnes comme mauvaises peuvent être associées à une explication complémentaire. Elles servent essentiellement à votre **auto-évaluation** pour que vous puissiez vérifier que vous avez bien compris les concepts abordés.
 
-En pratique dans le cours, il est fortement conseillé de revoir la matière immédiatement si vous constatez que vous n'arrivez pas à répondre aux questions... sinon vous risquez d'accumuler un retard qui pourrait devenir irrattrapable à la longue. Si vous trichez ici, la seule personne qui en payera le prix, c'est vous : cliquer et recommencer au hasard sans réfléchir est une *très mauvaise stratégie* qui ne vous donnera que l'illusion d'avancer. Dans ce cas, vous n'arriverez pas à faire les exercices plus compliqués qui arriveront ensuite, et vous finirez tout de même en échec !
+En pratique dans le cours, il est fortement conseillé de revoir la matière immédiatement si vous constatez que vous n'arrivez pas à répondre aux questions... sinon vous risquez d'accumuler un retard qui pourrait devenir irrattrapable à la longue. Si vous trichez ici, la seule personne qui en payera le prix, c'est vous : cliquer et recommencer au hasard sans réfléchir est une *très mauvaise stratégie* qui ne vous donnera que l'illusion d'avancer. Dans ce cas, vous n'arriverez pas à faire les exercices plus compliqués qui arriveront ensuite (les projets GitHub en séances), et vous finirez tout de même en échec !
 
 ## Questions ouvertes
 
@@ -97,7 +107,7 @@ La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 
 
 *Utilisez la zone de code R ci-dessous pour répondre à la question. Vous pouvez l'utiliser comme une calculatrice.*
 
-*Afin de tester vos instructions, cliquez sur `Run Code` (autant que vous voulez). Lorsque vous êtes satisfait de votre réponse, cliquez sur `Submit Answer`. Si l'exercice est trop compliqué, n'hésitez pas à utiliser les indices mis à votre disposition (`Hints`) s'il y en a, comme ici.*
+*Afin de tester vos instructions, cliquez sur le bouton `Run Code` (autant que vous voulez). Lorsque vous êtes satisfait de votre réponse, cliquez sur le bouton `Submit Answer`. Si l'exercice est trop compliqué, n'hésitez pas à utiliser les indices mis à votre disposition (`Hints`) s'il y en a, comme ici.*
 
 ```{r sea_temp1_h3, exercise=TRUE}
 
@@ -113,7 +123,7 @@ La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 
 
 ```{r sea_temp1_h3-hint-2}
  # Additionner le nombre de degrés pris par année
- # à la temp&rature de 2020
+ # à la température de 2020
  
  #### ATTENTION: Hint suivant = solution !####
 ```
@@ -161,7 +171,7 @@ Si vous avez été incapable de répondre à la question sans aller jusqu'à vis
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercices dans un tutoriel `learnr`. Rappelez-vous qu'il s'agit d'un outil d'**auto-évaluation** mis à votre disposition pour vérifier que vous avez bien compris et assimilé les concepts de base avant de passer à des exercices plus difficiles. Utilisez-le de manière responsable.
+Bravo ! Vous venez de terminer votre séance d'exercices dans un tutoriel `learnr`. Rappelez-vous qu'il s'agit d'un outil d'**auto-évaluation** mis à votre disposition pour vérifier que vous avez bien compris et assimilé les concepts de base avant de passer à des exercices plus difficiles. Utilisez-le de manière responsable.
 
 ```{r quiz_eval_noscore}
 question("Comment évalueriez-vous globalement cet outils pédagogiques ?",
@@ -174,7 +184,7 @@ question("Comment évalueriez-vous globalement cet outils pédagogiques ?",
   type = "single", correct = "Merci, votre avis est enregistré.")
 ```
 
-Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changer d'ordinateur ou d'explorateur web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute) !
+Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changer d'ordinateur ou de navigateur Web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute !)
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

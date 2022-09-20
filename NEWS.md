@@ -1,3 +1,9 @@
+# BioDataScience1 2022.1.1
+
+-   Adaptations for the three first learnrs for A00 and A01.
+
+-   Compression of all images and elimination of unused images.
+
 # BioDataScience1 2022.1.0
 
 -   All learnr exercices tested with svbox2022.

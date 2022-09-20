@@ -59,7 +59,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Dans un projet RStudio fictif,quel est le rôle du fichier terminant par l'extension `.Rproj` ?",
+  question("Dans un projet RStudio fictif, quel est le rôle du fichier terminant par l'extension `.Rproj` ?",
     answer("Ce fichier sert à configurer le projet RStudio.", correct = TRUE, message = "Effectivement, l'extension `.Rproj` permet de configurer une projet RStudio."),
     answer("Ce fichier sert à exclure des fichiers du gestionnaire de versions.", message = "C'est le fichier `.gitignore` qui permet d'exclure des fichiers du gestionnaire de versions."),
     answer("Ce fichier comprend toutes les instructions R du projet."),

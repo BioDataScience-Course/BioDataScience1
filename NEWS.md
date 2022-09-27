@@ -1,3 +1,7 @@
+# BioDataScience1 2022.1.2
+
+-   Correction in the id of A01Lb_git.
+
 # BioDataScience1 2022.1.1
 
 -   Adaptations for the three first learnrs for A00 and A01.

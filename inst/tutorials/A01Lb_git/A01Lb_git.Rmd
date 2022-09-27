@@ -3,7 +3,7 @@ title: "Gestion de versions avec Git"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Vocabulaire lié à la gestion de versions avec git."
 tutorial:
-  id: "A01La_outils"
+  id: "A01Lb_git"
   version: 2.0.1/6
 output: 
   learnr::tutorial:

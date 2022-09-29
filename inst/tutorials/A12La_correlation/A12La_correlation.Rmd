@@ -25,6 +25,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 L'association entre deux variables peut être quantifiée grâce à différents descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman.

@@ -46,6 +46,10 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
+------------------------------------------------------------------------
+
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable qualitative (de type `factor` dans R). Dans le [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables facteurs avec une **ANOVA à deux facteurs**.

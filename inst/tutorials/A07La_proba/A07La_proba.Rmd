@@ -29,6 +29,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 <!-- TODO: il manque des exercices qui comparent population de taille infinie ou non et qui mettent en lumière les différences au niveau du calcul des probabilités (conditionnelles) -->
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercez et bien en comprendre les subtilités. Ce tutoriel vous permet de :

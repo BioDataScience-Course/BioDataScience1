@@ -27,6 +27,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 Le test *t* de Student, ou plutôt les tests de Student puisqu'il en existe plusieurs variantes, utilisent la distribution *t* de Student comme distribution de référence pour comparer une moyenne par rapport à une valeur cible ou pour comparer deux moyennes entre elles. Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :

@@ -32,6 +32,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 -   Vérifier l'acquisition des notions relatives aux remaniement des données avec les fonctions `select()`/`fselect()`, `filter()`/`fsubset()`, `mutate()`/`fmutate()`, `group_by()`/`fgroup_by()`, `summarise()`/`fsummarise()`

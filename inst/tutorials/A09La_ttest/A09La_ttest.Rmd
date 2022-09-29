@@ -27,6 +27,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 La moyenne est un descripteur statistique très employé pour résumer l'information. Il est très courant de comparer une moyenne à une valeur de référence ou deux moyennes entre elles. Dans votre future carrière scientifique, il sera indispensable de bien maîtriser les subtilités dans l'utilisation de la moyenne. Ce tutoriel vise à :

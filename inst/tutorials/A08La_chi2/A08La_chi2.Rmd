@@ -27,6 +27,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici :

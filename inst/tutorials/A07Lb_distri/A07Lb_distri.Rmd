@@ -27,6 +27,8 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
+**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
+
 ## Objectifs
 
 Les lois de distribution généralisent le calcul des probabilités dans des situations bien définies. Elles permettent de calculer la probabilité que des évènements se produisent d'un point de vue théorique. La distribution binomiale et celle de Poisson concernent des variables quantitatives à deux modalités, c'est-à-dire que seulement deux évènements disjoints peuvent se produire.

@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Les bases de l'utilisation de R pour du calcul."
 tutorial:
   id: "A02La_base"
-  version: 2.0.0/7
+  version: 2.0.1/7
 output: 
   learnr::tutorial:
     progressive: true
@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectif
 
--   Découvrir les bases du langage R
+Dans le premier module, vous avez découvert plusieurs logiciels que vous allez employer dans les cours des sciences des données. Vous avez réalisé un premier projet qui comprenait entre autres des instructions R. Sans vous en rendre compte, vous avez utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format R Markdown. Ce tutoriel a pour objectif de vous permettre de découvrir les bases du langage R.
 
 ```{r, out.width='50%'}
 knitr::include_graphics("images/Rlogo.png")
@@ -41,9 +41,9 @@ Regardez la vidéo ci-dessous.
 
 ![](https://www.youtube.com/watch?v=XcBLEVknqvY)
 
-[R](https://www.r-project.org/about.html) est un logiciel **open source** axé sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
+[R](https://www.r-project.org/about.html) est un logiciel **open source** axé sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
 
-**Eléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://blog.revolutionanalytics.com/popularity/). Et en voici [un autre](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
+**Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://blog.revolutionanalytics.com/popularity/). Et en voici [un autre](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
 
 Ce tutoriel vous propose une suite d'activités afin d'apprendre les rudiments de R.
 
@@ -59,7 +59,7 @@ Vous pouvez tout d'abord employer R comme une calculatrice (ce qui est bien réd
 | Division       |   `/`   | `3 / 2` |  `[1] 1.5`   |
 | Puissance      |   `^`   |  `3^2`  |   `[1] 9`    |
 
-**A noter :**
+**À noter :**
 
 -   Les espaces au sein des instructions sont facultatives, mais elles aèrent le code. C'est comme en français : sansespacesonlitnettementmoinsbien! Dans certain cas, il vaut mieux les omettre, comme pour `3^2` qui indique que cette opération est prioritaire sur les autres. `1 - 3^2` signifie `1 - (3^2)`, 3 est d'abord élevé au carré, et puis on soustrait cette valeur à un, et non `(1 - 3)^2`. De même, la multiplication et la division sont prioritaires sur l'addition et la soustraction tout comme en mathématique.
 
@@ -87,7 +87,7 @@ Voici un premier exemple d'instruction R tel qu'elle se présente dans les tutor
 
 ```{r calcul1-check}
 grade_result(
-  pass_if(~ identical(.result, 15 * 23), "Je suis bluffé."),
+  pass_if(~ identical(.result, 15 * 23), "Je suis bluffé. Bien joué ! Vous venez de réaliser votre première instruction en R."),
   fail_if(~ TRUE, "Ce n'est pas vraiment la réponse que j'attendais. Revoyez comment écrire une multiplication en R plus haut dans cette page.")
 )
 ```
@@ -139,7 +139,7 @@ a + b # Somme de a et b
 
 Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est considéré comme un **commentaire**. Ce commentaire n'est pas interprété par le programme. Servez-vous en pour documenter vos instructions !
 
-**A retenir :**
+**À retenir :**
 
 -   Vous pouvez aussi voir et gérer vos objets dans l'onglet "**Environment**" de RStudio lorsque plus tard vous travaillerez dans ce logiciel. ![](images/environnement.png)
 
@@ -154,12 +154,12 @@ Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est 
 
 -   Un nom commençant par un point sera "caché" (non visible dans l'onglet "**Environment**" de RStudio).
 
--   Utilisez des noms courts, mais représentatifs du contenu de l'objet. Si possible, séparez les mots par un trait souligné et utilisez uniquement des lettres minuscules. On a coutume d'utiliser des noms anglais, car cela facilite l'échange de code avec des collègues internationaux (oui, ça vous arrivera... donc, prenez directement des bonnes habitudes).
+-   Utilisez des noms courts, mais représentatifs du contenu de l'objet. Si possible, séparez les mots par un trait souligné et utilisez uniquement des lettres minuscules. On a coutume d'utiliser des noms anglais, car cela facilite l'échange de code avec des collègues internationaux (oui, ça vous arrivera... donc, prenez directement de bonnes habitudes).
 
     -   Exemples corrects : `x`, `v1`, `initial_date`, `final_date`, `elapsed_time`.
     -   Exemples incorrects : `toto`, `Toto2`, `FinalDate`, `fd` or `FD` or `fi_dat` (pour final date), `date_finale`, `laatse_datum`.
 
-A vous de jouer !
+À vous de jouer !
 
 -   Assignez à `a` la valeur `18`.
 
@@ -394,7 +394,7 @@ mean(x) %>.%
 
 -   Le chaînage crée une instruction unique qui effectue un calcul plus complexe, décomposé étape par étape.
 -   On indique un point `.` à la place où le résultat précédent doit être inséré dans la fonction.
--   Le chaînage est bien plus lisible que l'imbrication au delà de deux niveaux. En effet, si vous lisez l'instruction chaîne à voix haute en disant "ensuite" pour `%>.%` cela donne : "je prend la moyenne de `x` ensuite le logarithme, ensuite j'arrondis à trois chiffres derrière la virgule". C'est parfaitement clair, non ?
+-   Le chaînage est bien plus lisible que l'imbrication au-delà de deux niveaux. En effet, si vous lisez l'instruction chaîne à voix haute en disant "ensuite" pour `%>.%` cela donne : "je prends la moyenne de `x` ensuite le logarithme, ensuite j'arrondis à trois chiffres derrière la virgule". C'est parfaitement clair, non ?
 
 Un petit exercice, maintenant :
 
@@ -402,9 +402,9 @@ Un petit exercice, maintenant :
 
 -   Calculez le logarithme de `x`,
 
--   **Ensuite** calculez-en la moyenne, en écartant les valeurs manquantes,
+-   **Ensuite**, calculez-en la moyenne, en écartant les valeurs manquantes,
 
--   **Ensuite** arrondissez le nombre obtenu à deux décimales
+-   **Ensuite**, arrondissez le nombre obtenu à deux décimales
 
 ```{r chain, exercise=TRUE, exercise.lines=8}
 SciViews::R
@@ -434,7 +434,7 @@ grade_code("C'est exactement cela. Le chaînage des opérations rend le code bie
 
 ![](images/bravo.gif)
 
-Bravo ! Vous venez de terminez cette séance d'exercices dans un tutorial "learnr".
+Bravo ! Vous venez de terminer cette séance d'exercices dans un tutoriel "learnr".
 
 Durant cette séance, vous avez appris à :
 
@@ -457,6 +457,8 @@ question_text(
   answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
   incorrect = "Vos commentaires sont enregistrés.",
   placeholder = "Entrez vos commentaires ici...",
+  submit_button = "Soumettre une réponse",
+  try_again_button = "Resoumettre une réponse",
   allow_retry = TRUE
 )
 ```

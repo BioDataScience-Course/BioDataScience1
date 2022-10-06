@@ -1,9 +1,8 @@
-.gitignore
-.git
-.git/*
-^\.github/
+^\.gitignore$
+^\.git$
+^\.github$
 
-.DS_Store
+^\.DS_Store$
 
 README\.R?md
 CONDUCT\.md
@@ -12,8 +11,8 @@ FAQ.md
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 
-Makefile
-.Rprofile
+^Makefile$
+^\.Rprofile$
 
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -34,9 +33,8 @@ Makefile
 
 
 ^inst/tutorials/.*\.html$
-devel/*
-devel
+^devel/*
 
 rsconnect/*
 rsconnect
-
+^.*/rsconnect/*

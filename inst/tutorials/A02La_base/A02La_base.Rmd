@@ -1,7 +1,7 @@
 ---
 title: "Les bases de R"
 author : "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 2** Les bases de l'utilisation de R pour du calcul."
+description: "**SDD I Module 2** Les bases de l'utilisation de R."
 tutorial:
   id: "A02La_base"
   version: 2.0.1/7
@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectif
 
-Dans le premier module, vous avez découvert plusieurs logiciels que vous allez employer dans les cours des sciences des données. Vous avez réalisé un premier projet qui comprenait entre autres des instructions R. Sans vous en rendre compte, vous avez utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format R Markdown. Ce tutoriel a pour objectif de vous permettre de découvrir les bases du langage R.
+Dans le premier module, vous avez découvert plusieurs logiciels que vous allez employer dans les cours des sciences des données. Vous avez réalisé un premier projet qui comprenait, entre autres, des instructions R. Vous avez en fait utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format R Markdown. Ce tutoriel a pour objectif de vous permettre de découvrir les bases du langage R.
 
 ```{r, out.width='50%'}
 knitr::include_graphics("images/Rlogo.png")
@@ -41,9 +41,9 @@ Regardez la vidéo ci-dessous.
 
 ![](https://www.youtube.com/watch?v=XcBLEVknqvY)
 
-[R](https://www.r-project.org/about.html) est un logiciel **open source** axé sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
+[R](https://www.r-project.org/about.html) est un logiciel **open source** centré sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
 
-**Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://blog.revolutionanalytics.com/popularity/). Et en voici [un autre](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
+**Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
 
 Ce tutoriel vous propose une suite d'activités afin d'apprendre les rudiments de R.
 
@@ -75,7 +75,7 @@ Voici un premier exemple d'instruction R tel qu'elle se présente dans les tutor
 
 -   Multipliez les nombres `15` et `23` (un encadré **Code R** est une zone où vous pouvez vous-même entrer des instructions R et/ou les modifier. Les numéros à gauche sont les numéros de lignes. Ils ne font pas partie des instructions. Utilisez le bouton **Run Code** pour tester, et ensuite **Submit Answer** quand vous êtes satisfait de votre réponse).
 
-*S'il est présent, le bouton **Solution** permet de visualiser le code qui est demandé. Essayez toujours de résoudre l'exercice par vous-même.* ***Si vous visualisez la solution, vous perdez automatiquement la moitié des points pour la question !***
+*S'il est présent, le bouton **Solution** permet de visualiser le code qui est demandé. Essayez toujours de résoudre l'exercice par vous-même.* **Si vous visualisez la solution, vous perdez automatiquement la moitié des points pour la question !**
 
 ```{r calcul1, exercise=TRUE}
 
@@ -87,7 +87,7 @@ Voici un premier exemple d'instruction R tel qu'elle se présente dans les tutor
 
 ```{r calcul1-check}
 grade_result(
-  pass_if(~ identical(.result, 15 * 23), "Je suis bluffé. Bien joué ! Vous venez de réaliser votre première instruction en R."),
+  pass_if(~ identical(.result, 15 * 23), "Vous venez d'écrire votre première instruction en R."),
   fail_if(~ TRUE, "Ce n'est pas vraiment la réponse que j'attendais. Revoyez comment écrire une multiplication en R plus haut dans cette page.")
 )
 ```
@@ -109,13 +109,14 @@ log(4 + 5)
 ```
 
 ```{r calcul2_h2-hint}
-# Vous pouvez imbriquer lezs calculs avec les fonctions
+# Vous pouvez imbriquer les calculs avec les fonctions
 # comme vous le faites avec les opérateurs mathématiques
 
 ## Attention : solution dans le 'hint' suivant!
 ```
 
 ```{r calcul2_h2-solution}
+## Solution ##
 exp(23 - 15)
 ```
 
@@ -148,7 +149,7 @@ Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est 
     -   Exemple de noms corrects : `a`, `a1`, `vec`, `vec_max`, `.vec`, `A`.
     -   Exemple de noms incorrects : `1a`, `_a`, `vec max`, `vec-max`.
 
--   Évitez d'utiliser des caractères accentués dans les noms.
+-   Évitez d'utiliser des caractères accentués dans les noms, même si ici ce n'est pas une règle absolue.
 
 -   R fait la différence entre majuscules et minuscules : `x` est différent de `X`. **Je répète : R fait la différence entre majuscules et minuscules dans les noms !**
 
@@ -221,7 +222,7 @@ Vous constatez que R ne renvoie rien en cas d'assignation. C'est un comportement
 v1
 ```
 
-Maintenant que vous savez comment réaliser une assignation, à votre tour...
+Maintenant que vous avez compris comment réaliser une assignation, à votre tour...
 
 -   Assignez à `v4` les valeurs `15` , `19`, une valeur manquante (`NA`) et `13`.
 
@@ -248,7 +249,7 @@ v5
 ```
 
 ```{r vec1-check}
-grade_code("Les assignations n'ont plus de secrets pour vous.")
+grade_code("Les assignations n'ont manifestement plus de secrets pour vous.")
 ```
 
 **Commentaires :**
@@ -313,7 +314,7 @@ mean(v4)
 ```
 
 ```{r vec2-check}
-grade_code("C'est cela\ : les fonctions génériques s'utilisent comme les autres, mais faites bien attention aux différentes formes possibles (que l'on appelle les **méthodes** de la fonction)\ !.")
+grade_code("C'est cela : les fonctions génériques s'utilisent comme les autres, mais faites bien attention aux différentes formes possibles (que l'on appelle les **méthodes** de la fonction) !.")
 ```
 
 Certaines fonctions servent à **résumer** un ensemble de données, c'est-à-dire qu'elles les représentent avec une seule ou un petit nombre de valeurs. Ainsi, quelle que soit la taille du vecteur `v4`, sa moyenne est toujours un nombre unique. Ici, nous avons obtenu `NA`. Nous savons pourquoi. Les valeurs manquantes sont **contaminantes** dans les calculs. Il en suffit d'une seule pour que l'ensemble du résultat soit `NA`. Naturellement dans ce cas, c'est dommage, car la moyenne pourrait être *estimée* sur base des trois autres valeurs connues. L'argument `na.rm` permet de le faire... mais comment le savoir ? En lisant **la page d'aide de la fonction**. Pour cela, utilisez l'instruction `?` suivi du nom de la fonction. Dans RStudio, la page d'aide apparaît dans l'onglet **Help** (copie d'écran ci-dessous).
@@ -355,6 +356,24 @@ grade_code("Vous avez bien compris la façon de traiter les valeurs manquantes �
 Vous obtenez cette fois-ci la réponse souhaitée.
 
 > La prise en charge des valeurs manquantes de manière fine est une caractéristique importante de tout logiciel d'analyse de données digne de ce nom. Notez, par exemple, qu'Excel (un logiciel qui traite des tableaux) **n'est pas** capable de le faire de manière aussi fine que R !
+
+## Fonctions statistiques "fast"
+
+Dans le dialecte `SciViews::R` (qui nécessite donc cette instruction en toute première ligne pour se configurer comme tel), nous utiliserons une famille de fonctions alternatives qui servent à résumer des données, comme le calcul de la moyenne. Ces fonctions statistiques sont appelées "fast" parce qu'elles calculent plus rapidement que les fonctions équivalentes de R de base, mais elles ont aussi d'autres propriétés intéressantes que vous découvrirez plus tard. Ces fonctions portent le même nom que la version plus classique, mais préfixé d'un "f". Ainsi, l'équivalent de `mean()` en fonction statistique "fast" est `fmean()`. Une particularité de ces fonctions est d'inverser la convention pour la valeur par défaut de l'argument `na.rm=` qui vaut ici `TRUE` si non précisé. Ainsi, dans notre exemple de la moyenne de `v4` qui contient une valeur manquante, vous pourrez simplement écrire avec `fmean()` :
+
+```{r, echo=TRUE}
+SciViews::R # À n'écrire qu'une seule fois en début de script
+# Assignation des valeurs à v4
+v4 <- c(15, 19, NA, 13)
+# Moyenne du vecteur, avec élimination des NAs
+fmean(v4)
+```
+
+Naturellement, rien ne vous empêche d'être plus explicite et d'indiquer `na.rm = TRUE` quand même, et cela ne changera rien au calcul effectué. Ici, avec un si petit vecteur, le calcul est tellement rapide que vous ne vous rendez pas compte de la différence de vitesse. Lorsque vous aurez des bien plus gros jeux de données, alors les fonctions "fast" deviendront réellement intéressantes. Pour lister ces fonctions statistiques "fast" vous faites :
+
+```{r, echo=TRUE}
+list_fstat_functions()
+```
 
 ## Imbrication et chaînage
 
@@ -430,6 +449,19 @@ log(x) %>.%
 grade_code("C'est exactement cela. Le chaînage des opérations rend le code bien plus lisible.")
 ```
 
+Vous utiliserez aussi l'opérateur de pipe de R de base `|>`. Il s'utilise de façon similaire, sauf que le mebre de gauche est injecté comme premier argument dans la fonction à droite, et il ne faut pas (et même, on ne peut pas) indiquer où le mettre à l'aide du point `.`. Voici, à titre d'illustration, trois fois la même instruction, écrite en imbriquant les fonction, puis avec `%>.%`, et enfin, avec `|>`.
+
+```{r, echo=TRUE}
+x <- 1:5
+# Fonctions imbriquées
+mean(log(x), na.rm = TRUE)
+# Pipe %>.%
+log(x) %>.% # On va généralement à la ligne ici
+  mean(., na.rm = TRUE) # Le point indique où placer "log(x)"
+# Pipe |>
+log(x) |> mean(na.rm = TRUE) # Pas de point ici !
+```
+
 ## Conclusion
 
 ![](images/bravo.gif)
@@ -449,7 +481,7 @@ Durant cette séance, vous avez appris à :
 
 **Pour aller plus loin...**
 
--   [Ce tutoriel](https://tutorials.shinyapps.io/04-Programming-Basics/#section-lists) (en anglais), explique avec plus de détails les fonctions, les arguments et les vecteurs dans R.
+-   [Ce tutoriel](https://tutorials.shinyapps.io/04-Programming-Basics/) (en anglais), explique avec plus de détails les fonctions, les arguments et les vecteurs dans R.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

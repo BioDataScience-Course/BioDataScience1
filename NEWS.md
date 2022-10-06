@@ -1,6 +1,12 @@
+# BioDataScience1 2022.2.0
+
+-   **A02La_base** added new items from SciViews Box 2022: base R pipe `|>` and fast functions from {collapse} like `fmean()`.
+
+-   **A02Lb_progression** and **A02Lc_scatterplot** revised.
+
 # BioDataScience1 2022.1.2
 
--   Correction in the id of A01Lb_git.
+-   Correction in the id of **A01Lb_git**.
 
 # BioDataScience1 2022.1.1
 

@@ -1,3 +1,7 @@
+# BioDataScience1 2022.2.1
+
+-   **A03La_univariate**, **A04La_barplot**, **A04Lb_barplot** and **A04Lc_comp_fig** are revised (no changes in the exercices themselve).
+
 # BioDataScience1 2022.2.0
 
 -   **A02La_base** added new items from SciViews Box 2022: base R pipe `|>` and fast functions from {collapse} like `fmean()`.

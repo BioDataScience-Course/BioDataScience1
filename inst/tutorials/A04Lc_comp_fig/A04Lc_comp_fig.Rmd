@@ -39,11 +39,9 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
--   Vérifier l'acquisition des notions relatives à la réalisation de figures composées
+-   Créer des figures composées de plusieurs graphique à l'aide de {chart}
 
 ## Transect entre Nice et la Corse
 
@@ -65,7 +63,7 @@ chart(marphy, Temperature ~ Station) +
   labs(y = "Température [°C]")
 ```
 
-Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représenant la température (`Temperature`) en fonction des stations (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]").
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représentant la température (`Temperature`) en fonction des stations échantillonnées (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]").
 
 ```{r line1_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +
@@ -91,6 +89,7 @@ chart(marphy, YNUM ~ XNUM) +
 ```
 
 ```{r line1_h3-solution}
+## Solution ##
 chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
@@ -98,12 +97,12 @@ chart(marphy, Temperature ~ Station) +
 ```
 
 ```{r line1_h3-check}
-grade_code("Vous maitrisez maintenant la réalisation d'un nouveau type de graphique.")
+grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité entre ces points.")
 ```
 
 ### Salinité
 
-Les chercheurs souhaitent ensuite représenter la salinté (`Salinity`) en fonction des stations.
+Les chercheurs souhaitent ensuite représenter la salinité (`Salinity`) en fonction des stations.
 
 ```{r}
 chart(marphy, Salinity ~ Station) +
@@ -126,9 +125,12 @@ chart(DF, YNUM ~ XNUM) +
   geom___() +
   geom___() +
   labs(y = ___)
+
+#### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r line2_h2-solution}
+## Solution ##
 chart(marphy, Salinity ~ Station) +
   geom_line() +
   geom_point() +
@@ -136,12 +138,12 @@ chart(marphy, Salinity ~ Station) +
 ```
 
 ```{r line2_h2-check}
-grade_code("Tout simplement parfait !")
+grade_code("Encore une fois, les points sont reliés par des segments de droites pour indiquer la continuité entre les stations.")
 ```
 
 ### Figure composée
 
-Ils decident pour finir de représenter les deux graphiques ensembles dans une figure composite.
+Ils décident pour finir de représenter les deux graphiques ensembles dans une figure composite.
 
 ```{r}
 a <- chart(marphy, Temperature ~ Station) +
@@ -208,6 +210,7 @@ combine_charts(list(___, ___))
 ```
 
 ```{r comb1_h3-solution}
+## Solution ##
 # Graphique de la température 
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
@@ -250,9 +253,7 @@ quiz(
 
 ## Conclusion
 
-Félicitation ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
-
-Vous maitrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
+Vous venez de terminer votre séance d'exercices relative aux figures composites dans R.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

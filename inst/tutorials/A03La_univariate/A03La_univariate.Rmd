@@ -34,15 +34,13 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
 -   Vérifier l'acquisition des notions relatives aux histogrammes
 
--   Vérifier l'acquisition des notions relatives aux graphiques de densité
+-   Contrôler votre capacité à créer graphiques de densité
 
--   Vérifier l'acquisition des notions relatives aux diagrammes en violon
+-   Vérifier que vous comprenez et êtes capable de réaliser des diagrammes en violon
 
 ## Biométrie humaine
 
@@ -80,6 +78,7 @@ chart(biometry, ~ NUM | FACTOR) +
 ```
 
 ```{r histo_h3-solution}
+## Solution ##
 chart(biometry, ~ age | gender) +
   geom_histogram(bins = 30)
 ```
@@ -115,12 +114,13 @@ chart(biometry, ~ NUM %fill=% FACTOR) +
 ```
 
 ```{r density_h3-solution}
+## Solution ##
 chart(biometry, ~ height %fill=% gender) +
   geom_density()
 ```
 
 ```{r density_h3-check}
-grade_code("Vous progressez vite! Vous savez maintenant réaliser un graphique de densité.")
+grade_code("Vous savez maintenant réaliser un graphique de densité.")
 ```
 
 ### Graphique en violon
@@ -152,31 +152,30 @@ chart(biometry, NUM ~ FACTOR) +
 ```
 
 ```{r violin_h3-solution}
+## Solution ##
 chart(biometry, height ~ gender) +
   geom_violin()
 ```
 
 ```{r violin_h3-check}
-grade_code("De mieux en mieux, vous maitrisez un 3^ème^ type de graphique pour représenté la distribution d'une variable numérique. ")
+grade_code("Vous maîtrisez un 3^ème^ type de graphique pour représenté la distribution d'une variable numérique. ")
 ```
 
 ## Analyse d'image du zooplancton
 
-Intéressez vous au jeu de données sur l'analyse d'image du zooplancton humaine ci-dessous.
+Intéressez vous au jeu de données sur l'analyse d'image du zooplancton ci-dessous.
 
 ```{r, echo = TRUE}
 # Importation du jeu de données
 (zooplankton <- read("zooplankton", package = "data.io", lang = "fr"))
-# Filtre du jeu de données pour obtenir uniquement les copépodes.
-(copepoda <- fsubset(zooplankton, class %in%
+# Filtre du jeu de données pour obtenir uniquement les copépodes
+(copepoda <- sfilter(zooplankton, class %in%
   c("Calanoid", "Cyclopoid", "Harpacticoid", "Poecilostomatoid")))
 ```
 
 ### Graphique en violon
 
 Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) des copépodes présents dans le jeu de données `copepoda`. Permutez les axes en utilisant la fonction `coord_flip()` et masquez la légende en utilisant l'argument `show.legend = FALSE`
-
-**Nom du jeu de données et des variables importantes**
 
 ```{r violin2_intro}
 chart(copepoda, size ~ class %fill=% class) +
@@ -205,6 +204,7 @@ chart(biometry, NUM ~ FACTOR %fill=% FACTOR) +
 ```
 
 ```{r violin2_h3-solution}
+## Solution ##
 chart(copepoda, size ~ class %fill=% class) +
   geom_violin(show.legend = FALSE) +
   coord_flip()
@@ -216,7 +216,7 @@ grade_code("Et une nouvelle fonction de plus pour améliorer la représentation 
 
 ### Graphique de densité 1
 
-Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) des copépodes présents dans le jeu de données `copepoda` en utilisant la fonction `geom_density_ridges()` du package `ggridges`. Masquez la légende en utilisant l'argument `show.legend`
+Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) des copépodes présents dans le jeu de données `copepoda` en utilisant la fonction `ggridges::geom_density_ridges()`. Masquez la légende en utilisant l'argument `show.legend =`
 
 ```{r ggridges_intro}
 chart(copepoda, class ~ size %fill=% class) +
@@ -241,17 +241,18 @@ chart(copepoda, FACTOR ~ NUM %fill=% FACTOR) +
 ```
 
 ```{r ggridges_h3-solution}
+## Solution ##
 chart(copepoda, class ~ size %fill=% class) +
   ggridges::geom_density_ridges(show.legend = FALSE) 
 ```
 
 ```{r ggridges_h3-check}
-grade_code("Félicitation ! Vous maitrisez un nouveau type de graphique.")
+grade_code("Ce type de graphique s'avère intéressant pour comparer plusieurs distributions.")
 ```
 
 ### Graphique de densité 2
 
-Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) du zooplancton présent dans le jeu de données `zooplankton` en utilisant la fonction `geom_density_ridges()` du package `ggridges`.
+Reproduisez le graphique suivant qui représente la répartition de taille (`size`) en fonction de la classe (`class`) du zooplancton présent dans le jeu de données `zooplankton` en utilisant la fonction `ggridges::geom_density_ridges()`.
 
 ```{r ggridges2_intro}
 chart(zooplankton, class ~ size) +
@@ -271,12 +272,13 @@ chart(DF, FACTOR ~ NUM) +
 ```
 
 ```{r ggridges2_h2-solution}
+## Solution ##
 chart(zooplankton, class ~ size) +
   ggridges::geom_density_ridges() 
 ```
 
 ```{r ggridges2_h2-check}
-grade_code("Votre maitrise des fonctions graphiques est impressionnante !")
+grade_code("Vous avez certainement compris le principe ici.")
 ```
 
 ## Biométrie d'oursins
@@ -315,17 +317,18 @@ chart(urchin, YNUM ~ XNUM %col=% FACTOR) +
 ```
 
 ```{r np_h3-solution}
+## Solution ##
 chart(urchin, height ~ weight %col=% origin) +
   geom_point()
 ```
 
 ```{r np_h3-check}
-grade_code("C'est parfait ! Vous vous souvenez comment on fait un graphique en nuage de points.")
+grade_code("Vous vous souvenez comment on fait un graphique en nuage de points.")
 ```
 
 ### Nuage de points 2
 
-À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'orgine (`origin`) et le sexe (`sex`) de ces derniers sont mis en évidence par la couleur et la forme, respectivement.
+À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'origine (`origin`) et le sexe (`sex`) de ces derniers sont mis en évidence par la couleur et la forme, respectivement.
 
 ```{r np2_intro}
 chart(urchin, height ~ weight %col=% origin %shape=% sex) +
@@ -352,18 +355,19 @@ chart(urchin, YNUM ~ XNUM %col=% FACTOR1 %shape=% FACTOR2) +
 ```
 
 ```{r np2_h3-solution}
+## Solution ##
 # Utiliser la couleur en tant que premier argument et la forme en second
 chart(urchin, height ~ weight %col=% origin %shape=% sex) +
   geom_point()
 ```
 
 ```{r np2_h3-check}
-grade_code("Tout simplement parfait ! Vous devenez un véritable expert en création de graphique")
+grade_code("Les \"aesthetics\" supplémentaires sont ajoutées à la formule à l'aide de `%<esth>=%`.")
 ```
 
 ## Conclusion
 
-Bravo! Vous venez de terminer votre séance d'exercie dans un tutoriel "learnr".
+Vous venez de terminer votre séance d'exercices qui récapitule la réalisation de plusieurs graphiques différents avec `chart()`.
 
 Durant cette séance, vous avez appris à réaliser des graphiques de type :
 
@@ -372,6 +376,8 @@ Durant cette séance, vous avez appris à réaliser des graphiques de type :
 -   graphiques de densité
 
 -   diagrammes en violon
+
+-   revu les graphiques en nuage de points
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

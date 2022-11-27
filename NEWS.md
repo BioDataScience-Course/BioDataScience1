@@ -1,3 +1,7 @@
+# BioDataScience1 2022.3.0
+
+-   **A05La_wrangling**, **A06La_recombination** and **A06Lb_multi-table** revised. **A05La_syntaxr** renamed **A11Lc_syntaxr**.
+
 # BioDataScience1 2022.2.1
 
 -   **A03La_univariate**, **A04La_barplot**, **A04Lb_barplot** and **A04Lc_comp_fig** are revised (no changes in the exercices themselve).

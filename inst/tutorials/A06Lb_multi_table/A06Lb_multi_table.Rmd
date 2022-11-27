@@ -25,31 +25,29 @@ BioDataScience1::learnr_banner()
 BioDataScience1::learnr_server(input, output, session)
 ```
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
 -   Fusionner des tableaux selon des conditions
 
 ## Combinaison de deux tableaux
 
-Il y a plusieurs fonction qui permettent de fusionner des tableaux. Nous vous proposons d'employer `*_join()` comme `full_join()`, `inner_join()`, `left_join()`, `right_join()`. Attention ! Ce sont des fonctions tidy, donc, les précautions sont nécessaires pour collecter le tableau résultant proprement.
+Il y a plusieurs fonction qui permettent de fusionner des tableaux. Nous vous proposons d'employer `*_join()` comme `full_join()`/`sfull_join()`, `inner_join()`/`sinner_join()`, `left_join()`/`sleft_join()`, `right_join()`/`sright_join()`. Attention ! Les fonctions tidy non préfixées d'un "s" nécessitent des précautions pour **collecter** les résultats à la fin (utilisation de `collect_dtx()` ou les assignations alternatives `%<-%` ou `%->%`).
 
 ```{r, eval=FALSE, echo=TRUE}
-DF <- full_join(DF1, DF2, by = VAR)
-DF <- inner_join(DF1, DF2, by = VAR)
-DF <- left_join(DF1, DF2, by = VAR)
-DF <- right_join(DF1, DF2, by = VAR)
+DF <- (s)full_join(DF1, DF2, by = VAR)
+DF <- (s)inner_join(DF1, DF2, by = VAR)
+DF <- (s)left_join(DF1, DF2, by = VAR)
+DF <- (s)right_join(DF1, DF2, by = VAR)
 ```
 
-Ces quatre fonctions utilisent la syntaxe suivante :
+Ces quatre paires de fonctions utilisent la syntaxe suivante :
 
 -   les deux premiers arguments de la fonction sont les tableaux de données 1 et 2 qui doivent être fusionnés.
 -   `by =` le nom de la ou des variables qui permettent de lier les deux tableaux.
 
-Soyez particulièrement attentif lors des exercices ci-dessous, les fonctions citées semble similaire mais les différences peuvent grandement changer les résultats de la fusion de tableaux.
+Soyez particulièrement attentif lors des exercices ci-dessous, les fonctions utilisées semble similaire mais les différences peuvent grandement changer les résultats de la fusion de tableaux.
 
-Des chercheurs réalisent une expérience avec plusieurs aquariums expérimentaux. Ils ont encodé les données dans deux tableaux distincts. Le premier tableau contient aux variation de la température et de la salinité dans ces aquariums. Le second tableau reprend à la masse de l'organisme placé dans l'aquarium.
+Des chercheurs réalisent une expérience avec plusieurs aquariums expérimentaux. Ils ont encodé les données dans deux tableaux distincts. Le premier tableau contient la variation de la température et de la salinité dans ces aquariums. Le second tableau reprend à la masse de l'organisme placé dans l'aquarium.
 
 ```{r join_init}
 set.seed(42)
@@ -66,13 +64,13 @@ weight <- dtx(
 )
 ```
 
-Le premier tableau `physico` mis à votre disposition est le suivant :
+Le premier tableau `physico` est le suivant :
 
 ```{r}
 knitr::kable(physico)
 ```
 
-Le second tableau `weight` est le suivant :
+Le second tableau `weight` se présente comme suit :
 
 ```{r}
 knitr::kable(weight)
@@ -80,11 +78,10 @@ knitr::kable(weight)
 
 ### fusion de tableaux 1
 
--   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` :
+-   Reproduisez le tableau ci-dessous grâce à une jointure complète à l'aide d'une fonction speedy et nommez-le `ph_weight` :
 
 ```{r}
-full_join(physico, weight, by = "aqua") %>.%
-  collect_dtx(.) %>.%
+sfull_join(physico, weight, by = "aqua") %>.%
   knitr::kable(.)
 ```
 
@@ -101,7 +98,7 @@ weight <- dtx(
 ```
 
 ```{r join1_h2, exercise = TRUE, exercise.setup = "join_prep"}
-___ %<-% ___(___, ___, by = "___")
+___ <- ___(___, ___, by = "___")
 knitr::kable(___)
 ```
 
@@ -113,21 +110,21 @@ knitr::kable(___)
 ```
 
 ```{r join1_h2-solution}
-ph_weight %<-% full_join(physico, weight, by = "aqua")
+## Solution ##
+ph_weight <- sfull_join(physico, weight, by = "aqua")
 knitr::kable(ph_weight)
 ```
 
 ```{r join1_h2-check}
-grade_code("Bravo ! Vous venez de fusionner vos tableaux.")
+grade_code("Vous venez de fusionner vos deux tableaux.")
 ```
 
 ### fusion de tableaux 2
 
--   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` :
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (sélectionnez la jointure qui convient ici et utilisez cette fois-ci une fonction tidy) :
 
 ```{r}
-left_join(physico, weight, by = "aqua") %>.%
-  collect_dtx(.) %>.%
+sleft_join(physico, weight, by = "aqua") %>.%
   knitr::kable(.)
 ```
 
@@ -144,48 +141,49 @@ knitr::kable(___)
 ```
 
 ```{r join2_h2-solution}
+## Solution ##
 ph_weight %<-% left_join(physico, weight, by = "aqua")
 knitr::kable(ph_weight)
 ```
 
 ```{r join2_h2-check}
-grade_code("Bravo ! Vous venez de fusionner vos tableaux cette fois-ci avec `left_join()`. Remarquez que le résultat diffère de `full_join()`")
+grade_code("Vous venez de fusionner vos tableaux cette fois-ci avec `left_join()`. Remarquez que le résultat diffère de `(s)full_join()`")
 ```
 
 ### fusion de tableaux 3
 
--   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` :
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (utilisez la jointure qui convient en version speedy) :
 
 ```{r}
-inner_join(physico, weight, by = "aqua") %>.%
-  collect_dtx(.) %>.%
+sinner_join(physico, weight, by = "aqua") %>.%
   knitr::kable(.)
 ```
 
-```{r join3_h2, exercise = TRUE, exercise.setup = "join_prep"}
-___ %<-% ___(___, ___, by = "___")
+```{r join3_h2, exercise=TRUE, exercise.setup="join_prep"}
+___ <- ___(___, ___, by = "___")
 knitr::kable(___)
 ```
 
 ```{r join3_h2-hint-1}
-___ %<-% ___(physico, weight, by = "aqua")
+___ <- ___(physico, weight, by = "aqua")
 knitr::kable(___)
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r join3_h2-solution}
-ph_weight %<-% inner_join(physico, weight, by = "aqua")
+## Solution ##
+ph_weight <- sinner_join(physico, weight, by = "aqua")
 knitr::kable(ph_weight)
 ```
 
 ```{r join3_h2-check}
-grade_code("Encore un résultat différence, cette fois-ci avcec `inner_join()`.")
+grade_code("Encore un résultat différent, cette fois-ci avec `(s)inner_join()`.")
 ```
 
 ## Conclusion
 
-Il est important de bien comprenbdre les différentes variantes des fonctions `xxx_join()`. Nous espérons que ce tutoriel "learnr" vous y a aidé.
+Il est important de bien comprendre les différentes variantes des fonctions `*_join()`. Nous espérons que ce tutoriel learnr vous y a aidé.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

@@ -63,7 +63,7 @@ chart(marphy, Temperature ~ Station) +
   labs(y = "Température [°C]")
 ```
 
-Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représentant la température (`Temperature`) en fonction des stations échantillonnées (`Station`). Vous aurez besoin des fonction `geom_point()` et `geom_line()` pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [C°]").
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représentant la température (`Temperature`) en fonction des stations échantillonnées (`Station`). Vous aurez besoin des fonctions `geom_line()` et `geom_point()` *dans cet ordre* pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [°C]") à l'aide de la fonction `labs()`.
 
 ```{r line1_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +

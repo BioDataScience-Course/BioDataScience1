@@ -1,9 +1,9 @@
 ---
 title: "Syntaxe de R"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 05** Différents styles de syntaxe dans R."
+description: "**SDD I Module 11** Différents styles de syntaxe dans R."
 tutorial:
-  id: "A05Lb_syntaxr"
+  id: "A11Lc_syntaxr"
   version: 2.1.0/11
 output:
   learnr::tutorial:
@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Il existe différentes syntaxes dans R dont les trois principales sont la syntaxe de base (également appelé la syntaxe "dollar"), la syntaxe formule ou la syntaxe tidyverse. Il est important de comprendre chacune des trois syntaxes même si on a une préférence pour l'une ou l'autre. Vous avez dû vous rendre compte que, dans ce cours de sciences des données I, nous utilisons principalement la syntaxe formule et la syntaxe tidyverse avec des petites touches en plus pour vous proposer le style **SciViews-R**. Les objectifs de ce tutoriel sont de :
+Il existe différentes syntaxes dans R dont les trois principales sont la syntaxe de base (également appelé la syntaxe "dollar"), la syntaxe formule ou la syntaxe tidyverse. Il est important de comprendre chacune des trois syntaxes même si on a une préférence pour l'une ou l'autre. Vous avez dû vous rendre compte que, dans ce cours de sciences des données I, nous utilisons principalement la syntaxe formule et la syntaxe tidyverse avec des petites touches en plus pour vous proposer le style du dialecte `SciViews::R`. Les objectifs de ce tutoriel sont de :
 
 -   Comprendre différents types de syntaxe dans R
 

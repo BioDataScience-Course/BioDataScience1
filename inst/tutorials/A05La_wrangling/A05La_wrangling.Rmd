@@ -1,7 +1,7 @@
 ---
 title: "Remaniement de données"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 5** Importer et remanier des données dans R."
+description: "**SDD I Module 5** Remanier des données dans R."
 tutorial:
   id: "A05La_wrangling"
   version: 2.1.0/3
@@ -32,45 +32,39 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
--   Vérifier l'acquisition des notions relatives aux remaniement des données avec les fonctions `select()`/`fselect()`, `filter()`/`fsubset()`, `mutate()`/`fmutate()`, `group_by()`/`fgroup_by()`, `summarise()`/`fsummarise()`
+-   Vérifier la compréhension des fonctions servant au remaniement des données avec les fonctions `select()`/`sselect()`, `filter()`/`sfilter()`, `mutate()`/`smutate()`, `group_by()`/`sgroup_by()`, `summarise()`/`ssummarise()`
 -   Vérifier l'acquisition des compétences relatives au chaînage des instructions
 
 ## Calculer de nouvelles variables
 
-Le remaniement des données est indispensable lors d'une analyse de données. Pour vérifier l'acquisition de ces compétences, le jeu de données sur la biométrie des crabes est employée.
+Le remaniement des données est indispensable lors d'une analyse. Pour vérifier l'acquisition de ces compétences, le jeu de données sur la mesure de deux espèces de crabes est employé.
 
 ```{r}
 SciViews::R
-# Importation des données sur la biométrie des crabes
+# Importation des données crabs
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
-A partir du jeu de données `crabs`, calculez à l'aide de la fonction `fmutate()` :
+À partir du jeu de données `crabs`, calculez à l'aide de la fonction speedy `smutate()` :
 
 -   le logarithme (`log()`) de la longueur de la carapace (`length`) des crabes et nommez cette nouvelle variables **length_log**
 -   la racine carrée (`sqrt()`) de la largueur de la carapace (`width`) et nommez cette nouvelle variable **width_sqrt**
 -   Divisez la variable lobe frontal (`front`) par 1000 et nommez cette nouvelle variable **front_m**
 
-Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les 6 premières lignes sont affichées)
-
-Vous devez obtenir le tableau ci-dessous :
+Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les 6 premières lignes sont affichées). Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
-# fmutate
-crabs <- fmutate(crabs, 
+crabs <- smutate(crabs, 
   length_log = log(length),
   width_sqrt = sqrt(width),
-  front_m    = front/1000)
+  front_m    = front / 1000)
 # Visualisation des premières lignes du tableau 
 head(crabs)
 ```
 
 ```{r mutate_h3, exercise=TRUE}
-# fmutate
 ___ <- ___(___,
   ___ = ___,
   ___ = ___,
@@ -80,8 +74,7 @@ ___(___)
 ```
 
 ```{r mutate_h3-hint-1}
-# fmutate
-DF <- fmutate(___,
+DF <- smutate(___,
   length_log = ___,
   width_sqrt = ___,
   front_m    = ___)
@@ -90,11 +83,10 @@ head(___)
 ```
 
 ```{r mutate_h3-hint-2}
-# fmutate
-crabs <- fmutate(crabs,
+crabs <- smutate(crabs,
   length_log = log(___),
   width_sqrt = sqrt(___),
-  front_m    = ___/1000)
+  front_m    = ___ / 1000)
 # Visualisation des premières lignes du tableau 
 head(___)
 
@@ -102,80 +94,82 @@ head(___)
 ```
 
 ```{r mutate_h3-solution}
-# fmutate
-crabs <- fmutate(crabs,
+## Solution ##
+crabs <- smutate(crabs,
   length_log = log(length),
   width_sqrt = sqrt(width),
-  front_m    = front/1000)
+  front_m    = front / 1000)
 # Visualisation des premières lignes du tableau 
 head(crabs)
 ```
 
 ```{r mutate_h3-check}
-grade_code("Vous savez maintenant comment calculer de nouvelles variables avec la fonction `fmutate()`.")
+grade_code("Vous savez maintenant comment calculer de nouvelles variables avec la fonction `smutate()`.")
 ```
 
 ## Filtrer et sélectionner des données
 
-Reprenons le jeu de données initial sur nos crabes (`crabs`)
+Reprenons le jeu de données initial sur nos crabes (`crabs`).
 
 ```{r}
 # Importation des données sur nos crabes
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
-Réalisez les opérations suivantes avec les fonctions `filter()` et `select()` :
+Réalisez les opérations suivantes avec les fonctions tidy `filter()` et `select()` :
 
 -   Retirer la variable index (`index`) du jeu de données
 -   Garder uniquement les individus mâles du jeu de données dont la longueur de la carapace est supérieure ou égale à 25 mm (variables `sex` et `length`)
--   Affichez ensuite les premières lignes du tableau (par défaut, les 6 premières lignes sont affichées). Attention ! Comme la fonction que vous utiliserez est non-tidy, il faut collecter le tableau de résultats avant !
+-   Enregistrez le résultat dans `crabs2`
+-   Affichez ensuite les premières lignes du tableau `crabs2`
 
-Employez le chaînage des instructions au sein d'un pipeline pour résoudre cette exercice.
-
-Vous devez obtenir le tableau ci-dessous :
+Employez le chaînage des instructions dans un pipeline pour résoudre cette exercice. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
 crabs %>.%
   select(., -index) %>.%
-  filter(., sex == "M" & length >= 25) %>.%
-  collect_dtx(.) %>.%
-  head(.)
+  filter(., sex == "M" & length >= 25) %->%
+  crabs2
+head(crabs2)
 ```
 
 ```{r pipe1_h3, exercise=TRUE}
 crabs ___
   ___(___, ___) ___
   ___(___, ___ & ___) ___
-  ___(___) ___
-  ___(___)
+  ___
+___(___)
 ```
 
 ```{r pipe1_h3-hint-1}
 crabs %>.%
   select(___, ___) ___
   filter(___, ___ & ___) ___
-  collect_dtx(___) ___
-  head(___)
+  ___
+head(___)
 ```
 
 ```{r pipe1_h3-hint-2}
 crabs %>.%
   select(., - ___) %>.%
   filter(___, sex == ___ & length >= ___) ___
-collect_dtx(___) ___
-  head(___)
+  ___
+head(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r pipe1_h3-solution}
+## Solution ##
 crabs %>.%
   select(., -index) %>.%
-  filter(., sex == "M" & length >= 25) %>.%
-  collect_dtx(.) %>.%
-  head(.)
+  filter(., sex == "M" & length >= 25) %->%
+  crabs2
+head(crabs2)
 ```
 
 ```{r pipe1_h3-check}
-grade_code("Vous maitrisez maintenant la sélection de vos variables avec `select()` et de vos observations avec `filter()`. Ce sont des fonctions tidy, donc, pensez bien à collecter les résultats à la fin avec `collect_dtx()`, ou en assignant avec `%<-%` ou `%->%` !")
+grade_code("La sélection de vos variables avec `select()` et de vos observations avec `filter()` (fonctions tidy) nécessite de collecter le résultat soit avec collect_dtx(), soit en utilisant l'assignation alternative %<-%  ou %->% . En général dans un pipeline, finnissez toujours en assignant avec %->%, quelles que soient les fonctions utilisées.")
 ```
 
 ## Résumer des données
@@ -190,22 +184,22 @@ Reprenons le jeu de données initial `crabs`.
 Réalisez les opérations suivantes :
 
 -   Sélectionnez les individus dont la longueur (`length`) est strictement supérieur à 25 mm
--   Résumez le jeu de données par le sexe (`sex`) et par la variété (`species`) de *Leptograpsus variegatus*
+-   Résumez le jeu de données par le sexe (`sex`) et par la variété (`species`) de ce crabe dans cet ordre
     -   Calculez la moyenne de la largeur des carapaces (`width`) par groupe
-    -   Dénombrez les individus par groupe
+    -   Dénombrez les individus par groupe (y compris les valeurs manquantes)
+    -   Dénombrez les observations par groupe (à l'exclusion des valeurs manquantes)
 -   Assignez le résultat à `crabs2`
--   Formatez votre tableau `crabs2` avec la fonction `kintr::kable()`
+-   Formatez votre tableau `crabs2` avec la fonction `knitr::kable()`
 
-Employez le chaînage des opérations au sein d'un pipeline pour résoudre cette exercice.
-
-Vous devez obtenir le tableau ci-dessous :
+Employez des fonction speedy et fstat uniquement et le chaînage des opérations dans un pipeline pour résoudre cette exercice. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
 crabs %>.%
-  filter(., length > 25) %>.%
-  group_by(., sex, species) |> summarise(
-    mean   = mean(width),
-    number = n()) %->%
+  sfilter(., length > 25) %>.%
+  sgroup_by(., sex, species) |> ssummarise(
+    mean         = fmean(width),
+    number       = fn(width),
+    observations = fnobs(width)) %->%
   crabs2
 knitr::kable(crabs2)
 ```
@@ -214,44 +208,51 @@ knitr::kable(crabs2)
 crabs ___
   ___(___, ___) ___
   ___(___, ___, ___) ___ ___
-    mean   = ___(___),
-    number = ___()) ___
+    mean         = ___(___),
+    number       = ___(___),
+    observations = ___(___)) ___
   ___
   ___(___)
 ```
 
 ```{r pipe2_h3-hint-1}
 crabs %>.%
-  filter(___, ___) ___
-  group_by(___, ___, ___) ___ summarise(
-    mean   = ___(___),
-    number = ___()) ___
+  sfilter(___, ___) ___
+  sgroup_by(___, ___, ___) ___ ssummarise(
+    mean         = ___(___),
+    number       = ___(___),
+    observations = ___(___)) ___
   ___
 kintr::kable(___)
 ```
 
 ```{r pipe2_h3-hint-2}
 crabs %>.%
-  filter(., length > ___) %>.%
-  group_by(., ___, ___) |> summarise(
-    mean   = mean(___),
-    number = n()) ___
+  sfilter(., length > ___) %>.%
+  sgroup_by(., ___, ___) |> ssummarise(
+    mean         = fmean(___),
+    number       = fn(___),
+    observations = fnobs(___)) ___
   ___
 knitr::kable(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
 ```
 
 ```{r pipe2_h3-solution}
+## Solution ##
 crabs %>.%
-  filter(., length > 25) %>.%
-  group_by(., sex, species) |> summarise(
-    mean   = mean(width),
-    number = n()) %->%
+  sfilter(., length > 25) %>.%
+  sgroup_by(., sex, species) |> ssummarise(
+    mean         = fmean(width),
+    number       = fn(width),
+    observations = fnobs(width)) %->%
   crabs2
 knitr::kable(crabs2)
 ```
 
 ```{r pipe2_h3-check}
-grade_code("Vous progressez à grand pas ! Vous savez maintenant résumer vos données avec `group_by()` et `summarise()` et formater vos sorties avec `knitr::kable()`. Très important : utilisez toujours l'assignation alternative `%->%` en fin de pipeline qui utilise des fonctions tidy.")
+grade_code("Vous avez maintenant compris comment résumer vos données avec `(s)group_by()` et `(s)summarise()` et formater vos sorties avec `knitr::kable()`. Utilisez toujours l'assignation alternative `%->%` en fin de pipeline, c'est plus prudent.")
 ```
 
 ## Conclusion
@@ -260,11 +261,11 @@ Bravo ! Vous venez de terminer votre séance d'exercices relative à la manipul
 
 Vous maîtriser maintenant :
 
--   les notions relatives aux remaniement des données avec les fonctions `select()`, `filter()`, `mutate()`, `group_by()`, `summarise()`
--   le chaînages des instructions au sein d'un pipeline
+-   les notions relatives aux remaniement des données avec les fonctions `(s)select()`, `(s)filter()`, `(s)mutate()`, `(s)group_by()`, `(s)summarise()`
+-   le chaînages des instructions dans un pipeline
 -   l'utilisation judicieuse de `%>.%` pour indiquer que l'on passe à l'opération suivante
--   l'utilisation de `|>` pour organiser le code plus complexe au sein d'une même opération (typiquement un `group_by()` suivi d'un `summarise()`)
--   l'assignation alternative `%->%` en fin de pipeline "tidy" pour collecter les résultats dans un tableau (data frame)
+-   l'utilisation de `|>` pour organiser le code plus complexe sur un même niveau (typiquement un `(s)group_by()` suivi d'un `(s)summarise()`)
+-   l'assignation alternative `%->%` en fin de pipeline tidy pour collecter les résultats dans un tableau
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

@@ -1,3 +1,7 @@
+# BioDataScience1 2022.3.2
+
+-   Minor changes in **A06La_recombination**.
+
 # BioDataScience1 2022.3.1
 
 -   Reworked version of **A05La_wrangling** with 5 exercises instead of 3.

@@ -77,7 +77,7 @@ knitr::kable(long1)
 
 ### Première variante de l'argument cols
 
-Complétez le code afin d'obtenir le tableau `long`.
+Complétez le code afin d'obtenir le tableau `long` avec une fonction tidy.
 
 ```{r wide-prep}
 time <- 1989:1995
@@ -114,6 +114,7 @@ head(long)
 ```
 
 ```{r wide1_h3-solution}
+## Solution ##
 long %<-% pivot_longer(wide, cols = "1989":"1995", names_to = "year",
   values_to = "circumf")
 head(long)
@@ -236,9 +237,9 @@ demography <- dtx(
 )
 ```
 
-Complétez l'instruction ci-dessous.
+Complétez l'instruction ci-dessous en utilisant une fonction tidy.
 
-```{r long_h2, exercise = TRUE, exercise.setup = "long-prep"}
+```{r long_h2, exercise=TRUE, exercise.setup="long-prep"}
 ___ %<-% ___(___, names_from = ___, values_from = ___)
 head(___)
 ```
@@ -295,7 +296,7 @@ Sur base du tableau ci-dessous :
 knitr::kable(bacteria)
 ```
 
-Modifiez le tableau `bacteria` afin d'obtenir le tableau suivant que vous nommerez `bact` :
+Modifiez le tableau `bacteria` afin d'obtenir le tableau suivant que vous nommerez `bact` en utilisant une fonction speedy :
 
 ```{r}
 knitr::kable(bact)

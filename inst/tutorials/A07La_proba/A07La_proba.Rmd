@@ -29,17 +29,15 @@ BioDataScience1::learnr_server(input, output, session)
 
 <!-- TODO: il manque des exercices qui comparent population de taille infinie ou non et qui mettent en lumière les différences au niveau du calcul des probabilités (conditionnelles) -->
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
-Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercez et bien en comprendre les subtilités. Ce tutoriel vous permet de :
+Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours très intuitif, aussi, vous devez vous exercer et bien en comprendre les subtilités. Ce tutoriel vous permet de :
 
--   Appréhender le calculs de probabilités
+-   Appréhender le calcul de probabilités
 
 -   Calculer des probabilités sur base d'un tableau de contingence
 
-Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
+Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
 ## Lire des probabilités
 
@@ -51,25 +49,25 @@ Le calcul des probabilité est assorti d'un formalisme mathématique qu'il vous 
 quiz(
   question("Comment lire la proposition suivante : Pr{A.B} ?",
     answer("Probabilité d'observer A ou B"),
-    answer("Probabilité d'observer A et B", correct = TRUE, message = "Probabilité d'évènements successifs indépendants qui se produisent simultanément"),
+    answer("Probabilité d'observer A et B", correct = TRUE, message = "Probabilité d'évènements successifs indépendants "),
     answer("Probabilité d'observer A si B se produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Pas exactement. Recommencez afin de trouver la bonne réponse.",
-    correct = "C'est correct !"),
+    correct = "Oui, les deux évènements sont indépendant ici, ce qui signifie que l'occurence de l'un n'a aucune incidence sur la probabilité d'occurence de l'autre."),
   question("Comment lire la proposition suivante : Pr{A|B} ?",
     answer("Probabilité d'observer A ou B"),
     answer("Probabilité d'observer A et B"),
     answer("Probabilité d'observer A si B se produit", correct = TRUE, message = "Ici, nous avons une probabilité conditionnelle que A se produise, sachant que B s'est produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Désolé, mais ce n'est pas correct. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
+    correct = "Les probabilités conditionnelles ont une dépendance entre elles."),
   question("Comment lire la proposition suivante : Pr{A + B} ?",
     answer("Probabilité d'avoir A ou B", correct = TRUE, message = "En calcul de probabilité, l'addition signifie que l'on considère la probabilité que l'un parmi plusieurs évènements disjoints se produise"),
     answer("Probabilité d'avoir A et B"),
     answer("Probabilité d'avoir A si B se produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Concentrez-vous sur ce que l'opérateur '+' signifie en calcul des probabilités. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
+    correct = "La probabilité d'observer A ou d'observer B."),
   question("Comment écrira-t-on la probabilité d'obtenir quatre mâles Pr{M} dans une portée de quatre châtons ?",
     answer("Pr{M . M . M . M}", correct = TRUE),
     answer("Pr{M et M et M et M}", correct = TRUE),
@@ -77,7 +75,7 @@ quiz(
     answer("Pr{M ou M ou M ou M}"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Est-ce des évènements successifs indépendants ou des évènements dépendants, réfléchissez. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct ! Le '.' est synonyme ici de 'et' et concerne des évènements indépendants successifs.")
+    correct = "Le '.' est synonyme ici de 'et' et concerne des évènements indépendants successifs.")
 )
 ```
 
@@ -89,7 +87,7 @@ quiz(
 
 ![](images/stress.jpg)
 
-Le résultat d'une enquête relative au stress dans une population active en fonction de leurs revenus professionnels est le suivant :
+Le résultat d'une enquête relative au stress dans une population active en fonction du revenu professionnel est le suivant :
 
 ```{r}
 stress <- dtf(
@@ -101,7 +99,7 @@ rownames(stress) <- c("Stressé", "Non stressé", "Total")
 knitr::kable(stress)
 ```
 
-Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous aider d'une calculette) :
+Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous aider d'une calculatrice de poche) :
 
 ```{r qu_calcul}
 quiz(caption = "Stress et revenus",
@@ -144,7 +142,7 @@ quiz(caption = "Stress et revenus",
 
 ![](images/pills.jpg)
 
-Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d'effets secondaires (patients « sensibles »). Considérant un nouveau malade arrivant à l'hôpital, quelle est la probabilité qu'il ne puisse pas être soigné par ce traitement ?
+Un nouveau médicament contre une maladie permet de soigner 80% des individus atteints. Malheureusement, une personne sur deux ne pourra pas prendre ce médicament à cause d'effets secondaires (patients intolérants ou allergiques au principe actif). Considérant un nouveau malade arrivant à l'hôpital, quelle est la probabilité qu'il ne puisse pas être soigné par ce traitement ?
 
 ```{r medic1_h3, exercise=TRUE}
 
@@ -165,6 +163,7 @@ Un nouveau médicament contre une maladie permet de soigner 80% des individus at
 ```
 
 ```{r medic1_h3-solution}
+## Solution ##
 # Patients ne pouvant pas recevoir le médicament + ceux ne guérissant pas
 # avec ce médicament
 0.5 + (0.2 * 0.5)
@@ -172,8 +171,8 @@ Un nouveau médicament contre une maladie permet de soigner 80% des individus at
 
 ```{r medic1_h3-check}
 grade_result(
-  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Il semble que le calcul des probabilités n'a plus de secrets pour vous. Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas (nous additionons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si on reçoit ce médicament). Vous pouvez aussi tracer un arbre de probabilité pour résoudre ce problème, si vous préférez"),
-  fail_if(~ TRUE, "Votre calcul ne me semble pas correct. Combien ne peuvent recevoir le médicament, combien n'y réagissent pas positivement ? C'est la clé.")
+  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas à cause d'allergie ou d'intolérance (nous additionnons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si elle reçoit ce médicament). Vous pouvez aussi tracer un arbre de probabilité pour résoudre ce problème, si vous préférez"),
+  fail_if(~ TRUE, "Votre calcul n'est pas correct. Combien ne peuvent recevoir le médicament ? Combien n'y réagissent pas positivement ? C'est la clé.")
 )
 ```
 
@@ -192,12 +191,13 @@ Un médecin a trois patients atteints de la maladie en question dans sa salle d'
 ```
 
 ```{r medic2_h2-solution}
+## Solution ##
 0.4 * 0.4 * 0.4
 ```
 
 ```{r medic2_h2-check}
 grade_result(
-  pass_if(~ identical(.result, 0.4 * 0.4 * 0.4), "Vous avez parfaitement compris le principe. Pr{guérison} = 1 - Pr{non guérison} pour un patient. Comme ce sont des évènements indépendants pour les trois patients, nous devons ensuite multiplier les probabilités de chaque patient entre elles."),
+  pass_if(~ identical(.result, 0.4 * 0.4 * 0.4), "Pr{guérison} = 1 - Pr{non guérison} pour un patient. Comme ce sont des évènements indépendants pour les trois patients, nous devons ensuite multiplier les probabilités de chaque patient entre elles."),
   fail_if(~ TRUE, "Votre calcul n'est pas le bon. Commencez par déterminer la probabilité pour un patient. Ensuite appliquez-là pour les trois ensemble.")
 )
 ```

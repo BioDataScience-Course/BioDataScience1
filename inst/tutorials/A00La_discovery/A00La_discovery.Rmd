@@ -15,6 +15,15 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
+library(ggplot2)
+library(tidyverse)
+library(collapse)
+library(fs)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
 ```
 
 ```{r, echo=FALSE}

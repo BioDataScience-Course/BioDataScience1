@@ -1,3 +1,9 @@
+# BioDataScience1 2022.4.0
+
+-   Code for plotting distribution objects.
+
+-   Revision of learnr tutorials for module 7 using this new code.
+
 # BioDataScience1 2022.3.2
 
 -   Minor changes in **A06La_recombination**.

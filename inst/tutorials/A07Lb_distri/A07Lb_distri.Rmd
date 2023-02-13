@@ -167,7 +167,7 @@ chart(___) +
 ```{r binom4_h2-hint-1}
 bi <- dist_binomial(size = ___, prob = ___)
 chart(___) +
-  ylab("Densité de probabilté")
+  ylab("Densité de probabilité")
 
  #### ATTENTION: Hint suivant = solution !####
 ```
@@ -176,7 +176,7 @@ chart(___) +
 ## Solution ##
 bi <- dist_binomial(size = 10, prob = 0.75)
 chart(bi) +
-  ylab("Densité de probabilté")
+  ylab("Densité de probabilité")
 ```
 
 ```{r binom4_h2-check}

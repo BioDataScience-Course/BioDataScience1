@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 7** Distributions binomiale et de Poisson."
 tutorial:
   id: "A07Lb_distri"
-  version: 2.1.0/9
+  version: 2.1.1/9
 output:
   learnr::tutorial:
     progressive: true

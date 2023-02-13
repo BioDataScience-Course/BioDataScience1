@@ -1,3 +1,7 @@
+# BioDataScience 2022.4.1
+
+-   Typo correction in **A07Lb_distri**.
+
 # BioDataScience1 2022.4.0
 
 -   Code for plotting distribution objects.

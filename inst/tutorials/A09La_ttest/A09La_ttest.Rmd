@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Distribution t de Student et test du même nom."
 tutorial:
   id: "A09La_ttest"
-  version: 2.2.0/9
+  version: 2.2.1/9
 output:
   learnr::tutorial:
     progressive: true
@@ -86,7 +86,7 @@ code=._("w1CFYFoBT8odLtPsPD8RsFH0m3LC+PCT46uyW0Gbn96HPng1pvpUrHJXuEmBoIJP")
  -->
 ```
 ```{r mean1_h2-check}
-grade_code("La fonction mean() effectue ce calcul. Si des valeurs manquantes (exercice suivant) se trouvent dans le vacteur, il faut prendre une précaution supplémentaire pour obtenir une estimation de la moyenne.")
+grade_code("La fonction mean() effectue ce calcul. Si des valeurs manquantes (exercice suivant) se trouvent dans le vecteur, il faut prendre une précaution supplémentaire pour obtenir une estimation de la moyenne. Il existe également une fonction similaire qui est plus rapide fmean() du package {collapse}.")
 ```
 
 ### Moyenne du vecteur `vec2`
@@ -120,7 +120,7 @@ mean(vec2, na.rm = TRUE)
 ```
 
 ```{r mean2_h3-check}
-grade_code("Retenez que, dans R, toute fonction qui a un argument `na.rm=` (toujours mis à FALSE par défaut), si vous indiquez TRUE vous souhaitez d'abord éliminer les valeurs manquantes afin d'estimer le résultat sur les données observées restantes.")
+grade_code("Retenez que, dans R, toute fonction qui a un argument `na.rm=`, si vous indiquez TRUE vous souhaitez d'abord éliminer les valeurs manquantes afin d'estimer le résultat sur les données observées restantes. Prenez l'habitude de consulter la page d'aide associé à la fonction. En général, l'argument `na.rm=` est par défaut à FALSE. Il existe cependant quelques exceptions comme dans la fonction fmean() de {collapse}.")
 ```
 
 ### Écart-type
@@ -157,7 +157,7 @@ sd(vec3)
 ```
 
 ```{r sd1_h2-check}
-grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom `sd()` de la fonction en abbrégé. Pour la variance, il s'agit de la fonction `var()`. Ces deux fonctions utilisent aussi l'argument `na.rm=` si nécessaire.")
+grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom `sd()` de la fonction en abbrégé. Pour la variance, il s'agit de la fonction `var()`. Ces deux fonctions utilisent aussi l'argument `na.rm=` si nécessaire. Comme vous vous en doutez surement, il existe la fonction fsd() et fvar() dans le package {collapse}.")
 ```
 
 ### Coefficient de variation
@@ -226,7 +226,7 @@ head(biometry)
 # Importation des données
 biometry <- read("biometry", package = "BioDataScience") 
 # Sélection des données
-biometry <- fsubset(biometry, age > 18 ___ age ___ 30) 
+biometry <- sfilter(biometry, age > 18 ___ age ___ 30) 
 # Premières lignes du tableau (pour vérification)
 head(biometry)
 
@@ -237,7 +237,7 @@ head(biometry)
 # Importation des données
 biometry <- read("biometry", package = "BioDataScience") 
 # Sélection des données
-biometry <- fsubset(biometry, age > 18 & age <= 30) 
+biometry <- sfilter(biometry, age > 18 & age <= 30) 
 # Premières lignes du tableau (pour vérification)
 head(biometry)
 ```
@@ -250,40 +250,38 @@ Vous souhaitez déterminer s'il y a une différence significative de l'IMC entre
 
 ```{r, echo=TRUE}
 biometry %>.%
-  fmutate(., bmi = (weight / (height/100)^2)) %>.%
+  smutate(., bmi = (weight / (height/100)^2)) %>.%
   labelise(., label = list(bmi = "IMC"), units = list(bmi = "")) -> biometry
 ```
 
-Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément.
+Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions fast débutant par f\* comme `fvar()`
 
 ```{r bio-prepare}
 biometry <- read("biometry", package = "BioDataScience") %>.%
-  fsubset(., age > 18 & age <= 30) %>.%
-  fmutate(., bmi = (weight/(height/100)^2)) %>.%
+  sfilter(., age > 18 & age <= 30) %>.%
+  smutate(., bmi = (weight/(height/100)^2)) %>.%
   labelise(., label = list(bmi = "IMC"), units = list(bmi = ""))
 ```
 
 ```{r bio_tab_h2, exercise=TRUE, exercise.setup="bio-prepare"}
 biometry %>.%
   ___(., ___) |> summarise(
-    mean = ___(___), sd = ___(___), n = n()) %>.%
+    mean = ___(___), sd = ___(___), n = fn(bmi)) %>.%
   ___(.)
 ```
 
 ```{r bio_tab_h2-hint-1}
 biometry %>.%
-  group_by(., gender) |> summarise(
-    mean = ___(___), sd = ___(___), n = n()) %>.%
-  collect_dtx(.)
+  sgroup_by(., gender) |> ssummarise(
+    mean = ___(___), sd = ___(___), n = fn(bmi)) 
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r bio_tab_h2-solution}
 biometry %>.%
-  group_by(., gender) |> summarise(
-    mean = mean(bmi), sd = sd(bmi), n = n()) %>.%
-  collect_dtx(.)
+  sgroup_by(., gender) |> ssummarise(
+    mean = fmean(bmi), sd = fsd(bmi), n = fn(bmi))
 ```
 
 ```{r bio_tab_h2-check}

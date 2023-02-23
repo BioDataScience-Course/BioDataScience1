@@ -27,8 +27,6 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
 La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dépendances existent ou non entre les niveaux de deux variables qualitatives. C'est le test $\chi^2$ d'indépendance. Vos objectifs sont :

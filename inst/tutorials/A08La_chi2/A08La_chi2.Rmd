@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 8** Distribution du Chi2, et test Chi2 univarié."
 tutorial:
   id: "A08La_chi2"
-  version: 2.0.1/9
+  version: 2.1.1/9
 output:
   learnr::tutorial:
     progressive: true
@@ -14,7 +14,8 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
-SciViews::R()
+SciViews::R("infer")
+library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -27,8 +28,6 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
 La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici :
@@ -37,42 +36,28 @@ La loi de distribution du $\chi^2$ représente de manière théorique la probabi
 
 -   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
-Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/proba.html) relatives aux calculs de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
+`r` Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/proba.html) relatives aux calculs de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
 ## Distribution du $\chi^2$
 
-Représentez graphiquement la densité de probabilité de la distribution du $\chi^2$ à trois degrés de liberté.
+Représentez graphiquement la densité de probabilité de la distribution du $\chi^2$ à trois degrés de liberté. Utilisez la fonction approrié dist\_\*()
 
-💬 **Ce code correspond au snippet `.icdens`** [`.ic` = (d)`i`stribution: `c`hi2].
-
-```{r chi_dist_h1, exercise=TRUE, exercise.lines=10}
-# Chi-square distribution (density probability) with parameter:
-.df <- ___ # Degree of freedom .df
-.col <- 1; .add <- FALSE # Plot parameters
-.x <- seq(0, qchisq(0.999, df = .df), l = 1000)  # Quantiles
-.d <- function (x) dchisq(x, df = .df)           # Distribution function
-.q <- function (p) qchisq(p, df = .df)           # Quantile for lower-tail prob
-.label <- bquote(paste(chi^2,(.(.df))))          # Curve parameters
-curve(.d(x), xlim = range(.x), xaxs = "i", n = 1000, col = .col,
-  add = .add, xlab = "Quantiles", ylab = "Probability density") # Curve
-abline(h = 0, col = "gray") # Baseline
+```{r chi_dist_h1, exercise=TRUE, exercise.lines= 4}
+# Distribution de chi2 avec 3 degrés de liberté
+chi <- ___(df = ___)
+# Graphique de la distribution.
+___(chi)
 ```
 
 ```{r chi_dist_h1-solution}
-# Chi-square distribution (density probability) with parameter:
-.df <- 3 # Degree of freedom .df
-.col <- 1; .add <- FALSE # Plot parameters
-.x <- seq(0, qchisq(0.999, df = .df), l = 1000)  # Quantiles
-.d <- function (x) dchisq(x, df = .df)           # Distribution function
-.q <- function (p) qchisq(p, df = .df)           # Quantile for lower-tail prob
-.label <- bquote(paste(chi^2,(.(.df))))          # Curve parameters
-curve(.d(x), xlim = range(.x), xaxs = "i", n = 1000, col = .col,
-  add = .add, xlab = "Quantiles", ylab = "Probability density") # Curve
-abline(h = 0, col = "gray") # Baseline
+# Distribution de chi2 avec 3 degrés de liberté
+chi <- dist_chisq(df = 3)
+# Graphique de la distribution.
+chart(chi)
 ```
 
 ```{r chi_dist_h1-check}
-grade_code("Le code est prérempli par le snippet et il vous suffit d'indiquer les degrés de libertés de la distribution souhaitée. Il s'agit d'une loi de distribution très asymétrique et qui commence à {0, 0}. Notez que plus le quantile est grand, plus la densité de probabilité est faible.")
+grade_code("Avec les fonctions dist_*, il est simple de créer un objet associé à la distribution souhaitée. Pour la distribution du Chi^2, il vous suffit d'indiquer les degrés de libertés de la distribution souhaitée. Il s'agit d'une loi de distribution très asymétrique et qui commence à {0, 0}. Notez que plus le quantile est grand, plus la densité de probabilité est faible.")
 ```
 
 Sur base de cette distribution à trois degrés de liberté, calculez la probabilité d'une valeur de $\chi^2$ supérieure au quantile 15.
@@ -133,7 +118,7 @@ knitr::kable(chimp)
 Ce sont nos **fréquences observées** $a_i$. Si les chimpanzés n'ont pas de préférence alimentaire, les **probabilités** de choix pour chaque fruit devraient être identiques :
 
 ```{r, echo=TRUE}
-chimp_proba <-dtx(Pomme = 1/3, Banane = 1/3, Orange = 1/3)
+chimp_proba <- dtx(Pomme = 1/3, Banane = 1/3, Orange = 1/3)
 knitr::kable(chimp_proba)
 ```
 

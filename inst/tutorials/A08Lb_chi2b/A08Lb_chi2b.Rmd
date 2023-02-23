@@ -14,7 +14,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
-SciViews::R()
+SciViews::R(infer)
 ```
 
 ```{r, echo=FALSE}
@@ -37,7 +37,7 @@ La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dé
 
 -   Interpréter correctement un tel test
 
-Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2020/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
+Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
 
 ## Fumeurs
 
@@ -47,9 +47,9 @@ Le tabagisme est étudié chez les adolescents. Voici les résultats d'un sondag
 
 ```{r, echo=TRUE}
 tabac <- dtx(
-  genre        = c("fille",  "garçon", "fille",      "garçon"),
+  genre        = c("fille",  "garçon", "fille", "garçon"),
   comportement = c("fumeur", "fumeur", "non fumeur", "non fumeur"),
-  freq          = c(11,       22,        28,            19))
+  freq          = c(11, 22, 28, 19))
 tabac_table <- xtabs(data = tabac, freq ~ genre + comportement)
 knitr::kable(tabac_table)
 ```

@@ -14,7 +14,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
-SciViews::R(infer)
+SciViews::R("infer")
 ```
 
 ```{r, echo=FALSE}
@@ -29,13 +29,13 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dépendances existent ou non entre les niveaux de deux variables qualitatives. C'est le test $\chi^2$ d'indépendance. Vos objectifs sont :
+La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dépendances existent ou non entre les niveaux de deux variables qualitatives. C'est le test $\chi^2$ d'indépendance. Vos objectifs sont de :
 
 -   Comprendre le test d'hypothèse de $\chi^2$ d'indépendance pour deux variables qualitatives croisées
 
 -   Interpréter correctement un tel test
 
-Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
+Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
 
 ## Fumeurs
 
@@ -113,7 +113,7 @@ question("Valeur du $\\chi^2$",
 
 Continuez le calcul de votre test d'hypothèse d'indépendance à la main en déterminant l'aire à droite délimitée par la valeur du quantile $\chi^2_{obs}$ calculé ci-dessus dans la distribution du $\chi^2$ correspondant à cette étude.
 
-💬 **Ce code correspond au snippet `.icproba`** [`.ic` = (d)`i`stribution: `c`hi2].
+<!-- 💬 **Ce code correspond au snippet `.icproba`** [`.ic` = (d)`i`stribution: `c`hi2]. -->
 
 ```{r valeur_chi2_h2, exercise=TRUE}
 pchisq(___, df = ___, lower.tail = ___)
@@ -126,6 +126,7 @@ pchisq(___, df = 1, lower.tail = ___)
 ```
 
 ```{r valeur_chi2_h2-solution}
+## Solution ##
 pchisq(5.34, df = 1, lower.tail = FALSE)
 ```
 
@@ -152,9 +153,9 @@ quiz(
 
 ### Utilisation de `chisq.test()`
 
-Maintenant, calculez le même test d'hypothèse, mais avec la fonction dédiée `chisq.test()` dans R sur notre tableau de contingence à double entrée, considérant qu'il est déjà encodé dans R sous le nom `tabac_table`.
+Maintenant, calculez le même test d'hypothèse, mais avec la fonction dédiée `chisq.test()` dans R sur le tableau de contingence à double entrée, considérant qu'il est déjà encodé dans R sous le nom `tabac_table`.
 
-💬 **Ce code correspond au snippet `.hcchi2bi`** [`.hc` = `h`ypothesis tests: `c`ontingency].
+<!-- 💬 **Ce code correspond au snippet `.hcchi2bi`** [`.hc` = `h`ypothesis tests: `c`ontingency]. -->
 
 ```{r tabac-prepare}
 tabac <- dtx(
@@ -177,6 +178,7 @@ cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
 
 ```{r chi2_test_h2-solution}
+## Solution ##
 (chi2. <- chisq.test(tabac_table, correct = FALSE))
 cat("Expected frequencies:\n"); chi2.[["expected"]]
 ```
@@ -199,7 +201,8 @@ cat("Expected frequencies:\n"); chi2.[["expected"]]
 Une étude de la distribution des différents groupes sanguins est réalisée dans trois états américains : Iowa en vert, Missouri en bleu et Floride en rouge sur la carte ci-dessous.
 
 ```{r, fig.align='center', echo=FALSE, message=FALSE, out.width= '80%'}
-SciViews::R
+SciViews::R("infer")
+library(BioDataScience1)
 usa <- map_data("state")
 usa$region <- as.factor(usa$region)
 #usa$region
@@ -219,7 +222,9 @@ chart(usa, aes(long, lat, group = group)) +
   coord_quickmap()
 ```
 
-Voici les résultats de cette étude sur un échantillon aléatoire de la population (notez l'utilisation de `xtabs()` ici en avant dernière ligne pour créer le tableau de contingence à double entrée à partir des fréquences et qui correspond au snippet `.ectable2f`) :
+Voici les résultats de cette étude sur un échantillon aléatoire de la population (notez l'utilisation de `xtabs()` ici en avant dernière ligne pour créer le tableau de contingence à double entrée à partir des fréquences.
+
+<!-- et qui correspond au snippet `.ectable2f`) : -->
 
 ```{r, echo=TRUE}
 blood <- dtx(
@@ -251,7 +256,7 @@ question("Nombre de degré de liberté de la distribution du $\\chi^2$.",
 
 Calculez le test $\chi^2$ d'indépendance dans R pour ce jeu de données directement avec la fonction `chisq.test()` considérant que le tableau de contingence est déjà créé dans R sous le nom `blood_table`.
 
-💬 **Ce code correspond au snippet `.hcchi2bi`.**
+<!-- 💬 **Ce code correspond au snippet `.hcchi2bi`.** -->
 
 ```{r blood-prepare}
 blood <- dtx(
@@ -276,6 +281,7 @@ chi2.[["expected"]]
 ```
 
 ```{r chi_blood_h2-solution}
+## Solution ##
 (chi2. <- chisq.test(blood_table))
 cat("Expected frequencies:\n")
 chi2.[["expected"]]
@@ -304,7 +310,7 @@ quiz(
 
 ## Conclusion
 
-A l'issue de cette série d'exercices, vous devriez être à l'aise avec l'utilisation de la distribution du $\chi^2$ et de ses tests d'hypothèse. Vous pouvez maintenant passer à des applications concrètes (assignation GitHub).
+A l'issue de cette série d'exercices, vous devriez être à l'aise avec l'utilisation de la distribution du $\chi^2$ et de ses tests d'hypothèse. Vous pouvez maintenant passer à des applications concrètes (projets GitHub).
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

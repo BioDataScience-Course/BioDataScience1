@@ -30,39 +30,40 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici :
+La loi de distribution du $\chi^2$ représente de manière théorique la probabilité de distribution de fréquences entre les niveaux d'une ou plusieurs variables qualitatives. Un test d'hypothèse $\chi^2$ en est dérivé pour comparer un échantillon à des valeurs théoriques sous H~0~. Vos objectifs sont ici de :
 
 -   Pouvoir calculer des quantiles ou des probabilités relatifs à la distribution du $\chi^2$
 
 -   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
-`r` Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/proba.html) relatives aux calculs de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
+Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/proba.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
 ## Distribution du $\chi^2$
 
-Représentez graphiquement la densité de probabilité de la distribution du $\chi^2$ à trois degrés de liberté. Utilisez la fonction approrié dist\_\*()
+Représentez graphiquement la densité de probabilité de la distribution du $\chi^2$ à trois degrés de liberté. Utilisez la fonction approriée `dist_*()`.
 
-```{r chi_dist_h1, exercise=TRUE, exercise.lines= 4}
+```{r chi_dist_h1, exercise=TRUE, exercise.lines=4}
 # Distribution de chi2 avec 3 degrés de liberté
 chi <- ___(df = ___)
-# Graphique de la distribution.
+# Graphique de la distribution
 ___(chi)
 ```
 
 ```{r chi_dist_h1-solution}
+## Solution ##
 # Distribution de chi2 avec 3 degrés de liberté
 chi <- dist_chisq(df = 3)
-# Graphique de la distribution.
+# Graphique de la distribution
 chart(chi)
 ```
 
 ```{r chi_dist_h1-check}
-grade_code("Avec les fonctions dist_*, il est simple de créer un objet associé à la distribution souhaitée. Pour la distribution du Chi^2, il vous suffit d'indiquer les degrés de libertés de la distribution souhaitée. Il s'agit d'une loi de distribution très asymétrique et qui commence à {0, 0}. Notez que plus le quantile est grand, plus la densité de probabilité est faible.")
+grade_code("Avec les fonctions `dist_*()`, il est simple de créer un objet représentant la distribution souhaitée. Pour la distribution du Chi^2, il vous suffit d'indiquer les degrés de liberté de la distribution. Il s'agit d'une loi de distribution très asymétrique et qui commence à {0, 0}. Notez que plus le quantile est grand, plus la densité de probabilité est faible.")
 ```
 
 Sur base de cette distribution à trois degrés de liberté, calculez la probabilité d'une valeur de $\chi^2$ supérieure au quantile 15.
 
-💬 **Ce code correspond au snippet `.icproba`.**
+<!-- 💬 **Ce code correspond au snippet `.icproba`.** -->
 
 ```{r chi1_h2, exercise=TRUE}
 pchisq(___, df = ___, lower.tail = ___)
@@ -75,6 +76,7 @@ pchisq(15, df = ___, lower.tail = ___)
 ```
 
 ```{r chi1_h2-solution}
+## Solution ##
 pchisq(15, df = 3, lower.tail = FALSE)
 ```
 
@@ -84,7 +86,7 @@ grade_code("La fonction `pchisq()` calcule une probabilité à partir d'un quant
 
 Toujours sur base de cette distribution à trois degrés de liberté, calculez le quantile qui délimite l'aire à droite dont la probabilité est de 5%.
 
-💬 **Ce code correspond au snippet `.icquant`.**
+<!-- 💬 **Ce code correspond au snippet `.icquant`.** -->
 
 ```{r chi2_h2, exercise=TRUE}
 qchisq(___, df = ___, lower.tail = ___)
@@ -97,6 +99,7 @@ qchisq(0.05, df = ___, lower.tail = ___)
 ```
 
 ```{r chi2_h2-solution}
+## Solution ##
 qchisq(0.05, df = 3, lower.tail = FALSE)
 ```
 
@@ -131,7 +134,7 @@ question("Quelles sont les fréquences théoriques sous l'hypothèse nulle que l
   answer("pommes = 17 | bananes = 18 | oranges = 10"),
   allow_retry = TRUE, random_answer_order = TRUE,
   incorrect = "Recommencez afin de trouver la bonne réponse",
-  correct = "C'est correct ! Les fréquences théoriques sont l'hypothèse qu'il n'y a pas de différences sont les probabilités multipliées par l'effectif total.")
+  correct = "C'est correct ! Ce sont les fréquences théoriques sont l'hypothèse qu'il n'y a pas de différences sont les probabilités multipliées par l'effectif total.")
 ```
 
 Calculez à la main la valeur du $\chi^2$ observé à l'aide de la formule (aidez-vous d'une calculette) :
@@ -176,9 +179,9 @@ abline(h = 0, col = "gray") # Baseline
 text(.df, .d(.df), .label, pos = 4, col = .col) # Label at right
 ```
 
-Déterminez la probabilité qu'un quantile soit supérieur ou égale à $\chi^2_{obs}$ = 7.601.
+Déterminez la probabilité qu'un quantile soit supérieur ou égal à $\chi^2_{obs}$ = 7.601.
 
-💬 **Ce code correspond au snippet `.icproba`.**
+<!-- 💬 **Ce code correspond au snippet `.icproba`.** -->
 
 ```{r chi3_h2, exercise=TRUE}
 pchisq(___, df = ___, lower.tail = ___)
@@ -189,11 +192,12 @@ pchisq(___, df = 2, lower.tail = FALSE)
 ```
 
 ```{r chi3_h2-solution}
+## Solution ##
 pchisq(7.601, df = 2, lower.tail = FALSE)
 ```
 
 ```{r chi3_h2-check}
-grade_code("Cette probabilité est appelée valeur p.")
+grade_code("Cette probabilité est appelée valeur p du test d'hypothèse.")
 ```
 
 Pour tirer une conclusion avec le **test d'hypothèse** du $\chi^2$ univarié, vous comparez la valeur *p* ainsi obtenue au seuil $\alpha$ que vous avez fixé préalablement (choix réalisé *avant* de faire le test pour ne pas être influencé par le résultat). Souvent, on prend $\alpha$ = 5% en biologie. Les hypothèse (H~0~ = hypothèse nulle et H~1~ ou H~A~ = hypothèse alternative) du test $\chi^2$ univarié sont :
@@ -214,14 +218,14 @@ question("Que décidez-vous au seuil alpha de 5% ?",
   answer(sprintf("Non rejet de $H_{0}$")),
   allow_retry = TRUE, random_answer_order = TRUE,
   incorrect = "Recommencez afin de trouver la bonne réponse",
-  correct = "C'est correct ! Nous rejetons H0. Le chimpanzé préfère donc certains fruits (banane) à d'autres (orange). Les préférences sont déduites de la comparaison des fréquences observées par rapport aux fréquences théoriques sous H0")
+  correct = "C'est correct ! Nous rejetons H0. Le chimpanzé préfère donc certains fruits (banane) à d'autres (orange). Les préférences sont déduites de la comparaison des fréquences observées par rapport aux fréquences théoriques sous H~0~")
 ```
 
 ### Test $\chi^2$ avec `chisq.test()`
 
-Pour réaliser votre test $\chi^2$, vous ne devez heureusement pas passer par tous ces calculs à la main. En effet, R mets à votre disposition une fonction qui le fait toute seule : `chisq.test()`. Utilisez maintenant cette fonction pour faire le même calcul sur l'expérience de préférence alimentaire des chimpanzés.
+Pour réaliser votre test $\chi^2$, vous ne devez heureusement pas passer par tous ces calculs à la main. En effet, R mets à votre disposition une fonction qui le fait pour vous : `chisq.test()`. Utilisez maintenant cette fonction pour faire le même calcul sur l'expérience de préférence alimentaire des chimpanzés.
 
-💬 **Ce code correspond (pour la dernière ligne) au snippet `.hcchi2uni`** [`.hc` = `h`ypothesis tests: `c`ontingency].
+<!-- 💬 **Ce code correspond (pour la dernière ligne) au snippet `.hcchi2uni`** [`.hc` = `h`ypothesis tests: `c`ontingency]. -->
 
 ```{r chi_test_h3, exercise=TRUE}
 # Création du jeu de données
@@ -247,6 +251,7 @@ chisq.test(___, p = c(Pomme = 1/3, Banane = ___, Orange = ___), rescale.p = FALS
 ```
 
 ```{r chi_test_h3-solution}
+## Solution ##
 # Création du jeu de données
 chimp <- dtx(Pomme = 16, Banane = 22, Orange = 7)
 # Test Chi^2 univarié
@@ -290,6 +295,7 @@ chisq.test(___, p = c(Pomme = 1/3, Banane = ___, Orange = ___), rescale.p = FALS
 ```
 
 ```{r chi_test2_h3-solution}
+## Solution ##
 # Création du jeu de données
 chimp2 <- dtx(Pomme = 160, Banane = 220, Orange = 70)
 # Test Chi^2 univarié
@@ -297,7 +303,7 @@ chisq.test(chimp2, p = c(Pomme = 1/3, Banane = 1/3, Orange = 1/3), rescale.p = F
 ```
 
 ```{r chi_test2_h3-check}
-grade_code("Le valeur du Chi^2^ obs est beaucoup plus grande ici et la valeur p est plus petite.")
+grade_code("Le valeur du chi^2^ obs est beaucoup plus grande ici et la valeur p est plus petite.")
 ```
 
 Plus l'échantillon a une taille *n* importante, plus nous avons des données à disposition et nous pourrons donc rejeter H~0~ si elle est fausse *même si l'écart entre les* $a_i$ et les $\alpha_i$ est très petit. Par contre, si cet écart est très grand, un petit nombre d'observations suffira pour rejeter H~0~. A cause de cet effet de *n*, nous ne dirons *jamais* que nous **acceptons** H~1~, mais nous dirons que nous **ne rejetons pas H~0~**. Car, dans cette situation, deux cas sont possibles :
@@ -309,7 +315,7 @@ A l'inverse, lorsque l'on travaille avec une taille d'échantillon *n* extrêmem
 
 ## Conclusion
 
-La distribution du $\chi^2$ et son test d'hypothèse univarié n'ayant plus de secrets pour vous, nous aborderons une autre variante : le test $\chi^2$ d'indépendance dans le prochain learnr.
+Ayant maintenant compris la logique et l'utilisation de la distribution du $\chi^2$ et son test d'hypothèse univarié, nous aborderons dans le prochain learnr une autre variante : le test $\chi^2$ d'indépendance.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

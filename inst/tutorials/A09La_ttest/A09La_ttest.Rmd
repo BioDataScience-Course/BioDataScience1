@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Distribution t de Student et test du même nom."
 tutorial:
   id: "A09La_ttest"
-  version: 2.2.1/9
+  version: 2.2.2/9
 output:
   learnr::tutorial:
     progressive: true
@@ -265,9 +265,8 @@ biometry <- read("biometry", package = "BioDataScience") %>.%
 
 ```{r bio_tab_h2, exercise=TRUE, exercise.setup="bio-prepare"}
 biometry %>.%
-  ___(., ___) |> summarise(
-    mean = ___(___), sd = ___(___), n = fn(bmi)) %>.%
-  ___(.)
+  ___(., ___) |> ssummarise(
+    mean = ___(___), sd = ___(___), n = fn(bmi))
 ```
 
 ```{r bio_tab_h2-hint-1}

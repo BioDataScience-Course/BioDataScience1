@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Comparaison des tests de Student et de Wilcoxon/Mann-Whitney."
 tutorial:
   id: "A09Lb_ttest_wmw"
-  version: 2.2.1/11
+  version: 2.2.2/11
 output:
   learnr::tutorial:
     progressive: true
@@ -92,7 +92,7 @@ Réalisez un résumé des données en fonction du traitement administré. Les in
 
 ```{r}
 variable <- c("mcpp", "treatment", "delta_weight", "group_by",
-  "summarise", "mean", "sd")
+  "summarise", "mean", "sd", "collect_dtx")
 sample(variable)
 ```
 

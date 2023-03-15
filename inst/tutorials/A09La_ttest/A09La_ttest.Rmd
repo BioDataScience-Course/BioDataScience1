@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** Moyenne et test t de Student."
 tutorial:
   id: "A09La_ttest"
-  version: 2.2.2/9
+  version: 2.2.3/9
 output:
   learnr::tutorial:
     progressive: true
@@ -259,7 +259,7 @@ biometry %>.%
   biometry
 ```
 
-Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions fast débutant par "f" comme `fvar()`
+Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
 
 ```{r bio-prepare}
 biometry <- read("biometry", package = "BioDataScience") %>.%
@@ -271,9 +271,8 @@ biometry <- read("biometry", package = "BioDataScience") %>.%
 ```{r bio_tab_h2, exercise=TRUE, exercise.setup="bio-prepare"}
 biometry %>.%
   ___(., ___) %>.%
-  summarise(.,
-    mean = ___(___), sd = ___(___), n = fn(bmi)) %>.%
-  ___(.)
+  ssummarise(.,
+    mean = ___(___), sd = ___(___), n = fn(bmi))
 ```
 
 ```{r bio_tab_h2-hint-1}

@@ -1,3 +1,7 @@
+# BioDataScience 2022.6.1
+
+-   Slight correction in tutorial **A09La_ttest**.
+
 # BioDataScience 2022.6.0
 
 -   Revision of learnrs tutorials for module 9.

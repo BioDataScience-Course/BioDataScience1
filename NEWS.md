@@ -1,3 +1,7 @@
+# BioDataScience 2022.6.0
+
+-   Revision of learnrs tutorials for module 9.
+
 # BioDataScience 2022.5.0
 
 -   Revision of learnrs tutorials for module 8.

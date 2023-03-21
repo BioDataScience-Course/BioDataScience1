@@ -1,10 +1,10 @@
 ---
 title: "ANOVA à un facteur"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** Réalisation d'une ANOVA à un facteur et des tests post-hocs."
+description: "**SDD I Module 10** ANOVA à un facteur et des tests post-hocs."
 tutorial:
   id: "A10La_anova"
-  version: 2.1.0/10
+  version: 2.1.1/10
 output:
   learnr::tutorial:
     progressive: true
@@ -14,7 +14,8 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
-SciViews::R()
+SciViews::R("infer", "model", lang ="fr")
+library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -27,13 +28,11 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
 Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèses associés (différentes variantes du test *t* de Student). Le test *t* de Student indépendant vous permet de comparer les moyennes de deux populations.
 
-Le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
+Le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
 
 ![](images/red-traffic-lights.png){width="10%"}
 
@@ -53,53 +52,33 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
 La loi de distribution théorique sur laquelle l'ANOVA se base est la distribution *F* de Fisher-Snedecor. C'est une distribution asymétrique d'une allure similaire à la distribution du *Chi^2^*. Cependant, les paramètres diffèrent. La question suivante vous permet de vérifier si vous avez bien compris à quoi correspondent les deux paramètres de la distribution *F*.
 
-Tracez le graphique de densité de probabilité de la distribution *F* qui correspond à l'analyse d'un échantillon de 100 observations réparties en 5 groupes (comparaison de 5 moyennes).
+Tracez le graphique de densité de probabilité de la distribution *F* qui correspond à l'analyse d'un échantillon de 100 observations réparties en 5 groupes (comparaison de 5 moyennes). Créez un objet `distribution` nommez `df` à l'aide de la fonction adéquate `dist_*()` Employez la fonction adéquate
 
-💬 **Ce code correspond au snippet `.ifdens`**
-
-```{r fplot_h2, exercise=TRUE, exercise.lines=10}
-# Fisher-Snedecor's F distribution (density probability) with parameter:
-.df1 <- ___; .df2 <- ___ # numerator (.df1) and denominator (.df2) df
-.col <- 1; .add <- FALSE # Plot parameters
-.x <- seq(0, qf(0.999, df1 = .df1, df2 = .df2), l = 1000)  # Quantiles
-.d <- function (x) df(x, df1 = .df1, df2 = .df2)           # Distribution function
-.q <- function (p) qf(p, df1 = .df1, df2 = .df2)           # Quantile for lower-tail prob
-.label <- bquote(F(.(.df1), .(.df2)))                      # Curve parameters
-curve(.d(x), xlim = range(.x), xaxs = "i", n = 1000, col = .col,
-  add = .add, xlab = "Quantiles", ylab = "Probability density") # Curve
-abline(h = 0, col = "gray") # Baseline
+```{r fplot_h2, exercise=TRUE, exercise.lines=4}
+# Objet distribution
+df <- ___(df1 = ___, df2 = ___)
+# Graphique de la distribution
+___(___)
 ```
 
 ```{r fplot_h2-hint-1}
-# Fisher-Snedecor's F distribution (density probability) with parameter:
-.df1 <- 4; .df2 <- ___ # numerator (.df1) and denominator (.df2) df
-.col <- 1; .add <- FALSE # Plot parameters
-.x <- seq(0, qf(0.999, df1 = .df1, df2 = .df2), l = 1000)  # Quantiles
-.d <- function (x) df(x, df1 = .df1, df2 = .df2)           # Distribution function
-.q <- function (p) qf(p, df1 = .df1, df2 = .df2)           # Quantile for lower-tail prob
-.label <- bquote(F(.(.df1), .(.df2)))                      # Curve parameters
-curve(.d(x), xlim = range(.x), xaxs = "i", n = 1000, col = .col,
-  add = .add, xlab = "Quantiles", ylab = "Probability density") # Curve
-abline(h = 0, col = "gray") # Baseline
+# Objet distribution
+df <- dist_f(df1 = ___, df2 = ___)
+# Graphique de la distribution
+chart(df)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r fplot_h2-solution}
-# Fisher-Snedecor's F distribution (density probability) with parameter:
-.df1 <- 4; .df2 <- 95 # numerator (.df1) and denominator (.df2) df
-.col <- 1; .add <- FALSE # Plot parameters
-.x <- seq(0, qf(0.999, df1 = .df1, df2 = .df2), l = 1000)  # Quantiles
-.d <- function (x) df(x, df1 = .df1, df2 = .df2)           # Distribution function
-.q <- function (p) qf(p, df1 = .df1, df2 = .df2)           # Quantile for lower-tail prob
-.label <- bquote(F(.(.df1), .(.df2)))                      # Curve parameters
-curve(.d(x), xlim = range(.x), xaxs = "i", n = 1000, col = .col,
-  add = .add, xlab = "Quantiles", ylab = "Probability density") # Curve
-abline(h = 0, col = "gray") # Baseline
+# Objet distribution
+df <- dist_f(df1 = 4, df2 = 95)
+# Graphique de la distribution
+chart(df)
 ```
 
 ```{r fplot_h2-check}
-grade_code("Le code pour obtenir ce graphique est un peu long... mais le snippet est là pour vous préremplir la majeure partie ! Vous avez cependant su convertir le nombre d'observations et le nombre de groupes en degrés de liberté intragroupe et intergroupe.", "Il semble que vous n'avez pas su déterminer correctement les paramètres de la distribution F. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
+grade_code("La difficulté de cet exercice est dans la conversion du  nombre d'observations et dunombre de groupes en degrés de liberté intragroupe et intergroupe.", "Il semble que vous n'avez pas su déterminer correctement les paramètres de la distribution F. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
 ```
 
 ## Croissance des dents de cochons d'Inde
@@ -123,7 +102,7 @@ glimpse(toothgrowth)
 ```{r, echo=TRUE}
 # Vérification des types des variables et ajout des labels
 toothgrowth %>.%
-  fmutate(., 
+  smutate(., 
     supp = factor(supp, levels = c("OJ", "VC")),
     dose = ordered(dose, levels = c(0.5, 1, 2))) %>.%
   labelise(toothgrowth, self = FALSE,
@@ -145,16 +124,16 @@ toothgrowth %>.%
 Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **y a-t-il une différence de la longueur des odontoblastes en fonction de la ration journalière de vitamine C administrée ?**
 
 ```{r, echo=TRUE}
-tooth_vc <- fsubset(toothgrowth, supp == "VC")
+tooth_vc <- sfilter(toothgrowth, supp == "VC")
 ```
 
 ### Description des données
 
-Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2021/visu3.html) de SDD I).
+Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu3.html) de SDD I).
 
 ### Description numérique
 
-Réalisez un tableau reprenant les moyennes et les écart-types de la longueur des dents des cochons d'Inde pour chaque dose administrée en vitamine C ainsi que le nombre d'observations par groupe. Le jeu de données à utiliser est donc `tooth_vc`.
+Réalisez un tableau reprenant les moyennes et les écart-types de la longueur des dents des cochons d'Inde pour chaque dose administrée en vitamine C ainsi que le nombre d'observations par groupe. Le jeu de données à utiliser est donc `tooth_vc`. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
 
 💬 **Ce code correspond au snippet `.hmanova1desc`**
 
@@ -162,20 +141,7 @@ Réalisez un tableau reprenant les moyennes et les écart-types de la longueur d
 toothgrowth <- read("ToothGrowth", package = "datasets", lang = "fr")
 toothgrowth$dose <- as.ordered(toothgrowth$dose)
 
-toothgrowth <- labelise(toothgrowth, self = FALSE,
-  label = list(
-    len  = "Longueur des odontaoblastes",
-    supp = "Supplémentation",
-    dose = "Dose de vitamine C"
-  ),
-  units = list(
-    len  = "µm",
-    supp = NA,
-    dose = "mg/J"
-  )
-)
-
-tooth_vc <- fsubset(toothgrowth, supp == "VC")
+tooth_vc <- sfilter(toothgrowth, supp == "VC")
 
 tooth_vc <- labelise(tooth_vc, self = FALSE,
   label = list(
@@ -193,19 +159,19 @@ tooth_vc <- labelise(tooth_vc, self = FALSE,
 anova. <- lm(data = tooth_vc, len ~ dose)
 ```
 
-```{r tooth_tab_h2, exercise=TRUE, exercise.lines=4, exercise.setup="tg_prepare"}
+```{r tooth_tab_h2, exercise=TRUE, exercise.lines=5, exercise.setup="tg_prepare"}
 ___ %>.%
-  group_by(., ___) |> summarise(
+  ___(., ___) |> ssummarise(
     moyenne = ___(___), `écart type` = ___(___),
-    n = sum(!is.na(___))) %>.%
+    n = fn(len))) %>.%
   ___(.)
 ```
 
 ```{r tooth_tab_h2-hint-1}
 tooth_vc %>.%
-  group_by(., ___) |> summarise(
-    moyenne = mean(___), `écart type` = sd(___),
-    n = sum(!is.na(___))) %>.%
+  sgroup_by(., ___) |> ssummarise(
+    moyenne = fmean(___), `écart type` = fsd(___),
+    n = fn(len)) %>.%
   collect_dtx(.)
 
  #### ATTENTION: Hint suivant = solution !####
@@ -213,9 +179,9 @@ tooth_vc %>.%
 
 ```{r tooth_tab_h2-solution}
 tooth_vc %>.%
-  group_by(., dose) |> summarise(
-    moyenne = mean(len), `écart type` = sd(len),
-    n = sum(!is.na(len))) %>.%
+  sgroup_by(., dose) |> ssummarise(
+    moyenne = fmean(len), `écart type` = fsd(len),
+    n = fn(len)) %>.%
   collect_dtx(.)
 ```
 
@@ -225,22 +191,33 @@ grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANO
 
 ### Description graphique
 
-Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Employez ici les boîtes de dispersion parallèles.
+Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Etant donné que nous avons 3 groupes avec 10 individus par groupe, nous vous proposons de réaliser des boites de dispersion parallèles avec l'ajout des valeurs sous la forme de point (tout en évitant le chevauchement des observations) et des moyennes.
 
-💬 **Ce code correspond au snippet `.cbbox`**
+```{r tooth_graph_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
+chart(data = ___, ___ ~ ___) ___
+  geom____() ___ # boites de dispersion parallèles
+  geom____(width = 0.05, alpha = 0.5) ___ # points évitant le chevauchement
+  stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
+```
 
-```{r tooth_graph, exercise = TRUE, exercise.setup = "tg_prepare"}
+```{r tooth_graph_h2-hint-1}
 chart(data = ___, ___ ~ ___) +
-  geom____()
+  geom_boxplot() + # boites de dispersion parallèles
+  geom____(width = 0.05, alpha = 0.5) + # points évitant le chevauchement
+  stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
+
+ #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r tooth_graph-solution}
+```{r tooth_graph_h2-solution}
 chart(data = tooth_vc, len ~ dose) +
-  geom_boxplot()
+  geom_boxplot() + # boites de dispersion parallèles
+  geom_jitter(width = 0.05, alpha = 0.5) + # points évitant le chevauchement
+  stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
 ```
 
-```{r tooth_graph-check}
-grade_code("Vous obtenez le graphique adéquat qui permet de comparer la longueur des dents en fonction de la dose administrée. Notez toutefois que la boite de dispersion présente la médiane à la place de la moyenne. Ce graphique est donc, sans doute plus adapté au test de Kruskal-Wallis. Voyez dans le cours les autres graphiques qui comparent les moyennes pour des versions alternatives intéressantes dans le cas de l'ANOVA.")
+```{r tooth_graph_h2-check}
+grade_code("Ce graphique est adéquat afin de représenter graphiquement une ANOVA à un facteur avec 10 individus par groupe dont le but est de comparer la longueur des dents en fonction de la dose administrée. Avec un nombre plus important d'individus, vous auriez pu remplacer les boites de dispersion par des diagrammes en violon parallèles. Avec un nombre plus faible d'observation, il suffit d'afficher les points et la moyenne de chaque groupe.")
 ```
 
 Maintenant que vous avez pris connaissance de vos données grâce à un tableau et un graphique, vous pouvez réaliser votre test d'hypothèse... mais avant cela, assurez-vous que les conditions d'application du test sont respectées.
@@ -260,7 +237,7 @@ Pour les deux premières conditions, vous lisez attentivement le protocole expé
 
 Les contraintes relatives au type de variables en jeu se vérifient facilement. Nous insistons encore une fois sur la nécessité de s'assurer que la variable explicative (celle qui sépare l'échantillon en sous-populations) soit bien qualitative, donc sous la forme d'un objet `factor` ou `ordered` dans R.
 
-Les deux dernières conditions **doivent être vérifiées sur les données de l'échantillon**. Si les données sont en nombre suffisant, soit au moins une petite dizaine par sous-population, nous pourrons appliquer un test d'homogénéité de variance et comparer la distribution des résidus du modèle à une distribution Normale. Nous sommes dans cette situation. Si le nombre d'observations est trop faible, il faut le tester ou l'avoir testé précédemment sur un plus gros échantillon similaire, ou se rabattre sur un test non paramétrique (Kruskal-Wallis) en cas de doute. Rappelons aussi qu'il est possible de tester des transformations des données, si l'une ou les deux conditions ne sont pas rencontrées.
+Les deux dernières conditions **doivent être vérifiées sur les données de l'échantillon**. Si les données sont en nombre suffisant, soit au moins une petite dizaine par sous-population, nous pourrons appliquer un test d'homogénéité de variance et comparer la distribution des résidus du modèle à une distribution Normale. Nous sommes dans cette situation. Si le nombre d'observations est trop faible, il faut le tester ou l'avoir testé précédemment sur un plus gros échantillon similaire, ou se rabattre sur un test non paramétrique (Kruskal-Wallis) en cas de doute. **Rappelons aussi qu'il est possible de tester des transformations des données, si l'une ou les deux conditions ne sont pas rencontrées.**
 
 En pratique, on commence par vérifier l'homoscédasticité, puis on réalise notre ANOVA et ensuite on vérifie la distribution Normale des résidus. La raison qui nous pousse à postposer la vérification de la Normalité des résidus sera expliquée plus loin dans ce tutoriel.
 
@@ -324,6 +301,8 @@ grade_code("Vous avez compris le principe. Mais attention : n'allez pas plus loi
 Vérifiez maintenant la distribution Normale des résidus depuis votre objet `.anova`.
 
 💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`**
+
+<!-- Proposition : Remplacer par chart$qqresid(anova.)-->
 
 ```{r tooth_qqplot_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
 plot(___, ___ = ___)

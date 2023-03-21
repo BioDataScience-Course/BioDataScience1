@@ -1,7 +1,7 @@
 ---
 title: "ANOVA à un facteur"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** ANOVA à un facteur et des tests post-hocs."
+description: "**SDD I Module 10** ANOVA à un facteur et tests post-hocs."
 tutorial:
   id: "A10La_anova"
   version: 2.1.1/10
@@ -14,7 +14,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
-SciViews::R("infer", "model", lang ="fr")
+SciViews::R("infer", "model", lang = "fr")
 library(BioDataScience1)
 ```
 
@@ -52,7 +52,7 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
 La loi de distribution théorique sur laquelle l'ANOVA se base est la distribution *F* de Fisher-Snedecor. C'est une distribution asymétrique d'une allure similaire à la distribution du *Chi^2^*. Cependant, les paramètres diffèrent. La question suivante vous permet de vérifier si vous avez bien compris à quoi correspondent les deux paramètres de la distribution *F*.
 
-Tracez le graphique de densité de probabilité de la distribution *F* qui correspond à l'analyse d'un échantillon de 100 observations réparties en 5 groupes (comparaison de 5 moyennes). Créez un objet `distribution` nommez `df` à l'aide de la fonction adéquate `dist_*()` Employez la fonction adéquate
+Tracez le graphique de densité de probabilité de la distribution *F* qui correspond à l'analyse d'un échantillon de 100 observations réparties en 5 groupes (comparaison de 5 moyennes). Créez un objet **distribution** que vous nommez `df` à l'aide de la fonction adéquate `dist_*()`.
 
 ```{r fplot_h2, exercise=TRUE, exercise.lines=4}
 # Objet distribution
@@ -71,6 +71,7 @@ chart(df)
 ```
 
 ```{r fplot_h2-solution}
+## Solution ##
 # Objet distribution
 df <- dist_f(df1 = 4, df2 = 95)
 # Graphique de la distribution
@@ -78,12 +79,12 @@ chart(df)
 ```
 
 ```{r fplot_h2-check}
-grade_code("La difficulté de cet exercice est dans la conversion du  nombre d'observations et dunombre de groupes en degrés de liberté intragroupe et intergroupe.", "Il semble que vous n'avez pas su déterminer correctement les paramètres de la distribution F. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
+grade_code("La difficulté de cet exercice est dans la conversion du nombre d'observations et du nombre de groupes en degrés de liberté intragroupe et intergroupe.", "Il semble que vous n'avez pas su déterminer correctement les paramètres de la distribution F. Si n correspond au nombre d'observations et k au nombre de groupes, alors le nombre de degrés intergroupe vaut k – 1  et le nombre de degrés intragroupe vaut n – k.")
 ```
 
 ## Croissance des dents de cochons d'Inde
 
-Vous allez maintenant réaliser une analyse complète de l'effet de la vitamine C sur la longueur des odontoblastes (cellules responsables de la croissance et de la formation de l'émail des dents) de cochons d'Inde. Les données utilisées proviennent du jeu de données `ToothGrowth` du package `datasets` (vous pouvez donc consulter la page d'aide si vous souhaitez obtenir plus d'informations).
+Vous allez maintenant réaliser une analyse complète de l'effet de la vitamine C sur la longueur des odontoblastes (cellules responsables de la croissance et de la formation de l'émail des dents) de cochons d'Inde. Les données utilisées proviennent du jeu de données `ToothGrowth` du package {datasets} (vous pouvez donc consulter la page d'aide correspondante si vous souhaitez obtenir plus d'informations).
 
 ![](images/guinea-pig.jpg){width="50%"}
 
@@ -115,13 +116,13 @@ toothgrowth %>.%
       supp = NA,
       dose = "mg/J"
     )
-  ) ->
+  ) %->%
   toothgrowth
 ```
 
 **Cette étape est la première à réaliser après avoir importé les données. Il faut vérifier et adapter les types et les labels des variables.** Il est particulièrement important que les variables qui définissent les sous-populations comparées soient bien encodées sous forme d'objets `factor` ou `ordered` ! Le piège lorsqu'il s'agit de valeurs numériques, comme ici, est de laisser la variable sous forme `integer` ou `numeric`, car alors, la fonction `lm()` fera une autre analyse (régression linéaire que nous verrons au cours SDD II).
 
-Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **y a-t-il une différence de la longueur des odontoblastes en fonction de la ration journalière de vitamine C administrée ?**
+Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **y a-t-il une différence de la longueur des odontoblastes en fonction de la ration journalière de vitamine C administrée sous forme d'acide ascorbique ?**
 
 ```{r, echo=TRUE}
 tooth_vc <- sfilter(toothgrowth, supp == "VC")
@@ -135,7 +136,7 @@ Rappelez-vous que la description des données est une étape indispensable avant
 
 Réalisez un tableau reprenant les moyennes et les écart-types de la longueur des dents des cochons d'Inde pour chaque dose administrée en vitamine C ainsi que le nombre d'observations par groupe. Le jeu de données à utiliser est donc `tooth_vc`. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
 
-💬 **Ce code correspond au snippet `.hmanova1desc`**
+<!-- 💬 **Ce code correspond au snippet `.hmanova1desc`** -->
 
 ```{r tg_prepare}
 toothgrowth <- read("ToothGrowth", package = "datasets", lang = "fr")
@@ -156,12 +157,13 @@ tooth_vc <- labelise(tooth_vc, self = FALSE,
   )
 )
 
-anova. <- lm(data = tooth_vc, len ~ dose)
+tg_anova <- lm(data = tooth_vc, len ~ dose)
 ```
 
 ```{r tooth_tab_h2, exercise=TRUE, exercise.lines=5, exercise.setup="tg_prepare"}
 ___ %>.%
-  ___(., ___) |> ssummarise(
+  ___(., ___) %>.%
+  ssummarise(.,
     moyenne = ___(___), `écart type` = ___(___),
     n = fn(len))) %>.%
   ___(.)
@@ -169,7 +171,8 @@ ___ %>.%
 
 ```{r tooth_tab_h2-hint-1}
 tooth_vc %>.%
-  sgroup_by(., ___) |> ssummarise(
+  sgroup_by(., ___) %>.%
+  ssummarise(.,
     moyenne = fmean(___), `écart type` = fsd(___),
     n = fn(len)) %>.%
   collect_dtx(.)
@@ -178,22 +181,24 @@ tooth_vc %>.%
 ```
 
 ```{r tooth_tab_h2-solution}
+## Solution ##
 tooth_vc %>.%
-  sgroup_by(., dose) |> ssummarise(
+  sgroup_by(., dose) %>.%
+  ssummarise(.,
     moyenne = fmean(len), `écart type` = fsd(len),
     n = fn(len)) %>.%
   collect_dtx(.)
 ```
 
 ```{r tooth_tab_h2-check}
-grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANOVA : les moyennes correspondent à ce que nous comparons, les écart-types indiquent la dispersion des données dans chaque sous-population et le nombre d'observations permet de cerner la quantité d'information disponible.")
+grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANOVA : les moyennes correspondent à ce que nous comparons, les écart-types indiquent la dispersion des données dans chaque sous-population (nous aurions aussi pu représenter les variances qui sont le carré des écarts types) et le nombre d'observations permet de cerner la quantité d'information disponible.")
 ```
 
 ### Description graphique
 
-Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Etant donné que nous avons 3 groupes avec 10 individus par groupe, nous vous proposons de réaliser des boites de dispersion parallèles avec l'ajout des valeurs sous la forme de point (tout en évitant le chevauchement des observations) et des moyennes.
+Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Étant donné que nous avons trois groupes avec dix individus par groupe, nous vous proposons de réaliser des boites de dispersion parallèles avec l'ajout des valeurs sous la forme de point (tout en évitant le chevauchement des observations) et des moyennes.
 
-```{r tooth_graph_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
+```{r tooth_graph_h2, exercise=TRUE, exercise.setup="tg_prepare"}
 chart(data = ___, ___ ~ ___) ___
   geom____() ___ # boites de dispersion parallèles
   geom____(width = 0.05, alpha = 0.5) ___ # points évitant le chevauchement
@@ -210,6 +215,7 @@ chart(data = ___, ___ ~ ___) +
 ```
 
 ```{r tooth_graph_h2-solution}
+## Solution ##
 chart(data = tooth_vc, len ~ dose) +
   geom_boxplot() + # boites de dispersion parallèles
   geom_jitter(width = 0.05, alpha = 0.5) + # points évitant le chevauchement
@@ -217,10 +223,10 @@ chart(data = tooth_vc, len ~ dose) +
 ```
 
 ```{r tooth_graph_h2-check}
-grade_code("Ce graphique est adéquat afin de représenter graphiquement une ANOVA à un facteur avec 10 individus par groupe dont le but est de comparer la longueur des dents en fonction de la dose administrée. Avec un nombre plus important d'individus, vous auriez pu remplacer les boites de dispersion par des diagrammes en violon parallèles. Avec un nombre plus faible d'observation, il suffit d'afficher les points et la moyenne de chaque groupe.")
+grade_code("Ce graphique est adéquat pour visualiser les données avant une ANOVA à un facteur avec dix individus par groupe dont le but est de comparer la longueur des dents en fonction de la dose administrée. Avec un nombre plus important d'individus, vous auriez pu remplacer les boites de dispersion par par un graphique en \"violon\". Avec un nombre plus faible d'observation, l'affichage plus simple des points et de la moyenne de chaque groupe est encore le meilleur choix.")
 ```
 
-Maintenant que vous avez pris connaissance de vos données grâce à un tableau et un graphique, vous pouvez réaliser votre test d'hypothèse... mais avant cela, assurez-vous que les conditions d'application du test sont respectées.
+Maintenant que vous avez pris connaissance de vos données grâce à un tableau et un graphique, vous pouvez réaliser votre test d'hypothèse... tout en vous assurant de bien vérifier que les conditions d'application du test sont respectées.
 
 ### Vérification des conditions d'applications
 
@@ -233,7 +239,7 @@ Pour réaliser une ANOVA, il faut respecter les conditions d'application suivant
 -   distribution Normale des résidus,
 -   homoscédasticité (même variance intragroupe).
 
-Pour les deux premières conditions, vous lisez attentivement le protocole expérimental pour déterminer si l'échantillonnage est représentatif et les observations sont indépendantes les unes des autres. Il faut un processus aléatoire qui intervienne dans la sélection des individus dans l'expérience et pour leur attribution à un des niveaux (ration de vitamine C quotidienne). Chaque individu doit avoir une chance égale d'être tiré au sort. Il ne doit pas y avoir de dépendance (par exemple, utiliser une portée de cobayes au sein d'une même sous-population est une mauvaise idée car la ressemblance génétique entre frères et sœurs rend les observations partiellement dépendantes entre elles).
+Pour les deux premières conditions, vous lisez attentivement le protocole expérimental pour déterminer si l'échantillonnage est représentatif et les observations sont indépendantes les unes des autres. Il faut un processus aléatoire qui intervienne dans la sélection des individus dans l'expérience et pour leur attribution à un des niveaux (ration de vitamine C quotidienne). Chaque individu doit avoir une chance égale d'être tiré au sort si l'échantillonnage aléatoire est utilisé. Il ne doit pas y avoir de dépendance (par exemple, utiliser une portée de cobayes au sein d'une même sous-population est une mauvaise idée car la ressemblance génétique entre frères et sœurs rend les observations partiellement dépendantes entre elles).
 
 Les contraintes relatives au type de variables en jeu se vérifient facilement. Nous insistons encore une fois sur la nécessité de s'assurer que la variable explicative (celle qui sépare l'échantillon en sous-populations) soit bien qualitative, donc sous la forme d'un objet `factor` ou `ordered` dans R.
 
@@ -245,13 +251,14 @@ En pratique, on commence par vérifier l'homoscédasticité, puis on réalise no
 
 Il existe plusieurs tests qui permettent de vérifier l'homoscédasticité. Nous vous proposons d'utiliser le test de Bartlett. Avant de foncer dans la zone de code R, réfléchissez à l'hypothèse nulle et à l'hypothèse alternative de ce test. Cela doit être clair dans votre esprit, sans quoi vous serez incapable d'interpréter correctement le test.
 
-💬 **Ce code correspond au snippet `.hvbartlett`**
+<!-- 💬 **Ce code correspond au snippet `.hvbartlett`** -->
 
 ```{r tooth_bart, exercise = TRUE, exercise.setup = "tg_prepare"}
 bartlett.test(data = ___, ___ ~ ___)
 ```
 
 ```{r tooth_bart-solution}
+## Solution ##
 bartlett.test(data = tooth_vc, len ~ dose)
 ```
 
@@ -273,49 +280,51 @@ question("Y a-t-il homoscédasticité (égalité des variances entre sous-popula
 Dans R, nous avons plusieurs fonctions pour réaliser une ANOVA. Nous utilisons `lm()` qui demande un jeu de données et une formule. Nous lui appliquons ensuite la fonction `anova()` pour produire le tableau de l'analyse de la variance.
 
 ```{r, echo=TRUE, eval=FALSE}
-anova(anova. <- lm(data = DF, YNUM ~ XFACTOR))
+anova(DF_anova <- lm(data = DF, YNUM ~ XFACTOR))
 ```
 
 Vous êtes habitué à cette interface formule que vous utilisez dans la réalisation de vos graphiques ou de vos tests d'hypothèse précédents. Cette fonction calcule un objet de classe `lm` (pour "linear model", que nous aborderons plus en détails au cours SDD II) duquel la fonction `anova()` va extraire l'information qui nous intéresse pour interpréter ce test. Réalisez votre modèle ANOVA sur la longueur des odontoblastes en fonction de la dose de vitamine C administrée pour votre sous-tableau relatif aux cochons d'Inde ayant reçu de l'acide ascorbique.
 
-💬 **Ce code correspond au snippet `.hmanova1`**
+<!-- 💬 **Ce code correspond au snippet `.hmanova1`** -->
 
 ```{r tooth_anova_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
-anova(anova. <- lm(data = ___, ___ ~ ___))
+anova(tg_anova <- lm(data = ___, ___ ~ ___))
 ```
 
 ```{r tooth_anova_h2-hint-1}
-anova(anova. <- lm(data = tooth_vc, ___ ~ ___))
+anova(tg_anova <- lm(data = tooth_vc, ___ ~ ___))
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_anova_h2-solution}
-anova(anova. <- lm(data = tooth_vc, len ~ dose))
+## Solution ##
+anova(tg_anova <- lm(data = tooth_vc, len ~ dose))
 ```
 
 ```{r tooth_anova_h2-check}
 grade_code("Vous avez compris le principe. Mais attention : n'allez pas plus loin dans l'interprétation des résultats sans avoir vérifié la Normalité des résidus.")
 ```
 
-Vérifiez maintenant la distribution Normale des résidus depuis votre objet `.anova`.
+Vérifiez maintenant la distribution Normale des résidus depuis votre objet `tg_anova`.
 
-💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`**
+<!-- 💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`** -->
 
 <!-- Proposition : Remplacer par chart$qqresid(anova.)-->
 
 ```{r tooth_qqplot_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
-plot(___, ___ = ___)
+chart$___(___, ___ = ___)
 ```
 
 ```{r tooth_qqplot_h2-hint-1}
-plot(___, which = 2)
+chart$qqplot(___, lang = "___")
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_qqplot_h2-solution}
-plot(anova., which = 2)
+## Solution ##
+chart$qqplot(tg_anova, lang = "fr")
 ```
 
 ```{r tooth_qqplot_h2-check}
@@ -326,7 +335,7 @@ grade_code("Tous les points de ce graphique quantile-quantile s'alignent assez b
 question("Y a-t-il un effet significatif de la dose de vitamine C administrée sur la longueur des odontoblastes au seuil alpha de 5% ?",
   answer("oui", correct = TRUE),
   answer("non"),
-  correct = "Excellent ! Vous avez correctement analysé votre tableau de l'analyse de la variance. L'ANOVA vous permet de savoir qu'au moins un des groupes diffère des autres. Vous allez devoir réaliser une analyse complémentaire pour déterminer la ou les moyennes qui diffère(nt) des autres.",
+  correct = "Vous avez correctement analysé votre tableau de l'analyse de la variance. L'ANOVA vous permet de savoir qu'au moins un des groupes diffère des autres. Vous allez devoir réaliser une analyse complémentaire pour déterminer la ou les moyennes qui diffèrent des autres.",
   incorrect = "Il semble que vous avez mal interprété votre ANOVA. Allez revoir la règle de décision basée sur la comparaison de la valeur P d'un test au seuil alpha.",
   allow_retry = TRUE)
 ```
@@ -335,22 +344,31 @@ question("Y a-t-il un effet significatif de la dose de vitamine C administrée s
 
 Votre ANOVA indique donc qu'il y a au moins une des moyennes qui est significativement différente des autres au seuil $\alpha$ de 5%. Un test post-hoc de comparaisons multiples va vous permettre de préciser cela. **Attention : ce genre de test est conçus pour être fiable uniquement lorsque H~0~ est rejetée pour l'ANOVA.** Ne l'utilisez pas *avant* d'avoir fait votre ANOVA, ni lorsque H~0~ n'est *pas* rejetée !
 
-💬 **Ce code correspond au snippet `.hmanovamult`**
+<!-- 💬 **Ce code correspond au snippet `.hmanovamult`** -->
 
-```{r tooth_post, exercise = TRUE, exercise.setup = "tg_prepare"}
-summary(anovaComp. <- confint(multcomp::glht(anova.,
+```{r tooth_post, exercise=TRUE, exercise.setup="tg_prepare"}
+summary(tg_posthoc <- confint(multcomp::glht(tg_anova,
   linfct = multcomp::mcp(___ = "Tukey")))) # Add a second factor if you want
-.oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
+# Graphique
+oma <- par(oma = c(0, 5.1, 0, 0))
+plot(tg_posthoc)
+par(oma)
+rm(oma)
 ```
 
 ```{r tooth_post-solution}
-summary(anovaComp. <- confint(multcomp::glht(anova.,
+## Solution ##
+summary(tg_posthoc <- confint(multcomp::glht(tg_anova,
   linfct = multcomp::mcp(dose = "Tukey")))) # Add a second factor if you want
-.oma <- par(oma = c(0, 5.1, 0, 0)); plot(anovaComp.); par(.oma); rm(.oma)
+# Graphique
+oma <- par(oma = c(0, 5.1, 0, 0))
+plot(tg_posthoc)
+par(oma)
+rm(oma)
 ```
 
 ```{r tooth_post-check}
-grade_code("Avec l'aide des snippets, il est relativement simple de réaliser un test post-hoc. Le graphique montre une comparaison deux à deux des différentes moyennes (pour la comparaison i - j, moyenne_i - moyenne_j) avec une correction via la méthode HSD de Tukey pour éviter l'inflation de l'erreur.")
+grade_code("Le graphique montre une comparaison deux à deux des différentes moyennes (pour la comparaison i - j, moyenne_i - moyenne_j) avec une correction via la méthode HSD de Tukey pour éviter l'inflation de l'erreur.")
 ```
 
 ```{r post_quiz}
@@ -358,7 +376,7 @@ question("Quels sont les niveaux significativement différents au seuil alpha de
   answer("0.5 par rapport à 1", correct = TRUE),
   answer("0.5 par rapport à 2", correct = TRUE),
   answer("1 par rapport à 2", correct = TRUE), 
-  allow_retry = TRUE, correct = "Superbe ! Les trois moyennes sont toutes différentes les unes des autres ici. Les intervalles sur le graphique ne contiennent jamais zéro.",
+  allow_retry = TRUE, correct = "Les trois moyennes sont toutes différentes les unes des autres ici. Les intervalles sur le graphique ne contiennent jamais zéro.",
   incorrect = "Votre réponse est probablement incomplète. Pour une première analyse, regardez bien le tableau et le graphique issus de l'analyse post-hoc.")
 ```
 

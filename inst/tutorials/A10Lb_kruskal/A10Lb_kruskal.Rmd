@@ -1,10 +1,10 @@
 ---
 title: "Test de Kruskal-Wallis"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** Utilisation du test de Kruskal-Wallis à la place de l'ANOVA."
+description: "**SDD I Module 10** Test de Kruskal-Wallis à la place de l'ANOVA."
 tutorial:
   id: "A10Lb_kruskal"
-version: 2.0.0/0
+version: 2.0.0/6
 output:
   learnr::tutorial:
   progressive: true
@@ -13,11 +13,19 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-BioDataScience3::learnr_setup()
-SciViews::R()
-library(mlearning)
+BioDataScience2::learnr_setup()
+SciViews::R("infer", lang = "fr")
 
-# ...
+# dataframe
+# Replace df, group and yvar by a biological context
+set.seed(43)
+df <- dtx(
+  group = as.factor(rep(letters[1:3], each =30)),
+  yvar = c(
+    rnorm(30, 10, 2),
+    rnorm(30, 13, 3),
+    rnorm(30, 6, 2))
+)
 ```
 
 ```{r, echo=FALSE}
@@ -30,12 +38,207 @@ BioDataScience3::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
--   ...
+Tout comme le test de Wilcoxon est la version non paramétrique du test *t* de Student, le test de Kruskal-Wallis est la version non paramétrique de l'analyse de variance.
 
-## Test de Kruskal-Wallis
+Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
 
-TODO: ce tutoriel doit encore être écrit. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !
+-   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'anova
+-   Utiliser le test ce test non paramétrique pour résoudre des questions pratiques en biologie
+
+N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présenté dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours et vous être autoévalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur".
+
+## Situation
+
+BLABLABLA
+
+Les données employées sont des données générées ne provenant pas d'une expérience scientifique publiée. Le tableau employé et le suivant :
+
+```{r, echo=TRUE}
+skimr::skim(df)
+```
+
+Votre objectif va être de comparer les moyennes des trois groupes.
+
+## Un peu de théorie
+
+Lorsque l'on souhaite comparer une variable quantitative en fonction d'une variable qualitative à trois niveaux ou plus, notre premier choix se porte sur une ANOVA. Pour réaliser une ANOVA, il faut cependant respecter les conditions d'application suivantes :
+
+-   échantillon représentatif (par exemple, aléatoire),
+-   observations indépendantes,
+-   variable dite réponse quantitative,
+-   une variable dite explicative qualitative à trois niveaux ou plus,
+-   distribution Normale des résidus,
+-   homoscédasticité (même variance intragroupe).
+
+Les quatre premières conditions sont similaires pour le test de Kruskal-Wallis. Les deux dernières conditions sont propres à l'ANOVA.
+
+Attention, le raisonnement entre ANOVA (test paramétrique) et Kruskal-Wallis (test non paramétrique) est le même qu'entre le test de Student ou celui de Wilcoxon. Lorsque les conditions sont remplies, l'ANOVA est un test plus puissant à utiliser en priorité. Nous le préférerons donc, sauf dans les cas impossibles où aucune transformation des données ne permet d'obtenir une distribution acceptable des résidus et des variances.
+
+L'instruction a réaliser dans R est la suivante :
+
+```{r, echo=TRUE, eval=FALSE}
+kruskal.test(data = DF, YNUM ~ XFACTOR)
+```
+
+-   DF : le tableau de données
+-   YNUM : la variable quantitative
+-   XFACTOR : la variable
+
+À présent que vous êtes au point concernant les conditions d'application, il est temps de répondre à la question scientifique posée précédemment.
+
+## Description graphique
+
+Toute analyse débute par la description du problème à l'aide de descripteurs numériques et de graphiques **pertinents**.
+
+Prenons un exemple concret, si vous réalisez des analyses comparant les moyennes de 3 groupes, il semble évident de présenter les moyennes de chaque groupe. Il ne vous viendraient pas à l'esprit de m'être l'accent sur les médianes de ces 3 groupes.
+
+Réalisez des boites parallèles. Ajoutez en plus le nombre d'observations au-dessus de chaque boite.
+
+```{r boxplot_h2, exercise=TRUE, exercise.lines=8}
+# fonction comptant les observations
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# graphique
+chart(data = __, ___ ~ ___) +
+  geom____() + # boites de dispersion parallèles 
+  ___(fun.data = give_n, geom = "text", hjust = 0.5)
+```
+
+```{r boxplot_h2-hint-1}
+# fonction comptant les observations
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# graphique
+chart(data = __, yvar ~ group) +
+  geom_boxplot() + # boites de dispersion parallèles 
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r boxplot_h2-solution}
+## Solution ##
+# fonction comptant les observations
+give_n <- function(x)
+  c(y = max(x) * 1.1, label = length(x)) 
+# graphique
+chart(data = df, yvar ~ group) +
+  geom_boxplot() + # boites de dispersion parallèles 
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
+```
+
+```{r boxplot_h2-check}
+grade_code("Lors du choix du graphique et des descripteurs numériques est amené à évolué en fonction du test que vous allez réaliser. On ne réalisera pas le même graphique pour une ANOVA à un facteur que pour un test de Kruskal-Wallis. Afin de ne pas multiplier les exercices dans cette séance, vous avez été guidé vers un graphique adapté pour un test non paramétrique. Les boites de dispersion parallèles sont tout indiquées pour cette expérience. L'ajout du nombre de valeurs sur un graphique n'est pas indispensable si on propose un tableau descriptif.")
+```
+
+Que cela soit un tableau résumé ou un graphique, ils ne permettent pas d'affirmer ou d'infirmer qu'il y a une différence significative entre les groupes présentés. Vous devez réaliser des tests d'hypothèses.
+
+## Vérification des conditions d'applications
+
+Le premier choix pour répondre à la question posée est d'employer une anova à un facteur. Ce test impose plusieurs conditions d'application que nous avons, rappelées précédemment. Vérifiez l'homoscédasticité au seuil alpha de 5%.
+
+```{r bartlett1_h2, exercise=TRUE}
+___(data = ___, ___ ~ ___)
+```
+
+```{r bartlett1_h2-hint-1}
+bartlett.test(data = ___, ___ ~ ___)
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r bartlett1_h2-solution}
+## Solution ##
+bartlett.test(data = df, yvar ~ group)
+```
+
+```{r bartlett1_h2-check}
+grade_code("La variance entre les 3 groupes diffère au seuil alpha de 5%. Tentez dans l'exercice suivant une transformation mathématique afin de réussir à valider cette condition.")
+```
+
+Vérifiez à nouveau l'homoscédasticité au seuil alpha de 5% en appliquant une transformation mathématique. Utilisez le logarithme népérien (`log()`)
+
+```{r bartlett2, exercice=TRUE}
+___(data = ___, ___(___) ~ ___)
+```
+
+```{r bartlett2-solution}
+## Solution ##
+bartlett.test(data = df, log(yvar) ~ group)
+```
+
+```{r bartlett2_check}
+grade_code("Malgré la transformation mathématique employée, il y a hétéroscédasticité entre les 3 groupes au seuil alpha de 5%. En pratique, vous devriez tenter plusieurs modifications. Vu que cette condition n'est pas respectée, nous ne pouvons pas employer l'ANOVA à un facteur. Nous devons du coup passer sur un test non paramétrique comme le test de Kruskal-Wallis")
+```
+
+## Kruskal-Wallis
+
+Étant donné que nous ne pouvons pas comparer les moyennes des trois groupes, nous allons réaliser une comparaison des rangs moyens.
+
+```{r kruskal, exercise=TRUE}
+___(data = ___, ___ ~ ___)
+```
+
+```{r kruskal-solution}
+## Solution ##
+kruskal.test(data = df, yvar ~ group)
+```
+
+```{r kruskal-check}
+grade_code("Vous avez réalisé le test adéquat à la situation. Comme vous l'avez remarqué, l'instruction a réaliser est simple. L'étape la plus importante est la suivante. Vous devez interpréter correctement ce test.")
+```
+
+```{r kruskal}
+question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
+  answer("Les moyennes des trois groupes diffèrent significativement au seuil alpha de 5%."),
+  answer("Au moins la moyenne d'un groupe diffèrent des autres significativement au seuil alpha de 5%."),
+  answer("Les rangs moyens différents significativement au seuil alpha de 5%"),
+  answer("Au moins le rang moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rangs moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5% (H : 66.931, df : 2, valeur de p : 2.925e-15 ).",
+  allow_retry = TRUE,
+  random_answer_order = TRUE)
+```
+
+## Test de comparaison multiple
+
+Votre test statistique précédent vous a permis de savoir qu'au moins un groupe diffère des deux autres. Il a présent temps de réaliser un test de comparaison multiple pour comparer les groupes deux à deux. Ce test de comparaison multiple doit être employé **si et seulement si** vous avez rejeté H0 avec le test de Kruskal-Wallis.
+
+```{r mult_h2, exercise=TRUE}
+summary(kw_comp. <- nparcomp::___(data = ___, ___~ ___))
+plot(___)
+
+```
+
+```{r mult_h2-hint-1}
+summary(kw_comp. <- nparcomp::nparcomp(data = ___, ___ ~ ___))
+plot(___)
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r mult_h2-solution}
+## Solution ##
+summary(kw_comp. <- nparcomp::nparcomp(data = df, yvar ~ group))
+plot(kw_comp.)
+```
+
+```{r mult_h2-check}
+grade_code("Le code est employé est correct. Comme vous en avez maintenant l'habitude, cela n'est pas suffisant. Vous devez être capable d'intepréter ces résultats.")
+```
+
+Votre comparaison des rangs moyens est terminée. L'interprétation statistique et biologique complète de ce test n'est pas une étape à banaliser. Elle est très similaire à la celle de l'anova à un facteur proposé dans la séance d'exercice autoévalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur". Étant donné que les valeurs sont simulées pour cet exercice, l'interprétation complète n'est pas réalisée dans cette séance d'exercices.
+
+## Conclusion
+
+Bravo ! Vous venez de terminer une analyse non paramétrique complète associée au test de Kruskal-Wallis. Lors de la vérification des conditions d'application, tentez toujours de transformer vos données afin de pouvoir employer une anova à un facteur, qui est un test plus puissant.
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur cet outil pédagogique",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

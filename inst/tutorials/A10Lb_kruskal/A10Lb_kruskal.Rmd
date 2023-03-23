@@ -1,7 +1,7 @@
 ---
 title: "Test de Kruskal-Wallis"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 10** Test de Kruskal-Wallis à la place de l'ANOVA."
+description: "**SDD I Module 10** Test de Kruskal-Wallis."
 tutorial:
   id: "A10Lb_kruskal"
 version: 2.0.0/6
@@ -19,11 +19,11 @@ SciViews::R("infer", lang = "fr")
 # dataframe
 set.seed(43)
 plant <- dtx(
-  group = as.factor(rep(c("cont", "trt1", "trt2"), each =30)),
+  group = as.factor(rep(c("cont", "trt1", "trt2"), each = 30)),
   yield = c(
-    rnorm(30, 6, 2),
-    rnorm(30, 9, 2),
-    rnorm(29, 15, 5), 29)
+    rnorm(30, 60, 2),
+    rnorm(30, 60.5, 2),
+    rnorm(29, 70, 5), 85)
 )
 ```
 
@@ -39,37 +39,31 @@ BioDataScience3::learnr_server(input, output, session)
 
 ## Objectifs
 
-Tout comme le test de Wilcoxon est la version non paramétrique du test *t* de Student, le test de Kruskal-Wallis est la version non paramétrique de l'analyse de variance.
+Tout comme le test de Wilcoxon est l'a version'équivalent non paramétrique du test *t* de Student, le test de Kruskal-Wallis est l'équivalent non paramétrique de l'analyse de variance à un facteur.
 
-Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
+Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
--   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'anova à un facteur
--   Utiliser le test ce test non paramétrique pour résoudre des questions pratiques en biologie
+-   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'ANOVA à un facteur
+-   Utiliser ce test non paramétrique pour résoudre des questions pratiques en biologie
 
-N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présenté dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours et vous être autoévalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur".
+N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présentée dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours et vous être auto-évalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur".
 
 ## Situation
 
-Les données employées sont des données générées et ne proviennent pas d'une expérience scientifique publiée. Nous allons cependant ajouter un peu de contexte à cette expérience.
+Les données employées sont générées artificiellement, mais elles s'inspirent de données réellement récoltées par des agronomes. Nous considérerons le contexte fictif suivant. Une expérience est menée afin de comparer les rendements mesuré en quintal à l'hectare (q/ha) dans trois situation : contrôle (aucun ajout d'engrais), traitement 1 (ajout modéré d'engrais), traitement 2 (ajout élevé d'engrais).
 
-Une expérience est menée afin de comparer les rendements mesuré en masse de plantes séchées dans trois situation : contrôle (aucun ajout d'engrais), traitement 1 (ajout modéré d'engrais), traitement 2 (ajout élevé d'ajout d'engrais).
-
-![](images/maize.jpg)
-
-Il est intéressant de savoir générer de la données. Lorsque l'on souhaite par exemple préparer une expérience, il est important de réfléchir au protocole de l'expérience, à la structure qu'aura le tableau de données ou encore aux valeurs que l'on pense obtenir. Ces valeurs vont être estimée grâce à des études précédentes. Intéressez vous à la précision, au seuil de détection des instruments employé que vous allez employer Avec ces données, il est possible de mettre en place les analyses statisques que l'on va employer, les graphiques que l'on va réaliser,...
-
-Le tableau est généré de la manière suivante :
+À titre d'information, le tableau de données est généré de la manière suivante :
 
 ```{r, echo=TRUE, eval=FALSE}
 # Fixe l'aléatoire pour des résultats reproductibles
 set.seed(43)
 # Création du tableau
 plant <- dtx(
-  group = as.factor(rep(c("cont", "trt1", "trt2"), each =30)), 
+  group = as.factor(rep(c("cont", "trt1", "trt2"), each = 30)), 
   yield = c(
-    rnorm(30, 6, 2), # groupe "cont" : 30 réplicats, moyenne de 6, écart-type de 2
-    rnorm(30, 9, 2), # groupe "trt1" : 30 réplicats, moyenne de 10, écart-type de 2
-    rnorm(29, 15, 5), 29) # groupe "trt2" : 30 réplicats, moyenne de 15, écart-type de 5 et une valeur extrême
+    rnorm(30, 60, 2), # groupe "cont" : 30 réplicats, moyenne de 6, écart-type de 2
+    rnorm(30, 60.5, 2), # groupe "trt1" : 30 réplicats, moyenne de 10, écart-type de 2
+    rnorm(29, 70, 5), 85) # groupe "trt2" : 30 réplicats, moyenne de 15, écart-type de 5 et une valeur extrême
 )
 ```
 
@@ -77,13 +71,11 @@ plant <- dtx(
 skimr::skim(plant)
 ```
 
-Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe comprend 30 réplicats. Il n'y a pas de valeurs manquantes dans ce tableaux.
-
-Votre objectif tout au long de cette séance d'expérience va être de comparer les moyennes des trois groupes.
+Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe est constitué de 30 réplicats. Il n'y a pas de valeurs manquantes dans ce tableaux. Votre objectif est de comparer les rendements obtenus pour les trois groupes (moyennes ou médianes).
 
 ## Un peu de théorie
 
-Lorsque l'on souhaite comparer une variable quantitative en fonction d'une variable qualitative à trois niveaux ou plus, notre premier choix se porte sur une ANOVA. Pour réaliser une ANOVA, il faut cependant respecter les conditions d'application suivantes :
+Lorsque l'on souhaite comparer les valeurs moyennes ou médianes d'une variable quantitative en fonction d'une variable qualitative à trois niveaux ou plus (qui sépare l'échantillon en sous-populations), notre premier choix se porte sur une ANOVA. Pour la réaliser, il faut cependant respecter les conditions d'application suivantes :
 
 -   échantillon représentatif (par exemple, aléatoire),
 -   observations indépendantes,
@@ -92,11 +84,9 @@ Lorsque l'on souhaite comparer une variable quantitative en fonction d'une varia
 -   distribution Normale des résidus,
 -   homoscédasticité (même variance intragroupe).
 
-Les quatre premières conditions sont similaires pour le test de Kruskal-Wallis. Les deux dernières conditions sont propres à l'ANOVA.
+Les quatre premières conditions sont similaires pour le test de Kruskal-Wallis. Les deux dernières conditions sont propres à l'ANOVA. Le raisonnement pour faire un choix entre ANOVA (test paramétrique) et Kruskal-Wallis (test non paramétrique) est le même que pour décider entre l'utilisation d'un test *t* de Student ou d'un test de Wilcoxon. Lorsque les conditions sont remplies, l'ANOVA est un test plus puissant que le Kruskal-Wallis. Il est donc à utiliser en priorité, sauf dans les cas impossibles où aucune transformation des données ne permet d'obtenir une distribution acceptable des résidus ou l'homoscédasticité.
 
-Attention, le raisonnement entre ANOVA (test paramétrique) et Kruskal-Wallis (test non paramétrique) est le même qu'entre le test de Student ou celui de Wilcoxon. Lorsque les conditions sont remplies, l'ANOVA est un test plus puissant à utiliser en priorité. Nous le préférerons donc, sauf dans les cas impossibles où aucune transformation des données ne permet d'obtenir une distribution acceptable des résidus et des variances.
-
-L'instruction a réaliser dans R est la suivante :
+Concernant le test de Kruskal-Wallis, le calcul se fait dans R comme suit :
 
 ```{r, echo=TRUE, eval=FALSE}
 kruskal.test(data = DF, YNUM ~ XFACTOR)
@@ -104,60 +94,66 @@ kruskal.test(data = DF, YNUM ~ XFACTOR)
 
 -   DF : le tableau de données
 -   YNUM : la variable quantitative
--   XFACTOR : la variable
+-   XFACTOR : la variable qualitative
 
-À présent que vous êtes au point concernant les conditions d'application, il est temps de répondre à la question scientifique posée précédemment.
+À présent que vous êtes au point concernant les conditions d'application, il est temps de répondre à la question posée.
 
 ## Description graphique
 
-Toute analyse débute par la description du problème à l'aide de descripteurs numériques et de graphiques **pertinents**.
+Toute analyse débute par la description des données à l'aide de descripteurs numériques et de graphiques **pertinents**. Vous voulez comparer les **moyennes** de trois groupes (si ANOVA). Il semble évident de présenter graphiquement les moyennes de chaque groupe de telle façon que la comparaison visuelle sur le graphique est facile à réaliser. C'est ce que nous avons fait dans le tutoriel learnr précédent consacré à l'ANOVA.
 
-Prenons un exemple concret, si vous réalisez des analyses comparant les moyennes de 3 groupes, il semble évident de présenter les moyennes de chaque groupe. Il ne vous viendraient pas à l'esprit de m'être l'accent sur les médianes de ces 3 groupes.
+Par contre, si au cours de votre analyse, vous réalisez que c'est plutôt un test de Kruskal-Wallis, alors il faudra revenir sur votre description initiale des données et vous tourner vers un graphique qui comparera plutôt les **médianes** des trois groupes. Ici, nous savons d'avance que nous réaliserons un test de Kruskal-Wallis au final. Donc, afin d'économiser notre temps, nous ferons directement un graphique en boites de dispersion parallèles. Vous annoterez le graphique avec le nombre d'observations au-dessus de chaque boite de dispersion.
 
-Réalisez des boites parallèles. Ajoutez en plus le nombre d'observations au-dessus de chaque boite.
-
-```{r boxplot_h2, exercise=TRUE, exercise.lines=8}
-# fonction comptant les observations
+```{r boxplot_h2, exercise=TRUE, exercise.lines=10}
+# Fonction comptant les observations
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
-# graphique
+# Graphique
 chart(data = __, ___ ~ ___) +
   geom____() + # boites de dispersion parallèles 
-  ___(fun.data = give_n, geom = "text", hjust = 0.5)
+  ___(fun.data = give_n, geom = "text", hjust = 0.5) +
+  xlab("Traitement") +
+  ylab("Rendement [q/ha]")
 ```
 
 ```{r boxplot_h2-hint-1}
-# fonction comptant les observations
+# Fonction comptant les observations
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
-# graphique
+# Graphique
 chart(data = __, yield ~ group) +
   geom_boxplot() + # boites de dispersion parallèles 
-  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
+  xlab("Traitement") +
+  ylab("Rendement [q/ha]")
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r boxplot_h2-solution}
 ## Solution ##
-# fonction comptant les observations
+# Fonction comptant les observations
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
-# graphique
+# Graphique
 chart(data = plant, yield ~ group) +
   geom_boxplot() + # boites de dispersion parallèles 
-  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
+  stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
+  xlab("Traitement") +
+  ylab("Rendement [q/ha]")
 ```
 
 ```{r boxplot_h2-check}
-grade_code("Lors du choix du graphique et des descripteurs numériques est amené à évolué en fonction du test que vous allez réaliser. On ne réalisera pas le même graphique pour une ANOVA à un facteur que pour un test de Kruskal-Wallis. Afin de ne pas multiplier les exercices dans cette séance, vous avez été guidé vers un graphique adapté pour un test non paramétrique. Les boites de dispersion parallèles sont tout indiquées pour cette expérience. L'ajout du nombre de valeurs sur un graphique n'est pas indispensable si on propose un tableau descriptif.")
+grade_code("Les boites de dispersion parallèles sont tout indiquées pour représenter les données avant un test de Wilxoxon indépendant ou un test de Kruskal-Wallis.")
 ```
 
-Que cela soit un tableau résumé ou un graphique, ils ne permettent pas d'affirmer ou d'infirmer qu'il y a une différence significative entre les groupes présentés. Vous devez réaliser des tests d'hypothèses.
+Que cela soit un tableau résumé ou un graphique, ils ne permettent pas d'affirmer ou d'infirmer qu'il y a une différence significative entre les groupes présentés. Vous devez réaliser un test d'hypothèse pour décider si les différences observées sont probablement issues de ces différences ou si elles sont plutôt imputables à la variations entre individus et aux erreurs de mesure (variations aléatoires).
 
 ## Vérification des conditions d'applications
 
-Le premier choix pour répondre à la question posée est d'employer une anova à un facteur. Ce test impose plusieurs conditions d'application que nous avons, rappelées précédemment. Vérifiez l'homoscédasticité au seuil alpha de 5%.
+Le premier choix pour répondre à la question est d'employer une ANOVA à un facteur. Nous devons, cependant, nous assurer que les résidus ont une distribution Normale ou proche de la Normalité et que les variances à l'intérieur de chaque sous-population (variances intragroupes) sont homogènes. Si vous avez suffisamment de données à disposition (une dizaine ou plus d'observations par groupe), vous pouvez le faire directement sur l'échantillon. Sinon, vous pouvez toujours vous rabattre sur un jeu de données équivalent plus conséquent, si vous en possédez un. Si pas, le test de Kruskal-Wallis directement reste votre ultime solution. Dans le cas présent, nous avons suffisamment de données à disposition pour effectuer nos vérifications.
+
+Contrôlez à présent l'homoscédasticité au seuil alpha de 5%.
 
 ```{r bartlett1_h2, exercise=TRUE}
 ___(data = ___, ___ ~ ___)
@@ -175,7 +171,7 @@ bartlett.test(data = plant, yield ~ group)
 ```
 
 ```{r bartlett1_h2-check}
-grade_code("La variance entre les 3 groupes diffère au seuil alpha de 5%. Tentez dans l'exercice suivant une transformation mathématique afin de réussir à valider cette condition.")
+grade_code("La variance au sein des trois groupes diffère au seuil alpha de 5%. Tentez dans l'exercice suivant une transformation mathématique dans le but de valider cette condition.")
 ```
 
 Vérifiez à nouveau l'homoscédasticité au seuil alpha de 5% en appliquant une transformation mathématique. Utilisez le logarithme népérien (`log()`)
@@ -190,12 +186,12 @@ bartlett.test(data = plant, log(yield) ~ group)
 ```
 
 ```{r bartlett2-check}
-grade_code("Malgré la transformation mathématique employée, il y a hétéroscédasticité entre les 3 groupes au seuil alpha de 5%. En pratique, vous devriez tenter plusieurs modifications. Vu que cette condition n'est pas respectée, nous ne pouvons pas employer l'ANOVA à un facteur. Nous devons du coup passer sur un test non paramétrique comme le test de Kruskal-Wallis")
+grade_code("Malgré la transformation mathématique employée, il y a hétéroscédasticité entre les trois groupes au seuil alpha de 5%. En pratique, vous devriez tenter plusieurs modifications. Vu que cette condition n'est pas respectée, nous ne pouvons pas employer l'ANOVA à un facteur. Nous devons du coup passer sur un test non paramétrique comme le test de Kruskal-Wallis. Il en serait de même si l'homoscédasticité était respectée, mais les résidus avaient une distribution franchement non Normale (à contrôler avec un graphique quantile-quantile). Ici, comme une des conditions n'est pas rencontrée, nous n'avons pas besoin de pousser les vérifications plus loin.")
 ```
 
 ## Kruskal-Wallis
 
-Étant donné que nous ne pouvons pas comparer les moyennes des trois groupes, nous allons réaliser une comparaison des rangs moyens.
+Effectuez maintenant le test de Kruskal-Wallis sur ces données dans `plant`.
 
 ```{r kruskal, exercise=TRUE}
 ___(data = ___, ___ ~ ___)
@@ -207,31 +203,33 @@ kruskal.test(data = plant, yield ~ group)
 ```
 
 ```{r kruskal-check}
-grade_code("Vous avez réalisé le test adéquat à la situation. Comme vous l'avez remarqué, l'instruction a réaliser est simple. L'étape la plus importante est la suivante. Vous devez interpréter correctement ce test.")
+grade_code("Vous avez réalisé le test adéquat. Comme vous l'avez remarqué, l'instruction dans R est simple et suit le caneva FUN(data = DF, Y ~ X). Vous devez maintenant interpréter correctement ce test.")
 ```
 
 ```{r qu_kruskal}
 question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
+  answer("Les moyennes des trois groupes ne diffèrent pas de manière significative au seuil alpha de 5%."),
   answer("Les moyennes des trois groupes diffèrent significativement au seuil alpha de 5%."),
   answer("Au moins la moyenne d'un groupe diffère des autres significativement au seuil alpha de 5%."),
-  answer("Les rangs moyens différent significativement au seuil alpha de 5%"),
-  answer("Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5% (H : 54.253, ddl : 2, valeur de p : 1.657e-12).",
+   answer("Les rangs moyens (médianes) ne différent pas significativement au seuil alpha de 5%"),
+  answer("Les rangs moyens (médianes) différent significativement au seuil alpha de 5%"),
+  answer("Au moins un rang moyen (médianes) d'un groupe diffère des autres significativement au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5% (Chi^2 = 54,95, ddl = 2, valeur p = 1,17e-12).",
   allow_retry = TRUE,
   random_answer_order = TRUE)
 ```
 
 ## Test de comparaison multiple
 
-Votre test statistique précédent vous a permis de savoir qu'au moins un groupe diffère des deux autres. Il a présent temps de réaliser un test de comparaison multiple pour comparer les groupes deux à deux. Ce test de comparaison multiple doit être employé **si et seulement si** vous avez rejeté H0 avec le test de Kruskal-Wallis.
+Votre test d'hypothèse vous a permis de déterminer qu'au moins un groupe diffère des deux autres. Il est à présent temps de réaliser un test de comparaisons multiples pour préciser où se situent les différences. Ce test de comparaison multiple doit être employé **si et seulement si** vous avez rejeté H0 dans le test de Kruskal-Wallis.
 
 ```{r mult_h2, exercise=TRUE}
-summary(kw_comp. <- nparcomp::___(data = ___, ___~ ___))
+summary(plant_kw_comp <- nparcomp::___(data = ___, ___~ ___))
 plot(___)
 
 ```
 
 ```{r mult_h2-hint-1}
-summary(kw_comp. <- nparcomp::nparcomp(data = ___, ___ ~ ___))
+summary(plant_kw_comp <- nparcomp::nparcomp(data = ___, ___ ~ ___))
 plot(___)
 
 #### ATTENTION: Hint suivant = solution !####
@@ -239,19 +237,21 @@ plot(___)
 
 ```{r mult_h2-solution}
 ## Solution ##
-summary(kw_comp. <- nparcomp::nparcomp(data = plant, yield ~ group))
-plot(kw_comp.)
+summary(plant_kw_comp <- nparcomp::nparcomp(data = plant, yield ~ group))
+plot(plant_kw_comp)
 ```
 
 ```{r mult_h2-check}
-grade_code("Le code est employé est correct. Comme vous en avez maintenant l'habitude, cela n'est pas suffisant. Vous devez être capable d'intepréter ces résultats.")
+grade_code("Vous avez à la fois une présentation textuelle et graphique de ces comparaisons multiples. Comme vous en avez maintenant l'habitude, vous devez maintenant intepréter ces résultats... (lisez ci-dessous)")
 ```
 
-Votre comparaison des rangs moyens est terminée. L'interprétation statistique et biologique complète de ce test n'est pas une étape à banaliser. Elle est très similaire à la celle de l'anova à un facteur proposé dans la séance d'exercice autoévalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur". Étant donné que les valeurs sont simulées pour cet exercice, l'interprétation complète n'est pas réalisée dans cette séance d'exercices.
+Nous voyons que la valeur *p* pour la comparaison traitement 1 *versus* contrôle est supérieure à notre seuil alpha de 5% et l'intervalle de confiance à 95% (1 - alpha) représenté sur le graphique contient zéro. Pour cette comparaison, la différence des moyennes n'est donc pas significative. Par contre, pour les deux autres comparaisons (traitement 2 *versus* contrôle et traitement 1 *versus* traitement 2), les différences sont significatives au seuil alpha de 5%.
+
+Suite à cette analyse, nous pouvons considérer qu'un apport élevé d'engrais est nécessaire pour obtenir des rendement qui augmentent de manière significative. Il serait sans doute intéressant ici de comparer un plus grand nombre de doses croissantes d'engrais pour établir une **relation** entre la quantité d'engrais apporté et le rendement, mais cela nous entraînerait alors vers une toute autre technique statistique : la régression linéaire que nous étudierons au second cours de science des données.
 
 ## Conclusion
 
-Bravo ! Vous venez de terminer une analyse non paramétrique complète associée au test de Kruskal-Wallis. Lors de la vérification des conditions d'application, tentez toujours de transformer vos données afin de pouvoir employer une anova à un facteur, qui est un test plus puissant.
+Bravo ! Vous venez de terminer une analyse de données en utilisant un test de Kruskal-Wallis. Lors de la vérification des conditions d'application, tentez toujours de transformer vos données afin de pouvoir employer en priorité une ANOVA à un facteur qui est un test plus puissant.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

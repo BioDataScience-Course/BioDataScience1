@@ -2,6 +2,8 @@
 
 -   Revision of tutorial **A10La_anova**.
 
+-   New tutorial **A10Lb_kruskal**.
+
 # BioDataScience 2022.6.1
 
 -   Slight correction in tutorial **A09La_ttest**.

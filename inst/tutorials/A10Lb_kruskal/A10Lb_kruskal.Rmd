@@ -17,14 +17,13 @@ BioDataScience2::learnr_setup()
 SciViews::R("infer", lang = "fr")
 
 # dataframe
-# Replace df, group and yvar by a biological context
 set.seed(43)
-df <- dtx(
-  group = as.factor(rep(letters[1:3], each =30)),
-  yvar = c(
+plant <- dtx(
+  group = as.factor(rep(c("cont", "trt1", "trt2", each =30)),
+  yield = c(
+    rnorm(30, 6, 2),
     rnorm(30, 10, 2),
-    rnorm(30, 13, 3),
-    rnorm(30, 6, 2))
+    rnorm(30, 13, 3))
 )
 ```
 
@@ -53,9 +52,9 @@ N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur 
 
 Les données employées sont des données générées et ne proviennent pas d'une expérience scientifique publiée. Nous allons cependant ajouter un peu de contexte à cette expérience.
 
-...
+Une expérience est menée afin de comparer les rendements mesuré en masse de plantes séchées dans trois situation : contrôle (aucun ajout d'engrais), traitement 1 (ajout modéré d'azote inorganique), traitement 2 (ajout élevé d'azote inorganique).
 
-Il est intéressant de savoir générer de la données. Lorsque l'on souhaite par exemple préparer une expérience, il est important de réfléchir au protocole de l'expérience, à la structure qu'aura le tableau de données ou encore aux valeurs que l'on pense obtenir. Ces valeurs vont être estimée grâce à des études précédentes. Avec ces données, il est possible de mettre en place les analyses statisques que l'on va employer, les graphiques que l'on va réaliser,...
+Il est intéressant de savoir générer de la données. Lorsque l'on souhaite par exemple préparer une expérience, il est important de réfléchir au protocole de l'expérience, à la structure qu'aura le tableau de données ou encore aux valeurs que l'on pense obtenir. Ces valeurs vont être estimée grâce à des études précédentes. Intéressez vous à la précision, au seuil de détection des instruments employé que vous allez employer Avec ces données, il est possible de mettre en place les analyses statisques que l'on va employer, les graphiques que l'on va réaliser,...
 
 Le tableau est généré de la manière suivante :
 
@@ -63,20 +62,20 @@ Le tableau est généré de la manière suivante :
 # Fixe l'aléatoire pour des résultats reproductibles
 set.seed(43)
 # Création du tableau
-df <- dtx(
-  group = as.factor(rep(letters[1:3], each =30)), 
-  yvar = c(
-    rnorm(30, 10, 2), # groupe a : 30 individus, moyenne de 10, écart-type de 2
-    rnorm(30, 13, 3), # groupe b : 30 individus, moyenne de 13, écart-type de 3
-    rnorm(30, 6, 2)) # groupe c : 30 individus, moyenne de 6, écart-type de 2
+plant <- dtx(
+  group = as.factor(c("cont", "trt1", "trt2"), each =30)), 
+  yield = c(
+    rnorm(30, 6, 2), # groupe "cont" : 30 réplicats, moyenne de 6, écart-type de 2
+    rnorm(30, 10, 2), # groupe "trt1" : 30 réplicats, moyenne de 10, écart-type de 2
+    rnorm(30, 13, 3)) # groupe "trt2" : 30 réplicats, moyenne de 13, écart-type de 3
 )
 ```
 
 ```{r, echo=TRUE}
-skimr::skim(df)
+skimr::skim(plant)
 ```
 
-Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe comprend 30 individus. Il n'y a pas de valeurs manquantes dans ce tableaux.
+Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe comprend 30 réplicats. Il n'y a pas de valeurs manquantes dans ce tableaux.
 
 Votre objectif tout au long de cette séance d'expérience va être de comparer les moyennes des trois groupes.
 
@@ -130,7 +129,7 @@ chart(data = __, ___ ~ ___) +
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 # graphique
-chart(data = __, yvar ~ group) +
+chart(data = __, yield ~ group) +
   geom_boxplot() + # boites de dispersion parallèles 
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
 
@@ -143,7 +142,7 @@ chart(data = __, yvar ~ group) +
 give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 # graphique
-chart(data = df, yvar ~ group) +
+chart(data = plant, yield ~ group) +
   geom_boxplot() + # boites de dispersion parallèles 
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5)
 ```
@@ -170,7 +169,7 @@ bartlett.test(data = ___, ___ ~ ___)
 
 ```{r bartlett1_h2-solution}
 ## Solution ##
-bartlett.test(data = df, yvar ~ group)
+bartlett.test(data = plant, yield ~ group)
 ```
 
 ```{r bartlett1_h2-check}
@@ -185,7 +184,7 @@ ___(data = ___, ___(___) ~ ___)
 
 ```{r bartlett2-solution}
 ## Solution ##
-bartlett.test(data = df, log(yvar) ~ group)
+bartlett.test(data = plant, log(yield) ~ group)
 ```
 
 ```{r bartlett2_check}
@@ -202,7 +201,7 @@ ___(data = ___, ___ ~ ___)
 
 ```{r kruskal-solution}
 ## Solution ##
-kruskal.test(data = df, yvar ~ group)
+kruskal.test(data = plant, yield ~ group)
 ```
 
 ```{r kruskal-check}
@@ -214,7 +213,7 @@ question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
   answer("Les moyennes des trois groupes diffèrent significativement au seuil alpha de 5%."),
   answer("Au moins la moyenne d'un groupe diffèrent des autres significativement au seuil alpha de 5%."),
   answer("Les rangs moyens différents significativement au seuil alpha de 5%"),
-  answer("Au moins le rang moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rangs moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5% (H : 66.931, df : 2, valeur de p : 2.925e-15 ).",
+  answer("Au moins le rang moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rangs moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5% (H : 66.931, ddl : 2, valeur de p : 2.925e-15 ).",
   allow_retry = TRUE,
   random_answer_order = TRUE)
 ```
@@ -238,7 +237,7 @@ plot(___)
 
 ```{r mult_h2-solution}
 ## Solution ##
-summary(kw_comp. <- nparcomp::nparcomp(data = df, yvar ~ group))
+summary(kw_comp. <- nparcomp::nparcomp(data = plant, yield ~ group))
 plot(kw_comp.)
 ```
 

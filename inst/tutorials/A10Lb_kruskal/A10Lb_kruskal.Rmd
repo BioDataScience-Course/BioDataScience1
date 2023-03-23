@@ -22,8 +22,8 @@ plant <- dtx(
   group = as.factor(rep(c("cont", "trt1", "trt2"), each =30)),
   yield = c(
     rnorm(30, 6, 2),
-    rnorm(30, 10, 2),
-    rnorm(30, 13, 3))
+    rnorm(30, 9, 2),
+    rnorm(29, 15, 5), 29)
 )
 ```
 
@@ -52,7 +52,7 @@ N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur 
 
 Les données employées sont des données générées et ne proviennent pas d'une expérience scientifique publiée. Nous allons cependant ajouter un peu de contexte à cette expérience.
 
-Une expérience est menée afin de comparer les rendements mesuré en masse de plantes séchées dans trois situation : contrôle (aucun ajout d'engrais), traitement 1 (ajout modéré d'azote inorganique), traitement 2 (ajout élevé d'azote inorganique).
+Une expérience est menée afin de comparer les rendements mesuré en masse de plantes séchées dans trois situation : contrôle (aucun ajout d'engrais), traitement 1 (ajout modéré d'engrais), traitement 2 (ajout élevé d'ajout d'engrais).
 
 ![](images/maize.jpg)
 
@@ -65,11 +65,11 @@ Le tableau est généré de la manière suivante :
 set.seed(43)
 # Création du tableau
 plant <- dtx(
-  group = as.factor(c("cont", "trt1", "trt2"), each =30)), 
+  group = as.factor(rep(c("cont", "trt1", "trt2"), each =30)), 
   yield = c(
     rnorm(30, 6, 2), # groupe "cont" : 30 réplicats, moyenne de 6, écart-type de 2
-    rnorm(30, 10, 2), # groupe "trt1" : 30 réplicats, moyenne de 10, écart-type de 2
-    rnorm(30, 13, 3)) # groupe "trt2" : 30 réplicats, moyenne de 13, écart-type de 3
+    rnorm(30, 9, 2), # groupe "trt1" : 30 réplicats, moyenne de 10, écart-type de 2
+    rnorm(29, 15, 5), 29) # groupe "trt2" : 30 réplicats, moyenne de 15, écart-type de 5 et une valeur extrême
 )
 ```
 
@@ -189,7 +189,7 @@ ___(data = ___, ___(___) ~ ___)
 bartlett.test(data = plant, log(yield) ~ group)
 ```
 
-```{r bartlett2_check}
+```{r bartlett2-check}
 grade_code("Malgré la transformation mathématique employée, il y a hétéroscédasticité entre les 3 groupes au seuil alpha de 5%. En pratique, vous devriez tenter plusieurs modifications. Vu que cette condition n'est pas respectée, nous ne pouvons pas employer l'ANOVA à un facteur. Nous devons du coup passer sur un test non paramétrique comme le test de Kruskal-Wallis")
 ```
 
@@ -213,9 +213,9 @@ grade_code("Vous avez réalisé le test adéquat à la situation. Comme vous l'a
 ```{r qu_kruskal}
 question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
   answer("Les moyennes des trois groupes diffèrent significativement au seuil alpha de 5%."),
-  answer("Au moins la moyenne d'un groupe diffèrent des autres significativement au seuil alpha de 5%."),
-  answer("Les rangs moyens différents significativement au seuil alpha de 5%"),
-  answer("Au moins le rang moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rangs moyen d'un groupe diffèrent des autres significatievment au seuil alpha de 5% (H : 66.931, ddl : 2, valeur de p : 2.925e-15 ).",
+  answer("Au moins la moyenne d'un groupe diffère des autres significativement au seuil alpha de 5%."),
+  answer("Les rangs moyens différent significativement au seuil alpha de 5%"),
+  answer("Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5% (H : 54.253, ddl : 2, valeur de p : 1.657e-12).",
   allow_retry = TRUE,
   random_answer_order = TRUE)
 ```

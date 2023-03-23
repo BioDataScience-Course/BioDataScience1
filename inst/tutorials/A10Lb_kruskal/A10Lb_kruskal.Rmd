@@ -44,22 +44,41 @@ Tout comme le test de Wilcoxon est la version non paramétrique du test *t* de S
 
 Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
 
--   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'anova
+-   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'anova à un facteur
 -   Utiliser le test ce test non paramétrique pour résoudre des questions pratiques en biologie
 
 N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présenté dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours et vous être autoévalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur".
 
 ## Situation
 
-BLABLABLA
+Les données employées sont des données générées et ne proviennent pas d'une expérience scientifique publiée. Nous allons cependant ajouter un peu de contexte à cette expérience.
 
-Les données employées sont des données générées ne provenant pas d'une expérience scientifique publiée. Le tableau employé et le suivant :
+...
+
+Il est intéressant de savoir générer de la données. Lorsque l'on souhaite par exemple préparer une expérience, il est important de réfléchir au protocole de l'expérience, à la structure qu'aura le tableau de données ou encore aux valeurs que l'on pense obtenir. Ces valeurs vont être estimée grâce à des études précédentes. Avec ces données, il est possible de mettre en place les analyses statisques que l'on va employer, les graphiques que l'on va réaliser,...
+
+Le tableau est généré de la manière suivante :
+
+```{r, echo=TRUE, eval=FALSE}
+# Fixe l'aléatoire pour des résultats reproductibles
+set.seed(43)
+# Création du tableau
+df <- dtx(
+  group = as.factor(rep(letters[1:3], each =30)), 
+  yvar = c(
+    rnorm(30, 10, 2), # groupe a : 30 individus, moyenne de 10, écart-type de 2
+    rnorm(30, 13, 3), # groupe b : 30 individus, moyenne de 13, écart-type de 3
+    rnorm(30, 6, 2)) # groupe c : 30 individus, moyenne de 6, écart-type de 2
+)
+```
 
 ```{r, echo=TRUE}
 skimr::skim(df)
 ```
 
-Votre objectif va être de comparer les moyennes des trois groupes.
+Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe comprend 30 individus. Il n'y a pas de valeurs manquantes dans ce tableaux.
+
+Votre objectif tout au long de cette séance d'expérience va être de comparer les moyennes des trois groupes.
 
 ## Un peu de théorie
 
@@ -160,7 +179,7 @@ grade_code("La variance entre les 3 groupes diffère au seuil alpha de 5%. Tente
 
 Vérifiez à nouveau l'homoscédasticité au seuil alpha de 5% en appliquant une transformation mathématique. Utilisez le logarithme népérien (`log()`)
 
-```{r bartlett2, exercice=TRUE}
+```{r bartlett2, exercise=TRUE}
 ___(data = ___, ___(___) ~ ___)
 ```
 
@@ -190,7 +209,7 @@ kruskal.test(data = df, yvar ~ group)
 grade_code("Vous avez réalisé le test adéquat à la situation. Comme vous l'avez remarqué, l'instruction a réaliser est simple. L'étape la plus importante est la suivante. Vous devez interpréter correctement ce test.")
 ```
 
-```{r kruskal}
+```{r qu_kruskal}
 question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
   answer("Les moyennes des trois groupes diffèrent significativement au seuil alpha de 5%."),
   answer("Au moins la moyenne d'un groupe diffèrent des autres significativement au seuil alpha de 5%."),

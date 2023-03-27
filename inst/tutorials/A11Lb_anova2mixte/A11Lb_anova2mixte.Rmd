@@ -13,7 +13,7 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-BioDataScience3::learnr_setup()
+BioDataScience1::learnr_setup()
 SciViews::R()
 library(mlearning)
 
@@ -21,11 +21,11 @@ library(mlearning)
 ```
 
 ```{r, echo=FALSE}
-BioDataScience3::learnr_banner()
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-BioDataScience3::learnr_server(input, output, session)
+BioDataScience1::learnr_server(input, output, session)
 ```
 
 ------------------------------------------------------------------------

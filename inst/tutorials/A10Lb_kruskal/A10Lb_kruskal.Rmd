@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 10** Test de Kruskal-Wallis."
 tutorial:
   id: "A10Lb_kruskal"
-version: 2.0.0/6
+version: 2.0.1/6
 output:
   learnr::tutorial:
   progressive: true
@@ -13,7 +13,7 @@ runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
-BioDataScience2::learnr_setup()
+BioDataScience1::learnr_setup()
 SciViews::R("infer", lang = "fr")
 
 # dataframe
@@ -28,18 +28,18 @@ plant <- dtx(
 ```
 
 ```{r, echo=FALSE}
-BioDataScience3::learnr_banner()
+BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
-BioDataScience3::learnr_server(input, output, session)
+BioDataScience1::learnr_server(input, output, session)
 ```
 
 ------------------------------------------------------------------------
 
 ## Objectifs
 
-Tout comme le test de Wilcoxon est l'a version'équivalent non paramétrique du test *t* de Student, le test de Kruskal-Wallis est l'équivalent non paramétrique de l'analyse de variance à un facteur.
+Tout comme le test de Wilcoxon est l'équivalent non paramétrique du test *t* de Student, le test de Kruskal-Wallis est l'équivalent non paramétrique de l'analyse de variance à un facteur.
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 

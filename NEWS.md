@@ -1,3 +1,7 @@
+# BioDataScience 2022.7.1
+
+-   Correction in **A10Lb_kruskal** (dependencies to BioDataScience2\|3 should not be there).
+
 # BioDataScience 2022.7.0
 
 -   Revision of tutorial **A10La_anova**.

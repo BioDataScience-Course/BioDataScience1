@@ -25,15 +25,13 @@ BioDataScience1::learnr_server(input, output, session)
 
 ------------------------------------------------------------------------
 
-**Ce tutoriel correspond à la version 2021-2022. Il est en cours de révision pour la version 2022-2023. Vous devez probablement penser à installer une version plus récente du package qui contient les exercices finalisés !**
-
 ## Objectifs
 
-L'association entre deux variables peut être quantifiée grâce à différents descripteurs ou indices comme la covariance, l'indice de de corrélation de Pearson ou encore l'indice de de corrélation de Spearman.
+L'association entre deux variables peut être quantifiée grâce à différents descripteurs ou indices comme la covariance, l'indice de corrélation de Pearson, l'indice de de corrélation de Spearman ou de Kendall.
 
 On définit trois niveaux d'association impliquant des hypothèses de plus en plus fortes sur les mécanismes sous-jacents liant ces deux variables : **corrélation**, **relation** et **causalité**.
 
-La corrélation est simplement l'association de deux variables sans élaborer plus d'hypothèses sur les mécanismes sous-jacents qui lient ces variables.
+La corrélation est simplement l'association de deux variables sans élaborer plus d'hypothèses sur les mécanismes éventuellement responsables de cette association.
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
@@ -43,28 +41,28 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
 ## Biométrie de trois espèces d'iris
 
-L'étude porte sur les variations morphologiques des fleurs de trois espèces d'iris qui sont *Iris setosa* Pall. ex Link (1820) , *Iris versicolor* L. (1753) et *Iris virginica* L.. Ces espèces appartiennent à la famille des *Iridaceae*. Ces trois espèces se développent dans des milieux humides.
+L'étude porte sur les variations morphologiques des fleurs de trois espèces d'iris qui sont *Iris setosa* Pall. ex Link (1820) , *Iris versicolor* L. (1753) et *Iris virginica* L. Ces espèces appartiennent à la famille des *Iridaceae*. Ces trois espèces se développent dans des milieux humides.
 
-Edgar Anderson a récolté des mesures sur les fleurs des trois espèces d'iris en Gaspésie (Québec, Canada) en 1935. La péninsule de Gaspésie est entourée par l'estuaire du fleuve Saint-Laurent, le golfe du Saint-Laurent et la baie des chaleurs.
+Edgar Anderson a récolté des mesures sur les fleurs des trois espèces d'iris en Gaspésie (Québec, Canada) en 1935. La péninsule de Gaspésie est entourée par l'estuaire du fleuve Saint-Laurent, le Golfe du Saint-Laurent et la Baie des Chaleurs.
 
-Cinquante plants par espèce sont prélevés afin d'étudier leurs fleurs. La longueur et la largeur des pétales et des sépales sont mesurées (en centimètre).
+Cinquante plants par espèce sont prélevés afin d'étudier leurs fleurs. Les longueurs et largeurs des pétales et des sépales sont mesurées (en centimètre).
 
 ![](images/iris.jpg)
 
-Vous avez à votre disposition un jeu de données sur des mesures biométriques d'iris.
+Vous avez à votre disposition un jeu de données sur des mesures biométriques d'`iris`.
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 # Importation des données
 (iris <- read("iris", package = "datasets", lang = "fr"))
 ```
 
-La fonction `skim()` du package `skimr` est très intéressante dans un carnet de notes pour découvrir les données. Avec une seule fonction, on obtient une première idée sur le nombre d'observations, le type des variables, la présence de valeurs manquantes,...
+La fonction `skim()` du package `skimr` est très intéressante dans un carnet de notes pour découvrir les données. Avec une seule fonction, on se fait rapidement une première idée sur le nombre d'observations, le type des variables, la présence de valeurs manquantes ...
 
 ```{r, echo=TRUE}
 skimr::skim(iris)
 ```
 
-Le jeu de données iris est parfaitement balancé avec 50 individus par groupe. Il contient quatre variables numériques et une variable facteur non-ordonnée. Il ne contient pas de valeurs manquantes.
+Le jeu de données `iris` est parfaitement balancé avec 50 individus par groupe. Il contient quatre variables numériques et une variable facteur non ordonnée. Il ne contient pas de valeurs manquantes.
 
 ```{r iris_prepa}
 iris <- read("iris", package = "datasets", lang = "FR")
@@ -72,7 +70,7 @@ iris <- read("iris", package = "datasets", lang = "FR")
 
 Avant de poursuivre votre exploration des données, réalisez par vous-même différents graphiques pour découvrir ce jeu de données dans la zone ci-dessous.
 
-```{r scatterplot_noscore, exercise=TRUE, exercise.setup = "iris_prepa"}
+```{r scatterplot_noscore, exercise=TRUE, exercise.setup="iris_prepa"}
 chart(data = iris, ___ ~ ___ %col=% species) +
   geom_point()
 ```
@@ -83,7 +81,7 @@ Réalisez une matrice de corrélation afin de mettre en avant la corrélation li
 
 <!-- Attention que le snippet se réfère à cor() alors qu'on utilise correlation() ici => homogénéiser, ou au moins le préciser. Ce serait aussi utile de rappeler les variables du tableau en début de cet exercice car on est passé à une autre page! -->
 
-💬 **Un snippet est disponible pour réaliser une matrice de corrélation à l'aide d'une fonction différente `.escor: correlation matrix`.**
+<!-- 💬 **Un snippet est disponible pour réaliser une matrice de corrélation à l'aide d'une fonction différente `.escor: correlation matrix`.** -->
 
 ```{r is_corr_h2, exercise=TRUE, exercise.lines=2, exercise.setup="iris_prepa"}
 iris_corr <- correlation(___[, ___:___], use = "complete.obs", method = "___")
@@ -100,6 +98,7 @@ summary(iris_corr)
 ```
 
 ```{r is_corr_h2-solution}
+## Solution ##
 iris_corr <- correlation(iris[, 1:4], use = "complete.obs", method = "pearson")
 summary(iris_corr)
 ```
@@ -108,7 +107,7 @@ summary(iris_corr)
 grade_code("Le résumé de la matrice de corrélation utilise un système de légende particulier pour mettre en avant les variables les plus corrélées. Assurez-vous de bien comprendre les symboles utilisés ., + ou encore B.")
 ```
 
-Réalisez un graphique de votre objet `iris_corr`. N'affichez que la partie supérieur de votre matrice. Tout comme le résumé de la matrice ne montre que la partie inférieure de la matrice, il n'est pas utile de représenter la matrice complète sous forme graphique. La matrice est symétrique.
+Réalisez un graphique de votre objet `iris_corr`. N'affichez que la partie supérieur de votre matrice. Tout comme le résumé de la matrice ne montre que la partie inférieure de la matrice, il n'est pas utile de représenter la matrice complète sous forme graphique car la matrice est symétrique autour de sa diagonale.
 
 ```{r iris_corr}
 iris <- read("iris", package = "datasets", lang = "FR")
@@ -126,11 +125,12 @@ plot(iris_corr, type = "___")
 ```
 
 ```{r is_plot_h2-solution}
+## Solution ##
 plot(iris_corr, type = "upper")
 ```
 
 ```{r is_plot_h2-check}
-grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'ellipse et le sens de l'ellipse sont porteur d'information sur la corrélation entre les paires de variables étudiées. Répondez à la question suivante.")
+grade_code("Ce graphique permet d'avoir une information visuelle simple à analyser. La couleur utilisée, l'élongation de l'ellipse et le sens de l'ellipse sont porteurs d'information sur la corrélation entre les paires de variables étudiées. Répondez à la question suivante.")
 ```
 
 ```{r quiz_corr}
@@ -141,12 +141,12 @@ question("Quelles sont les variables les plus fortement corrélées (sélectionn
   answer("petal_width", correct = TRUE),
   allow_retry = TRUE,
   incorrect = "Recommencez afin de trouver la bonne réponse.",
-  correct = "Bravo, c'est correct. Vous avez su décoder avec succès votre matrice de corrélation.")
+  correct = "Vous avez su décoder avec succès votre matrice de corrélation.")
 ```
 
 ## Test de corrélation
 
-Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un indice de corrélation supérieur à 0.9. Cependant, avoir une valeur élevé ne permet pas d'affirmer que la corrélation est **significative** entre ces deux variables.
+Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un coefficient de corrélation supérieur à 0.9. Cependant, avoir une valeur élevé ne permet pas d'affirmer que la corrélation est **significative** entre ces deux variables.
 
 Utilisez un test de corrélation de Pearson afin de répondre à la question suivante : **est-ce que la largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont significativement corrélées au seuil alpha de 5% ?**
 
@@ -163,19 +163,20 @@ cor.test(data = iris, ~ ___ + ___,
 ```
 
 ```{r cortest_h2-solution}
+## Solution ##
 cor.test(data = iris, ~ petal_width + petal_length, 
   alternative = "two.sided", method = "pearson")
 ```
 
 ```{r cortest_h2-check}
-grade_code("Bravo ! Vous venez de réaliser un test de corrélation de Pearson. Il ne vous reste plus qu'à répondre à la question ci-dessous pour vous assurer que vous êtes capable d'interpréter ce test d'hypothèse.")
+grade_code("Vous venez de réaliser un test de corrélation de Pearson. Il ne vous reste plus qu'à répondre à la question ci-dessous pour vous assurer que vous êtes capable d'interpréter ce test d'hypothèse.")
 ```
 
 ```{r quiz_test}
-question("Est-ce que la largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont significativement corrélées au seuil alpha de 5% ?",
+question("La largeur des pétales (petal_width) et la longueur des pétales (petal_length) sont-elles significativement corrélées au seuil alpha de 5% ?",
   answer("Oui", correct = TRUE),
   answer("Non"),
-  correct = "Bravo, c'est exact ! Avec une valeur P inférieure au seuil alpha, il y a rejet de l'hypothèse nulle.", 
+  correct = "Avec une valeur P inférieure au seuil alpha, il y a rejet de l'hypothèse nulle.", 
   incorrect = "Il semble que vous n'avez pas su correctement interpréter ce test. Vérifez votre compréhension de ses hypothèses nulle et alternative, ainsi que la façon de décider laquelle favoriser.", 
   allow_retry = TRUE)
 ```

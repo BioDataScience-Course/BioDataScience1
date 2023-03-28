@@ -1,3 +1,7 @@
+# BioDataScience 2022.8.0
+
+-   Revision of learnrs **A11La_anova2**, **A11Lc_syntaxr** and **A12La_correlation**.
+
 # BioDataScience 2022.7.1
 
 -   Correction in **A10Lb_kruskal** (dependencies to BioDataScience2\|3 should not be there).

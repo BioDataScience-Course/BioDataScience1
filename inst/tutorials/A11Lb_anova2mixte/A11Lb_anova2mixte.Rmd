@@ -26,6 +26,11 @@ zeno_soror <- dtx(
   time = time,
   grey = grey
 )
+zeno_soror <- labelise(zeno_soror,
+  label = list(
+    id = "Individus",
+    time = "Temps",
+    grey = "Nuance de gris"))
 
 zeno_rep <- lmerTest::lmer(data = zeno_soror, grey ~ time + ( time | id))
 ```
@@ -69,7 +74,7 @@ Vous avez à votre disposition un sous-ensemble des données collectées.
 skimr::skim(zeno_soror)
 ```
 
-Le niveau de gris varie de 0 à 255. Une valeur proche de 0 est très foncée alors qu'une valeur proche de 255 est très claire.
+Le niveau de gris varie de 0 à 255. Une valeur proche de 0 est très foncée alors qu'une valeur proche de 255 est très claire. Le temps est exprimé par pas de temps de 5 min. Par exemple un temps de 12 correspond à 1H. L'id correspond au code de la crevette étudiée.
 
 La question posée était la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps**
 
@@ -106,7 +111,7 @@ chart(data = zeno_soror, grey ~ time | id) +
 ```
 
 ```{r plot-check}
-grade_code("Ce graphique est pertinent pour cette analyse. Le graphique en ligne indique explicitemet que les observations sont liés. Les mesures sont réalisées sur les mêmes individus dans notre cas)")
+grade_code("Ce graphique est pertinent pour cette analyse. Le graphique en ligne indique explicitemet que les observations sont liés (Les mesures sont réalisées sur les mêmes individus dans notre cas). On peut observer un tendance à la hausse sur chaque graphique à l'exception de des individus 1 et 4.")
 ```
 
 ## Modèle à mesures répétées

@@ -22,15 +22,14 @@ time <- c(1 ,1 ,1 ,1 ,1 ,1 ,1 ,12 ,12 ,12 ,12 ,12 ,12 ,12 ,24 ,24 ,24 ,24 ,24 ,2
 grey <- c(115.143 ,100.2152 ,62.1222 ,80.289 ,161.6584 ,136.8296 ,73.0948 ,109.9172 ,100.445 ,72.1274 ,94.4386 ,174.459 ,147.546 ,96.5144 ,110.9132 ,97.1 ,70.3492 ,83.8586 ,181.745 ,143.8308 ,109.9544 ,121.559 ,99.786 ,78.7692 ,80.8518 ,182.1782 ,158.6062 ,108.7996 ,124.127 ,125.2232 ,82.0568 ,90.6632 ,178.3226 ,155.8228 ,109.1466 ,119.9694 ,118.6336 ,85.8494 ,80.0712 ,183.4602 ,149.6784 ,119.926)
 
 zeno_soror <- dtx(
-  id = as.factor(id),
+  id   = as.factor(id),
   time = time,
   grey = grey
 )
-zeno_soror <- labelise(zeno_soror,
-  label = list(
-    id = "Individus",
-    time = "Temps",
-    grey = "Nuance de gris"))
+zeno_soror <- labelise(zeno_soror, label = list(
+  id   = "Individus",
+  time = "Temps",
+  grey = "Nuance de gris"))
 
 zeno_rep <- lmerTest::lmer(data = zeno_soror, grey ~ time + ( time | id))
 ```
@@ -47,9 +46,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Il est courant en biologie de réaliser des mesures répétées sur des individus successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test t apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre le temps initiale et le temps final de patients. N'hésitez pas à revoir ce test vu lors du [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variantes-du-test-t-de-student.html)
-
-Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus (plus de 2 fois).
+Il est courant en biologie de réaliser des mesures répétées sur des individus successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus (plus de deux fois).
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
@@ -58,13 +55,11 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
 ## Expérience
 
-Cette séance d'exercice se base sur les travaux de fin d'études de Lisa Mussoi traitant de la caractérisation de la pigmentation du couple symbiotique *Zenopontonio soror* et *Culcita novaeguinae*. Ce travail a été réalisé au sein du Service de Biologie des Organismes Marins et Biomimétisme
+Cette séance d'exercice se base sur les travaux de fin d'études d'une étudiante traitant de la caractérisation de la pigmentation du couple symbiotique crevette *Zenopontonio soror* et étoile de mer *Culcita novaeguinae*.
 
-![Photographie de LOURTIE Alexia](images/P9040123.jpeg)
+![*Zenopontonia soror*, photographie de A. Lourtie](images/P9040123.jpeg)
 
-Dans le cadre de ce travail, la chercheuse a étudié la décoloration de *Zenopontonia soror* lorsque ces crevettes se trouvaient isolées de l'hôte pendant plusieurs heures.
-
-Pour ce faire des photos ont été réalisées à interval régulier sur plusieurs individus au cours du temps. L'intensité de gris a été mesurée sur l'abdomen de chaque individu. Le dispositif est présenté ci-dessous
+Dans le cadre de ce travail, la chercheuse a étudié la décoloration de *Zenopontonia soror* lorsque ces crevettes se trouvaient isolées de l'hôte pendant plusieurs heures. Pour ce faire des photos ont été réalisées à intervalle régulier sur plusieurs individus (mêmes individus à chaque fois). L'intensité de gris a été mesurée sur l'abdomen de chaque individu. Le dispositif est présenté ci-dessous
 
 ![](images/P8300035.jpeg)
 
@@ -74,9 +69,9 @@ Vous avez à votre disposition un sous-ensemble des données collectées.
 skimr::skim(zeno_soror)
 ```
 
-Le niveau de gris varie de 0 à 255. Une valeur proche de 0 est très foncée alors qu'une valeur proche de 255 est très claire. Le temps est exprimé par pas de temps de 5 min. Par exemple un temps de 12 correspond à 1H. L'id correspond au code de la crevette étudiée.
+Le niveau de gris varie de 0 à 255. Une valeur proche de 0 correspond à une crevette très foncée alors qu'une valeur proche de 255 est une crevette très claire. Le temps est exprimé par pas de 5 min. Par exemple un temps de 12 correspond à 1h (12 \* 5min). L'`id` correspond au code de la crevette étudiée.
 
-La question posée était la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps**
+La question posée était la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps ?**
 
 ## Facteur fixe et facteur aléatoire
 
@@ -93,30 +88,31 @@ question("Parmi les variables proposées ci-dessous, sélectionnez le facteur fi
   answer("grey"),
   try_again_button = TRUE,
   random_answer_order = TRUE,
-  message = "Nous sommes bien en présence de mesures repétées au cours du temps qui sont imbriqués dans la variable id.")
+  message = "Nous sommes bien en présence de mesures repétées au cours du temps des individus (variable id).")
 ```
 
 ### Description graphique
 
-Réalisez un graphique pertinent de l'expérience réalisée. Vous devez proposer un graphique de la variation du niveau de gris au cours du temps en utilisant les facettes pour séparer les individus.
+Réalisez un graphique pertinent de votrez jeu de données par rapport à l'analyse qui est envisagée. Vous allez faire un graphique de la variation du niveau de gris au cours du temps en utilisant les facettes pour séparer les individus.
 
-```{r plot, exercise = TRUE}
+```{r plot, exercise=TRUE}
 chart(data = ___, ___) +
   geom____()
 ```
 
 ```{r plot-solution}
+## Solution ##
 chart(data = zeno_soror, grey ~ time | id) +
   geom_line()
 ```
 
 ```{r plot-check}
-grade_code("Ce graphique est pertinent pour cette analyse. Le graphique en ligne indique explicitemet que les observations sont liés (Les mesures sont réalisées sur les mêmes individus dans notre cas). On peut observer un tendance à la hausse sur chaque graphique à l'exception de des individus 1 et 4.")
+grade_code("Ce graphique est pertinent pour cette analyse. Le graphique en ligne indique explicitemet que les observations sont liés (Les mesures qui sont réalisées sur les mêmes individus dans notre cas). On peut observer un tendance à la hausse sur chaque graphique à l'exception de des individus 1 et 4.")
 ```
 
 ## Modèle à mesures répétées
 
-Réalisez à présent le modèle à mesures répétées adéquat. Formulez correctement l'équation de ce modèle.
+Réalisez à présent le modèle à mesures répétées adéquat. Écrivez correctement la formule de ce modèle dans le code.
 
 ```{r lmer_h2, exercise=TRUE}
 # Calcul du modèle
@@ -143,12 +139,12 @@ anova(zeno_rep)
 ```
 
 ```{r lmer_h2-check}
-grade_code("La partie la plus technique de ce code est de proposer la formule la plus adaptée. Avec un valeur de P de 0.0092, nous sommes en dessous du seuil alpha de 0.05. Nous rejetons H0.")
+grade_code("La partie la plus technique de ce code est d'écrire correctement la formule. Avec une valeur de p de 0.0092, nous sommes en dessous du seuil alpha de 0.05. Nous rejetons donc H0.")
 ```
 
-Proposez le résumé du modèle et étudiez les intervalles de confiance associés à ce modèle.
+Réalisez maintenant le résumé du modèle et étudiez les intervalles de confiance sur ses paramètres.
 
-```{r confint, exercise = TRUE, warning=FALSE}
+```{r confint, exercise=TRUE, warning=FALSE}
 # résumé du modèle
 ___(___)
 # Intervalles de confiance
@@ -156,6 +152,7 @@ ___(___)
 ```
 
 ```{r confint-solution}
+## Solution ##
 # résumé du modèle
 summary(zeno_rep)
 # Intervalles de confiance
@@ -163,7 +160,7 @@ confint(zeno_rep)
 ```
 
 ```{r confint-check}
-grade_code("La pente et l'ordonnées à l'origine sont significatifs au seuil alpha de 5%. La pente du modèle est positive de 0.30. Les crevettes deviennent plus claire au cours du temps.")
+grade_code("La pente et l'ordonnées à l'origine sont significatifs au seuil alpha de 5%. La pente du modèle est positive et estimée à 0.30. Les crevettes deviennent plus claire au cours du temps.")
 ```
 
 ### Validation des conditions d'application du modèle
@@ -175,9 +172,9 @@ Les conditions d'application sont les conditions générales de l'ANOVA :
 -   variable réponse quantitative,
 -   n variables explicatives qualitatives à deux niveaux ou plus,
 -   distribution Normale des résidus,
--   homoscédasticité (même variance intragroupes),
+-   homoscédasticité (même variance intragroupe),
 
-Étudiez la distribution normale des résidus de votre modèle
+Étudiez la distribution Normale des résidus de votre modèle.
 
 ```{r qqplot_h2, exercise=TRUE}
 ___ %>.%
@@ -207,7 +204,7 @@ zeno_rep %>.%
 ```
 
 ```{r qqplot_h2-check}
-grade_code("Bien joué ! Nous observons une distribution normale des résidus. L'ensemble des points se trouve dans l'enveloppe de confiance à 95%.")
+grade_code("Nous observons une distribution Normale des résidus. L'ensemble des points se trouve dans l'enveloppe de confiance à 95%.")
 ```
 
 Étudiez à présent l'homoscédasticité à l'aide d'un graphique de la distribution des résidus.
@@ -249,12 +246,12 @@ zeno_rep %>.%
 ```
 
 ```{r resid_h2-check}
-grade_code("Ce graphique vous permet d'étudier la distribution des résidus. Nous en étudierons de nombreux dans le cadre du cours de SDD II. De manière simplifé, il faut que la courbe bleue soit proche de la ligne noire. Il faut essayer d'avoir des résidus tout au long de cette ligne noire. Les valeurs doivent être aussi bien positives que négative avec des valeurs absolues similaire. Dans notre exemple, ces critères sont respectés. Il y a donc homoscédasticité.")
+grade_code("Ce graphique vous permet d'étudier la distribution des résidus. De manière simplifiée, il faut que la courbe bleue soit proche de la ligne noire. Il faut essayer d'avoir des résidus tout au long de cette ligne noire. Les valeurs doivent être aussi bien positives que négative avec des valeurs absolues similaire. Dans notre exemple, ces critères sont respectés. Il y a donc homoscédasticité, ou en tous cas, un écart pas trop important entre les variances.")
 ```
 
 ## Interprétation biologique
 
-Un éclaircissement significatif de *Zenopontonio soror* au seuil alpha de 5% est observé lorsque ce dernier est isolé de son hôte *Culcita novaeguinae*. Plusieurs hypothèses sont en cours d'étude dont l'une d'entre elles est due au syndrome de séparation. En absence de l'environnement olfactif de l'hôte, *Z. soror* est stressé. La décoloration est un marqueur de stress.
+Un éclaircissement significatif de *Zenopontonio soror* au seuil alpha de 5% est observé lorsque ce dernier est isolé de son hôte *Culcita novaeguinae*. Plusieurs hypothèses sont en cours d'étude dont l'une d'entre elles est liée au syndrome de séparation. En absence de l'environnement olfactif de l'hôte, *Z. soror* est stressé. La décoloration est un marqueur de stress.
 
 ## Conclusion
 

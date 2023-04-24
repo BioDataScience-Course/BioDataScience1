@@ -1,3 +1,7 @@
+# BioDataScience 2022.9.0
+
+-   New learnr **A11La_anova2mixte**.
+
 # BioDataScience 2022.8.0
 
 -   Revision of learnrs **A11La_anova2**, **A11Lc_syntaxr** and **A12La_correlation**.

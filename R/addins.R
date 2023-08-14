@@ -9,9 +9,20 @@ run_addin <- function() {
 
     items <- character(0)
     tutorials <- dir(system.file("tutorials", package = package))
+    is_active <- function(dir, subdir, pattern)
+      length(dir(system.file(dir, subdir, package = package),
+        pattern = pattern)) > 0
+    keep <- logical(length(tutorials))
+    for (i in seq_along(tutorials))
+      keep[i] <- is_active("tutorials", tutorials[i], "\\.Rmd$")
+    tutorials <- tutorials[keep]
     if (length(tutorials))
       items <- paste(tutorials, "(tutorial)")
     apps <- dir(system.file("shiny", package = package))
+    keep <- logical(length(apps))
+    for (i in seq_along(apps))
+      keep[i] <- is_active("shiny", apps[i], "^app.R$")
+    apps <- apps[keep]
     if (length(apps))
       items <- c(items, paste(apps, "(Shiny app)"))
     if (!length(items)) return()

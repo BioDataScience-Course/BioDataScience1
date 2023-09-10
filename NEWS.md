@@ -4,6 +4,8 @@
 
 -   The addin to select learnrs or Shiny apps now detects inactivated items and takes them out of the list.
 
+-   A new addin to create a course issue is added.
+
 -   The code to plot distribution objects is moved to the {inferit} package.
 
 # BioDataScience 2022.9.0

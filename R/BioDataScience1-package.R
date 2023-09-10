@@ -9,6 +9,7 @@
 #' @importFrom BioDataScience config sign_in sign_out
 #' @importFrom shiny dialogViewer observeEvent selectInput stopApp runGadget
 #' @importFrom miniUI gadgetTitleBar miniContentPanel miniPage miniTitleBarButton miniTitleBarCancelButton
+#' @importFrom rstudioapi showDialog
 NULL
 
 #@importFrom BioDataScience config sign_in sign_out run run_app update_pkg

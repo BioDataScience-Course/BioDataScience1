@@ -1,4 +1,9 @@
-Name: Run BioDataScience1 tutorial or app
+Name: Run sdd I tutorial or app
 Description: Run one of the learnr tutorials or Shiny applications in this package
 Binding: run_addin
+Interactive: true
+
+Name: New sdd I issue
+Description: Create a new issue in the course GitHub repository
+Binding: sdd1_issue
 Interactive: true

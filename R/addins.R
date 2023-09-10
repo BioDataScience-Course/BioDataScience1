@@ -66,3 +66,23 @@ run_addin <- function() {
   if (!is.null(item) && !inherits(item, "try-error"))
     message("Running item ", item)
 }
+
+sdd1_issue <- function() {
+  # Get year (two digits)
+  # We shift the academic year (starting mid-september) by 250 days
+  # and get the year using two last digits
+  acad_year <- format(Sys.Date() - 250, "%y")
+  new_issue_url <- paste0("https://github.com/BioDataScience-Course/a00qa_",
+    acad_year, "m_issues-a", acad_year, "/issues/new")
+  # Display a message with short instructions + url
+  rstudioapi::showDialog(title = "Nouvelle issue du cours BioDataScience1",
+    url = new_issue_url,
+    message = paste0(
+      "Cliquez sur le lien ci-dessous pour cr\u00e9er l'issue. ",
+      "Indiquez un titre et commencez le message par ",
+      "@BioDataScience-Course/teachers pour notifier ",
+      "imm\u00e9diatement vos enseignants de votre question. ",
+      "Ajoutez \u00e9ventuellement une capture d'\u00e9cran explicite."))
+  invisible(TRUE)
+
+}

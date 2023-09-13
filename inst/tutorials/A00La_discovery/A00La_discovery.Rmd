@@ -54,7 +54,7 @@ Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels 
 
 Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc... jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
-Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/learnr.html).
+Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/learnr.html).
 
 ## Objectifs
 
@@ -68,12 +68,12 @@ Notre planète terre est en train de subir des grands changements climatiques en
 ```{r quiz_chauffe}
 quiz(
   question("Quel gaz dans l'atmosphère est considéré comme le principal responsable de cette augmentation de température par effet de serre ?",
-    answer("$N_2$"),
-    answer("$O_2$"),
-    answer("$O_3$"),
-    answer("$CO_2$", correct = TRUE),
-    answer("$SO_3$"),
-    answer("$NH_3$"),
+    answer("$\\mathrm{N_2}$"),
+    answer("$\\mathrm{O_2}$"),
+    answer("$\\mathrm{O_3}$"),
+    answer("$\\mathrm{CO_2}$", correct = TRUE),
+    answer("$\\mathrm{SO_3}$"),
+    answer("$\\mathrm{NH_3}$"),
     allow_retry = TRUE,
     incorrect = "Mauvaise réponse. Recommencez afin de trouver la bonne réponse, c'est la combustion d'énergie fossile qui est le mécanisme le plus incriminé... ça devrait vous aider.",
     correct = "Bravo, c'est correct ! En effet, la concentration en CO$_2$ a très fortement augmenté dans l'atmosphère suite à la combustion d'énergie fossile en masse par les humains depuis le début de l'ère indistrielle."
@@ -183,7 +183,7 @@ Si vous avez été incapable de répondre à la question sans aller jusqu'à vis
 Bravo ! Vous venez de terminer votre séance d'exercices dans un tutoriel `learnr`. Rappelez-vous qu'il s'agit d'un outil d'**auto-évaluation** mis à votre disposition pour vérifier que vous avez bien compris et assimilé les concepts de base avant de passer à des exercices plus difficiles. Utilisez-le de manière responsable.
 
 ```{r quiz_eval_noscore}
-question("Comment évalueriez-vous globalement cet outils pédagogiques ?",
+question("Comment évaluez-vous globalement cet outil pédagogique ?",
   answer("Excellent", correct = TRUE),
   answer("Bon", correct = TRUE),
   answer("Satisfaisant", correct = TRUE),

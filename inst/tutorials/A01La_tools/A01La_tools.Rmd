@@ -70,7 +70,7 @@ quiz(
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
-  question("Que sont les Issues sur GitHub ?",
+  question("Que sont les Issues dans GitHub ?",
     answer("Il s'agit d'un espace de discussion qui permet de mettre en avant un problème ou une idée d'amélioration sur un projet.", correct = TRUE, message = "C'est une définition correcte des Issues."),
     answer("Il s'agit d'une messagerie instantanée comme Facebook Messenger ou WhatsApp.", message = "Il faut bien faire la différence entre une messagerie instantanée et des Issues. Elles n'ont pas le même objectif."),
     answer("Il s'agit d'une interface qui permet de lancer une fenêtre RStudio.", message = "Cette description est lié à Saturn Cloud."),

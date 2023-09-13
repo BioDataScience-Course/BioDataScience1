@@ -1,3 +1,7 @@
+# BioDataScience1 2023.1.0
+
+-   Learnrs A00La_discovery, A01La_tools and A01Lb_git ready.
+
 # BioDataScience1 2023.0.0
 
 -   New version for academic year 2023-2024.

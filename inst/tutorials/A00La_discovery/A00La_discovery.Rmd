@@ -68,12 +68,12 @@ Notre planète terre est en train de subir des grands changements climatiques en
 ```{r quiz_chauffe}
 quiz(
   question("Quel gaz dans l'atmosphère est considéré comme le principal responsable de cette augmentation de température par effet de serre ?",
-    answer("N$_2$"),
-    answer("O$_2$"),
-    answer("O$_3$"),
-    answer("CO$_2$", correct = TRUE),
-    answer("SO$_3$"),
-    answer("NH$_3$"),
+    answer("$N_2$"),
+    answer("$O_2$"),
+    answer("$O_3$"),
+    answer("$CO_2$", correct = TRUE),
+    answer("$SO_3$"),
+    answer("$NH_3$"),
     allow_retry = TRUE,
     incorrect = "Mauvaise réponse. Recommencez afin de trouver la bonne réponse, c'est la combustion d'énergie fossile qui est le mécanisme le plus incriminé... ça devrait vous aider.",
     correct = "Bravo, c'est correct ! En effet, la concentration en CO$_2$ a très fortement augmenté dans l'atmosphère suite à la combustion d'énergie fossile en masse par les humains depuis le début de l'ère indistrielle."

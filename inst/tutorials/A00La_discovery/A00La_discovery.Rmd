@@ -52,7 +52,7 @@ Si vous êtes mal reconnu, vous verrez plutôt "Utilisateur anonyme, aucun enreg
 
 Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels interactifs comprenant des illustrations, des questions à choix multiples, des exercices R, ...
 
-Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc... jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
+Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc. jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
 Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/learnr.html).
 
@@ -63,7 +63,7 @@ Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord ave
 
 ## Questions à choix multiples
 
-Notre planète terre est en train de subir des grands changements climatiques en partie liés à l'activité humaine. Entre autres, elle a tendance à se réchauffer.
+Notre planète Terre est en train de subir de grands changements climatiques en partie liés à l'activité humaine. Entre autres, elle a tendance à se réchauffer.
 
 ```{r quiz_chauffe}
 quiz(
@@ -110,7 +110,7 @@ En pratique dans le cours, il est fortement conseillé de revoir la matière imm
 
 Répondez aux questions ouvertes suivantes :
 
-La température moyenne annuelle en surface de la Mer du Nord est de 13.5°C en 2020. D'après les dernières recherches la température de cette mer augmente de 0.053°C annuellement.
+La température moyenne annuelle en surface de la mer du Nord est de 13.5°C en 2020. D'après les dernières recherches, la température de cette mer augmente de 0.053°C annuellement.
 
 -   Quelle sera la température moyenne en 2030 ?
 
@@ -193,7 +193,7 @@ question("Comment évaluez-vous globalement cet outil pédagogique ?",
   type = "single", correct = "Merci, votre avis est enregistré.")
 ```
 
-Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changer d'ordinateur ou de navigateur Web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute !)
+Le travail déjà réalisé dans un learnr est mémorisé d'une session à l'autre. Dans certains cas, il se peut cependant que cette mémoire de l'état d'avancement se perde. C'est le cas si vous changez d'ordinateur ou de navigateur Web. Mais cela se produit aussi si une nouvelle version du learnr est installée. Dans ce cas, *votre activité reste enregistrée* au niveau du rapport de progression (mais vérifiez toujours par vous-même, et contactez vos enseignants en cas de doute !)
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

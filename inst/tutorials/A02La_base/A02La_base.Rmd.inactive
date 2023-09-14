@@ -314,7 +314,7 @@ mean(v4)
 ```
 
 ```{r vec2-check}
-grade_code("C'est cela : les fonctions génériques s'utilisent comme les autres, mais faites bien attention aux différentes formes possibles (que l'on appelle les **méthodes** de la fonction) !.")
+grade_code("C'est cela : les fonctions génériques s'utilisent comme les autres, mais faites bien attention aux différentes formes possibles (que l'on appelle les **méthodes** de la fonction) !")
 ```
 
 Certaines fonctions servent à **résumer** un ensemble de données, c'est-à-dire qu'elles les représentent avec une seule ou un petit nombre de valeurs. Ainsi, quelle que soit la taille du vecteur `v4`, sa moyenne est toujours un nombre unique. Ici, nous avons obtenu `NA`. Nous savons pourquoi. Les valeurs manquantes sont **contaminantes** dans les calculs. Il en suffit d'une seule pour que l'ensemble du résultat soit `NA`. Naturellement dans ce cas, c'est dommage, car la moyenne pourrait être *estimée* sur base des trois autres valeurs connues. L'argument `na.rm` permet de le faire... mais comment le savoir ? En lisant **la page d'aide de la fonction**. Pour cela, utilisez l'instruction `?` suivi du nom de la fonction. Dans RStudio, la page d'aide apparaît dans l'onglet **Help** (copie d'écran ci-dessous).
@@ -449,7 +449,7 @@ log(x) %>.%
 grade_code("C'est exactement cela. Le chaînage des opérations rend le code bien plus lisible.")
 ```
 
-Vous utiliserez aussi l'opérateur de pipe de R de base `|>`. Il s'utilise de façon similaire, sauf que le mebre de gauche est injecté comme premier argument dans la fonction à droite, et il ne faut pas (et même, on ne peut pas) indiquer où le mettre à l'aide du point `.`. Voici, à titre d'illustration, trois fois la même instruction, écrite en imbriquant les fonction, puis avec `%>.%`, et enfin, avec `|>`.
+On retrouve plusieurs opérateur de pipe dans R. Par exemple, l'opérateur de pipe de R de base est `|>`. Il s'utilise de façon similaire, sauf que le membre de gauche est injecté comme premier argument dans la fonction à droite, et il ne faut pas (et même, on ne peut pas) indiquer où le mettre à l'aide du point `.`. Voici, à titre d'illustration, trois fois la même instruction, écrite en imbriquant les fonction, puis avec `%>.%`, et enfin, avec `|>`.
 
 ```{r, echo=TRUE}
 x <- 1:5

@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Progression dans R via l'étude d'un cas concret."
 tutorial:
   id: "A02Lb_progression"
-  version: 2.3.1/10
+  version: 2.4.0/10
 output:
   learnr::tutorial:
     progressive: true
@@ -49,18 +49,22 @@ En partant d'un tableau de données relatif à de la biométrie humaine contenan
 # Chargement de SciViews::R
 SciViews::R(lang = "fr")
 # Importation du jeu de données
-(biometry <- read("biometry", package = "BioDataScience"))
+biometry <- read("biometry", package = "BioDataScience")
+# Affichage des 10 premières lignes du tableau
+tabularise(biometry, max.rows = 10)
 ```
 
 **Notez ceci :**
 
 -   Les encadrés gris dénotent des instructions entrées dans R. Si ce dernier renvoie des résultats, ils sont présentés dans des encadrés blancs juste en dessous.
 
--   Toujours commencer par l'instruction `SciViews::R()` pour installer les différents outils (rassemblés dans des extensions du programme, appelées "packages" R) dont nous aurons besoin. Cette instruction peut comprendre des arguments comme `lang = "fr"`. Cet argument va avoir pour effet de définir le français comme langue par défaut (là où cela est supporté, mais malheureusement pas dans l'interface du logiciel ou les messages d'erreur).
+-   Toujours commencer par l'instruction `SciViews::R()` pour installer les différents outils (rassemblés dans des extensions du programme, appelées "packages" R) dont nous aurons besoin. Cette instruction peut comprendre des arguments comme `lang = "fr"`. Cet argument va avoir pour effet de définir le français comme langue par défaut (là où cela est supporté).
+
+-   L'anglais est la langue la plus employée en science des données. Les jeux de données employés sont encodés en anglais. En définissant le français comme langue par défaut, si une traduction est disponible, certains graphiques et tableaux que l'on va réaliser auront automatique des labels en français.
 
 -   Le jeu de données est disponible dans un package R : `BioDataScience`, spécialement préparé pour ce cours.
 
--   L'anglais est la langue la plus employée en science des données. Les jeux de données employés sont encodés en anglais. En définissant le français comme langue par défaut, si une traduction est disponible, les graphiques que l'on va réaliser auront automatique des labels en français.
+-   La fonction `read()` permet de lire les données issues du package `BioDataScience`. La fonction `tabularise()` a pour objectif de formater correctement un tableau (et bien plus encore. Vous le découvrirez tout à long de ce cours).
 
 Le point d'interrogation devant notre jeu de données renvoie vers une page d'aide, tout comme pour les fonctions.
 
@@ -80,12 +84,10 @@ bio <- sselect(biometry, -day_birth, -wrist, -year_measure)
 
 Nous réalisons cette sélection avec la fonction `sselect()` en éliminant des colonnes du tableau que nous n'utiliserons pas (les variables `day_birth`, `wrist` et `year_measure`). Le résultat de cette fonction est assigné à `bio` grâce à l'opérateur d'assignation `<-` déjà vu dans le tutoriel précédent.
 
-La fonction `kable()` du package {knitr} peut être appelée directement sans charger le package à l'aide de l'instruction `knitr::kable()`. Elle permet de formater correctement un tableau en Markdown. Utilisons-là maintenant pour présenter les huit premières lignes de notre jeu de données grâce à la fonction `head()`.
+Utilisons la fonction `tabularise()` du package {tabularise} maintenant pour présenter les huit premières lignes de notre jeu de données.
 
 ```{r, echo=TRUE}
-bio %>.%
-  head(., n = 8) %>.% # Garde les huit premières lignes
-  knitr::kable(., align = "c")
+tabularise(bio, max.rows = 8)
 ```
 
 **Notez ceci :**
@@ -97,8 +99,7 @@ Considérons maintenant uniquement les femmes. On peut filtrer les lignes d'un t
 ```{r, echo=TRUE}
 bio %>.%
   sfilter(., gender == "W") %>.%
-  head(., n = 8) %>.% # Garde les huit premières lignes
-  knitr::kable(., align = "c")
+  tabularise(., max.rows = 8)
 ```
 
 Continuons à manipuler notre tableau en sélectionnant des colonnes et en filtrant les lignes en une seule opération. Pour sélectionner les femmes `gender == "W"` et retirer la colonne `age`, nous utiliserons :
@@ -107,8 +108,7 @@ Continuons à manipuler notre tableau en sélectionnant des colonnes et en filtr
 bio %>.%
   sfilter(., gender == "W") %>.% # Sélectionne les femmes
   sselect(., -age) %>.% # Retire la colonne âge
-  head(., n = 8) %>.% # Garde les huit premières lignes
-  knitr::kable(., align = "c")
+  tabularise(., max.rows = 8)
 ```
 
 Maintenant que nous avons vu comment lire, remanier et présenter des tableaux de données dans R (nous reviendrons sur ces notions plus tard), nous pouvons explorer ses potentialités pour réaliser des graphiques à la section suivante...

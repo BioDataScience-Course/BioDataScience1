@@ -4,7 +4,7 @@ author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Réalisation de graphiques en nuage de points."
 tutorial:
   id: "A02Lc_scatterplot"
-  version: 2.3.2/6
+  version: 2.4.0/6
 output:
   learnr::tutorial:
     progressive: true
@@ -241,29 +241,29 @@ Intéressez-vous maintenant à la masse (`weight`) des individus en fonction de 
 ```{r 2factor_graph_intro}
 urchin <- sdrop_na(urchin, sex)
 chart(data = urchin, weight ~ buoyant_weight %col=% origin %shape=% sex) +
-  geom_point(na.rm = TRUE)
+  geom_point()
 ```
 
-Réalisez un nuage de points montrant la masse en ordonnée et la masse immergée en abscisse. Utilisez la couleur afin de différencier l'origine des individus et différentes formes afin de différencier le sexe des individus. Précisez à nouveau que vous souhaitez éliminer les valeurs manquantes de manière tacite.
+Réalisez un nuage de points montrant la masse en ordonnée et la masse immergée en abscisse. Utilisez la couleur afin de différencier l'origine des individus et différentes formes afin de différencier le sexe des individus.
 
 Vous pouvez observer qu'une première ligne de code vous est fournie afin de retirer les lignes de tableau ne contenant pas l'information sur le sexe des individus. Vous apprendrez dans les prochains cours à manipuler vos jeux de données pour réaliser ce genre de chose par vous-mêmes.
 
 ```{r 2factor_graph_h3, exercise=TRUE}
 urchin <- sdrop_na(urchin, sex)
 chart(data = ___, ___ ~ ___ %col=% ___ ___ ___) +
-  geom_point(___)
+  geom_point()
 ```
 
 ```{r 2factor_graph_h3-hint-1}
 urchin <- sdrop_na(urchin, sex)
 chart(data = ___, ___ ~ ___ %col=% ___ %shape=% ___) +
-  geom_point(___)
+  geom_point()
 ```
 
 ```{r 2factor_graph_h3-hint-2}
 urchin <- sdrop_na(urchin, sex)
 chart(data = DF, YNUM ~ XNUM %col=% FACTOR1 %shape=% FACTOR2) +
-  geom_point(___)
+  geom_point()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
@@ -272,7 +272,7 @@ chart(data = DF, YNUM ~ XNUM %col=% FACTOR1 %shape=% FACTOR2) +
 ## Solution ##
 urchin <- sdrop_na(urchin, sex)
 chart(data = urchin, weight ~ buoyant_weight %col=% origin %shape=% sex) +
-  geom_point(na.rm = TRUE)
+  geom_point()
 ```
 
 ```{r 2factor_graph_h3-check}
@@ -285,33 +285,33 @@ Intéressez-vous maintenant à la hauteur (`height`) en fonction de la masse (`w
 
 ```{r}
 a <- chart(data = urchin, height ~ weight %col=% origin) +
-  geom_point(na.rm = TRUE)
+  geom_point()
 b <- chart(data = urchin, log(height) ~ log(weight) %col=% origin) +
-  geom_point(na.rm = TRUE)
+  geom_point()
 
 combine_charts(list(a, b), labels = NULL, common.legend = TRUE, legend = "right")
 ```
 
-Réalisez un nuage de points montrant le **logarithme de la hauteur** en ordonnée et le **logarithme de la masse** en abscisse. Utilisez la couleur afin de différencier l'origine des individus et précisez à nouveau que vous souhaitez bien éliminer les valeurs manquantes de manière tacite.
+Réalisez un nuage de points montrant le **logarithme de la hauteur** en ordonnée et le **logarithme de la masse** en abscisse. Utilisez la couleur afin de différencier l'origine des individus.
 
 ```{r log_log_h4, exercise = TRUE}
 chart(data = ___, ___ ~ ___ ___ ___) +
-  geom_point(___)
+  geom_point()
 ```
 
 ```{r log_log_h4-hint-1}
 chart(data = DF, ___ ~ ___ %col=% ___) +
-  geom_point(___)
+  geom_point()
 ```
 
 ```{r log_log_h4-hint-2}
 chart(data = urchin, YNUM ~ XNUM %col=% FACTOR) +
-  geom_point(___)
+  geom_point()
 ```
 
 ```{r log_log_h4-hint-3}
 chart(data = urchin, log(YNUM) ~ log(XNUM) %col=% FACTOR) +
-  geom_point(___)
+  geom_point()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
@@ -319,7 +319,7 @@ chart(data = urchin, log(YNUM) ~ log(XNUM) %col=% FACTOR) +
 ```{r log_log_h4-solution}
 ## Solution ##
 chart(data = urchin, log(height) ~ log(weight) %col=% origin) +
-  geom_point(na.rm = TRUE)
+  geom_point()
 ```
 
 ```{r log_log_h4-check}

@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectif
 
-Dans le premier module, vous avez découvert plusieurs logiciels que vous allez employer dans les cours des sciences des données. Vous avez réalisé un premier projet qui comprenait, entre autres, des instructions R. Vous avez en fait utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format R Markdown. Ce tutoriel a pour objectif de vous permettre de découvrir les bases du langage R.
+Dans le premier module, vous avez découvert plusieurs logiciels que vous allez employer dans les cours des sciences des données. Vous avez réalisé un premier projet qui comprenait, entre autres, des instructions R. Vous avez en fait utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format Quarto. Ce tutoriel a pour objectif de vous permettre de découvrir les bases du langage R.
 
 ```{r, out.width='50%'}
 knitr::include_graphics("images/Rlogo.png")
@@ -41,13 +41,13 @@ Regardez la vidéo ci-dessous.
 
 ![](https://www.youtube.com/watch?v=XcBLEVknqvY)
 
-[R](https://www.r-project.org/about.html) est un logiciel **open source** centré sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet entre autres la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
+[R](https://www.r-project.org/about.html) est un logiciel **open source** (ce qui signifie que le code source du logiciel est disponible sous une licence permissive) centré sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet, entre autres, la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
 
 **Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
 
-Ce tutoriel vous propose une suite d'activités afin d'apprendre les rudiments de R.
+Ce tutoriel vous propose une suite d'activités pour apprendre les rudiments de R.
 
-## R, une calculette scientifique
+## R, une "calculette" scientifique
 
 Vous pouvez tout d'abord employer R comme une calculatrice (ce qui est bien réducteur de la puissance de cet outil). Les opérations de base sont directement utilisables dans R.
 
@@ -61,7 +61,7 @@ Vous pouvez tout d'abord employer R comme une calculatrice (ce qui est bien réd
 
 **À noter :**
 
--   Les espaces au sein des instructions sont facultatives, mais elles aèrent le code. C'est comme en français : sansespacesonlitnettementmoinsbien! Dans certain cas, il vaut mieux les omettre, comme pour `3^2` qui indique que cette opération est prioritaire sur les autres. `1 - 3^2` signifie `1 - (3^2)`, 3 est d'abord élevé au carré, et puis on soustrait cette valeur à un, et non `(1 - 3)^2`. De même, la multiplication et la division sont prioritaires sur l'addition et la soustraction tout comme en mathématique.
+-   Les espaces au sein des instructions sont facultatifs, mais ils aèrent le code. C'est comme en français : sansespacesonlitnettementmoinsbien! Dans certains cas, il vaut mieux les omettre, comme pour `3^2` qui indique que cette opération est prioritaire sur les autres. `1 - 3^2` signifie `1 - (3^2)`, 3 est d'abord élevé au carré, et puis on soustrait cette valeur de un, et non `(1 - 3)^2`. De même, la multiplication et la division sont prioritaires sur l'addition et la soustraction tout comme en mathématique.
 
 -   R retourne une réponse précédée de `[1]`. Nous verrons plus loin qu'il retourne en réalité un vecteur, même si ce vecteur ne contient qu'un seul élément. Le `[1]` indique la position dans le vecteur.
 
@@ -75,7 +75,7 @@ Voici un premier exemple d'instruction R tel qu'elle se présente dans les tutor
 
 -   Multipliez les nombres `15` et `23` (un encadré **Code R** est une zone où vous pouvez vous-même entrer des instructions R et/ou les modifier. Les numéros à gauche sont les numéros de lignes. Ils ne font pas partie des instructions. Utilisez le bouton **Run Code** pour tester, et ensuite **Submit Answer** quand vous êtes satisfait de votre réponse).
 
-*S'il est présent, le bouton **Solution** permet de visualiser le code qui est demandé. Essayez toujours de résoudre l'exercice par vous-même.* **Si vous visualisez la solution, vous perdez automatiquement la moitié des points pour la question !**
+*S'il est présent, le bouton **Solution** permet de visualiser le code qui est demandé. Essayez toujours de résoudre l'exercice par vous-même.* **Attention : si vous visualisez la solution, vous perdez automatiquement la moitié des points pour la question !**
 
 ```{r calcul1, exercise=TRUE}
 
@@ -94,7 +94,7 @@ grade_result(
 
 *Les learnrs font appel partiellement à des outils de correction automatisée. Les messages qu'ils renvoient sont en anglais. Ne soyez donc pas étonnés du mélange anglais/français parfois. Surtout, si le message est sur fond rouge, lisez-le attentivement : il contient des informations utiles pour corriger votre réponse.*
 
-Vous pouvez également utiliser des fonctions mathématiques directement implémentées dans R comme le logarithme népérien avec la **fonction** `log()`. Ce langage a été mis au point pour suivre les conventions des mathématiques et des statistiques comme le respect de l'ordre des opérations.
+Vous pouvez également utiliser des fonctions mathématiques directement implémentées dans R comme le logarithme népérien avec la fonction `log()`. Ce langage a été mis au point pour suivre les conventions des mathématiques et des statistiques comme le respect de l'ordre des opérations.
 
 ```{r, echo=TRUE}
 log(4 + 5)
@@ -102,7 +102,7 @@ log(4 + 5)
 
 -   Calculez l'exponentielle (fonction `exp()`) de `23` moins `15`.
 
-*Le bouton **Hints** propose des aides pour vous guider dans l'exercice. Il se peut que la dernière aide soit la solution (cela sera indiqué dans l'aide précédente afin d'éviter de perdre des points en l'affichant de manière malencontreuse). Toute aide affichée fait perdre 10% de la note pour l'exercice. Encore une fois, essayez d'abord de trouver la réponse par vous-même.*
+**Le bouton Hints** propose des aides pour vous guider dans l'exercice. Il se peut que la dernière aide soit la solution (cela sera indiqué dans l'aide précédente afin d'éviter de perdre des points en l'affichant de manière malencontreuse). Toute aide affichée fait perdre 10% de la note pour l'exercice. Encore une fois, essayez d'abord de trouver la réponse par vous-même.
 
 ```{r calcul2_h2, exercise=TRUE}
 
@@ -129,7 +129,7 @@ grade_result(
 
 ## Les assignations
 
-Effectuer des calculs, c'est bien... pouvoir sauvegarder et réutiliser les résultats, c'est encore mieux. L'action qui consiste à associer un résultat à un nom s'appelle une **assignation**. L'instruction correspondante dans R symbolise une flèche indiquant le sens de l'assignation (`<-`, soit l'assemblage du signe plus petit que `<` et moins `-`). Par exemple :
+Effectuer des calculs, c'est bien... pouvoir sauvegarder et réutiliser les résultats, c'est encore mieux. L'action qui consiste à associer un résultat à un nom s'appelle une **assignation**. L'instruction correspondante dans R symbolise une flèche indiquant le sens de l'assignation (`<-`, soit l'assemblage du signe plus petit que `<` et du signe moins `-`). Par exemple :
 
 ```{r assignation, echo=TRUE}
 a <- 5
@@ -138,11 +138,13 @@ b <- 4 + 3
 a + b # Somme de a et b
 ```
 
-Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est considéré comme un **commentaire**. Ce commentaire n'est pas interprété par le programme. Servez-vous en pour documenter vos instructions !
+Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est considéré comme un **commentaire**. Ce commentaire n'est pas interprété par le programme. Servez-vous-en pour documenter vos instructions !
 
 **À retenir :**
 
--   Vous pouvez aussi voir et gérer vos objets dans l'onglet "**Environment**" de RStudio lorsque plus tard vous travaillerez dans ce logiciel. ![](images/environnement.png)
+-   Vous pouvez aussi voir et gérer vos objets dans l'onglet "**Environment**" de RStudio lorsque plus tard vous travaillerez dans ce logiciel.
+
+![](images/environnement.png)
 
 -   Les noms reconnus par R doivent commencer par une lettre ou le point `.`, et être suivis de lettres, chiffres, point ou trait souligné `_`.
 
@@ -155,7 +157,7 @@ Notez aussi que tout ce qui suit un dièse (`#`) sur une même ligne dans R est 
 
 -   Un nom commençant par un point sera "caché" (non visible dans l'onglet "**Environment**" de RStudio).
 
--   Utilisez des noms courts, mais représentatifs du contenu de l'objet. Si possible, séparez les mots par un trait souligné et utilisez uniquement des lettres minuscules. On a coutume d'utiliser des noms anglais, car cela facilite l'échange de code avec des collègues internationaux (oui, ça vous arrivera... donc, prenez directement de bonnes habitudes).
+-   Utilisez des noms courts, mais représentatifs du contenu de l'objet. Si possible, séparez les mots par un trait souligné (`_`) et utilisez uniquement des lettres minuscules. On a coutume d'utiliser des noms anglais, car cela facilite l'échange de code avec des collègues internationaux (oui, ça vous arrivera... donc, prenez directement de bonnes habitudes).
 
     -   Exemples corrects : `x`, `v1`, `initial_date`, `final_date`, `elapsed_time`.
     -   Exemples incorrects : `toto`, `Toto2`, `FinalDate`, `fd` or `FD` or `fi_dat` (pour final date), `date_finale`, `laatse_datum`.
@@ -196,10 +198,13 @@ Dans R, et contrairement à une calculatrice de poche, vous pouvez rassembler di
 
 ```{r vecteur, echo=TRUE}
 v1 <- c(2, 5, 8, 11, 13, 16)
+v1
 # NA indique une valeur manquante ('not available')
 v2 <- c(2, 5, NA, 11, 13, 16)
+v2
 # Aussi avec des chaînes de caractères (entre guillemets)
 v3 <- c("noir", "jaune", "rouge")
+v3
 ```
 
 **Astuce :**
@@ -317,7 +322,7 @@ mean(v4)
 grade_code("C'est cela : les fonctions génériques s'utilisent comme les autres, mais faites bien attention aux différentes formes possibles (que l'on appelle les **méthodes** de la fonction) !")
 ```
 
-Certaines fonctions servent à **résumer** un ensemble de données, c'est-à-dire qu'elles les représentent avec une seule ou un petit nombre de valeurs. Ainsi, quelle que soit la taille du vecteur `v4`, sa moyenne est toujours un nombre unique. Ici, nous avons obtenu `NA`. Nous savons pourquoi. Les valeurs manquantes sont **contaminantes** dans les calculs. Il en suffit d'une seule pour que l'ensemble du résultat soit `NA`. Naturellement dans ce cas, c'est dommage, car la moyenne pourrait être *estimée* sur base des trois autres valeurs connues. L'argument `na.rm` permet de le faire... mais comment le savoir ? En lisant **la page d'aide de la fonction**. Pour cela, utilisez l'instruction `?` suivi du nom de la fonction. Dans RStudio, la page d'aide apparaît dans l'onglet **Help** (copie d'écran ci-dessous).
+Certaines fonctions servent à **résumer** un ensemble de données, c'est-à-dire qu'elles les représentent avec une seule ou un petit nombre de valeurs. Ainsi, quelle que soit la taille du vecteur `v4`, sa moyenne est toujours un nombre unique. Ici, nous avons obtenu `NA`. Nous savons pourquoi. Les valeurs manquantes sont **contaminantes** dans les calculs. Il en suffit d'une seule pour que l'ensemble du résultat soit `NA`. Naturellement dans ce cas, c'est dommage, car la moyenne pourrait être *estimée* sur base des trois autres valeurs connues. L'argument `na.rm` permet de le faire... mais comment le savoir ? En lisant **la page d'aide de la fonction**. Pour cela, utilisez l'opérateur `?` suivi du nom de la fonction. Dans RStudio, la page d'aide apparaît dans l'onglet **Aide** ou *Help** (selon que l'interface de RStudio soit en français ou en anglais, voir copie d'écran ci-dessous).
 
 ```{r, eval=FALSE, echo=TRUE}
 ?mean
@@ -359,7 +364,7 @@ Vous obtenez cette fois-ci la réponse souhaitée.
 
 ## Fonctions statistiques "fast"
 
-Dans le dialecte `SciViews::R` (qui nécessite donc cette instruction en toute première ligne pour se configurer comme tel), nous utiliserons une famille de fonctions alternatives qui servent à résumer des données, comme le calcul de la moyenne. Ces fonctions statistiques sont appelées "fast" parce qu'elles calculent plus rapidement que les fonctions équivalentes de R de base, mais elles ont aussi d'autres propriétés intéressantes que vous découvrirez plus tard. Ces fonctions portent le même nom que la version plus classique, mais préfixé d'un "f". Ainsi, l'équivalent de `mean()` en fonction statistique "fast" est `fmean()`. Une particularité de ces fonctions est d'inverser la convention pour la valeur par défaut de l'argument `na.rm=` qui vaut ici `TRUE` si non précisé. Ainsi, dans notre exemple de la moyenne de `v4` qui contient une valeur manquante, vous pourrez simplement écrire avec `fmean()` :
+Dans le dialecte `SciViews::R` (qui nécessite donc cette instruction en toute première ligne pour se configurer comme tel), nous utiliserons une famille de fonctions alternatives qui servent à résumer des données, comme le calcul de la moyenne. Ces fonctions statistiques sont appelées "fast" parce qu'elles calculent plus rapidement que les fonctions équivalentes de R de base, mais elles ont aussi d'autres propriétés intéressantes que vous découvrirez plus tard. Ces fonctions portent le même nom que la version plus classique, mais préfixée d'un "f". Ainsi, l'équivalent de `mean()` en fonction statistique "fast" est `fmean()`. Une particularité de ces fonctions est d'inverser la convention pour la valeur par défaut de l'argument `na.rm=` qui vaut ici `TRUE` si non précisé. Ainsi, dans notre exemple de la moyenne de `v4` qui contient une valeur manquante, vous pourrez simplement écrire avec `fmean()` :
 
 ```{r, echo=TRUE}
 SciViews::R # À n'écrire qu'une seule fois en début de script
@@ -382,7 +387,7 @@ Vous pouvez utiliser un appel de fonction partout dans une instruction, à la m�
 ```{r, fun-astuces, echo=TRUE}
 x <- 2:5
 x_mean <- mean(x)
-x_sd <- sd(x) # sd() calcule l'écart type
+x_sd <- sd(x) # sd() calcule l'écart type, un autre descripteur statistique
 10 - x_mean / x_sd
 # Le même calcul avec appel de fonctions incluses
 10 - mean(x) / sd(x)
@@ -413,7 +418,7 @@ mean(x) %>.%
 
 -   Le chaînage crée une instruction unique qui effectue un calcul plus complexe, décomposé étape par étape.
 -   On indique un point `.` à la place où le résultat précédent doit être inséré dans la fonction.
--   Le chaînage est bien plus lisible que l'imbrication au-delà de deux niveaux. En effet, si vous lisez l'instruction chaîne à voix haute en disant "ensuite" pour `%>.%` cela donne : "je prends la moyenne de `x` ensuite le logarithme, ensuite j'arrondis à trois chiffres derrière la virgule". C'est parfaitement clair, non ?
+-   Le chaînage est bien plus lisible que l'imbrication au-delà de deux niveaux. En effet, si vous lisez l'instruction chaîne à voix haute en disant "ensuite" pour `%>.%` cela donne : "je prends la moyenne de `x` ensuite le logarithme, ensuite j'arrondis à trois chiffres derrière la virgule". C'est parfaitement clair, non ?
 
 Un petit exercice, maintenant :
 
@@ -449,7 +454,7 @@ log(x) %>.%
 grade_code("C'est exactement cela. Le chaînage des opérations rend le code bien plus lisible.")
 ```
 
-On retrouve plusieurs opérateur de pipe dans R. Par exemple, l'opérateur de pipe de R de base est `|>`. Il s'utilise de façon similaire, sauf que le membre de gauche est injecté comme premier argument dans la fonction à droite, et il ne faut pas (et même, on ne peut pas) indiquer où le mettre à l'aide du point `.`. Voici, à titre d'illustration, trois fois la même instruction, écrite en imbriquant les fonction, puis avec `%>.%`, et enfin, avec `|>`.
+On retrouve plusieurs opérateurs de pipe dans R. Par exemple, l'opérateur de pipe de R de base est `|>`. Il s'utilise de façon similaire, sauf que le membre de gauche est injecté comme premier argument dans la fonction à droite, et il ne faut pas (et même, on ne peut pas) indiquer où le mettre à l'aide du point `.`. Voici, à titre d'illustration, trois fois la même instruction, écrite en imbriquant les fonction, puis avec `%>.%`, et enfin, avec `|>`.
 
 ```{r, echo=TRUE}
 x <- 1:5
@@ -477,7 +482,7 @@ Durant cette séance, vous avez appris à :
 -   Manipuler les valeurs manquantes, et les calculs en leur présence
 -   Imbriquer et chaîner des instructions
 
-**Cela fait beaucoup de notions à apprendre et retenir d'un seul coup.** Mais rassurez-vous, avec la pratique, cela deviendra une habitude. Vous pouvez aussi revenir sur ce tutoriel un peu plus tard pour approfondir votre connaissance des bases du langage R.
+**Cela fait beaucoup de notions à apprendre et retenir d'un seul coup.** Mais rassurez-vous, avec la pratique, cela deviendra une habitude. Vous pouvez aussi revenir dans ce tutoriel un peu plus tard pour approfondir votre connaissance des bases du langage R.
 
 **Pour aller plus loin...**
 

@@ -1,3 +1,7 @@
+# BioDataScience1 2023.2.0
+
+-   Learnrs A02La_base, A02Lb_progression and A02Lc_scatterplot ready.
+
 # BioDataScience1 2023.1.0
 
 -   Learnrs A00La_discovery, A01La_tools and A01Lb_git ready.

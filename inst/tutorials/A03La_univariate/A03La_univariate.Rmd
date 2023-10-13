@@ -38,29 +38,29 @@ BioDataScience1::learnr_server(input, output, session)
 
 -   Vérifier l'acquisition des notions relatives aux histogrammes
 
--   Contrôler votre capacité à créer graphiques de densité
+-   Contrôler votre capacité à créer des graphiques de densité
 
 -   Vérifier que vous comprenez et êtes capable de réaliser des diagrammes en violon
 
 ## Biométrie humaine
 
-Intéressez vous au jeu de données sur la biométrie humaine ci-dessous.
+Intéressez-vous au jeu de données sur la biométrie humaine ci-dessous.
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 # Importation du jeu de données
 (biometry <- read("biometry", package = "BioDataScience", lang = "fr"))
 ```
 
 ### Histogramme
 
-Reproduisez le graphique suivant qui représente la distribution de l'age (`age`) des individus sondés lors d'une étude portant sur l'obésité en Hainaut (jeu de données `biometry`. Le genre (`gender`) de ces derniers est employé afin produire deux graphiques. Utilisez l'argument `bins = 30` pour définir le nombre de classe.
+Reproduisez le graphique suivant qui représente la distribution de l'âge (`age`) des individus sondés lors d'une étude portant sur l'obésité en Hainaut (jeu de données `biometry`). La variable genre (`gender`) est employée pour séparer en deux graphiques. Utilisez l'argument `bins = 30` pour définir le nombre de classes.
 
 ```{r histo_intro}
 chart(biometry, ~ age | gender) +
   geom_histogram(bins = 30)
 ```
 
-```{r histo_h3, exercise = TRUE}
+```{r histo_h3, exercise=TRUE}
 chart(___, ~ ___ ___ ___) + 
   ___(___)
 ```
@@ -89,14 +89,14 @@ grade_code("Vous venez de réaliser votre premier histogramme !")
 
 ### Graphique de densité
 
-Reproduisez le graphique suivant qui représente la répartition de la densité de la hauteur (`height`) en fonction du genre (`gender`) des individus présents dans le jeu de données `biometry`.
+Reproduisez le graphique suivant qui représente la densité de répartition de la hauteur (`height`) en fonction du genre (`gender`) des individus présents dans le jeu de données `biometry`.
 
 ```{r density_intro}
 chart(biometry, ~ height %fill=% gender) +
   geom_density()
 ```
 
-```{r density_h3, exercise = TRUE}
+```{r density_h3, exercise=TRUE}
 chart(___, ~ ___ ___ ___) +
   ___()
 ```
@@ -125,16 +125,14 @@ grade_code("Vous savez maintenant réaliser un graphique de densité.")
 
 ### Graphique en violon
 
-Reproduisez le graphique suivant qui représente la répartition de la densité de la hauteur (`height`) en fonction du genre (`gender`) des individus présents dans le jeu de données `biometry`.
-
-**Nom du jeu de données et des variables importantes**
+Reproduisez le graphique en violon suivant entre la hauteur (`height`) et le genre (`gender`) des individus présents dans le jeu de données `biometry`.
 
 ```{r violin_intro}
 chart(biometry, height ~ gender) +
   geom_violin()
 ```
 
-```{r violin_h3, exercise = TRUE}
+```{r violin_h3, exercise=TRUE}
 chart(___, ___ ~ ___) +
   ___()
 ```
@@ -158,14 +156,14 @@ chart(biometry, height ~ gender) +
 ```
 
 ```{r violin_h3-check}
-grade_code("Vous maîtrisez un 3^ème^ type de graphique pour représenté la distribution d'une variable numérique. ")
+grade_code("Vous maîtrisez un troisième type de graphique pour représenter la distribution d'une variable numérique. ")
 ```
 
 ## Analyse d'image du zooplancton
 
-Intéressez vous au jeu de données sur l'analyse d'image du zooplancton ci-dessous.
+Intéressez-vous au jeu de données sur l'analyse d'image du zooplancton ci-dessous.
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 # Importation du jeu de données
 (zooplankton <- read("zooplankton", package = "data.io", lang = "fr"))
 # Filtre du jeu de données pour obtenir uniquement les copépodes
@@ -183,7 +181,7 @@ chart(copepoda, size ~ class %fill=% class) +
   coord_flip()
 ```
 
-```{r violin2_h3, exercise = TRUE}
+```{r violin2_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
   geom_violin(show.legend = ___) +
   ___
@@ -211,7 +209,7 @@ chart(copepoda, size ~ class %fill=% class) +
 ```
 
 ```{r violin2_h3-check}
-grade_code("Et une nouvelle fonction de plus pour améliorer la représentation graphique de vos données")
+grade_code("Et une nouvelle fonction de plus pour améliorer la représentation graphique de vos données.")
 ```
 
 ### Graphique de densité 1
@@ -223,7 +221,7 @@ chart(copepoda, class ~ size %fill=% class) +
   ggridges::geom_density_ridges(show.legend = FALSE) 
 ```
 
-```{r ggridges_h3, exercise = TRUE}
+```{r ggridges_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
   ___(___) 
 ```
@@ -259,7 +257,7 @@ chart(zooplankton, class ~ size) +
   ggridges::geom_density_ridges() 
 ```
 
-```{r ggridges2_h2, exercise = TRUE}
+```{r ggridges2_h2, exercise=TRUE}
 chart(___, ___ ~ ___) +
   ___() 
 ```
@@ -285,21 +283,21 @@ grade_code("Vous avez certainement compris le principe ici.")
 
 Intéressez vous au jeu de données sur la biométrie d'oursin ci-dessous.
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 # Importation du jeu de données
 (urchin <- read("urchin_bio", package = "data.io", lang = "fr"))
 ```
 
 ### Nuage de points 1
 
-À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'orgine (`origin`) de ces derniers est mis en évidence par la couleur.
+À partir du jeu de données `urchin`, reproduisez le graphique suivant qui représente la variation de la taille (`height`) en fonction de la masse (`weight`) des oursins. L'origine (`origin`) de ces derniers est mise en évidence par la couleur.
 
 ```{r np_intro}
 chart(urchin, height ~ weight %col=% origin) +
   geom_point()
 ```
 
-```{r np_h3, exercise = TRUE}
+```{r np_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
   ___()
 ```
@@ -335,7 +333,7 @@ chart(urchin, height ~ weight %col=% origin %shape=% sex) +
   geom_point()
 ```
 
-```{r np2_h3, exercise = TRUE}
+```{r np2_h3, exercise=TRUE}
 # Utiliser la couleur en tant que premier argument et la forme en second
 ___(___, ___  ~ ___ ___ ___ ___ ___) +
   ___()

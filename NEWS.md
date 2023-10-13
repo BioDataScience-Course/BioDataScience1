@@ -1,3 +1,7 @@
+# BioDataScience1 2023.3.0
+
+-   Learnr A03La_univariate ready.
+
 # BioDataScience1 2023.2.0
 
 -   Learnrs A02La_base, A02Lb_progression and A02Lc_scatterplot ready.

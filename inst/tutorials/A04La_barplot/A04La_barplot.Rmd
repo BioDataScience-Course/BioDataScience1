@@ -45,9 +45,9 @@ BioDataScience1::learnr_server(input, output, session)
 
 -   Être capable de réaliser et d'utiliser à bon escient des graphiques en camembert.
 
-## Oursins perforant dans la baie de Tuléar (Madagascar)
+## Oursins perforants dans la baie de Tuléar (Madagascar)
 
-La jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*.
+Le jeu de données nommé `e_mathaei` est un recensement de différentes variétés de l'oursin *Echinometra mathaei*.
 
 ```{r echino_data, echo=TRUE}
 # Visualisation de quelques lignes du jeu de données
@@ -64,7 +64,7 @@ chart(e_mathaei, ~variety) +
   coord_flip()
 ```
 
-A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`).
+À partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`).
 
 ```{r bar1_h3, exercise=TRUE}
 chart(___, ~___) +
@@ -106,7 +106,7 @@ chart(e_mathaei, ~site %fill=% variety) +
   geom_bar()
 ```
 
-A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`) en fonction du site (`site`).
+À partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`) en fonction du site (`site`).
 
 ```{r bar2_h3, exercise=TRUE}
 chart(___, ~___ ___ ___) +
@@ -152,7 +152,7 @@ b <- chart(e_mathaei, ~site %fill=% variety) +
 combine_charts(list(a, b), common.legend = TRUE)
 ```
 
-A partir du jeu de donnée `e_mathaei`, reproduisez les graphiques ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`) par site en utilisant la valeur `"dodge"` pour le graphique **A** et la valeur `"fill"` pour le graphique **B**.
+À partir du jeu de donnée `e_mathaei`, reproduisez les graphiques ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`) par site en utilisant les bonnes valeurs de l'argument `position =` (valeurs possibles : `"stack"`, `"dodge"` ou `"fill"`, ...).
 
 ```{r bar3_h3, exercise=TRUE}
 # position = "dodge"
@@ -210,7 +210,7 @@ combine_charts(list(a, b), common.legend = TRUE)
 ```
 
 ```{r bar3_h3-check}
-grade_code("Vous connaissez maintenant les différentes valeurs que peuvent prendre l'argument `position =`. Notez la **différence** qui existe entre le graphique par defaut (`position = \"stack\"`) et le graphique B (`position = \"fill\"`) ! Le rendu est similaire mais c'est la **fraction** par rapport au total qui est représentée dans le graphique B et **non les effectifs** absolus !")
+grade_code("Vous connaissez maintenant différentes valeurs que peuvent prendre l'argument `position =`. Notez la **différence** qui existe entre le graphique par defaut (`position = \"stack\"`) et le graphique B (`position = \"fill\"`) ! Le rendu est similaire mais c'est la **fraction** par rapport au total qui est représentée dans le graphique B et **non les effectifs absolus** !")
 ```
 
 ### Dénombrement d'oursins (version camembert)
@@ -226,7 +226,7 @@ chart(e_mathaei, ~factor(0) %fill=% variety) +
   labs(fill = "Variety")
 ```
 
-À partir du jeu de donnée `e_mathaei`, reproduisez le graphique en camembert ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`).
+À partir du jeu de donnée `e_mathaei`, reproduisez le graphique en camembert ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`).
 
 ```{r pie1_h2, exercise=TRUE}
 chart(___, ~___ %fill=% ___) +
@@ -275,7 +275,7 @@ chart(e_mathaei, ~variety %fill=% variety) +
   scale_fill_viridis_d()
 ```
 
-A partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursin pour chacune des variétés (`variety`). Attention que le graphique doit être entièrement en français !
+À partir du jeu de donnée `e_mathaei`, reproduisez le graphique ci-dessus représentant le nombre d'oursins pour chacune des variétés (`variety`). Attention que le graphique doit être entièrement en français !
 
 ```{r bar4_h3, exercise=TRUE}
 e_mathaei$variety <- factor(___,
@@ -329,14 +329,14 @@ chart(e_mathaei, ~variety %fill=% variety) +
 ```
 
 ```{r bar4_h3-check}
-grade_code("Voilà un graphique fin prêt pour une publication.")
+grade_code("Voilà un graphique finalisé. C'est important de peaufiner les graphiques que vous conservez pour vos rapports ou publications, par opposition à ceux qui se trouvent dans vos bloc-notes où les sorties par défaut de {chart} suffisent pour avoir une présentation suffisante pour l'interprétation.")
 ```
 
 ## Biométrie de crabes
 
 Des scientifiques étudient la biométrie du crabe *Leptograpsus variegatus* et ont obtenu le tableau ci-dessous.
 
-```{r crabs_data, echo = TRUE}
+```{r crabs_data, echo=TRUE}
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
@@ -378,7 +378,7 @@ grade_code("Les fonctions `stat_XXX()` vous permettent d'effectuer des calculs s
 
 ## Conclusion
 
-Félicitation ! Vous venez de terminer votre séance d'exercices relative aux graphiques en barres et camembert. Vous maîtrisez maintenant tous les outils nécessaire pour la réalisation de la plupart de vos graphiques.
+Félicitation ! Vous venez de terminer votre séance d'exercices relative aux graphiques en barres et camembert. Vous maîtrisez maintenant tous les outils nécessaires pour la réalisation d'e la plupart de vos'une belle panoplie de graphiques. Il existe bien d'autres graphiques, cependant. Nous vous encourageons à consulter le site [R Graph Gallery](https://www.r-graph-gallery.com/) pour découvrir d'autres types de graphiques et comment les réaliser avec {ggplot2}.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

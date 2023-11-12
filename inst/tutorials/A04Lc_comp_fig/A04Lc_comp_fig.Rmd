@@ -41,11 +41,11 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
--   Créer des figures composées de plusieurs graphique à l'aide de {chart}
+-   Créer des figures composées de plusieurs graphiques à l'aide de {chart}
 
 ## Transect entre Nice et la Corse
 
-Les chercheurs réalisent un transect dans la Mer Méditerranée depuis le port de Nice jusqu'à la baie de Calvi en Corse. Ils vont donc réaliser des prélèvements en 68 stations entre ces deux extrêmes.
+Les chercheurs réalisent un transect dans la mer Méditerranée depuis le port de Nice jusqu'à la baie de Calvi en Corse. Ils vont donc réaliser des prélèvements en 68 stations entre ces deux extrêmes.
 
 ```{r marphy_data, echo=TRUE}
 (marphy <- read("marphy", package = "pastecs"))
@@ -97,7 +97,7 @@ chart(marphy, Temperature ~ Station) +
 ```
 
 ```{r line1_h3-check}
-grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité entre ces points.")
+grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité : le phénomène étudie évolue de manière continue selon l'axe X (ici, le long du transect), mais nous ne mesurons des valeurs qu'en certains points (les stations de mesures). Ce type de graphique s'utilise aussi fréquemment pour un phénomène qui évolue dans le temps.")
 ```
 
 ### Salinité
@@ -111,7 +111,7 @@ chart(marphy, Salinity ~ Station) +
   labs(y = "Salinité")
 ```
 
-Reproduisez le graphique ci-dessus.
+Reproduisez le graphique ci-dessus. Tout comme pour la température, vous utiliserez les couches de lignes et de points *dans cet ordre*.
 
 ```{r line2_h2, exercise=TRUE}
 chart(___, ___ ~ ___) +
@@ -143,7 +143,7 @@ grade_code("Encore une fois, les points sont reliés par des segments de droites
 
 ### Figure composée
 
-Ils décident pour finir de représenter les deux graphiques ensembles dans une figure composite.
+Ils décident, pour finir, de représenter les deux graphiques ensemble dans une figure composite.
 
 ```{r}
 a <- chart(marphy, Temperature ~ Station) +
@@ -159,7 +159,7 @@ b <- chart(marphy, Salinity ~ Station) +
 combine_charts(list(a, b))
 ```
 
-Reproduisez le graphique ci-dessus en utilisant les mêmes variables que pour les graphiques précédents.
+Reproduisez le graphique ci-dessus en utilisant les deux mêmes graphiques que vous avez réalisés précédemment.
 
 ```{r comb1_h3, exercise=TRUE}
 # Graphique de la température 
@@ -229,7 +229,7 @@ combine_charts(list(a, b))
 grade_code("Votre première figure composite est vraiment très réussie.")
 ```
 
-## QCM : Choix du graphiques le plus adéquats
+## QCM : choix du graphique le plus adéquat
 
 Répondez aux questions à choix multiples ci-dessous.
 

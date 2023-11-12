@@ -1,3 +1,7 @@
+# BioDataScience1 2023.4.0
+
+-   Learnrs A04La_barplot, A04Lb_boxplot and A04Lc_comp_fig ready.
+
 # BioDataScience1 2023.3.0
 
 -   Learnr A03La_univariate ready.

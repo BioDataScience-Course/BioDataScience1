@@ -1,3 +1,7 @@
+# BioDataScience1 2023.4.1
+
+-   Shiny application A04Ca_charts for ranking challenge results is added.
+
 # BioDataScience1 2023.4.0
 
 -   Learnrs A04La_barplot, A04Lb_boxplot and A04Lc_comp_fig ready.

@@ -1,26 +1,30 @@
+# BioDataScience1 2023.6.0
+
+-   Learnrs **A06La_recombination** and **A06Lb_multi-table** ready.
+
 # BioDataScience1 2023.5.0
 
--   Learnr A05La_wrangling ready.
+-   Learnr **A05La_wrangling** ready.
 
 # BioDataScience1 2023.4.1
 
--   Shiny application A04Ca_charts for ranking challenge results is added.
+-   Shiny application **A04Ca_charts** for ranking challenge results is added.
 
 # BioDataScience1 2023.4.0
 
--   Learnrs A04La_barplot, A04Lb_boxplot and A04Lc_comp_fig ready.
+-   Learnrs **A04La_barplot**, **A04Lb_boxplot** and **A04Lc_comp_fig** ready.
 
 # BioDataScience1 2023.3.0
 
--   Learnr A03La_univariate ready.
+-   Learnr **A03La_univariate** ready.
 
 # BioDataScience1 2023.2.0
 
--   Learnrs A02La_base, A02Lb_progression and A02Lc_scatterplot ready.
+-   Learnrs **A02La_base**, **A02Lb_progression** and **A02Lc_scatterplot* ready.
 
 # BioDataScience1 2023.1.0
 
--   Learnrs A00La_discovery, A01La_tools and A01Lb_git ready.
+-   Learnrs **A00La_discovery**, **A01La_tools** and **A01Lb_git* ready.
 
 # BioDataScience1 2023.0.0
 

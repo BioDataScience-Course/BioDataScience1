@@ -1,7 +1,7 @@
 ---
 title: "Distributions continues"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 7** Distributions Normale et log-Normale, graphique quantile-quantile."
+description: "**SDD I Module 7** Distributions normale et log-normale, graphique quantile-quantile."
 tutorial:
   id: "A07Lc_distri2"
   version: 2.1.0/7
@@ -30,23 +30,23 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-La loi de distribution Normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez :
+La loi de distribution normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez :
 
--   Vérifier que vous comprenez bien la logique des calculs autour de la distribution Normale
+-   Vérifier que vous comprenez bien la logique des calculs autour de la distribution normale
 
 -   Réaliser et interpréter un graphique quantile-quantile
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A07La_proba")`).
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A07La_proba")`).
 
-## Distribution Normale
+## Distribution normale
 
 ![](images/para_normal_distribution.jpg)
 
-La distribution Normale (ou Gaussienne) est appelée comme cela parce que c'est celle qui se rencontre le plus souvent. Elle s'observe à chaque fois que le résultat est la somme de petits effets aléatoires qui se combinent. Elle a une forme caractéristique, dite "en cloche".
+La distribution normale (ou Gaussienne) est appelée comme cela parce que c'est celle qui se rencontre le plus souvent. Elle s'observe à chaque fois que le résultat est la somme de petits effets aléatoires qui se combinent. Elle a une forme caractéristique, dite "en cloche".
 
 ### Graphique
 
-Employez R pour représenter la densité de probabilité de la distribution $Y \sim N(10, 3)$.
+Employez R pour représenter la densité de probabilité de la distribution $Y \sim N(10, 9)$ (attention à la différence entre la variance ici et l'écart type "sigma" qui est utilisé dans la fonction de calcul) !
 
 <!-- 💬 **Ce code correspond au snippet `.indens`** [`.in` = (d)`i`stribution: `n`ormal]. -->
 
@@ -72,7 +72,7 @@ chart(N1) +
 ```
 
 ```{r normal1_h2-check}
-grade_code("Ceci est plutôt simple à réaliser. La ligne avec `ylab()` n'est là que pour s'assurer d'avoir le label de l'axe en français.")
+grade_code("Ceci est plutôt simple à réaliser une fois que l'on se rappelle que l'écart type \"sigma\" est la racine carrée dce la variance. La ligne avec `ylab()` n'est là que pour s'assurer d'avoir le label de l'axe en français.")
 ```
 
 Ajoutez maintenant sur le graphique une aire en rouge délimitée entre les quantiles 8 et 12 et annotez-là en son centre avec l'indication "P[8, 12]" en rouge. Pour ajouter une aire colorée sous la courbe, vous utilisez `geom_funfill()` avec l'argument `fun = dfun(...)` pour un graphique de densité de probabilité ou `fun = cdfun(...)` pour un graphique de densité de probabilité cumulée. Enfin pour annoter le graphique avec du texte, vous utilisez `annotate("text", ...)`.
@@ -110,13 +110,13 @@ chart(N1) +
 grade_code("Si `geom_funfill()` est une function spécifique à `SciViews::R` pour compléter les graphiques des distributions, `annotate(\"text\", ...)` est classique pour les graphiques de type {ggplot2} comme ici et est donc réutilisable pour annoter tous vos graphiques.")
 ```
 
-### Calculs avec la loi Normale
+### Calculs avec la loi normale
 
-Comme pour les autres lois de distributions, il est vital de pouvoir calculer des probabilités en fonctions de quantiles et des quantiles à partir de probabilités. Nous nous réfèrerons toujours à la probabilités d'avoir une valeur plus petite (aire à gauche avec `lower.tail = TRUE`) ou plus grande (aide à droite avec `lower.tail = FALSE`) que ce quantile. Une aire comprise entre deux quantiles doit se calculer en deux temps (Pr{Q2} - Pr{Q1}).
+Comme pour les autres lois de distributions, il est vital de pouvoir calculer des probabilités en fonctions de quantiles et des quantiles à partir de probabilités. Nous nous référerons toujours à la probabilités d'avoir une valeur plus petite (aire à gauche avec `lower.tail = TRUE`) ou plus grande (aide à droite avec `lower.tail = FALSE`) que ce quantile. Une aire comprise entre deux quantiles doit se calculer en deux temps (Pr{Q2} - Pr{Q1}).
 
 ![](images/maize.jpg)
 
-Vous étudiez la croissance de plants de maïs. A partir d'un grand nombre de mesures, vous avez pu déterminer que la hauteur de vos plants suit une distribution Normale avec une moyenne de 145 cm et un écart type de 22 cm.
+Vous étudiez la croissance de plants de maïs. A partir d'un grand nombre de mesures, vous avez pu déterminer que la hauteur de vos plants suit une distribution Normale avec une moyenne de 145 cm et une variance de 484 (donc un écart type de 22 cm).
 
 Calculez la probabilités d'avoir un plant de maïs pris au hasard de moins de 100 cm de haut dans votre champ.
 
@@ -174,7 +174,7 @@ pnorm(150, mean = 145, sd = 22, lower.tail = TRUE) -
 grade_code("Une aire comprise entre deux quantiles se calcule toujours en soustrayant la plus petite de la plus grande (par rapport aux deux quantiles respectifs). Deux calculs sont possibles : via les aires à gauche comme ici, ou via les aires à droite en utilisant `lower.tail = FALSE`.")
 ```
 
-En partant de la distribution théorique $Y \sim N(10, 2.5)$, calculez le quantile délimitant une probabilités à droite de 0.1 (10% des plus grandes observations), en utilisant l'une des fonctions p/q/r/d.
+En partant de la distribution théorique $Y \sim N(10, 6.25)$, calculez le quantile délimitant une probabilités à droite de 0.1 (10% des plus grandes observations), en utilisant l'une des fonctions p/q/r/d.
 
 <!-- 💬 **Ce code correspond au snippet `.inquant`.** -->
 
@@ -209,7 +209,7 @@ SciViews::R("infer")
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
-Réalisez un graphique quantile-quantile visant à déterminer si la longueur de carapace (variable nommée `length`) de ces crabes suit une distribution Normale.
+Réalisez un graphique quantile-quantile visant à déterminer si la longueur de carapace (variable nommée `length`) de ces crabes suit une distribution normale.
 
 <!-- 💬 **Ce code correspond au snippet `.cuqqnorm`** [`.cu` = `c`hart: `u`nivariate]. -->
 
@@ -238,10 +238,10 @@ car::qqPlot(crabs[["length"]], distribution = "norm",
 ```
 
 ```{r qqnorm1_h2-check}
-grade_code("Rappelez-vous de la syntaxe `DF$VAR` pour se référer à la variable nommée `VAR` dans le dataframe `DF`. Vous voyez ici que `length` suit une distribution Normale parce que tous les points (ou quasi-tous dans d'autres situations) sont à l'intérieur de l'enveloppe de confiance à 95% représenté par les courbes en pointillés bleus.")
+grade_code("Rappelez-vous de la syntaxe `DF$VAR` pour se référer à la variable nommée `VAR` dans le dataframe `DF`. Vous voyez ici que `length` suit une distribution normale parce que tous les points (ou quasi-tous dans d'autres situations) sont à l'intérieur de l'enveloppe de confiance à 95% représenté par les courbes en pointillés bleus.")
 ```
 
-Est-ce que la longueur de carapace suit une distribution log-Normale chez ces mêmes crabes ?
+Est-ce que la longueur de carapace suit une distribution log-normale chez ces mêmes crabes ?
 
 ```{r qqnorm2_h2, exercise=TRUE}
 SciViews::R("infer")
@@ -268,12 +268,12 @@ car::qqPlot(crabs[["length"]], distribution = "lnorm",
 ```
 
 ```{r qqnorm2_h2-check}
-  grade_code("Nous utilisons `distribution = \"norm\"` pour une Normale et `distribution = \"lnorm\"` pour une log-Normale. Dans le cas présent, les données suivent très clairement une distribution Normale. Dans d'autres situations, vous pouvez opter en faveur de la distribution log-Normale si les données n'admettent pas de valeurs négatives (par exemple, des longueurs, des masses ou des concentrations en solution où des valeurs négatives sont impossibles)et que le graphique quantile-quantile est en sa faveur, ou équivalent entre les deux.")
+  grade_code("Nous utilisons `distribution = \"norm\"` pour une normale et `distribution = \"lnorm\"` pour une log-normale. Dans le cas présent, les données suivent très clairement une distribution normale. Dans d'autres situations, vous pouvez opter en faveur de la distribution log-normale si les données n'admettent pas de valeurs négatives (par exemple, des longueurs, des masses ou des concentrations en solution où des valeurs négatives sont impossibles)et que le graphique quantile-quantile est en sa faveur, ou équivalent entre les deux.")
 ```
 
 ## Conclusion
 
-Vous rencontrerez très souvent la loi Normale dans vos analyses de données biologiques. Être capable de vérifier si un échantillon suit cette distribution ou non sera également très utile. Faites tout de même attention à la **taille de l'échantillon**. Il vous faut plusieurs dizaines d'observations, sinon, vous n'aurez pas suffisamment de données pour l'estimer de manière valable.
+Vous rencontrerez très souvent la loi normale dans vos analyses de données biologiques. Être capable de vérifier si un échantillon suit cette distribution ou non sera également très utile. Faites tout de même attention à la **taille de l'échantillon**. Il vous faut plusieurs dizaines d'observations, sinon, vous n'aurez pas suffisamment de données pour l'estimer de manière valable.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

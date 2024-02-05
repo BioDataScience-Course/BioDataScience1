@@ -37,7 +37,7 @@ Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours
 
 -   Calculer des probabilités sur base d'un tableau de contingence
 
-Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
+Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
 ## Lire des probabilités
 
@@ -61,7 +61,7 @@ quiz(
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Désolé, mais ce n'est pas correct. Recommencez afin de trouver la bonne réponse",
     correct = "Les probabilités conditionnelles ont une dépendance entre elles."),
-  question("Comment lire la proposition suivante : Pr{A + B} ?",
+  question("Comment lire la proposition suivante : Pr{A+B} ?",
     answer("Probabilité d'avoir A ou B", correct = TRUE, message = "En calcul de probabilité, l'addition signifie que l'on considère la probabilité que l'un parmi plusieurs évènements disjoints se produise"),
     answer("Probabilité d'avoir A et B"),
     answer("Probabilité d'avoir A si B se produit"),

@@ -1,3 +1,8 @@
+# BioDataScience1 2023.8.0
+
+-   Learnrs **A08La_chi2** and **A08Lb_chi2b** ready.
+
+
 # BioDataScience1 2023.7.0
 
 -   Learnrs **A07La_proba**, **A07Lb_distri** and **A07Lc_distri2** ready.

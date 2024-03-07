@@ -361,7 +361,7 @@ quiz(
 
 ## Conclusion
 
-Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon-Mann-Whitney. Dans le cours et dans vos projets vous rencontrerez encore d'autres variantes de ces tests : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
+Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon/Mann-Whitney. Dans le cours et dans vos projets vous rencontrerez encore d'autres variantes de ces tests : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

@@ -15,7 +15,6 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", "model", lang = "fr")
-library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -32,7 +31,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèses associés (différentes variantes du test *t* de Student). Le test *t* de Student indépendant vous permet de comparer les moyennes de deux populations.
 
-Le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
+Le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
 
 ![](images/red-traffic-lights.png){width="10%"}
 
@@ -116,7 +115,7 @@ toothgrowth %>.%
       supp = NA,
       dose = "mg/J"
     )
-  ) %->%
+  ) ->
   toothgrowth
 ```
 
@@ -130,7 +129,7 @@ tooth_vc <- sfilter(toothgrowth, supp == "VC")
 
 ### Description des données
 
-Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/visu3.html) de SDD I).
+Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu3.html) de SDD I).
 
 ### Description numérique
 
@@ -165,7 +164,7 @@ ___ %>.%
   ___(., ___) %>.%
   ssummarise(.,
     moyenne = ___(___), `écart type` = ___(___),
-    n = fn(len))) %>.%
+    n = fnobs(len))) %>.%
   ___(.)
 ```
 
@@ -174,7 +173,7 @@ tooth_vc %>.%
   sgroup_by(., ___) %>.%
   ssummarise(.,
     moyenne = fmean(___), `écart type` = fsd(___),
-    n = fn(len)) %>.%
+    n = fnobs(len)) %>.%
   collect_dtx(.)
 
  #### ATTENTION: Hint suivant = solution !####
@@ -186,12 +185,12 @@ tooth_vc %>.%
   sgroup_by(., dose) %>.%
   ssummarise(.,
     moyenne = fmean(len), `écart type` = fsd(len),
-    n = fn(len)) %>.%
+    n = fnobs(len)) %>.%
   collect_dtx(.)
 ```
 
 ```{r tooth_tab_h2-check}
-grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANOVA : les moyennes correspondent à ce que nous comparons, les écart-types indiquent la dispersion des données dans chaque sous-population (nous aurions aussi pu représenter les variances qui sont le carré des écarts types) et le nombre d'observations permet de cerner la quantité d'information disponible.")
+grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANOVA : les moyennes correspondent à ce que nous comparons, les écart-types indiquent la dispersion des données dans chaque sous-population (nous aurions aussi pu représenter les variances qui sont le carré des écarts types) et le nombre d'observations permet de cerner la quantité d'information disponible (hors vlaeurs manquantes éventuelles).")
 ```
 
 ### Description graphique
@@ -236,16 +235,16 @@ Pour réaliser une ANOVA, il faut respecter les conditions d'application suivant
 -   observations indépendantes,
 -   variable dite réponse quantitative,
 -   une variable dite explicative qualitative à trois niveaux ou plus,
--   distribution Normale des résidus,
+-   distribution normale des résidus,
 -   homoscédasticité (même variance intragroupe).
 
 Pour les deux premières conditions, vous lisez attentivement le protocole expérimental pour déterminer si l'échantillonnage est représentatif et les observations sont indépendantes les unes des autres. Il faut un processus aléatoire qui intervienne dans la sélection des individus dans l'expérience et pour leur attribution à un des niveaux (ration de vitamine C quotidienne). Chaque individu doit avoir une chance égale d'être tiré au sort si l'échantillonnage aléatoire est utilisé. Il ne doit pas y avoir de dépendance (par exemple, utiliser une portée de cobayes au sein d'une même sous-population est une mauvaise idée car la ressemblance génétique entre frères et sœurs rend les observations partiellement dépendantes entre elles).
 
 Les contraintes relatives au type de variables en jeu se vérifient facilement. Nous insistons encore une fois sur la nécessité de s'assurer que la variable explicative (celle qui sépare l'échantillon en sous-populations) soit bien qualitative, donc sous la forme d'un objet `factor` ou `ordered` dans R.
 
-Les deux dernières conditions **doivent être vérifiées sur les données de l'échantillon**. Si les données sont en nombre suffisant, soit au moins une petite dizaine par sous-population, nous pourrons appliquer un test d'homogénéité de variance et comparer la distribution des résidus du modèle à une distribution Normale. Nous sommes dans cette situation. Si le nombre d'observations est trop faible, il faut le tester ou l'avoir testé précédemment sur un plus gros échantillon similaire, ou se rabattre sur un test non paramétrique (Kruskal-Wallis) en cas de doute. **Rappelons aussi qu'il est possible de tester des transformations des données, si l'une ou les deux conditions ne sont pas rencontrées.**
+Les deux dernières conditions **doivent être vérifiées sur les données de l'échantillon**. Si les données sont en nombre suffisant, soit au moins une petite dizaine par sous-population, nous pourrons appliquer un test d'homogénéité de variance et comparer la distribution des résidus du modèle à une distribution normale. Nous sommes dans cette situation. Si le nombre d'observations est trop faible, il faut le tester ou l'avoir testé précédemment sur un plus gros échantillon similaire, ou se rabattre sur un test non paramétrique (Kruskal-Wallis) en cas de doute. **Rappelons aussi qu'il est possible de tester des transformations des données, si l'une ou les deux conditions ne sont pas rencontrées.**
 
-En pratique, on commence par vérifier l'homoscédasticité, puis on réalise notre ANOVA et ensuite on vérifie la distribution Normale des résidus. La raison qui nous pousse à postposer la vérification de la Normalité des résidus sera expliquée plus loin dans ce tutoriel.
+En pratique, on commence par vérifier l'homoscédasticité, puis on réalise notre ANOVA et ensuite on vérifie la distribution normale des résidus. La raison qui nous pousse à postposer la vérification de la normalité des résidus sera expliquée plus loin dans ce tutoriel.
 
 ### Test de Bartlett
 
@@ -277,10 +276,10 @@ question("Y a-t-il homoscédasticité (égalité des variances entre sous-popula
 
 ## ANOVA
 
-Dans R, nous avons plusieurs fonctions pour réaliser une ANOVA. Nous utilisons `lm()` qui demande un jeu de données et une formule. Nous lui appliquons ensuite la fonction `anova()` pour produire le tableau de l'analyse de la variance.
+Dans R, nous avons plusieurs fonctions pour réaliser une ANOVA. Nous utilisons `lm()` qui demande un jeu de données et une formule. Nous lui appliquons ensuite la fonction `anova()` pour produire le tableau de l'analyse de la variance. Si le résultat doit être propre, nous pouvons ensuite utiliser `tabularise()` pour formater le tableau de l'ANOVA.
 
 ```{r, echo=TRUE, eval=FALSE}
-anova(DF_anova <- lm(data = DF, YNUM ~ XFACTOR))
+anova(DF_anova <- lm(data = DF, YNUM ~ XFACTOR)) |> tabularise()
 ```
 
 Vous êtes habitué à cette interface formule que vous utilisez dans la réalisation de vos graphiques ou de vos tests d'hypothèse précédents. Cette fonction calcule un objet de classe `lm` (pour "linear model", que nous aborderons plus en détails au cours SDD II) duquel la fonction `anova()` va extraire l'information qui nous intéresse pour interpréter ce test. Réalisez votre modèle ANOVA sur la longueur des odontoblastes en fonction de la dose de vitamine C administrée pour votre sous-tableau relatif aux cochons d'Inde ayant reçu de l'acide ascorbique.
@@ -288,29 +287,27 @@ Vous êtes habitué à cette interface formule que vous utilisez dans la réalis
 <!-- 💬 **Ce code correspond au snippet `.hmanova1`** -->
 
 ```{r tooth_anova_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
-anova(tg_anova <- lm(data = ___, ___ ~ ___))
+anova(tg_anova <- lm(data = ___, ___ ~ ___)) |> tabularise()
 ```
 
 ```{r tooth_anova_h2-hint-1}
-anova(tg_anova <- lm(data = tooth_vc, ___ ~ ___))
+anova(tg_anova <- lm(data = tooth_vc, ___ ~ ___)) |> tabularise()
 
 #### ATTENTION: Hint suivant = solution !####
 ```
 
 ```{r tooth_anova_h2-solution}
 ## Solution ##
-anova(tg_anova <- lm(data = tooth_vc, len ~ dose))
+anova(tg_anova <- lm(data = tooth_vc, len ~ dose)) |> tabularise()
 ```
 
 ```{r tooth_anova_h2-check}
-grade_code("Vous avez compris le principe. Mais attention : n'allez pas plus loin dans l'interprétation des résultats sans avoir vérifié la Normalité des résidus.")
+grade_code("Vous avez compris le principe. Mais attention : n'allez pas plus loin dans l'interprétation des résultats sans avoir vérifié la normalité des résidus.")
 ```
 
-Vérifiez maintenant la distribution Normale des résidus depuis votre objet `tg_anova`.
+Vérifiez maintenant la distribution normale des résidus depuis votre objet `tg_anova`.
 
 <!-- 💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`** -->
-
-<!-- Proposition : Remplacer par chart$qqresid(anova.)-->
 
 ```{r tooth_qqplot_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
 chart$___(___, ___ = ___)
@@ -328,7 +325,7 @@ chart$qqplot(tg_anova, lang = "fr")
 ```
 
 ```{r tooth_qqplot_h2-check}
-grade_code("Tous les points de ce graphique quantile-quantile s'alignent assez bien le long de la droite. Les résidus de votre ANOVA ne montrent donc pas de dérive importante par rapport à une distribution Normale et nous avons réuni toutes les conditions d'application de ce test. Vous pouvez maintenant l'interpréter via le tableau d'analyse de la variance que vous avez réalisé dans l'exercice précédent.")
+grade_code("Tous les points de ce graphique quantile-quantile s'alignent assez bien le long de la droite. Les résidus de votre ANOVA ne montrent donc pas de dérive importante par rapport à une distribution normale et nous avons réuni toutes les conditions d'application de ce test. Vous pouvez maintenant l'interpréter via le tableau d'analyse de la variance que vous avez réalisé dans l'exercice précédent.")
 ```
 
 ```{r anova_quiz}
@@ -386,7 +383,7 @@ Notre ANOVA est terminée. En situation réelle, il nous resterait à intégrer 
 
 Comme la formulation du test dans la parenthèse est fort longue pour l'ANOVA, on utilise souvent un renvoi vers la table de l'analyse de la variance que vous pouvez intégrer dans le document pour plus de lisibilité à la fois du texte et du résultat de l'ANOVA. Naturellement, si un test post-hoc est réalisé, il doit aussi être présenté, soit sous forme de tableau, soit sous forme de graphique, ou encore les deux si la place dans le document le permet (pour les articles scientifiques on est souvent fort limité en nombre de figures et de tables, et il faut parfois se résoudre à les placer dans les annexes ou dans le matériel complémentaire).
 
-Dans la section "matériel et méthodes", vous devez expliquer que vous réaliser une ANOVA après avoir vérifié les conditions d'application (homoscédasticité attestée à l'aide d'un test de Bartlett au seuil $\alpha$ de 5% et Normalité des résidus vérifiée sur un graphique quantile-quantile). Vous devez aussi indiquer la version R (et éventuellement la version des packages additionnels R utilisés). Pensez à la fonction `sessionInfo()` pour obtenir la version de R et des packages R. Il n'est pas nécessaire de préciser la version de RStudio qui est ici essentiellement l'interface vous permettant d'écrire et lancer le code R de votre analyse. Par contre, si vous utilisez un environnement logiciel reproductible comme la SciViews Box, vous pouvez le préciser et en indiquer la version.
+Dans la section "matériel et méthodes", vous devez expliquer que vous réaliser une ANOVA après avoir vérifié les conditions d'application (homoscédasticité attestée à l'aide d'un test de Bartlett au seuil $\alpha$ de 5% et normalité des résidus vérifiée sur un graphique quantile-quantile). Vous devez aussi indiquer la version R (et éventuellement la version des packages additionnels R utilisés). Pensez aux fonctions `sessionInfo()` et `packageVersion()` pour obtenir la version de R et des packages R. Il n'est pas nécessaire de préciser la version de RStudio qui est ici essentiellement l'interface vous permettant d'écrire et lancer le code R de votre analyse. Par contre, si vous utilisez un environnement logiciel reproductible comme la SciViews Box, vous pouvez le préciser et en indiquer la version.
 
 ## Conclusion
 

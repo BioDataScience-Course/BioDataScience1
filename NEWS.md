@@ -1,3 +1,7 @@
+# BioDataScience1 2023.10.0
+
+-   Learnrs **A10La_anova** et **A10Lb_kruskal** ready.
+
 # BioDataScience1 2023.9.0
 
 -   Learnrs **A09La_ttest** and **A09Lb_ttest_wmw** ready.

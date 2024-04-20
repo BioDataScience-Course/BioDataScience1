@@ -1,3 +1,7 @@
+# BioDataScience1 2023.11.0
+
+-   Learnrs **A11La_anova2**, **A11Lb_anova2mixte**, **A11Lc_syntaxr** and ****A12La_correlation** ready.
+
 # BioDataScience1 2023.10.0
 
 -   Learnrs **A10La_anova** et **A10Lb_kruskal** ready.

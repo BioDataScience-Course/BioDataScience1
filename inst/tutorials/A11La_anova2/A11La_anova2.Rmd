@@ -119,7 +119,6 @@ Réalisez le graphique permettant de visualiser les interactions dans le jeu de 
 ___ %>.%
   ___(., ___, ___) %>.% # regroupement par type d'alimentation et par ration
   ___(., milk_mean = ___(___)) %>.%  # moyenne du rendement
-  ___(.) %>.% # collecter les résultats
   # graphique du rendement moyen en fonction du type d'alimentation et des rations
   chart(data = ___, ___ ~ ___ %col=% ___ %group=% ___) + 
     ___() + # lignes

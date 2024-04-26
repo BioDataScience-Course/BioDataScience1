@@ -1,3 +1,7 @@
+# BioDataScience1 2023.11.2
+
+-   Use `grade_this_code()` in **A11Lc_syntaxr**.
+
 # BioDataScience1 2023.11.1
 
 -   Correction in one exercise of **A11La_anova2**.

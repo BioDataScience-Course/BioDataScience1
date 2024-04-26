@@ -233,7 +233,7 @@ head(urchin_sub)
 ```
 
 ```{r select2_h2-check}
-grade_code("Vous êtes parvenu à conserver les colonnes d'intérêt en utilisant l'indiçage de R de base. Saurez-vous faire de même avec la positon des variables ? ")
+grade_this_code("Vous êtes parvenu à conserver les colonnes d'intérêt en utilisant l'indiçage de R de base. Saurez-vous faire de même avec la positon des variables ?")
 ```
 
 ### R de base et la position des variables d'intérêts

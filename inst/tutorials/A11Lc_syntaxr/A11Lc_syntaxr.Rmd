@@ -110,7 +110,7 @@ head(urchin)
 ```
 
 ```{r mutate1_h2-check}
-grade_code("Vous êtes parvenu à calculer votre nouvelle variable. Vous pouvez également utiliser des fonctions tel que `log()`, `exp()`, `sqrt()` ... pour transformer vos données. Essayez maintenant de faire cette même transformation en R de base.")
+grade_this_code("Vous êtes parvenu à calculer votre nouvelle variable. Vous pouvez également utiliser des fonctions tel que `log()`, `exp()`, `sqrt()` ... pour transformer vos données. Essayez maintenant de faire cette même transformation en R de base.")
 ```
 
 ### R de base
@@ -138,7 +138,7 @@ head(urchin)
 ```
 
 ```{r mutate2_h2-check}
-grade_code("Vous avez bien compris la logique pour avoir accès à une variable dans un tableau avec l'opérateur `$` en R de base.")
+grade_this_code("Vous avez bien compris la logique pour avoir accès à une variable dans un tableau avec l'opérateur `$` en R de base.")
 ```
 
 ## Sélection de variables dans un jeu de données
@@ -201,7 +201,7 @@ head(urchin_sub)
 ```
 
 ```{r select1_h2-check}
-grade_code("Vous venez de créer le tableau `urchin_sub` ne contenant plus que les variables `origin`, `weight`, `height`. Essayez de faire de même avec la syntaxe R de base.")
+grade_this_code("Vous venez de créer le tableau `urchin_sub` ne contenant plus que les variables `origin`, `weight`, `height`. Essayez de faire de même avec la syntaxe R de base.")
 ```
 
 ### R de base et le nom des variables d'intérêts
@@ -265,7 +265,7 @@ head(urchin_sub)
 ```
 
 ```{r select3_h2-check}
-grade_code("Vous avez maintenant plusieurs outils vous permettant de sélectionner les variables d'intérêt.")
+grade_this_code("Vous avez maintenant plusieurs outils vous permettant de sélectionner les variables d'intérêt.")
 ```
 
 ## Sélection de variables dans un jeu de données II
@@ -324,7 +324,7 @@ head(urchin_sub)
 ```
 
 ```{r select4_h2-check}
-grade_code("Vous voyez qu'il est aussi possible de créer un sous-tableau en ciblant les variables que l'on souhaite retirer, en les précédant du signe `-`. Et en R de base, cela donne quoi ?")
+grade_this_code("Vous voyez qu'il est aussi possible de créer un sous-tableau en ciblant les variables que l'on souhaite retirer, en les précédant du signe `-`. Et en R de base, cela donne quoi ?")
 ```
 
 ### R de base
@@ -353,7 +353,7 @@ head(urchin_sub)
 ```
 
 ```{r select5_h2-check}
-grade_code("En utilisant l'indiçage numérique et le signe `-`, vous êtes parvenu à créer un sous-tableau en ciblant les variables que vous ne souhaitiez pas conserver.")
+grade_this_code("En utilisant l'indiçage numérique et le signe `-`, vous êtes parvenu à créer un sous-tableau en ciblant les variables que vous ne souhaitiez pas conserver.")
 ```
 
 ## Sélectionner des individus dans un jeu de données
@@ -417,7 +417,7 @@ head(urchin_sub)
 ```
 
 ```{r filter1_h2-check}
-grade_code("Il est très facile de sélectionner des individus avec une caractéristique particulière grâce à la fonction `sfilter()` ou `filter()` et les tests de condition. Peut-on aussi le faire en R de base ? ")
+grade_this_code("Il est très facile de sélectionner des individus avec une caractéristique particulière grâce à la fonction `sfilter()` ou `filter()` et les tests de condition. Peut-on aussi le faire en R de base ? ")
 ```
 
 ### R de base
@@ -444,7 +444,7 @@ head(urchin_sub)
 ```
 
 ```{r filter2_h2-check}
-grade_code("Vous êtes parvenus à conserver tous les individus ayant une hauteur strictement supérieure à 30 mm.")
+grade_this_code("Vous êtes parvenus à conserver tous les individus ayant une hauteur strictement supérieure à 30 mm.")
 ```
 
 ## Filtrer des lignes et sélectionner de colonnes
@@ -505,7 +505,7 @@ head(urchin_sub)
 ```
 
 ```{r filter3_h2-check}
-grade_code("Notez l'utilité du pipe (`%>.%`, dites \"païpe\" comme en anglais) qui vous permet de passez le résultat d'une fonction à une autre et comme il est dès lors facile de filtrer des individus en fonction de certaines conditions et de sélectionner les variables d'intérêt. Vous sentez-vous capable de le faire en R de base ?")
+grade_this_code("Notez l'utilité du pipe (`%>.%`, dites \"païpe\" comme en anglais) qui vous permet de passez le résultat d'une fonction à une autre et comme il est dès lors facile de filtrer des individus en fonction de certaines conditions et de sélectionner les variables d'intérêt. Vous sentez-vous capable de le faire en R de base ?")
 ```
 
 ### Avec R de base
@@ -534,7 +534,7 @@ head(urchin_sub)
 ```
 
 ```{r filter4_h2-check}
-grade_code("Vous commencez à vraiment bien maîtriser la syntaxe R de base.")
+grade_this_code("Vous commencez à vraiment bien maîtriser la syntaxe R de base.")
 ```
 
 ## Conclusion

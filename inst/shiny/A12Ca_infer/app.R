@@ -22,7 +22,7 @@ deadline <- Sys.getenv("CHALLENGE_DEADLINE",
 dir <- "/data1/A12_challenge"
 if (!file.exists(dir))
   dir <- "~/Desktop/A12_challenge" # Alternate dir for local tests
-database <- file.path(dir, "multi.sqlite")
+database <- file.path(dir, "infer.sqlite")
 table <- "infer"
 
 # Is the countdown over?
@@ -136,7 +136,7 @@ server <- function(input, output) {
         if (NROW(ranking[ranking$project == project & ranking$model == model, ])) {
           "Cette it\u00e9ration existe dans le classement, recompilez le document avant de soumettre une nouvelle variante."
         } else {
-          attr(score_multi(solution), "message")
+          attr(score_infer(solution), "message")
         }
       }
     }
@@ -150,7 +150,7 @@ server <- function(input, output) {
       #solution <- data.io::read$rds(file$datapath)$value
       solution <- data.io::read$rds(file$datapath)
       message("data read")
-      score <- score_multi(solution)
+      score <- score_infer(solution)
       message("score is ", score)
       name <- file$name
       message("name is ", name)

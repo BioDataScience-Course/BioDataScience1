@@ -1,0 +1,341 @@
+---
+title: "Moyenne et test t de Student"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 8** Moyenne et test t de Student."
+tutorial:
+  id: "A08La_ttest"
+  version: 2.2.3/9
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R("infer", lang = "fr")
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+------------------------------------------------------------------------
+
+## Objectifs
+
+La moyenne est un descripteur statistique très employé pour résumer l'information. Il est très courant de comparer une moyenne à une valeur de référence ou deux moyennes entre elles. Dans votre future carrière scientifique, il sera indispensable de bien maîtriser les subtilités dans l'utilisation de la moyenne. Ce tutoriel vise à :
+
+-   Être capable de calculer la moyenne, l'écart-type et la variance dans R
+
+-   Réaliser un test *t* de Student dans R
+
+-   Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
+
+Vous devez maîtriser le calcul de probabilités ([module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/chi2.html) relatif au test du Chi^2^. Enfin, vous devez avoir vu la première partie du [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
+
+## Moyenne
+
+Commençons par revoir les bases. Un échantillon peut être décrit par plusieurs descripteurs statistiques comme la moyenne, l'écart-type ou la variance. La moyenne de la variable $y$ se note $\bar{y}$ (qui se lit "y barre"). Son calcul se fait comme ceci :
+
+$$\bar{y} = \sum_{i = 1}^n \frac{{y_i}}{n}$$
+
+### Moyenne du vecteur `v`
+
+Utilisez une fonction spécialisée dans R pour calculer la moyenne du vecteur `v`.
+
+```{r, echo=TRUE}
+v <- c(14, 24, 32, 18, 19)
+```
+
+```{r mean1_h2, exercise=TRUE}
+v <- c(14, 24, 32, 18, 19)
+___(___)
+
+```
+
+```{r mean1_h2-hint-1}
+v <- c(14, 24, 32, 18, 19)
+mean(___)
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r mean1_h2-solution}
+## Solution ##
+v <- c(14, 24, 32, 18, 19)
+mean(v)
+```
+
+```{r mean1_h2-check}
+grade_code("La fonction mean() effectue ce calcul. Si des valeurs manquantes (exercice suivant) se trouvent dans le vecteur, il faut prendre une précaution supplémentaire pour obtenir une estimation de la moyenne. Il existe également une fonction similaire qui est plus rapide : la fonction fmean() du package {collapse}.")
+```
+
+### Moyenne du vecteur `v2`
+
+Calculez la moyenne du vecteur `v2` qui contient une valeur manquante, toujours à l'aide d'une fonction dédiée dans R (n'utilisez pas `fmean()` ici).
+
+```{r, echo=TRUE}
+v2 <- c(14, 3, 32, NA, 40)
+```
+
+```{r mean2_h3, exercise=TRUE}
+v2 <- c(14, 3, 32, NA, 40)
+___(___)
+```
+
+```{r mean2_h3-hint-1}
+v2 <- c(14, 3, 32, NA, 40)
+mean(___, ___ = ___)
+```
+
+```{r mean2_h3-hint-2}
+v2 <- c(14, 3, 32, NA, 40)
+mean(___, na.rm = ___)
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r mean2_h3-solution}
+## Solution ##
+v2 <- c(14, 3, 32, NA, 40)
+mean(v2, na.rm = TRUE)
+```
+
+```{r mean2_h3-check}
+grade_code("Retenez que, dans R, avec toute fonction qui a un argument `na.rm =`, si vous indiquez TRUE vous souhaitez d'abord éliminer les valeurs manquantes afin d'estimer le résultat sur les données observées restantes. Prenez l'habitude de consulter la page d'aide de la fonction. En général, l'argument `na.rm =` est par défaut à FALSE. Il existe cependant quelques exceptions comme dans la fonction fmean() de {collapse}.")
+```
+
+### Écart-type
+
+Un second descripteur d'un échantillon est l'écart-type $s_y$ qui est calculé comme suit :
+
+$$s_y = \sqrt {s_y^2}$$
+
+L'écart-type est la racine carrée de la variance $s_y^2$ qui est également un descripteur statistique de l'échantillon. La variance de l'échantillon est calculée comme ceci :
+
+$$s_y^2 = \sum\limits_{i=1}^n \frac{(y_i - \bar y)^2}{n-1}$$
+
+Il existe également des fonctions spécialisées dans R pour calculer la variance et l'écart-type. Calculez l'écart-type du vecteur `v3`.
+
+```{r, echo=TRUE}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+```
+
+```{r sd1_h2, exercise=TRUE}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+___(___)
+```
+
+```{r sd1_h2-hint-1}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+sd(___)
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r sd1_h2-solution}
+## Solution ##
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+sd(v3)
+```
+
+```{r sd1_h2-check}
+grade_code("Écart type se dit \"standard deviation\" en anglais, d'où le nom `sd()` de la fonction en abbrégé. Pour la variance, il s'agit de `var()`. Ces deux fonctions utilisent aussi l'argument `na.rm =` si nécessaire. Comme vous vous en doutez surement, il existe la fonction `fsd()` et `fvar()` dans le package {collapse}.")
+```
+
+### Coefficient de variation
+
+Un autre descripteur est le coefficient de variation de l'échantillon qui est calculé comme :
+
+$$cv_y \ (\%) = \frac{s_y}{\bar y} \times 100$$
+
+L'avantage du coefficient de variation est qu'il donne une idée de la dispersion des données de manière *relative*. En effet, la variance et l'écart type seront d'autant plus grands que la moyenne est grande, pour une dispersion relative équivalente. Par contre, le coefficient de variation met à l'échelle, en quelque sorte, l'écart type. Son expression en pourcentage accentue encore cette impression d'avoir une estimation de la dispersion des données exprimée par rapport à une valeur de référence (ici la moyenne).
+
+Calculez le coefficient de variation du vecteur `v3` en % (il n'existe pas de fonction dédiée dans R, combinez les fonctions vues jusqu'ici pour y arriver).
+
+```{r, echo=TRUE}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+```
+
+```{r cv1_h2, exercise=TRUE}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+___
+```
+
+```{r cv1_h2-hint-1}
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+sd(__) / ___(___) * ___
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r cv1_h2-solution}
+## Solution ##
+v3 <- c(22, 18, 4, 24, 34, 3, 9)
+sd(v3) / mean(v3) * 100
+```
+
+```{r cv1_h2-check}
+grade_result(
+  pass_if(~ identical(.result, (sd(v3)/mean(v3))*100), "Vous avez judicieusement combiné le calcul de la moyenne et de l'écart-type dans une instruction R pour obtenir le coefficient de variation."),
+  fail_if(~ TRUE, "Votre calcul n'est pas le bon. Commencez par déterminer la moyenne et l'écart-type de ce vecteur. N'oubliez pas de multiplier votre réponse par 100 pour l'obtenir en pourcent.")
+)
+```
+
+Ces premiers exercices vous ont permis de revoir les principaux descripteurs centraux (pour la moyenne) et de dispersion des données (pour l'écart type, la variance et le coefficient de variation). Nous allons maintenant dans la suite de ce tutoriel élaborer un test d'hypothèse qui se focalise sur la moyenne.
+
+## Indice de masse corporelle
+
+Il est temps de passer à une application concrète. Vous allez vous intéresser à l'indice de masse corporelle dans une population d'adultes ayant plus de 18 ans et jusqu'à 30 ans. Ce tableau de données ne vous est pas inconnu. Vous l'avez déjà employé à plusieurs reprises pour réaliser des graphiques notamment.
+
+![](images/diet.jpg){width="60%"}
+
+```{r, echo=TRUE}
+biometry <- read("biometry", package = "BioDataScience", lang = "fr")
+glimpse(biometry)
+```
+
+Commencez par remanier les données en sélectionnant les individus ayant strictement plus de 18 ans et 30 ans ou moins.
+
+```{r bio_filt_h2, exercise=TRUE, exercice.lines=6}
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- sfilter(biometry, age ___ 18 ___ age ___ 30) 
+# Premières lignes du tableau (pour vérification) 
+head(biometry)
+```
+
+```{r bio_filt_h2-hint-1}
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- sfilter(biometry, age > 18 ___ age ___ 30) 
+# Premières lignes du tableau (pour vérification)
+head(biometry)
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r bio_filt_h2-solution}
+## Solution ##
+# Importation des données
+biometry <- read("biometry", package = "BioDataScience") 
+# Sélection des données
+biometry <- sfilter(biometry, age > 18 & age <= 30) 
+# Premières lignes du tableau (pour vérification)
+head(biometry)
+```
+
+```{r bio_filt_h2-check}
+grade_code("Vous avez filtré votre tableau de données initial pour ne conserver que les cas correspondant aux critères choisis.", "Oups, il semble que vous avez mal défini vos conditions pour filtrer le tableau de départ.")
+```
+
+Vous souhaitez déterminer s'il y a une différence significative de l'IMC entre les hommes et les femmes. La variable `bmi` est calculée pour vous.
+
+```{r, echo=TRUE}
+biometry %>.%
+  smutate(., bmi = (weight / (height / 100)^2)) %>.%
+  labelise(., label = list(bmi = "IMC"), units = list(bmi = "")) ->
+  biometry
+```
+
+Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
+
+```{r bio-prepare}
+biometry <- read("biometry", package = "BioDataScience") %>.%
+  sfilter(., age > 18 & age <= 30) %>.%
+  smutate(., bmi = (weight/(height/100)^2)) %>.%
+  labelise(., label = list(bmi = "IMC"), units = list(bmi = ""))
+```
+
+```{r bio_tab_h2, exercise=TRUE, exercise.setup="bio-prepare"}
+biometry %>.%
+  ___(., ___) %>.%
+  ssummarise(.,
+    mean = ___(___), sd = ___(___), n = fn(bmi))
+```
+
+```{r bio_tab_h2-hint-1}
+biometry %>.%
+  sgroup_by(., gender) %>.%
+  ssummarise(.,
+    mean = ___(___), sd = ___(___), n = fn(bmi)) 
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r bio_tab_h2-solution}
+## Solution ##
+biometry %>.%
+  sgroup_by(., gender) %>.%
+  ssummarise(.,
+    mean = fmean(bmi), sd = fsd(bmi), n = fn(bmi))
+```
+
+```{r bio_tab_h2-check}
+grade_code("Maintenant nous voulons déterminer si ces moyennes diffèrent de manière significative ou non au seuil alpha de 5% en fonction du genre.", "Votre tableau ne correspond pas. Relisez la question attentivement. Quelle est la variable dont vous devez déterminer la moyenne et l'écart type ?")
+```
+
+Vous devez à présent comparer l'indice de masse corporelle entre les hommes et les femmes. Utilisez un test *t* de Student bilatéral pour des sous-populations considérées de variances similaires. Vous devez fixer votre seuil $\alpha$ à 5%.
+
+<!-- 💬 **Un snippet peut vous aider à réaliser cet exercice `.hmttestindep`.** -->
+
+```{r bio_ttest_h2, exercise=TRUE, exercise.setup="bio-prepare"}
+t.test(data = ___, ___ ~ ___,
+  alternative = ___, conf.level = ___, var.equal = TRUE)
+```
+
+```{r bio_ttest_h2-hint-1}
+t.test(data = ___, ___ ~ ___,
+  alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r bio_ttest_h2-solution}
+## Solution ##
+t.test(data = biometry, bmi ~ gender,
+  alternative = "two.sided", conf.level = 0.95, var.equal = TRUE)
+```
+
+```{r bio_ttest_h2-check}
+grade_code("Vous avez su compléter la fonction `t.test()`. Notez l'utilisation de `conf.level=` pour le niveau de confiance du test qui est en réalité 1 - alpha = 0.95. Vous constatez que vous devez maîtriser les deux termes complémentaires alpha et niveau de confiance. Le test bilatéral se note \"two-sided\" ici.", "Ce n'est pas la bonne réponse. Relisez avec attention l'énoncé et complètez les éléments manquants dans les instructions R.")
+```
+
+```{r ttest_quiz}
+quiz(
+  question("Rejetez-vous $H_0$ dans ce test *t* de Student ?",
+    answer("oui"),
+    answer("non", correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur *P* au seuil alpha, ce dernier étant choisi avant de réaliser le test.",
+    correct = "C'est correct. Vous ne rejetez pas $H_0$ au seuil alpha de 5% ici."),
+    question("Est-ce que l'indice de masse corporelle moyen est significativement différent entre les hommes et les femmes au seuil alpha de 5% ?",
+    answer("oui"),
+    answer("non", correct = TRUE),
+    allow_retry = TRUE,
+    incorrect = "Ce n'est pas la bonne réponse. Vous devez comparer la valeur *P* au seuil alpha pour trouver la bonne réponse à cette question.",
+    correct = "Vous avez bien interprété votre test. Vous direz que vous ne détectez pas de différence significative entre les moyennes des IMC des hommes et des femmes au seuil alpha de 5% (test de Student bilatéral, t = 1.51, ddl = 163, valeur P = 0.13)")
+)
+```
+
+## Conclusion
+
+Bravo ! Vous venez de terminer votre séance d'exercices dans un tutoriel "learnr".
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur cet outil pédagogique",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

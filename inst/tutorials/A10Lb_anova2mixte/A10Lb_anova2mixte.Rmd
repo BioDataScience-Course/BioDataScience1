@@ -1,0 +1,295 @@
+---
+title: "ANOVA à mesures répétées"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 10** Modèle à mesures répétées."
+tutorial:
+  id: "A10Lb_anova2mixte"
+version: 2.1.0/7
+output:
+  learnr::tutorial:
+  progressive: true
+allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R("infer", "model", lang = "fr")
+library(broom.mixed)
+# dataset
+zeno <- dtx(
+  id   = as.factor(rep(1:7, 6)),
+  time = rep(c(1, 12, 24, 36, 48, 60) * 5, each = 7),
+  grey = c(115, 100,  62,  80, 161, 136,  73,
+           110, 100,  72,  94, 174, 148,  97,
+           111,  97,  70,  84, 182, 144, 110,
+           122, 100,  79,  81, 182, 159, 109,
+           124, 125,  82,  91, 178, 156, 109,
+           120, 119,  86,  80, 183, 150, 120)
+)
+zeno <- labelise(zeno, label = list(
+  id   = "Individus",
+  time = "Temps",
+  grey = "Nuance de gris"),
+  units = list(time = "min"))
+
+zeno_lmer2 <- lmerTest::lmer(data = zeno, grey ~ time + (1 | id))
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+------------------------------------------------------------------------
+
+## Objectifs
+
+Il est courant en biologie de réaliser des mesures répétées sur des individus, successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus plus de deux fois.
+
+Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
+
+-   présenter vos données avant de réaliser un modèle à mesures répétées
+-   s'initier à l'utilisation d'un modèle à mesures répétées pour résoudre une question pratique en biologie
+
+## Expérience
+
+Cette séance d'exercice se base sur les travaux de fin d'études d'une étudiante traitant de la caractérisation de la pigmentation du couple symbiotique crevette *Zenopontonio soror* et étoile de mer *Culcita novaeguinae*.
+
+![*Zenopontonia soror*, photographie de A. Lourtie](images/P9040123.jpeg)
+
+Dans le cadre de ce travail, la chercheuse a étudié la décoloration de *Zenopontonia soror* lorsque ces crevettes se trouvaient isolées de l'hôte pendant plusieurs heures. Pour ce faire, des photos ont été réalisées à intervalle régulier sur plusieurs individus (mêmes individus à chaque fois). L'intensité de gris a été mesurée sur l'abdomen de chaque individu. Le dispositif est présenté ci-dessous.
+
+![](images/P8300035.jpeg)
+
+Vous avez à votre disposition un sous-ensemble des données collectées.
+
+```{r}
+skimr::skim(zeno)
+```
+
+Le niveau de gris mesuré varie de 0 à 255. Une valeur proche de 0 correspond à une crevette très foncée alors qu'une valeur proche de 255 est une crevette très claire. Le temps depuis lequel la crevette a été éloignée de son hôte est exprimé en minutes. L'`id` correspond au code de la crevette étudiée.
+
+La question posée est la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps ?**
+
+## Facteur fixe et facteur aléatoire
+
+```{r}
+head(zeno)
+```
+
+La première étape lors de la réalisation de ce type d'expérience est de définir correctement quel(s) facteur(s) sont fixe(s) et quels facteur(s) sont aléatoire(s). Aidez-vous de la description proposée dans la section précédente.
+
+```{r quiz_factor}
+question("Parmi les variables du jeu de données `zeno`, sélectionnez le facteur aléatoire parmi les variables suivantes :",
+  answer("id", correct = TRUE, "Vous avez correctement sélectionné le facteur aléatoire"),
+  answer("time", message = "Cette variable peut être considérée ici comme un facteur fixe : nous avons choisi un certain nombre de valeurs de temps pour lesquelles nous souhaitons observer les effets de variation de la coloration des crevettes." ),
+  answer("grey", message = "Cette variable n'est pas un facteur, mais la variable numérique à partir de laquelle nous calculons les moyennes."),
+  allow_retry = TRUE,
+  random_answer_order = TRUE,
+  message = "Nous pouvons effectivement considérer que les crevettes forment un sous-ensemble aléatoire des crevettes de cette espèce. Nous sommes en présence de mesures repétées dans le temps sur ces individus, variable `id`, choisis au hasard dans la population.")
+```
+
+### Description graphique
+
+Réalisez un graphique pertinent de votre jeu de données par rapport à l'analyse qui est envisagée. Vous allez faire un graphique de la variation du niveau de gris au cours du temps en utilisant les facettes pour séparer les individus.
+
+```{r plot, exercise=TRUE}
+chart(data = ___, ___) +
+  geom____()
+```
+
+```{r plot-solution}
+## Solution ##
+chart(data = zeno, grey ~ time | id) +
+  geom_line()
+```
+
+```{r plot-check}
+grade_code("Le graphique en lignes brisées indique explicitemet que les observations sont liées (les mesures qui sont réalisées sur les mêmes individus dans notre cas). On peut observer une tendance à la hausse des niveaux de gris sur chaque graphique à l'exception des individus 1 et 4.")
+```
+
+## Modèle à mesures répétées
+
+Avec la fonction `lmerTest::lmer()`, vous spécifiez un modèle linéaire mixte avec mesures répétées dans le temps de la façon suivante : `YNUM ~ TIME + (... | FACALEA)` avec `YNUM` la variable numérique dont on calcule les moyennes, `TIME`, le temps qui est également numérique et fixe ici, et `FACALEA` le facteur aléatoire. De base, le modèle va évaluer une variation linéaire de `YNUM` en fonction de `TIME`. Notez comment le facteur aléatoire est encodé à l'intérieur d'une parenthèse et derrière le signe `|`. Les trois points `...` correspondent à la spécification des interactions avec le facteur aléatoire. On peut avoir :
+
+-   `YNUM ~ TIME + (1 | FACALEA) + (0 + TIME | FACALEA)`, équivalent à `YNUM ~ TIME (TIME || FACALEA)`, un modèle où l'ordonnée à l'origine de la droite (représentée par `1`), ainsi que la pente entre `YNUM` et `TIME` va varier en fonction de `FACALEA`. Il n'y a pas de corrélation entre la variation d'ordonnée à l'origine et de pente. C'est le modèle le plus général avec des droites pour chaque individu qui varient "librement".
+
+-   `YNUM ~ TIME + (1 + TIME | FACALEA)`, équivalent à `YNUM ~ TIME + (TIME | FACALEA)`, un modèle où à la fois l'ordonnée à l'origine (représentée par `1`) et la pente de la droite entre `YNUM` et `TIME` (représentée par `TIME`) seront dépendants de `FACALEA`. De plus, il y aura corrélation entre l'ordonnée à l'origine et la pente. Donc, des ordonnées à l'origine plus grande seront liées à des pentes plus fortes ou moins fortes selon que la corrélation est positive ou négative.
+
+-   `YNUM ~ TIME + (0 + TIME | FACALEA)`, un modèle où seulement la pente de la droite entre `YNUM` et `TIME` va varier en fonction de `FACALEA`. Donc, toutes les droites vont se joindre en un même point pour `TIME = 0`. Ce modèle se justifie lorsque les conditions initiales sont identiques pour tous les individus. Cela signifierait que la coloration des différentes crevettes est parfaitement identique au temps *t* = 0, au moment où on retire les crevettes de leur hôte. Une hypothèse peu vraisemblable ici (revoyez la partie descriptive au début de ce learnr pour vous en convaincre).
+
+-   `YNUM ~ TIME + (1 | FACALEA)`, un modèle où seulement l'ordonnée à l'origine de la droite entre `YNUM` et `TIME` va varier en fonction de `FACALEA`. Cela signifie que les droites vont toutes être parallèles les unes aux autres. Le décalage représente une variation interindividuelle générale de la coloration. La variation de la coloration au cours du temps se faisant de manière proportionnelle au temps de séparation avec l'hôte de façon identique pour toutes les crevettes.
+
+Étant donné les grandes variations déjà mesurées après 5 minutes, le modèle #3 est peu plausible. Nous pourrions tenter les modèles #1 ou #2 complets, et éventuellement vérifier si le modèle #4, avec des droites parallèles ne serait pas suffisant. En matière d'ANOVA mixte, nous sommes souvent contraints également par des difficultés de calcul. Un modèle plus complexe nécessite aussi beaucoup plus de données. De plus, tous les modèles ne convergent pas forcément vers une solution utilisable. Nous allons le voir...
+
+Réalisez à présent une analyse de vos données à l'aide d'un modèle à mesures répétées complet avec corrélation entre ordonnée à l'origine et pente (cas #2) en utilisant la formule simplifiée. Placez le modèle dans la variable `zeno_lmer`.
+
+```{r lmer_h2, exercise=TRUE}
+zeno_lmer <- lmerTest::lmer(data = ___, ___)
+```
+
+```{r lmer_h2-hint-1}
+zeno_lmer <- lmerTest::lmer(data = zeno, ___ ~ ___ + (___ | ___))
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r lmer_h2-solution}
+## Solution ##
+zeno_lmer <- lmerTest::lmer(data = zeno, grey ~ time + (time | id))
+```
+
+```{r lmer_h2-check}
+grade_code("Le modèle est calculé, mais vous avez un avis qui dit : \"Model failed to converge ...\". Ce n'est pas bon signe. Cela signifie que, soit vous n'avez pas assez de données pour calculer ce modèle, soit un problème de calcul numérique apparaît ici. Dans ce cas, vous n'utiliserez pas votre modèle et chercherez à régler le problème (respécifier le modèle, acquérir plus de données, utiliser un autre algorithme de convergence...).")
+```
+
+Nous ne réalisons pas le modèle non corrélé #1 qui donne le même résultat : le modèle ne peut pas converger. Nous n'avons pas énormément de données à disposition, car seuls sept individus ont été mesurés pour le facteur aléatoire (considérez cinq à six comme un grand minimum dans le cas de facteurs aléatoires). Tentez à présent un modèle plus simple, en considérant une variation proportionnelle identique de la couleur en fonction du temps (droites parallèles), soit le cas #4. Placez ce modèle dans `zeno_lmer2`.
+
+```{r lmer2_h2, exercise=TRUE}
+zeno_lmer2 <- lmerTest::lmer(data = ___, ___)
+```
+
+```{r lmer2_h2-hint-1}
+# Calcul du modèle
+zeno_lmer2 <- lmerTest::lmer(data = zeno, ___ ~ ___ + (___ | ___))
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r lmer2_h2-solution}
+## Solution ##
+zeno_lmer2 <- lmerTest::lmer(data = zeno, grey ~ time + (1 | id))
+```
+
+```{r lmer2_h2-check}
+grade_code("Le message de non convergence n'apparaît plus. Ce modèle plus simple est calculable sur notre petit jeu de données.")
+```
+
+Réalisez maintenant le résumé du modèle `zeno_lmer2`. Vous pouvez également calculer le décalage de l'ordonnée à l'origine pour les sept individus à l'aide de la fonction `lme4::ranef()`
+
+```{r confint, exercise=TRUE, warning=FALSE}
+# résumé du modèle
+___(___)
+# décalage de l'ordonnée à l'origine
+lme4::ranef(___)
+```
+
+```{r confint-solution}
+## Solution ##
+# résumé du modèle
+summary(zeno_lmer2)
+# décalage de l'ordonnée à l'origine
+lme4::ranef(zeno_lmer2)
+```
+
+```{r confint-check}
+grade_code("Le résumé sépare les facteurs aléatoire (\"Random effects\") pour lesquelles la variance/écart type de l'effet est estimé, et les facteurs fixes qui sont estimés dans un tableau qui reprend l'ordonnée à l'origine (\"Intercept\") et la pente en fonction de `time`. Un test t de Student détermine si ces paramètres sont significativement différents de zéro ou non (valeur P du test reprise dans la colonne \"Pr(>|t|)\"). L'ordonnée à l'origine spécique pour chaque individu est obtenue en prenant \"Intercept\" + la valeur renvoyée dans le tableau issu de `ranef()`. Par exemple, pour l'individu 1, l'ordonnée à l'origine est de 106.8 + 0.9 = 107.7. Pour l'individu 2, l'ordonnée à l'origine est de 106.8 -9.2 = 97.6. Et ainsi de suite. Par construction (modèle simplifié #4 à droites parallèles), la pente de toutes ces droites est la même et vaut 0.0616 par rapport au temps. Puisque cette pente est positive et significativement différente de zéro au seuil alpha de 5%, nous pouvons conclure que les crevelles isolées de leur hôte ont tendance à s'éclaircir avec le temps.")
+```
+
+### Validation des conditions d'application du modèle
+
+Les conditions d'application sont les conditions générales de l'ANOVA :
+
+-   échantillon représentatif (par exemple, aléatoire),
+-   observations indépendantes,
+-   variable réponse quantitative,
+-   n variables explicatives qualitatives à deux niveaux ou plus,
+-   distribution normale des résidus,
+-   homoscédasticité (même variance intragroupe),
+
+Étudiez la distribution normale des résidus de votre modèle `zeno_lmer2`.
+
+```{r qqplot_h2, exercise=TRUE}
+___ %>.%
+  ___(___) %>.%
+  car::qqPlot(___$___, distribution = "norm",
+    envelope = 0.95, col = "Black", xlab = "Quantiles théoriques",
+    ylab = "Résidus standardisés")
+```
+
+```{r qqplot_h2-hint-1}
+zeno_lmer2 %>.%
+  augment(.) %>.%
+  car::qqPlot(___$___, distribution = "norm",
+    envelope = 0.95, col = "Black", xlab = "Quantiles théoriques",
+    ylab = "Résidus standardisés")
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r qqplot_h2-solution}
+## Solution ##
+zeno_lmer2 %>.%
+  augment(.) %>.%
+  car::qqPlot(.$.resid, distribution = "norm",
+    envelope = 0.95, col = "Black", xlab = "Quantiles théoriques",
+    ylab = "Résidus standardisés")
+```
+
+```{r qqplot_h2-check}
+grade_code("Nous observons une distribution qui ne s'éloigne pas trop de la normalité pour les résidus. Quasi tous les points se trouvent dans l'enveloppe de confiance à 95% à part deux extrêmes dans le bas à gauche.")
+```
+
+Étudiez à présent la distribution des résidus pour `zeno_lmer2`.
+
+```{r resid_h2, exercise=TRUE}
+___ %>.%
+  ___(___) %>.%
+  chart(data = ___, ___ ~ ___) +
+  geom____() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Valeurs prédites", y = "Résidus") +
+  ggtitle("Distribution des résidus")
+```
+
+```{r resid_h2-hint-1}
+___ %>.%
+  augment(.) %>.%
+  chart(data = ___, ___ ~ ___) +
+  geom____() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Valeurs prédites", y = "Résidus") +
+  ggtitle("Distribution des résidus")
+
+#### ATTENTION: Hint suivant = solution !####
+```
+
+```{r resid_h2-solution}
+## Solution ##
+zeno_lmer2 %>.%
+  augment(.) %>.%
+  chart(data = ., .resid ~ .fitted) +
+  geom_point() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(se = FALSE, method = "loess", formula = y ~ x) +
+  labs(x = "Valeurs prédites", y = "Résidus") +
+  ggtitle("Distribution des résidus")
+```
+
+```{r resid_h2-check}
+grade_code("Ce graphique vous permet d'étudier la distribution des résidus du modèle. De manière simplifiée, il faut que la courbe bleue soit proche de la ligne noire. Il faut essayer d'avoir des résidus tout au long de cette ligne noire. Si l'étalement des points le long de l'axe Y reste constante, ou à peu près, tout au long de l'axe X, nous pouvons considérer que nous avons homoscédasticité. Ici, c'est à peu près le cas, toujours à l'exception de deux points extrêmes dans le bas du graphique. Nous étudierons plus en détails ce genre de graphique dans la partie modélisation du cours de l'an prochain. Donc, pour l'instant, nous ne détaillerons pas plus.")
+```
+
+## Interprétation biologique
+
+Un éclaircissement significatif de *Zenopontonio soror* au seuil alpha de 5% est observé lorsque ce dernier est isolé de son hôte *Culcita novaeguinae*. Plusieurs hypothèses sont en cours d'étude dont l'une d'entre elles est liée au syndrome de séparation. En absence de l'environnement olfactif de l'hôte, *Z. soror* est stressé. La décoloration est un marqueur de stress.
+
+## Conclusion
+
+Bravo ! Vous venez de terminer une analyse de données en utilisant un modèle à mesures répétées. Ce genre de modèle mixte est complexe. Ce learnr avait pour objectif de vous *initier* à des modèles plus complexes (mixtes, mesures répétées...). Vous réalisez probablement que cela devient rapidement très compliqué à mesure que le modèle se complexifie. Notre conseil pour l'avenir : si vous devez travailler avec des modèles d'une telle complexité dans votre carrière, faites appel à un (bio)statisticien chevronné pour vous y aider, ou du moins, pour vérifier que l'analyse que vous avez faite est correcte et a du sens !
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur cet outil pédagogique",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

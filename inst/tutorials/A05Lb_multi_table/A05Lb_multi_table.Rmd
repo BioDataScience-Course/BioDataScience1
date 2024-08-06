@@ -1,0 +1,196 @@
+---
+title: "Traitements multi-tableaux"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 5** Gérer les jointures entre deux tableaux de données."
+tutorial:
+  id: "A05Lb_multi_table"
+  version: 2.1.0/3
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+## Objectifs
+
+-   Fusionner des tableaux selon des conditions
+
+## Combinaison de deux tableaux
+
+Il existe plusieurs fonctions qui permettent de fusionner des tableaux. Nous vous proposons d'employer `*_join()` comme `full_join()`/`sfull_join()`, `inner_join()`/`sinner_join()`, `left_join()`/`sleft_join()`, `right_join()`/`sright_join()`.
+
+```{r, eval=FALSE, echo=TRUE}
+DF <- (s)full_join(DF1, DF2, by = VAR)
+DF <- (s)inner_join(DF1, DF2, by = VAR)
+DF <- (s)left_join(DF1, DF2, by = VAR)
+DF <- (s)right_join(DF1, DF2, by = VAR)
+```
+
+Ces quatre paires de fonctions utilisent la syntaxe suivante :
+
+-   les deux premiers arguments de la fonction sont les tableaux de données 1 et 2 qui doivent être fusionnés.
+-   `by =` : le nom de la ou des variables qui permettent de lier les deux tableaux.
+
+Soyez particulièrement attentif lors des exercices ci-dessous, les fonctions utilisées semblent similaires mais les différences peuvent grandement changer les résultats de la fusion de tableaux.
+
+Des chercheurs réalisent une expérience avec plusieurs aquariums expérimentaux. Ils ont encodé les données dans deux tableaux distincts. Le premier tableau contient la variation de la température et de la salinité dans ces aquariums. Le second tableau reprend à la masse de l'organisme placé dans l'aquarium.
+
+```{r join_init}
+set.seed(42)
+
+physico <- dtx(
+  aqua     = letters[1:5],
+  temp     = rnorm(n = 5L, mean = 25, sd = 2),
+  salinity = rnorm(n = 5L, mean = 35, sd = 2)
+)
+
+weight <- dtx(
+  aqua   = letters[2:6],
+  weight = rnorm(n = 5L, mean = 1.5, sd = 0.5)
+)
+```
+
+Le premier tableau `physico` est le suivant :
+
+```{r}
+knitr::kable(physico)
+```
+
+Le second tableau `weight` se présente comme suit :
+
+```{r}
+knitr::kable(weight)
+```
+
+### fusion de tableaux 1
+
+-   Reproduisez le tableau ci-dessous grâce à une jointure complète à l'aide d'une fonction speedy et nommez-le `ph_weight` :
+
+```{r}
+sfull_join(physico, weight, by = "aqua") %>.%
+  knitr::kable(.)
+```
+
+```{r join_prep}
+set.seed(42)
+physico <- dtx(
+  aqua     = letters[1:5],
+  temp     = rnorm(n = 5L, mean = 25, sd = 2),
+  salinity = rnorm(n = 5L, mean = 35, sd = 2))
+
+weight <- dtx(
+  aqua   = letters[2:6],
+  weight = rnorm(n = 5L, mean = 1.5, sd = 0.5))
+```
+
+```{r join1_h2, exercise=TRUE, exercise.setup="join_prep"}
+___ <- ___(___, ___, by = "___")
+knitr::kable(___)
+```
+
+```{r join1_h2-hint-1}
+___ <- ___(physico, weight, by = "aqua")
+knitr::kable(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r join1_h2-solution}
+## Solution ##
+ph_weight <- sfull_join(physico, weight, by = "aqua")
+knitr::kable(ph_weight)
+```
+
+```{r join1_h2-check}
+grade_code("Vous venez de fusionner vos deux tableaux.")
+```
+
+### fusion de tableaux 2
+
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (sélectionnez la jointure qui convient ici et utilisez cette fois-ci une fonction tidy) :
+
+```{r}
+sleft_join(physico, weight, by = "aqua") %>.%
+  knitr::kable(.)
+```
+
+```{r join2_h2, exercise=TRUE, exercise.setup="join_prep"}
+___ <- ___(___, ___, by = "___")
+knitr::kable(___)
+```
+
+```{r join2_h2-hint-1}
+___ <- ___(physico, weight, by = "aqua")
+knitr::kable(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r join2_h2-solution}
+## Solution ##
+ph_weight <- left_join(physico, weight, by = "aqua")
+knitr::kable(ph_weight)
+```
+
+```{r join2_h2-check}
+grade_code("Vous venez de fusionner vos tableaux cette fois-ci avec `left_join()`. Remarquez que le résultat diffère de `(s)full_join()`")
+```
+
+### fusion de tableaux 3
+
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (utilisez la jointure qui convient en version speedy) :
+
+```{r}
+sinner_join(physico, weight, by = "aqua") %>.%
+  knitr::kable(.)
+```
+
+```{r join3_h2, exercise=TRUE, exercise.setup="join_prep"}
+___ <- ___(___, ___, by = "___")
+knitr::kable(___)
+```
+
+```{r join3_h2-hint-1}
+___ <- ___(physico, weight, by = "aqua")
+knitr::kable(___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r join3_h2-solution}
+## Solution ##
+ph_weight <- sinner_join(physico, weight, by = "aqua")
+knitr::kable(ph_weight)
+```
+
+```{r join3_h2-check}
+grade_code("Encore un résultat différent, cette fois-ci avec `(s)inner_join()`.")
+```
+
+## Conclusion
+
+Il est important de bien comprendre les différentes variantes des fonctions `*_join()`. Nous espérons que ce tutoriel learnr vous y a aidé.
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

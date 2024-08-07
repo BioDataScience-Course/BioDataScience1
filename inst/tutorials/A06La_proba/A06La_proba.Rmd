@@ -37,7 +37,7 @@ Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours
 
 -   Calculer des probabilités sur base d'un tableau de contingence
 
-Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 7.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
+Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 6.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
 ## Lire des probabilités
 

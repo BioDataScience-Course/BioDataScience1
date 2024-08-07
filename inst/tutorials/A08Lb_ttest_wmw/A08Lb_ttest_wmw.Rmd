@@ -35,7 +35,7 @@ Le test *t* de Student, ou plutôt les tests de Student puisqu'il en existe plus
 
 -   Faire de même pour le test de Wilcoxon/Mann-Whitney, et pouvoir déterminer quand l'utiliser à la place du test *t* de Student
 
-N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A09La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/moyenne.html) du cours.
+N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A08La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/moyenne.html) du cours.
 
 ## Efficacité du mCPP sur la perte de poids
 

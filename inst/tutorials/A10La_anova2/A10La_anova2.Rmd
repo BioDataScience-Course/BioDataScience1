@@ -50,7 +50,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable explicative qualitative (de classe **factor** dans R). Dans le [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables explicatives facteurs avec une **ANOVA à deux facteurs**.
+Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable explicative qualitative (de classe **factor** dans R). Dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables explicatives facteurs avec une **ANOVA à deux facteurs**.
 
 Ce tutoriel vous permet d'autoévaluer votre aptitude à :
 
@@ -60,7 +60,7 @@ Ce tutoriel vous permet d'autoévaluer votre aptitude à :
 
 -   interpréter correctement les résultats obtenus
 
-Assurez-vous d'avoir compris les sections [11.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/anova-%25C3%25A0-deux-facteurs.html), [11.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/mod%25C3%25A8le-sans-interactions.html) et [11.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vues dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance.html) relatives à l'ANOVA à un facteur.
+Assurez-vous d'avoir compris les sections [10.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/anova-%25C3%25A0-deux-facteurs.html), [10.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/mod%25C3%25A8le-sans-interactions.html) et [10.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vues dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance.html) relatives à l'ANOVA à un facteur.
 
 ## Rendement laitier
 

@@ -35,7 +35,7 @@ La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dé
 
 -   Interpréter correctement un tel test
 
-Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A08La_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
+Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html) du cours, en particulier la [section 7.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A07Lb_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
 
 ## Fumeurs
 

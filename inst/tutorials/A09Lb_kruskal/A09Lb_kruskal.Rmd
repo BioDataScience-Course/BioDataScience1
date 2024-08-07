@@ -46,7 +46,7 @@ Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 -   Déterminer quand utiliser un test de Kruskal-Wallis à la place de l'ANOVA à un facteur
 -   Utiliser ce test non paramétrique pour résoudre des questions pratiques en biologie
 
-N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présentée dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance.html) du cours et vous être auto-évalué via le learnr **A10La_anova** intitulé "ANOVA à un facteur et tests post-hocs".
+N'entamer ce tutoriel qu'après avoir compris ce qu'est une ANOVA à un facteur présentée dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance.html) du cours et vous être auto-évalué via le learnr **A09La_anova** intitulé "ANOVA à un facteur et tests post-hocs".
 
 ## Situation
 

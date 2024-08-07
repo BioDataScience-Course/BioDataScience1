@@ -48,7 +48,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Il est courant en biologie de réaliser des mesures répétées sur des individus, successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus plus de deux fois.
+Il est courant en biologie de réaliser des mesures répétées sur des individus, successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus plus de deux fois.
 
 Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
 

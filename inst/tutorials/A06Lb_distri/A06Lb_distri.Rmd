@@ -38,7 +38,7 @@ Ce tutoriel est une auto-évaluation de vos connaissances pour :
 
 -   Vous assurer d'avoir bien compris la distribution de Poisson
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2022/distribution-de-poisson.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via le tutoriel précédent `BioDataScience1::run("A07La_proba")`.
+Vous devez avoir étudié le contenu du [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-de-poisson.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via le tutoriel précédent `BioDataScience1::run("A06La_proba")`.
 
 ## Distribution binomiale
 

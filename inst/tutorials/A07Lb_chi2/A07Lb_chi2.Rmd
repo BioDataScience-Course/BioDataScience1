@@ -35,7 +35,7 @@ La loi de distribution du $\chi^2$ représente de manière théorique la probabi
 
 -   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
-Vous devez avoir assimilé la matière du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
+Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
 ## Distribution du $\chi^2$
 

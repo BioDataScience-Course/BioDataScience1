@@ -36,7 +36,7 @@ La loi de distribution normale est centrale en statistiques. Ce tutoriel vous pe
 
 -   Réaliser et interpréter un graphique quantile-quantile
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A07La_proba")`).
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A06La_proba")`).
 
 ## Distribution normale
 

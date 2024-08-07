@@ -31,7 +31,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèses associés (différentes variantes du test *t* de Student). Le test *t* de Student indépendant vous permet de comparer les moyennes de deux populations.
 
-Le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
+Le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
 
 ![](images/red-traffic-lights.png){width="10%"}
 
@@ -129,7 +129,7 @@ tooth_vc <- sfilter(toothgrowth, supp == "VC")
 
 ### Description des données
 
-Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu1.html), [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu2.html) et [4](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/visu3.html) de SDD I).
+Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu1.html), [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu2.html) et [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu3.html) de SDD I).
 
 ### Description numérique
 

@@ -35,7 +35,7 @@ Il existe différentes syntaxes dans R dont les trois principales sont la syntax
 
 -   Comparer des instructions équivalentes écrites en syntaxes différentes
 
-Vous devez avoir assimilé la matière du [module 11](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/variance2.html) du cours, et en particulier la [section 11.6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/syntaxe-de-r.html). Avec ce tutoriel, vous allez pouvoir autoévaluer vos acquis relatifs à la diversité syntaxique de R.
+Vous devez avoir assimilé la matière du [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance2.html) du cours, et en particulier la [section 10.6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/syntaxe-de-r.html). Avec ce tutoriel, vous allez pouvoir autoévaluer vos acquis relatifs à la diversité syntaxique de R.
 
 ## Syntaxe de R
 

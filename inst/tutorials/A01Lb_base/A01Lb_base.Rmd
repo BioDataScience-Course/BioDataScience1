@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectif
 
-Dans ce premier module, vous avez découvert plusieurs logiciels que vous utiliserez dans les cours de sciences des données. Ce tutoriel a pour objectif de vous permettre d’apprendre les bases du langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format Quarto.
+Dans ce premier module, vous avez découvert plusieurs logiciels que vous utiliserez dans les cours de sciences des données. Ce tutoriel a pour objectif de vous permettre d’apprendre les bases du langage R afin de réaliser des tableaux et des graphiques dans vos futurs carnets de notes au format Quarto.
 
 <!-- Vous avez réalisé un premier projet qui comprenait, entre autres, des instructions R. Vous avez en fait utilisé le langage R afin de réaliser des tableaux et des graphiques dans un carnet de notes au format Quarto. -->
 

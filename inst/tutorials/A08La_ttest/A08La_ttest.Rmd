@@ -37,7 +37,7 @@ La moyenne est un descripteur statistique très employé pour résumer l'informa
 
 -   Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
-Vous devez maîtriser le calcul de probabilités ([module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/chi2.html) relatif au test du Chi^2^. Enfin, vous devez avoir vu la première partie du [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
+Vous devez maîtriser le calcul de probabilités ([module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/correlation.html) relatif au test de corrélation. Enfin, vous devez avoir vu la première partie du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
 
 ## Moyenne
 

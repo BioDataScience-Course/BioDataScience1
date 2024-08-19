@@ -54,7 +54,7 @@ Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels 
 
 Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc. jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
-Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2023/learnr.html).
+Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/learnr.html).
 
 ## Objectifs
 

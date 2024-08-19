@@ -1,3 +1,7 @@
+# BioDataScience1 2024.0.0
+
+-   New version for academic year 2024-2025.
+
 # BioDataScience1 2023.11.2
 
 -   Use `grade_this_code()` in **A11Lc_syntaxr**.
@@ -8,7 +12,7 @@
 
 # BioDataScience1 2023.11.0
 
--   Learnrs **A11La_anova2**, **A11Lb_anova2mixte**, **A11Lc_syntaxr** and ****A12La_correlation** ready.
+-   Learnrs **A11La_anova2**, **A11Lb_anova2mixte**, **A11Lc_syntaxr** and **A12La_correlation** ready.
 
 # BioDataScience1 2023.10.0
 
@@ -21,7 +25,6 @@
 # BioDataScience1 2023.8.0
 
 -   Learnrs **A08La_chi2** and **A08Lb_chi2b** ready.
-
 
 # BioDataScience1 2023.7.0
 
@@ -49,11 +52,11 @@
 
 # BioDataScience1 2023.2.0
 
--   Learnrs **A02La_base**, **A02Lb_progression** and **A02Lc_scatterplot* ready.
+-   Learnrs **A02La_base**, **A02Lb_progression** and **A02Lc_scatterplot** ready.
 
 # BioDataScience1 2023.1.0
 
--   Learnrs **A00La_discovery**, **A01La_tools** and **A01Lb_git* ready.
+-   Learnrs **A00La_discovery**, **A01La_tools** and **A01Lb_git** ready.
 
 # BioDataScience1 2023.0.0
 

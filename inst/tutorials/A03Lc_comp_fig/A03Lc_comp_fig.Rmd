@@ -1,0 +1,266 @@
+---
+title: "Figures composées"
+subtitle: "Visualisation III"
+author: "Guyliann Engels & Philippe Grosjean"
+description: "**SDD I Module 3** Créer des figures composées en assemblant des graphiques."
+tutorial:
+  id: "A03Lc_comp_fig"
+  version: 2.1.0/5
+output:
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    fig_caption: yes
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+BioDataScience1::learnr_setup()
+SciViews::R()
+library(BioDataScience)
+
+# Dataset
+e_mathaei <- data_frame(
+  id      = 1:345,
+  variety = c(rep("black", times = 236L), rep("purple" , times = 40L),
+    rep("brown", times = 35L), rep("green", times = 34L)))
+marphy <- read("marphy", package = "pastecs", lang = "fr")
+marphy$Station <- 1:68
+crabs <- read("crabs", package = "MASS", lang = "fr")
+```
+
+```{r, echo=FALSE}
+BioDataScience1::learnr_banner()
+```
+
+```{r, context="server"}
+BioDataScience1::learnr_server(input, output, session)
+```
+
+------------------------------------------------------------------------
+
+## Objectifs
+
+-   Créer des figures composées de plusieurs graphiques à l'aide de {chart}
+
+## Transect entre Nice et la Corse
+
+Les chercheurs réalisent un transect dans la mer Méditerranée depuis le port de Nice jusqu'à la baie de Calvi en Corse. Ils vont donc réaliser des prélèvements en 68 stations entre ces deux extrêmes.
+
+```{r marphy_data, echo=TRUE}
+(marphy <- read("marphy", package = "pastecs"))
+marphy$Station <- 1:68
+```
+
+### Température
+
+Les chercheurs souhaitent tout d'abord représenter la température en fonction des stations.
+
+```{r}
+chart(marphy, Temperature ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Température [°C]")
+```
+
+Utilisez les données du jeu de données `marphy` pour reproduire le graphique ci-dessus représentant la température (`Temperature`) en fonction des stations échantillonnées (`Station`). Vous aurez besoin des fonctions `geom_line()` et `geom_point()` *dans cet ordre* pour réaliser ce graphique. Renommez également l'axe des ordonnées ("Température [°C]") à l'aide de la fonction `labs()`.
+
+```{r line1_h3, exercise=TRUE}
+chart(___, ___ ~ ___) +
+  ___() +
+  ___() +
+  ___(___ = ___)
+```
+
+```{r line1_h3-hint-1}
+chart(DF, ___ ~ ___) +
+  geom___() +
+  geom___() +
+  labs(___ = ___)
+```
+
+```{r line1_h3-hint-2}
+chart(marphy, YNUM ~ XNUM) +
+  geom_line() +
+  geom_point() +
+  labs(y = ___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r line1_h3-solution}
+## Solution ##
+chart(marphy, Temperature ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Température [°C]")
+```
+
+```{r line1_h3-check}
+grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité : le phénomène étudie évolue de manière continue selon l'axe X (ici, le long du transect), mais nous ne mesurons des valeurs qu'en certains points (les stations de mesures). Ce type de graphique s'utilise aussi fréquemment pour un phénomène qui évolue dans le temps.")
+```
+
+### Salinité
+
+Les chercheurs souhaitent ensuite représenter la salinité (`Salinity`) en fonction des stations.
+
+```{r}
+chart(marphy, Salinity ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Salinité")
+```
+
+Reproduisez le graphique ci-dessus. Tout comme pour la température, vous utiliserez les couches de lignes et de points *dans cet ordre*.
+
+```{r line2_h2, exercise=TRUE}
+chart(___, ___ ~ ___) +
+  ___() +
+  ___() +
+  ___(___ = ___)
+```
+
+```{r line2_h2-hint-1}
+chart(DF, YNUM ~ XNUM) +
+  geom___() +
+  geom___() +
+  labs(y = ___)
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r line2_h2-solution}
+## Solution ##
+chart(marphy, Salinity ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Salinité")
+```
+
+```{r line2_h2-check}
+grade_code("Encore une fois, les points sont reliés par des segments de droites pour indiquer la continuité entre les stations.")
+```
+
+### Figure composée
+
+Ils décident, pour finir, de représenter les deux graphiques ensemble dans une figure composite.
+
+```{r}
+a <- chart(marphy, Temperature ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Température [°C]")
+
+b <- chart(marphy, Salinity ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Salinité")
+
+combine_charts(list(a, b))
+```
+
+Reproduisez le graphique ci-dessus en utilisant les deux mêmes graphiques que vous avez réalisés précédemment.
+
+```{r comb1_h3, exercise=TRUE}
+# Graphique de la température 
+a <- chart(___, ___ ~ ___) +
+  ___() +
+  ___() +
+  ___(___)
+# Graphique de la salinité
+b <- chart(___, ___ ~ ___) +
+  ___() +
+  ___() +
+  ___(___)
+# Combinaison des 2 graphiques
+combine_charts(list(___, ___))
+
+```
+
+```{r comb1_h3-hint-1}
+# Graphique de la température 
+a <- chart(DF, YNUM ~ XNUM) +
+  geom_line() +
+  geom_point() +
+  labs(___)
+# Graphique de la salinité
+b <- chart(DF, YNUM ~ XNUM) +
+  geom_line() +
+  geom_point() +
+  labs(___)
+# Combinaison des 2 graphiques
+combine_charts(list(___, ___))
+```
+
+```{r comb1_h3-hint-2}
+# Graphique de la température 
+a <- chart(marphy, Temperature ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Température [°C]")
+# Graphique de la salinité
+b <- chart(marphy, Salinity ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Salinité")
+# Combinaison des 2 graphiques
+combine_charts(list(___, ___))
+
+#### Attention : solution dans le 'hint' suivant! ####
+```
+
+```{r comb1_h3-solution}
+## Solution ##
+# Graphique de la température 
+a <- chart(marphy, Temperature ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Température [°C]")
+# Graphique de la salinité
+b <- chart(marphy, Salinity ~ Station) +
+  geom_line() +
+  geom_point() +
+  labs(y = "Salinité")
+# Combinaison des 2 graphiques
+combine_charts(list(a, b))
+```
+
+```{r comb1_h3-check}
+grade_code("Votre première figure composite est vraiment très réussie.")
+```
+
+## QCM : choix du graphique le plus adéquat
+
+Répondez aux questions à choix multiples ci-dessous.
+
+```{r quiz}
+quiz(
+  question("Lorsque je souhaite représenter une variable numérique en fonction d'une seconde variable numérique, j'utilise",
+    answer("un nuage de de points", correct = TRUE),
+    answer("une boite de dispersion"),
+    answer("un diagramme en violon"),
+    answer("un graphique de densité"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE),
+  question("Lorsque je souhaite représenter une variable facteur et donc d'en faire son dénombrement j'utilise",
+    answer("un graphique en barres", correct = TRUE),
+    answer("un graphique en violon"),
+    answer("un graphique en camembert", correct = TRUE),
+    answer("un graphique en nuage de points"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE))
+```
+
+## Conclusion
+
+Vous venez de terminer votre séance d'exercices relative aux figures composites dans R.
+
+```{r comm_noscore, echo=FALSE}
+question_text(
+  "Laissez-nous vos impressions sur ce learnr",
+  answer("", TRUE, message = "Pas de commentaires... C'est bien aussi."),
+  incorrect = "Vos commentaires sont enregistrés.",
+  placeholder = "Entrez vos commentaires ici...",
+  allow_retry = TRUE
+)
+```

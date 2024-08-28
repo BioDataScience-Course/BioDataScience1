@@ -2,8 +2,26 @@
 % Please edit documentation in R/BioDataScience1-package.R
 \docType{package}
 \name{BioDataScience1-package}
+\alias{BioDataScience1}
 \alias{BioDataScience1-package}
 \title{A series of learnr tutorials and Shiny applications for BioDataScience1}
 \description{
 Run the tutorials using\code{\link[=run]{run()}}.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/BioDataScience-Course/BioDataScience1}
+  \item Report bugs at \url{https://github.com/BioDataScience-Course/BioDataScience1/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Philippe Grosjean \email{phgrosjean@sciviews.org}
+
+Authors:
+\itemize{
+  \item Guyliann Engels \email{guyliann.engels@umons.ac.be}
+}
+
 }

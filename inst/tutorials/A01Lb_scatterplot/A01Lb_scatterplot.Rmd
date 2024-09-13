@@ -3,7 +3,7 @@ title: "Graphique en nuage de points"
 author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Réalisation de graphiques en nuage de points."
 tutorial:
-  id: "A01Ld_scatterplot"
+  id: "A01Lb_scatterplot"
   version: 2.5.0/6
 output:
   learnr::tutorial:

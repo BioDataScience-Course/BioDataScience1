@@ -3,7 +3,7 @@ title: "Les bases de R"
 author : "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 1** Les bases de l'utilisation de R."
 tutorial:
-  id: "A01Lb_base"
+  id: "A01La_base"
   version: 2.0.1/7
 output: 
   learnr::tutorial:

@@ -3,7 +3,7 @@ title: "Graphiques univariés"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Histogramme, graphiques de densité ou en violon."
 tutorial:
-  id: "A02La_univariate"
+  id: "A02Lb_univariate"
   version: 2.1.0/8
 output:
   learnr::tutorial:

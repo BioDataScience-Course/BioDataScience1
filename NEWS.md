@@ -1,6 +1,12 @@
+# BioDataScience1 2024.1.0
+
+-   All learnrs inactivated, except those for the first module.
+
 # BioDataScience1 2024.0.0
 
 -   New version for academic year 2024-2025.
+
+-   Reworking of learnr and Shiny apps (12 -> 10 modules).
 
 # BioDataScience1 2023.11.2
 

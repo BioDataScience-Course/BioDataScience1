@@ -45,7 +45,7 @@ Regardez la vidéo ci-dessous.
 
 [R](https://www.r-project.org/about.html) est un logiciel **open source** (ce qui signifie que le code source du logiciel est disponible sous une licence permissive) centré sur l'analyse de données. Le langage de programmation R qu'il implémente est mature et développé depuis 1993. Il prend ses sources dans le langage S (spécialement conçu pour les statistiques dans les années 1970). R permet, entre autres, la manipulation, la visualisation et l'application de calculs statistiques sur des données. C'est l'un des environnements les plus utilisés et les plus puissants pour l'analyse des données. Python est un autre langage très utilisé en science des données, mais il est moins facile à aborder pour un non-informaticien. Donc, étudier R sera un **investissement clé** pour votre future carrière de biologiste, car des données, vous en aurez tous à analyser dans votre travail !
 
-**Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://r4stats.com/articles/popularity/). [Pourquoi R ?](https://www.infoworld.com/article/2940864/application-development/r-programming-language-statistical-data-analysis.html), un autre point de vue (toujours en anglais).
+**Éléments optionnels :** si vous voulez lire une analyse complète et objective (un peu longue, technique et en anglais) qui compare R à d'autres logiciels d'analyse des données, [suivez ce lien](http://r4stats.com/articles/popularity/).
 
 Ce tutoriel vous propose une suite d'activités pour apprendre les rudiments de R.
 
@@ -334,9 +334,11 @@ Certaines fonctions servent à **résumer** un ensemble de données, c'est-à-di
 
 Dans la section **Usage** de l'aide, on découvre la forme générique renvoyée par `args()` plus avant. La **méthode** par défaut est renseignée ensuite. C'est en fait la forme qui est réellement utilisée dans notre cas. Nous découvrons qu'elle accepte deux arguments supplémentaires : `trim` et `na.rm`.
 
-**Astuce :**
+**Astuces :**
 
 -   Dans RStudio, il est encore bien plus facile de placer le curseur sur le nom de la fonction dans le code et d'appuyer sur la touche `F1` pour faire apparaître sa page d'aide.
+
+-   Un **addin** a été développé pour votre cours. Il est disponible depuis l'item **Addins** du menu de RStudio -> **Help**. Vous avez accès aux pages d'aide de R, mais aussi à une recherche sur le Net en utilisant différents moteurs de recherche, dont certains sont spécialisé R (Rseek) ou programmation (StackOverflow) et aussi à un **chatbot** spécialement configuré pour répondre aux questions du cours en anglais ou en français.
 
 Plus loin dans la page d'aide, on peut lire que l'argument `na.rm =` détermine si les valeurs manquantes sont éliminées du vecteur avant calcul ou non ("**na** **r**e**m**ove"). Comme vous pouvez le voir dans la page d'aide, cet argument prend la valeur `FALSE` par défaut. Cela signifie que les valeurs manquantes ne sont **pas** éliminées par défaut. Mais il est possible d'indiquer `na.rm = TRUE` pour changer le calcul et obtenir quand même une estimation de moyenne en présence de valeurs manquantes (les constantes `TRUE` et `FALSE`, toujours en majuscules, sont les valeurs logiques dans R -objects `logical`- voulant dire "vrai" ou "faux").
 

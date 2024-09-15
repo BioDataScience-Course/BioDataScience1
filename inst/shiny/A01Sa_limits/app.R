@@ -1,5 +1,5 @@
 # Limits of the axes for a scatterplot
-learnitdown::learnitdownShinyVersion("1.0.0") # Set app version
+learnitdown::learnitdownShinyVersion("2.0.0") # Set app version
 conf <- BioDataScience::config()
 
 library(shiny)

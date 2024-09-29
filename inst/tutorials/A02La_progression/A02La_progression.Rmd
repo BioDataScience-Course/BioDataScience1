@@ -45,7 +45,7 @@ Dans ce tutoriel, nous utiliserons ensemble R pour résoudre une question biolog
 
 En partant d'un tableau de données relatif à de la biométrie humaine contenant 395 observations et sept variables :
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, warning=FALSE}
 # Chargement de SciViews::R
 SciViews::R(lang = "fr")
 # Importation du jeu de données
@@ -76,7 +76,7 @@ Le point d'interrogation devant notre jeu de données renvoie vers une page d'ai
 
 Nous commençons par sélectionner des colonnes d'intérêt du tableau initial `biometry`.
 
-```{r, echo = TRUE}
+```{r, echo=TRUE}
 bio <- sselect(biometry, -day_birth, -wrist, -year_measure)
 ```
 
@@ -86,17 +86,17 @@ Nous réalisons cette sélection avec la fonction `sselect()` en éliminant des 
 
 Utilisons la fonction `tabularise()` du package {tabularise} maintenant pour présenter les huit premières lignes de notre jeu de données.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, warning=FALSE}
 tabularise(bio, max.rows = 8)
 ```
 
 **Notez ceci :**
 
-Le pipe `%>.%` et le chaînage que nous avons également découvert à la fin du précédent tutoriel sont employés dans les instructions ci-dessus.
+Le "pipe" `%>.%` (prononcez "païpe" comme en anglais) et le chaînage que nous avons également découvert à la fin du précédent tutoriel sont employés dans les instructions ci-dessus.
 
 Considérons maintenant uniquement les femmes. On peut filtrer les lignes d'un tableau de données en utilisant comme critère `gender == "W"` (**attention :** notez bien que dans un *test de condition*, l'égalité s'écrit avec **deux** signes égaux dans R). Les autres options sont : `!=` pour différent de, `>` pour plus grand que, `<` pour plus petit que, ainsi que `>=` ou `<=` pour plus grand ou égale et plus petit ou égal.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, warning=FALSE}
 bio %>.%
   sfilter(., gender == "W") %>.%
   tabularise(., max.rows = 8)
@@ -104,7 +104,7 @@ bio %>.%
 
 Continuons à manipuler notre tableau en sélectionnant des colonnes et en filtrant les lignes en une seule opération. Pour sélectionner les femmes `gender == "W"` et retirer la colonne `age`, nous utiliserons :
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, warning=FALSE}
 bio %>.%
   sfilter(., gender == "W") %>.% # Sélectionne les femmes
   sselect(., -age) %>.% # Retire la colonne âge
@@ -156,7 +156,7 @@ chart(data = biometry, height ~ weight %col=% gender) +
 
 Avez-vous remarqué la ressemblance dans la syntaxe employée pour réaliser un graphique en barres, un histogramme, un graphique en violon ou encore un nuage de points ? Nous utilisons la fonction `chart()` à chaque fois. On commence par lui fournir le tableau de données à employer avec `data =`, puis une "formule", c'est-à-dire une description de type `y ~ x` ... avec le tilde `~` qui caractérise cet objet formule. Si on reprend le nuage de points réalisé, on utilise le tableau `biometry` pour réaliser un graphique de la hauteur en fonction (symbolisé par le tilde `~` donc) de la masse. On spécifie que ce graphique est un nuage de points grâce à `geom_point()`. La formule peut être plus complexe si on souhaite ajouter des éléments en plus (comme différencier le genre des personnes grâce à la couleur). Le `+`permet d'ajouter des couches sur le graphique. En résumé, on aura la structure ci-dessous. La fonction `geom_...()` va varier en fonction du type de graphique à réaliser : `geom_point()` (un nuage de points), `geom_bar()` (un graphique en barres), `geom_histogram()` (un histogramme), `geom_boxplot()` (une boite de dispersion)... Si toute cette terminologie vous est étrangère, n'ayez crainte, nous l'étudierons progressivement. Retenez simplement à ce stade qu'il s'agit de types différents de graphiques. Nous pouvons donc résumer le canevas général comme suit (avec les items en lettres majuscules à replacer selon le contexte) :
 
-```{r, echo=TRUE, eval = FALSE}
+```{r, echo=TRUE, eval=FALSE}
 chart(data = DF, FORMULA) +
   geom_TYPE()
 ```
@@ -282,7 +282,7 @@ weight_w / height_w^2
 
 -   Éviter d'utiliser des caractères accentués.
 
--   Si possible, utilisez des noms en anglais. Certainement si votre travail sera échangé avec d'autres scientifiques en international, ... mais c'est une bonne habitude à prendre même sur votre propre code. Pour reprendre l'exemple précédent `wrist_circumference`
+-   Si possible, utilisez des noms en anglais. Certainement si votre travail sera échangé avec d'autres scientifiques en international... mais c'est une bonne habitude à prendre même sur votre propre code. Pour reprendre l'exemple précédent `wrist_circumference`
 
 Réalisez les mêmes opérations sur les individus 8 à 12 qui sont des hommes.
 
@@ -381,7 +381,7 @@ man <- dtx(
   weight = ___,
   height = ___
 )
-# Afficher le tableau
+# Afficher le tableau (simplement sans utiliser tabularise)
 ___
 ```
 
@@ -394,7 +394,7 @@ man <- dtx(
   weight = weight_m,
   height = height_m
 )
-# Afficher le tableau
+# Afficher le tableau (simplement sans utiliser tabularise)
 man
 ```
 
@@ -436,7 +436,7 @@ man <- dtx(
 ```{r imc_mutate, exercise=TRUE, exercise.setup="imc_mutate_setup"}
 # Calculer l'IMC pour les hommes
 man <- smutate(man, bmi = ___)
-# Afficher le tableau de données
+# Afficher le tableau de données (sans tabularise)
 ___
 ```
 
@@ -444,7 +444,7 @@ ___
 ## Solution ##
 # Calculer l'IMC pour les hommes
 man <- smutate(man, bmi = weight / height^2)
-# Afficher le tableau de données
+# Afficher le tableau de données (sans tabularise)
 man
 ```
 
@@ -464,7 +464,7 @@ biometry <- read("biometry", package = "BioDataScience")
 bio_100 <- biometry[1:100, ]
 ```
 
-Vous pouvez observer que la taille est ici exprimée en centimètres, il faut en tenir compte lors du calcul de l'IMC qui attend la taille exprimée en mètre. Un jeu de données réduit est employé pour expliciter les suites d'instructions `bio_100` qui ne reprends que 100 observations du jeu de données complet `biometry`.
+Vous pouvez observer que la taille est ici exprimée en centimètres, il faut en tenir compte lors du calcul de l'IMC qui attend la taille exprimée en mètre. Un jeu de données réduit est employé pour expliciter les suites d'instructions `bio_100` qui ne reprend que 100 observations du jeu de données complet `biometry`.
 
 Pour calculer l'IMC sur le jeu de données `bio_100`, nous employons à nouveau la fonction `smutate()`.
 
@@ -502,7 +502,7 @@ head(biometry, n = 5)
 
 ```{r bio_imc_h2-check}
 grade_code(
-  correct = "Vous progressez très rapidement.", incorrect = "Observez comment nous avions fait sur `bio`. N'auriez vous pas oublié quelque chose ?")
+  correct = "Vous progressez très rapidement.", incorrect = "Observez comment nous avions fait sur `bio`. N'auriez-vous pas oublié quelque chose ?")
 ```
 
 ## Signification de l'IMC
@@ -532,14 +532,14 @@ Vous avez à votre disposition la fonction `case_when()` qui permet d'attribuer 
 Ajoutez une nouvelle variable qui tient compte de l'échelle de l'OMS dans le jeu de données `bio_100` dans la variable `bmi_cat`. Analysez la structuration de la suite d'instructions, les conditions employées, la position des guillemets ...
 
 ```{r, echo=TRUE}
-# Ajouter la nouvelles variable
+# Ajouter la nouvelle variable
 bio_100 <- smutate(bio_100, bmi_cat = case_when(
   bmi < 18.5 ~ "underweight",
   bmi >= 18.5 & bmi < 25 ~ "normal weight",
   bmi >= 25 & bmi < 30 ~ "overweight",
   bmi >= 30 ~ "obese"
 ))
-# Afficher le tableau 
+# Afficher les 5 premières lignes du tableau
 head(bio_100)
 ```
 
@@ -551,27 +551,27 @@ biometry <- smutate(biometry, bmi = weight / (height / 100)^2)
 ```
 
 ```{r case_when, exercise=TRUE, exercise.setup="case_when_setup"}
-# Ajouter la nouvelles variable
+# Ajouter la nouvelle variable
 ___ <- smutate(___, bmi_cat = case_when(
   bmi  ___ ___~ "underweight",
   bmi  ___ ___~ "normal weight",
   bmi  ___ ___~"overweight",
   bmi  ___ ___~ "obese"
 ))
-# Afficher le début du tableau
+# Afficher les 5 premières lignes du tableau
 head(___)
 ```
 
 ```{r case_when-solution}
 ## Solution ##
-# Ajouter la nouvelles variable
+# Ajouter la nouvelle variable
 biometry <- smutate(biometry, bmi_cat = case_when(
   bmi < 18.5 ~ "underweight",
   bmi >= 18.5 & bmi < 25 ~ "normal weight",
   bmi>= 25 & bmi < 30 ~"overweight",
   bmi >= 30 ~ "obese"
 ))
-# Afficher le début du tableau
+# Afficher les 5 premières lignes du tableau 
 head(biometry)
 ```
 
@@ -579,7 +579,7 @@ head(biometry)
 grade_code("C'est correct. Vous êtes maintenant capable de réaliser des catégories avec `case_when()`.")
 ```
 
-Votre nouvelle variable contient des chaînes de caractères (du texte). Elle est de classe **character** dans R. Cependant, c'est une variable non numérique. On parle encore de variable qualitative ou variable "facteur" en statistiques. Si nous voulons qu'elle soit comprise comme tel dans R, nous pouvons la convertir en un objet **factor** avec la fonction `factor()`. Avec l'argument `levels =`, nous spécifions l'ordre des différents niveaux de notre variable. Nous utilisons la fonction `smutate()` comme précédemment.
+Votre nouvelle variable contient des chaînes de caractères (du texte). Elle est de classe **character** dans R. Cependant c'est une variable non numérique. On parle encore de variable qualitative ou variable "facteur" en statistiques. Si nous voulons qu'elle soit comprise comme tel dans R, nous pouvons la convertir en un objet **factor** avec la fonction `factor()`. Avec l'argument `levels =`, nous spécifions l'ordre des différents niveaux de notre variable. Nous utilisons la fonction `smutate()` comme précédemment.
 
 Pour convertir en **factor** notre nouvelle variable `bmi_cat` dans `bio_100`, nous faisons donc :
 

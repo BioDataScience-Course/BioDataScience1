@@ -281,7 +281,7 @@ grade_code("Vous avez certainement compris le principe ici.")
 
 ## Biométrie d'oursins
 
-Intéressez vous au jeu de données sur la biométrie d'oursin ci-dessous.
+Intéressez-vous au jeu de données sur la biométrie d'oursin ci-dessous.
 
 ```{r, echo=TRUE}
 # Importation du jeu de données
@@ -367,7 +367,7 @@ grade_code("Les \"aesthetics\" supplémentaires sont ajoutées à la formule à 
 
 Vous venez de terminer votre séance d'exercices qui récapitule la réalisation de plusieurs graphiques différents avec `chart()`.
 
-Durant cette séance, vous avez appris à réaliser des graphiques de type :
+Dans ce tutoriel, vous avez appris à réaliser des graphiques de type :
 
 -   histogrammes
 

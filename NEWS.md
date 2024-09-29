@@ -1,8 +1,14 @@
+# BioDataScience1 2024.2.0
+
+-   Learnrs **A02La_progression** and **A02Lb_univariate** revised.
+
 # BioDataScience1 2024.1.0
 
 -   All learnrs inactivated, except those for the first module.
 
 -   Shiny apps in v2.0.0 (now records in the events table).
+
+-   Learnrs **A00La_discovery**, **A01La_base** and **A01Lb_scatterplot** revised.
 
 # BioDataScience1 2024.0.0
 

@@ -94,7 +94,7 @@ chart(e_mathaei, ~variety) +
 ```
 
 ```{r bar1_h3-check}
-grade_code("Vous venez de réaliser votre premier graphique en barre.")
+grade_code("Vous venez de réaliser votre premier graphique en barres.")
 ```
 
 ### Dénombrement d'oursins par site
@@ -210,7 +210,7 @@ combine_charts(list(a, b), common.legend = TRUE)
 ```
 
 ```{r bar3_h3-check}
-grade_code("Vous connaissez maintenant différentes valeurs que peuvent prendre l'argument `position =`. Notez la **différence** qui existe entre le graphique par defaut (`position = \"stack\"`) et le graphique B (`position = \"fill\"`) ! Le rendu est similaire mais c'est la **fraction** par rapport au total qui est représentée dans le graphique B et **non les effectifs absolus** !")
+grade_code("Vous connaissez maintenant différentes valeurs que peuvent prendre l'argument `position =`. Notez la **différence** qui existe entre le graphique par defaut (`position = \"stack\"`) et le graphique B (`position = \"fill\"`) ! Le rendu est similaire, mais c'est la **fraction** par rapport au total qui est représentée dans le graphique B et **non les effectifs absolus** !")
 ```
 
 ### Dénombrement d'oursins (version camembert)
@@ -329,7 +329,7 @@ chart(e_mathaei, ~variety %fill=% variety) +
 ```
 
 ```{r bar4_h3-check}
-grade_code("Voilà un graphique finalisé. C'est important de peaufiner les graphiques que vous conservez pour vos rapports ou publications, par opposition à ceux qui se trouvent dans vos bloc-notes où les sorties par défaut de {chart} suffisent pour avoir une présentation suffisante pour l'interprétation.")
+grade_code("Voilà un graphique finalisé. C'est important de peaufiner les graphiques que vous conservez pour vos rapports ou publications, par opposition à ceux qui se trouvent dans vos blocs-notes où les sorties par défaut de {chart} suffisent pour avoir une présentation suffisante pour l'interprétation.")
 ```
 
 ## Biométrie de crabes
@@ -378,7 +378,7 @@ grade_code("Les fonctions `stat_XXX()` vous permettent d'effectuer des calculs s
 
 ## Conclusion
 
-Félicitations ! Vous venez de terminer votre séance d’exercices relative aux graphiques en barres et en camembert. Vous maîtrisez maintenant tous les outils nécessaires pour la réalisation d’une belle panoplie de graphiques. Il existe bien d’autres types de graphiques, cependant. Nous vous encourageons à consulter le site [R Graph Gallery](https://www.r-graph-gallery.com/) pour découvrir d’autres types de graphiques et comment les réaliser avec {ggplot2}.
+Félicitations ! Vous venez de terminer votre séance d’exercices relative aux graphiques en barres et en camembert. Vous maîtrisez maintenant tous les outils nécessaires pour la réalisation d’une belle panoplie de graphiques. Il existe bien d’autres types de graphiques, cependant. Nous vous encourageons à consulter le site [R Graph Gallery](https://www.r-graph-gallery.com/) pour découvrir d’autres types de graphiques et comment les réaliser avec {ggplot2}.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

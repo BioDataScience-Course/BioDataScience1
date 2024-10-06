@@ -1,8 +1,8 @@
 ---
-title: "Boites de dispersion"
+title: "Boites à moustaches"
 subtitle: "Visualisation III"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 3** Faire des boites de dispersion (parallèles) dans R."
+description: "**SDD I Module 3** Créer des boites à moustaches (parallèles) dans R."
 tutorial:
   id: "A03Lb_boxplot"
   version: 2.1.0/7
@@ -35,7 +35,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
--   Vérifier que vous êtes capable de réaliser des boites de dispersion (parallèles)
+-   Vérifier que vous êtes capable de réaliser des boites à moustaches (parallèles)
 
 ## Biométrie de crabes
 
@@ -80,7 +80,7 @@ chart(data = crabs, length ~ species) +
 ```
 
 ```{r boxplot1_h3-check}
-grade_code("Vous venez de réaliser votre premier graphique en boites de dispersion.")
+grade_code("Vous venez de réaliser votre premier graphique en boites à moustaches.")
 ```
 
 ### Longueur de la carapace par espèce et par sexe
@@ -92,7 +92,7 @@ chart(crabs, length ~ species %fill=% sex) +
   geom_boxplot()
 ```
 
-À partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la longueur de la carapace (`length`) en fonction de l'espèce (`species`) coloré en fonction du sexe (`sex`).
+À partir du jeu de données `crabs`, reproduisez le graphique en boites à moustaches ci-dessus représentant la longueur de la carapace (`length`) en fonction de l'espèce (`species`) colorée en fonction du sexe (`sex`).
 
 ```{r boxplot2_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
@@ -135,7 +135,7 @@ chart(crabs, front ~ species %fill=% sex) +
     hjust = 0.5, position = position_dodge(0.75))
 ```
 
-À partir du jeu de données `crabs`, reproduisez le graphique en boites de dispersion ci-dessus représentant la taille du lobe frontal (`front`) en fonction de l'espèce (`species`) coloré en fonction du sexe (`sex`). N'oubliez pas de préciser le nombre d'observations pour chacune des boites de dispersion.
+À partir du jeu de données `crabs`, reproduisez le graphique en boites à moustaches ci-dessus représentant la taille du lobe frontal (`front`) en fonction de l'espèce (`species`) coloré en fonction du sexe (`sex`). N'oubliez pas de préciser le nombre d'observations pour chacune des boites à moustaches.
 
 ```{r boxplot3_h3, exercise=TRUE, exercise.lines=7}
 give_n <- function(x)
@@ -184,16 +184,16 @@ chart(crabs, front ~ species %fill=% sex) +
 grade_code("Vous maitrisez maintenant le code pour réaliser des boxplots et y ajouter l'indication du nombre d'individus par sous-groupe.")
 ```
 
-## QCM : boite de dispersion
+## QCM : boite à moustaches
 
 Répondez aux questions à choix multiples ci-dessous.
 
 ```{r quiz}
 quiz(
-  question("La boite de dispersion permet de résumer les données d'une variable numérique. Quels sont les descripteurs employés ?",
+  question("La boite à moustaches permet de résumer les données d'une variable numérique. Quels sont les descripteurs employés ?",
     answer("la médiane", correct = TRUE),
     answer("la moyenne"),
-    answer("l'espace inter-quartile", correct = TRUE),
+    answer("l'espace interquartile", correct = TRUE),
     answer("la valeur maximale et la valeur minimale", correct = TRUE),
     answer("l'écart-type"),
     random_answer_order = TRUE,
@@ -227,7 +227,7 @@ quiz(
 
 ## Conclusion
 
-Félicitation ! Vous venez de terminer votre séance d'exercices relative aux boites de dispersion.
+Félicitation ! Vous venez de terminer votre séance d'exercices relative aux boites à moustaches.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

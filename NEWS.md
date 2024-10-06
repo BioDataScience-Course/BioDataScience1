@@ -1,3 +1,9 @@
+# BioDataScience1 2024.3.0
+
+-   Learnrs **A03La_barplot**, **A03Lb_boxplot** and **A03Lc_comp_fig** revised.
+
+-   Learnr **A02Lc_git** revised.
+
 # BioDataScience1 2024.2.0
 
 -   Learnrs **A02La_progression** and **A02Lb_univariate** revised.

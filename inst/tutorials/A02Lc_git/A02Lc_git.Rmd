@@ -29,7 +29,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
--   Auto-évaluer sa compréhension des différentes actions dans Git.
+-   Autoévaluer sa compréhension des différentes actions dans Git.
 
 ## Analyse de situation Git
 
@@ -49,13 +49,13 @@ quiz(
     answer("commit", correct = TRUE, message = "Un commit permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
@@ -63,13 +63,13 @@ quiz(
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", correct = TRUE, message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
@@ -77,13 +77,13 @@ quiz(
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", correct = TRUE, message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", correct = TRUE, message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     )
@@ -104,13 +104,13 @@ quiz(
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", correct = TRUE, message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
@@ -118,13 +118,13 @@ quiz(
     answer("commit", correct = TRUE, message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub.",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     ),
@@ -132,13 +132,13 @@ quiz(
     answer("commit", message = "Un *commit* permet d'enregistrer une version du projet."),
     answer("clone", message = "Un *clone* permet de créer un double local d’un dépôt GitHub."),
     answer("push", message = "Un *push* permet d'envoyer ses modifications locales vers le dépôt GitHub."),
-    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliqué dans le dépôt GitHub vers sa propre version locale."),
+    answer("pull", message = "Un *pull* permet de rapatrier les modifications que les autres utilisateurs ont appliquées dans le dépôt GitHub vers sa propre version locale."),
     answer("fetch", message = "Un *fetch* permet de faire un pull et un push successivement."),
     answer("fork", message = "Un *fork* permet de faire une copie dans notre propre compte GitHub d'un dépôt sur GitHub."),
-    answer("pull request", correct = TRUE, message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'orgine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
+    answer("pull request", correct = TRUE, message = "Un *pull request* permet de suggérer à l’auteur du dépôt d'origine que vous avez fait des modifications qui pourraient l’intéresser. L'auteur peut accepter ou refuser ces modifications."),
     allow_retry = TRUE, random_answer_order = TRUE,
     correct = "Bravo ! Vous avez trouvé la bonne réponse.",
-    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prennez le temps de réviser la section sur Git et sur GitHub.",
+    incorrect = "Attention, Ce n'est pas la bonne réponse. Toutes ces notions ne sont pas simples. Prenez le temps de réviser la section sur Git et sur GitHub.",
     submit_button = "Soumettre une réponse",
     try_again_button = "Resoumettre une réponse"
     )

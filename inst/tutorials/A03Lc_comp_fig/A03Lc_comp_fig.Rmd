@@ -97,7 +97,7 @@ chart(marphy, Temperature ~ Station) +
 ```
 
 ```{r line1_h3-check}
-grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité : le phénomène étudie évolue de manière continue selon l'axe X (ici, le long du transect), mais nous ne mesurons des valeurs qu'en certains points (les stations de mesures). Ce type de graphique s'utilise aussi fréquemment pour un phénomène qui évolue dans le temps.")
+grade_code("Les graphiques où les points sont reliés entre eux indiquent une continuité : le phénomène étudié évolue de manière continue selon l'axe X (ici, le long du transect), mais nous ne mesurons des valeurs qu'en certains points (les stations de mesures). Ce type de graphique s'utilise aussi fréquemment pour un phénomène qui évolue dans le temps.")
 ```
 
 ### Salinité
@@ -237,12 +237,12 @@ Répondez aux questions à choix multiples ci-dessous.
 quiz(
   question("Lorsque je souhaite représenter une variable numérique en fonction d'une seconde variable numérique, j'utilise",
     answer("un nuage de de points", correct = TRUE),
-    answer("une boite de dispersion"),
+    answer("une boite à moustaches"),
     answer("un diagramme en violon"),
     answer("un graphique de densité"),
     random_answer_order = TRUE,
     allow_retry = TRUE),
-  question("Lorsque je souhaite représenter une variable facteur et donc d'en faire son dénombrement j'utilise",
+  question("Lorsque je souhaite représenter une variable facteur et donc d'en faire son dénombrement, j'utilise",
     answer("un graphique en barres", correct = TRUE),
     answer("un graphique en violon"),
     answer("un graphique en camembert", correct = TRUE),

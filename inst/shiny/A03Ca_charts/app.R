@@ -40,9 +40,14 @@ score_charts <- function(x) {
   if (!is.numeric(x) | length(x) != 20)
     return(structure(NA,
       message = "Le fichier doit contenir un objet numérique de longueur 20. Corrigez et resoumettez !"))
-  if (any(x < 0) | any(x > 1))
-    return(structure(NA,
-      message = paste("Le r\u00e9sultat doit contenir des valeurs entre 0 et 1 uniquement. Corrigez et resoumettez !")))
+  # Sometimes correlations are slightly < 0
+  #if (any(x < 0) | any(x > 1))
+  #  return(structure(NA,
+  #    message = paste("Le r\u00e9sultat doit contenir des valeurs entre 0 et 1 uniquement. Corrigez et resoumettez !")))
+  if (any(x > 1))
+      return(structure(NA,
+        message = paste("Le r\u00e9sultat doit contenir des valeurs inférieures ou égales à 1 uniquement. Corrigez et resoumettez !")))
+  x[x < 0] <- 0
   score <- as.numeric(sum(x)) # Score is the sum of all the 20 individual scores for the different charts
   structure(score,
     message = paste0("Votre proposition est accept\u00e9e. Son score est de ",

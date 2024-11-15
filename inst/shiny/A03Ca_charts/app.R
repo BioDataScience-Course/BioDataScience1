@@ -2,8 +2,8 @@
 # ================================================
 # Note: the shared folder is created like this using SSH onto the server
 # cd /data1
-# sudo mkdir A04_challenge
-# sudo chown rstudio-connect: A04_challenge
+# sudo mkdir A03_challenge
+# sudo chown rstudio-connect:rstudio-connect A03_challenge
 
 # We also need flipdown from:
 #remotes::install_github("feddelegrand7/flipdownr")
@@ -20,9 +20,9 @@ deadline <- Sys.getenv("CHALLENGE_DEADLINE",
   unset = "2024-01-01 00:00:00")
 
 # Read data from the SQLite database
-dir <- "/data1/A04_challenge"
+dir <- "/data1/A03_challenge"
 if (!file.exists(dir))
-  dir <- "~/A04_challenge" # Alternate dir for local tests
+  dir <- "~/A03_challenge" # Alternate dir for local tests
 database <- file.path(dir, "charts.sqlite")
 table <- "charts"
 
@@ -183,6 +183,8 @@ server <- function(input, output) {
       ranking <- ranking[order(-ranking$score, as.numeric(ranking$date)), ]
       ranking$date <- as.POSIXct(ranking$date, origin = "1960-01-01")
       ranking$date <- format(ranking$date, "%Y-%m-%d %H:%M:%S")
+      # Keep only best score for each student or team
+      ranking <- ranking[!duplicated(ranking$project), ]
     }
     message("Date reworked")
     # Add a column with medals for the three first results

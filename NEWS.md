@@ -1,3 +1,11 @@
+# BioDataScience1 2024.5.0
+
+-   Learnrs **A05La_recombination** and **A05Lb_multi-table** revised.
+
+# BioDataScience1 2024.4.0
+
+-   Learnr **A04La_wrangling** revised.
+
 # BioDataScience1 2024.3.0
 
 -   Learnrs **A03La_barplot**, **A03Lb_boxplot** and **A03Lc_comp_fig** revised.

@@ -93,7 +93,7 @@ Calculez sur le tableau `crabs` à l'aide de la fonction speedy `smutate()` :
 -   la racine carrée (`sqrt()`) de la largueur de la carapace (`width`) et nommez cette nouvelle variable `sqrt_width`
 -   Divisez la variable lobe frontal (`front`) par 1000 et nommez cette nouvelle variable `front_m`
 
-Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les six premières lignes sont affichées). Vous devez obtenir le tableau ci-dessous :
+Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les six premières lignes sont affichées. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
 crabs <- smutate(crabs, 
@@ -149,17 +149,17 @@ grade_code("Vous savez maintenant comment calculer de nouvelles variables avec l
 
 ### Filtrer et sélectionner des données
 
-Reprenons le jeu de données initial sur nos crabes `crabs`.
+Reprenons le jeu de données initial `crabs`.
 
 ```{r}
-# Importation des données sur nos crabes
+# Importation des données
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
 Réalisez les opérations suivantes avec les fonctions **tidy** `filter()` et `select()` et assignez votre résultat à `crabs2` :
 
 -   Retirer la variable index (`index`) du jeu de données
--   Garder uniquement les individus mâles du jeu de données dont la longueur de la carapace est supérieure ou égale à 25 mm (variables `sex` et `length` respectivement)
+-   Garder uniquement les individus mâles (`"M"`) du jeu de données dont la longueur de la carapace est supérieure ou égale à 25 mm (variables `sex` et `length` respectivement)
 -   Enregistrez le résultat dans `crabs2`
 -   Affichez ensuite les premières lignes du tableau `crabs2`
 

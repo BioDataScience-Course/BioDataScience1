@@ -258,7 +258,7 @@ head(demo)
 ```
 
 ```{r long_h2-check}
-grade_code("Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre `pivot_wider()` et `pivot_longer()` 'ou leurs équivalents speedy). Elles se complètent parfaitement.")
+grade_code("Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre `pivot_wider()` et `pivot_longer()` (ou leurs équivalents speedy). Elles se complètent parfaitement.")
 ```
 
 ## Diviser des colonnes dans un tableau

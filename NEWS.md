@@ -1,3 +1,7 @@
+# BioDataScience1 2024.6.0
+
+-   Learnrs **A06La_proba**, **A06Lb_distri** and **A06Lc_correlation** revised.
+
 # BioDataScience1 2024.5.0
 
 -   Learnrs **A05La_recombination** and **A05Lb_multi-table** revised.

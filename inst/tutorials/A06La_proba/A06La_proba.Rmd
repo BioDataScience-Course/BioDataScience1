@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 6** Calculer des probabilités dans R."
 tutorial:
   id: "A06La_proba"
-  version: 2.0.0/10
+  version: 2.1.0/10
 output:
   learnr::tutorial:
     progressive: true
@@ -37,7 +37,7 @@ Le calcul des probabilités et le B-A-BA des statistiques. Il n'est pas toujours
 
 -   Calculer des probabilités sur base d'un tableau de contingence
 
-Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 6.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/probabilit%25C3%25A9s.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
+Avant d'aborder ce tutoriel, assurez-vous d'avoir bien compris le contenu de la [section 6.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours. En effet, ce learnr sert d'auto-évaluation sur cette matière et ne sera utile que dans un contexte où vous la maîtrisez déjà, à des fins de vérification de vos acquis.
 
 ## Lire des probabilités
 
@@ -47,34 +47,34 @@ Le calcul des probabilité est assorti d'un formalisme mathématique qu'il vous 
 
 ```{r qu_formalism}
 quiz(
-  question("Comment lire la proposition suivante : Pr{A.B} ?",
+  question("Comment lire la proposition suivante : Pr{A.B} ?",
     answer("Probabilité d'observer A ou B"),
     answer("Probabilité d'observer A et B", correct = TRUE, message = "Probabilité d'évènements successifs indépendants "),
     answer("Probabilité d'observer A si B se produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Pas exactement. Recommencez afin de trouver la bonne réponse.",
     correct = "Oui, les deux évènements sont indépendant ici, ce qui signifie que l'occurence de l'un n'a aucune incidence sur la probabilité d'occurence de l'autre."),
-  question("Comment lire la proposition suivante : Pr{A|B} ?",
+  question("Comment lire la proposition suivante : Pr{A|B} ?",
     answer("Probabilité d'observer A ou B"),
     answer("Probabilité d'observer A et B"),
     answer("Probabilité d'observer A si B se produit", correct = TRUE, message = "Ici, nous avons une probabilité conditionnelle que A se produise, sachant que B s'est produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Désolé, mais ce n'est pas correct. Recommencez afin de trouver la bonne réponse",
     correct = "Les probabilités conditionnelles ont une dépendance entre elles."),
-  question("Comment lire la proposition suivante : Pr{A+B} ?",
+  question("Comment lire la proposition suivante : Pr{A+B} ?",
     answer("Probabilité d'avoir A ou B", correct = TRUE, message = "En calcul de probabilité, l'addition signifie que l'on considère la probabilité que l'un parmi plusieurs évènements disjoints se produise"),
     answer("Probabilité d'avoir A et B"),
     answer("Probabilité d'avoir A si B se produit"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Concentrez-vous sur ce que l'opérateur '+' signifie en calcul des probabilités. Recommencez afin de trouver la bonne réponse",
     correct = "La probabilité d'observer A ou d'observer B."),
-  question("Comment écrira-t-on la probabilité d'obtenir quatre mâles Pr{M} dans une portée de quatre châtons ?",
+  question("Comment écrira-t-on la probabilité d'obtenir quatre mâles Pr{M} dans une portée de quatre châtons ?",
     answer("Pr{M . M . M . M}", correct = TRUE),
     answer("Pr{M et M et M et M}", correct = TRUE),
     answer("Pr{M + M + M + M}" ),
     answer("Pr{M ou M ou M ou M}"),
     allow_retry = TRUE, random_answer_order = TRUE,
-    incorrect = "Est-ce des évènements successifs indépendants ou des évènements dépendants, réfléchissez. Recommencez afin de trouver la bonne réponse",
+    incorrect = "Est-ce des évènements successifs indépendants ou des évènements dépendants ? Réfléchissez. Recommencez afin de trouver la bonne réponse",
     correct = "Le '.' est synonyme ici de 'et' et concerne des évènements indépendants successifs.")
 )
 ```
@@ -103,22 +103,22 @@ Calculez les probabilités suivantes relatives à cette étude (vous pouvez vous
 
 ```{r qu_calcul}
 quiz(caption = "Stress et revenus",
-  question("Quelle est la probabilité d'être stressé ?",
-    answer("0.15", correct = TRUE , message = "Résultat issu du calcul suivant : 1016/6549, total stressés sur total général"),
+  question("Quelle est la probabilité d'être stressé ?",
+    answer("0.15", correct = TRUE , message = "Résultat issu du calcul suivant : 1016/6549, total stressés sur total général"),
     answer("0.52"),
     answer(" 0.08"),
     answer(" 0.30"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Vous avez fait une erreur. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
-  question("Quelle est la probabilité d'être stressé et d'avoir des revenus moyens ?",
-    answer("0.042", correct = TRUE, message =  "Cette réponse est obtenue comme suit : 274/6549, nombre de stressés à revenus moyens sur le total général"),
+    correct = "C'est correct !"),
+  question("Quelle est la probabilité d'être stressé et d'avoir des revenus moyens ?",
+    answer("0.042", correct = TRUE, message =  "Cette réponse est obtenue comme suit : 274/6549, nombre de stressés à revenus moyens sur le total général"),
     answer("0.52"),
     answer("0.15"),
     answer("0.08"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Concentrez-vous et recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
+    correct = "C'est correct !"),
   question("Pr{revenus moyens ou stressé} ?",
     answer("0.41", correct = TRUE, message =  "Cette réponse s'obtient en effet comme ceci : (1954/6549) + (1016/6549) - (274/6549), probabilité d'être stressé + probabilité d'avoir des revenus moyens. Mais les stressés à revenus moyens sont ici comptabilisés deux fois... donc on doit les soustraire un fois du calcul"),
     answer("0.042"),
@@ -126,15 +126,15 @@ quiz(caption = "Stress et revenus",
     answer("0.086"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "Pas exactement. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !"),
+    correct = "C'est correct !"),
   question("Pr{revenus faibles | non stressé}",
-    answer("0.35", correct = TRUE, message = "Le calcul est le suivant : 1954/5533, ici, nous considérons uniquement la population de non stressés. Donc on divise les revenus faibles par le total de non stressés et pas par le total général."),
+    answer("0.35", correct = TRUE, message = "Le calcul est le suivant : 1954/5533, ici, nous considérons uniquement la population de non stressés. Donc on divise les revenus faibles par le total de non stressés et pas par le total général."),
     answer("0.41"),
     answer("0.52"),
     answer("0.15"),
     allow_retry = TRUE, random_answer_order = TRUE,
     incorrect = "C'est une probabilité conditionnelle. Elle se traite d'une façon particulière dans un tableau de contingence. Recommencez afin de trouver la bonne réponse",
-    correct = "C'est correct !")
+    correct = "C'est correct !")
 )
 ```
 
@@ -171,8 +171,8 @@ Un nouveau médicament contre une maladie permet de soigner 80% des individus at
 
 ```{r medic1_h3-check}
 grade_result(
-  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas à cause d'allergie ou d'intolérance (nous additionnons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si elle reçoit ce médicament). Vous pouvez aussi tracer un arbre de probabilité pour résoudre ce problème, si vous préférez"),
-  fail_if(~ TRUE, "Votre calcul n'est pas correct. Combien ne peuvent recevoir le médicament ? Combien n'y réagissent pas positivement ? C'est la clé.")
+  pass_if(~ identical(.result, 0.5 + (0.2 * 0.5)), "Nous avons deux sous-populations indépendantes : celle qui peut recevoir le médicament et celle qui ne le peut pas à cause d'allergie ou d'intolérance (nous additionnons donc les probabilités respectives). Parmi ceux qui reçoivent le médicament, 20% d'entre eux ne guérissent pas (nous multiplions la probabilité d'appartenir à la sous-population qui peut recevoir le médicament avec la probabilité de ne pas guérir si elle reçoit ce médicament). Vous pouvez aussi tracer un arbre de probabilité pour résoudre ce problème, si vous préférez"),
+  fail_if(~ TRUE, "Votre calcul n'est pas correct. Combien ne peuvent recevoir le médicament ? Combien n'y réagissent pas positivement ? C'est la clé.")
 )
 ```
 

@@ -31,7 +31,7 @@ L'association entre deux variables peut être quantifiée grâce à différents 
 
 On définit trois niveaux d'association impliquant des hypothèses de plus en plus fortes sur les mécanismes sous-jacents liant ces deux variables : **corrélation**, **relation** et **causalité**.
 
-La corrélation est simplement l'association de deux variables sans élaborer plus d'hypothèses sur les mécanismes éventuellement responsables de cette association.
+La corrélation est l'association de deux variables sans élaborer plus d'hypothèses sur les mécanismes éventuellement responsables de cette association.
 
 Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
 
@@ -56,7 +56,7 @@ Vous avez à votre disposition un jeu de données sur des mesures biométriques 
 (iris <- read("iris", package = "datasets", lang = "fr"))
 ```
 
-La fonction `skim()` du package {skimr} est très intéressante dans un carnet de notes pour découvrir les données. Avec une seule fonction, on se fait rapidement une première idée sur le nombre d'observations, le type des variables, la présence de valeurs manquantes ...
+La fonction `skim()` du package {skimr} est très intéressante dans un carnet de notes pour découvrir les données. Avec une seule fonction, on se fait rapidement une première idée sur le nombre d'observations, le type des variables, la présence de valeurs manquantes...
 
 ```{r, echo=TRUE}
 skimr::skim(iris)
@@ -146,7 +146,7 @@ question("Quelles sont les variables les plus fortement corrélées (sélectionn
 
 ## Test de corrélation
 
-Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un coefficient de corrélation supérieur à 0.9. Cependant, avoir une valeur élevée ne permet pas d'affirmer que la corrélation est **significative** entre ces deux variables. Utilisez un test de corrélation de Pearson afin de répondre à la question suivante : **est-ce que la largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont significativement corrélées au seuil alpha de 5% ?**
+Suite à votre matrice de corrélation linéaire avec l'indice de corrélation de Pearson, vous avez pu observer que la longueur des pétales et la largeur des pétales ont un coefficient de corrélation supérieur à 0.9. Cependant, avoir une valeur élevée ne permet pas d'affirmer que la corrélation est **significative** entre ces deux variables. Utilisez un test de corrélation de Pearson pour répondre à la question suivante : **est-ce que la largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont significativement corrélées au seuil alpha de 5% ?**
 
 ```{r cortest_h2, exercise=TRUE, exercise.lines=3, exercise.setup="iris_prepa"}
 cor.test(data = ___, ~ ___ + ___,
@@ -171,10 +171,10 @@ grade_code("Vous venez de réaliser un test de corrélation de Pearson. Il ne vo
 ```
 
 ```{r quiz_test}
-question("La largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont-elles significativement corrélées au seuil alpha de 5% ?",
+question("La largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont-elles significativement corrélées au seuil alpha de 5% ?",
   answer("Oui", correct = TRUE),
   answer("Non"),
-  correct = "Avec une valeur P inférieure au seuil alpha de 5%, il y a rejet de l'hypothèse nulle.", 
+  correct = "Avec une valeur *p* inférieure au seuil alpha de 5%, il y a rejet de l'hypothèse nulle.", 
   incorrect = "Il semble que vous n'avez pas su correctement interpréter ce test. Vérifez votre compréhension de ses hypothèses nulle et alternative, ainsi que la façon de décider laquelle favoriser.", 
   allow_retry = TRUE)
 ```

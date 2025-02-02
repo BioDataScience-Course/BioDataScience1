@@ -1,10 +1,10 @@
 ---
-title: "Distributions continues"
+title: "Distributions discrètes"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 7** Distributions normale et log-normale, graphique quantile-quantile."
+description: "**SDD I Module 7** Distributions binomiale de Poisson, log-normale et graphique quantile-quantile."
 tutorial:
   id: "A07La_distri2"
-  version: 2.1.0/7
+  version: 2.1.1/11
 output:
   learnr::tutorial:
     progressive: true
@@ -30,171 +30,235 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-La loi de distribution normale est centrale en statistiques. Ce tutoriel vous permet d'auto-évaluer vos acquis à son sujet. Vous allez :
+Une loi de distribution statistique généralise le calcul des probabilités dans une situation bien définie. Elle permet de calculer la probabilité que des évènements se produisent d'un point de vue théorique. La distribution binomiale et celle de Poisson concernent des variables quantitatives à deux modalités, c'est-à-dire que seulement deux évènements disjoints peuvent se produire.
 
--   Vérifier que vous comprenez bien la logique des calculs autour de la distribution normale
+Ce tutoriel est une auto-évaluation de vos connaissances pour :
 
--   Réaliser et interpréter un graphique quantile-quantile
+-   Vérifier vos connaissances relatives à la loi de distribution des probabilités binomiale
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution Normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/graphique-quantile-quantile.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A06La_proba")`).
+-   Vous assurer d'avoir bien compris la distribution de Poisson
 
-## Distribution normale
+-   Être certain de bien comprendre le graphique quantile-quantile et l'utiliser pour décider si la distribution d'un échantillon suit une distribution normale ou log-nermale
 
-![](images/para_normal_distribution.jpg)
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-de-poisson.html), à la distribution log-normale et au graphique quantile-quantile. Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via le tutoriel précédent `BioDataScience1::run("A06La_proba")`.
 
-La distribution normale (ou Gaussienne) est appelée comme cela parce que c'est celle qui se rencontre le plus souvent. Elle s'observe à chaque fois que le résultat est la somme de petits effets aléatoires qui se combinent. Elle a une forme caractéristique, dite "en cloche".
+## Distribution binomiale
 
-### Graphique
+La distribution binomiale calcule les probabilités de *n* succès pour un modèle essai-erreur indépendant. Cela signifie que seulement deux évènements disjoints sont possibles : le "succès" ou l'"échec" (ces noms sont attribués aux deux évènements qui peuvent représenter tout autre chose comme pile ou face, mâle ou femelle, chevelu ou non ...). Le nombre d'essais indépendants *p* est fixé à l'avance et est toujours le même pour une distribution donnée.
 
-Employez R pour représenter la densité de probabilité de la distribution $Y \sim N(10, 9)$ (attention à la différence entre la variance ici et l'écart type "sigma" qui est utilisé dans la fonction de calcul) !
+![](images/lions.jpg)
 
-<!-- 💬 **Ce code correspond au snippet `.indens`** [`.in` = (d)`i`stribution: `n`ormal]. -->
+En guise d'entrée en matière, répondez aux questions suivantes en effectuant le calcul à la main (en vous aidant éventuellement d'une calculatrice de poche). Considérant une population de lions dans une réserve naturelle au Kenya qui est composée d'autant de lions mâles que de lionnes (sexe ratio de 1:1). Vous vous baladez dans la réserve et vous avez observé dix individus au total (considérez que les individus se répartissent aléatoirement dans la réserve, nous savons bien qu'en pratique, ce n'est pas vraiment le cas).
 
-```{r normal1_h2, exercise=TRUE, exercise.lines=5}
-N1 <- dist_normal(mu = ___, sigma = ___)
-___(___) +
-  ___("Densité de probabilité")
+```{r qu_binom}
+quiz(
+  question("Calculez la probabilité d'avoir observé trois mâles au maximum.",
+    answer("0.117"),
+    answer("0.161"),
+    answer("0.172", correct = TRUE),
+    answer("0.828"),
+    allow_retry = TRUE, random_answer_order = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse.",
+    correct = "C'est correct ! Si l'on considère une répartition aléatoire des individus dans la réserve, du moins, pour cet exemple fictif. Vous avez fait, par exemple, `pbinom(3, 10, 0.5, lower.tail = TRUE)`."),
+  question("Calculez la probabilité d'observer au minimum quatre mâles parmi ces dix individus.",
+    answer("0.117"),
+    answer("0.161"),
+    answer("0.172"),
+    answer("0.828", correct = TRUE),
+    allow_retry = TRUE, random_answer_order = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse.",
+    correct = "C'est correct ! Notez que cette probabilité est complémentaire à la précédente `(1 - P3m)`, avec P3m la probabilité d'observer entre 0 et 3 mâles calculée juste au dessus.")
+)
 ```
 
-```{r normal1_h2-hint-1}
-N1 <- dist_normal(mu = ___, sigma = ___)
-___(___) +
-  ___("Densité de probabilité")
+Calculez la table des probabilités possibles pour tous les évènements depuis zéro jusqu'à dix lions mâles observés sur dix individus au total, avec R.
+
+<!-- 💬 **Ce code correspond au snippet `.ibtable`** [`.ib`= (d)istribution: `b`inomial]. -->
+
+```{r binom1_h2, exercise=TRUE}
+(bi_table <- dtx(succès = ___,
+    probabilité = dbinom(___, size = ___, prob = ___)))
+```
+
+```{r binom1_h2-hint-1}
+(bi_table <- dtx(succès = 0:10,
+    probabilité = dbinom(0:10, size = ___, prob = ___)))
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r normal1_h2-solution}
-## Solution ##
-N1 <- dist_normal(mu = 10, sigma = 3)
-chart(N1) +
-  ylab("Densité de probabilité")
+```{r binom1_h2-solution}
+(bi_table <- dtx(succès = 0:10,
+    probabilité = dbinom(0:10, size = 10, prob = 0.5)))
 ```
 
-```{r normal1_h2-check}
-grade_code("Ceci est plutôt simple à réaliser une fois que l'on se rappelle que l'écart type \"sigma\" est la racine carrée dce la variance. La ligne avec `ylab()` n'est là que pour s'assurer d'avoir le label de l'axe en français.")
+```{r binom1_h2-check}
+grade_code("Oui, `dbinom()` permet de réaliser ce calcul. Vous auriez aussi pu utiliser `density(dist_binomial(10, 0.5), 0:10)[[1]]` à la place.")
 ```
 
-Ajoutez maintenant sur le graphique une aire en rouge délimitée entre les quantiles 8 et 12 et annotez-là en son centre avec l'indication "P[8, 12]" en rouge. Pour ajouter une aire colorée sous la courbe, vous utilisez `geom_funfill()` avec l'argument `fun = dfun(...)` pour un graphique de densité de probabilité ou `fun = cdfun(...)` pour un graphique de densité de probabilité cumulée. Enfin pour annoter le graphique avec du texte, vous utilisez `annotate("text", ...)`.
+Utilisez R cette fois-ci, pour répondre à une des questions posées lors du quiz plus hau : "Calculez la probabilité d'observer au maximum 3 mâles sur 10 individus", en utilisant `bi <- dist_binomial()`.
 
-<!-- 💬 **Le code ajouté en dernière ligne après celui qui génère le graphique correspond au snippet `.inllabel`.** -->
+<!-- 💬 **Ce code correspond au snippet `.ibproba`.** -->
 
-```{r normal2_h2, exercise=TRUE, exercise.lines=5}
-N1 <- dist_normal(mu = 10, sigma = 3)
-chart(N1) +
-  ylab("Densité de probabilité") +
-  ___(fun = ___(N1), from = ___, to = ___) +
-  ___("text", x = ___, y = 0.06, label = "P[8, 12]", col = "red")
+```{r binom2_h3, exercise=TRUE}
+bi <- dist_binomial(size = ___, prob = ___)
+___(bi, q = ___)
 ```
 
-```{r normal2_h2-hint-1}
-N1 <- dist_normal(mu = 10, sigma = 3)
-chart(N1) +
-  ylab("Densité de probabilité") +
-  geom_funfill(fun = ___(N1), from = ___, to = ___) +
-  annotate("text", x = ___, y = 0.06, label = "P[8, 12]", col = "red")
+```{r binom2_h3-hint-1}
+bi <- dist_binomial(size = ___, prob = ___)
+___(bi, q = 3)
+```
+
+```{r binom2_h3-hint-2}
+bi <- dist_binomial(size = 10, prob = ___)
+___(bi, q = 3)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r normal2_h2-solution}
+```{r binom2_h3-solution}
 ## Solution ##
-N1 <- dist_normal(mu = 10, sigma = 3)
-chart(N1) +
-  ylab("Densité de probabilité") +
-  geom_funfill(fun = dfun(N1), from = 8, to = 12) +
-  annotate("text", x = 10, y = 0.06, label = "P[8, 12]", col = "red")
+bi <- dist_binomial(size = 10, prob = 0.5)
+cdf(bi, q = 3)
 ```
 
-```{r normal2_h2-check}
-grade_code("Si `geom_funfill()` est une function spécifique à `SciViews::R` pour compléter les graphiques des distributions, `annotate(\"text\", ...)` est classique pour les graphiques de type {ggplot2} comme ici et est donc réutilisable pour annoter tous vos graphiques.")
+```{r binom2_h3-check}
+grade_code("Vous comprenez manifestement bien la logique de ce type de calcul dans R... ou alors, vous avez passé énormément de temps à observer les lions au Kenya !")
 ```
 
-### Calculs avec la loi normale
+Calculez avec R la probabilité d'observer exactement 4 lionnes pour 10 contacts dans une autre réserve où il y a trois femelles pour un mâle (Pr{femelle} = 0.75). Vous ferez le calcul en utilisant uniquement `pbinom()`, ce qui vous oblige à soustraire des aires.
 
-Comme pour les autres lois de distributions, il est vital de pouvoir calculer des probabilités en fonctions de quantiles et des quantiles à partir de probabilités. Nous nous référerons toujours à la probabilités d'avoir une valeur plus petite (aire à gauche avec `lower.tail = TRUE`) ou plus grande (aide à droite avec `lower.tail = FALSE`) que ce quantile. Une aire comprise entre deux quantiles doit se calculer en deux temps (Pr{Q2} - Pr{Q1}).
-
-![](images/maize.jpg)
-
-Vous étudiez la croissance de plants de maïs. A partir d'un grand nombre de mesures, vous avez pu déterminer que la hauteur de vos plants suit une distribution Normale avec une moyenne de 145 cm et une variance de 484 (donc un écart type de 22 cm).
-
-Calculez la probabilités d'avoir un plant de maïs pris au hasard de moins de 100 cm de haut dans votre champ.
-
-<!-- 💬 **Ce code correspond au snippet `.inproba`.** -->
-
-```{r normal3_h3, exercise=TRUE}
-pnorm(___, mean = ___, sd = ___, lower.tail = ___)
-```
-
-```{r normal3_h3-hint-1}
-pnorm(100, mean = ___, sd = ___, lower.tail = ___)
-```
-
-```{r normal3_h3-hint-2}
-pnorm(100, mean = 145, sd = ___, lower.tail = ___)
-
- #### ATTENTION: Hint suivant = solution !####
-```
-
-```{r normal3_h3-solution}
-## Solution ##
-pnorm(100, mean = 145, sd = 22, lower.tail = TRUE)
-```
-
-```{r normal3_h3-check}
-grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = FALSE` dans la fonction `pnorm()`.")
-```
-
-Calculez la probabilités d'avoir un plant de maïs prélevé au hasard dont la hauteur est comprise entre 120 et 150 cm en utilisant les aires à gauche des quantiles et toujours la fonction `pnorm()`.
-
-```{r normal4_h3, exercise=TRUE}
-pnorm(___, mean = ___, sd = ___, lower.tail = ___) -
+```{r binom3_h3, exercise=TRUE}
+pbinom(___, size = ___, prob = ___, lower.tail = ___) -
   ___
 ```
 
-```{r normal4_h3-hint-1}
-pnorm(150, mean = ___, sd = ___, lower.tail = ___) -
-  pnorm(___, mean = ___, sd = ___, lower.tail = ___)
+```{r binom3_h3-hint-1}
+pbinom(___, size = ___, prob = ___, lower.tail = ___) -
+  pbinom(___, size = ___, prob = ___, lower.tail = ___)
 ```
 
-```{r normal4_h3-hint-2}
-pnorm(150, mean = ___, sd = ___, lower.tail = ___) -
-  pnorm(120, mean = ___, sd = ___, lower.tail = ___)
+```{r binom3_h3-hint-2}
+pbinom(4, size = ___, prob = ___, lower.tail = TRUE) -
+  pbinom(___, size = ___, prob = ___, lower.tail = TRUE)
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r normal4_h3-solution}
+```{r binom3_h3-solution}
 ## Solution ##
-pnorm(150, mean = 145, sd = 22, lower.tail = TRUE) -
-  pnorm(120, mean = 145, sd = 22, lower.tail = TRUE)
+pbinom(4, size = 10, prob = 0.75, lower.tail = TRUE) -
+  pbinom(3, size = 10, prob = 0.75, lower.tail = TRUE)
 ```
 
-```{r normal4_h3-check}
-grade_code("Une aire comprise entre deux quantiles se calcule toujours en soustrayant la plus petite de la plus grande (par rapport aux deux quantiles respectifs). Deux calculs sont possibles : via les aires à gauche comme ici, ou via les aires à droite en utilisant `lower.tail = FALSE`.")
+```{r binom3_h3-check}
+grade_code("Comme le calcul de probabilité selon des lois de distribution avec les fonctions `pXXX()` nous renvoie la probabilité d'être plus petit ou égal avec `lower.tail = TRUE` ou plus grand ou égal avec `lower.tail = FALSE`, nous devons ruser et soustraire deux probabilités pour avoir un intervalle borné des deux côtés (ou ici, une seule valeur possible). Dans le cas d'une distribution discrète et d'un seul évènement possible, nous avons plus vite fait de déterminer directement la densité de probabilté en ce point avec `dbinom(4, 10, 0.75)` ou `density(dist_binomial(10, 0.75), 4)`. Le calcul que vous venez de faire est toutefois généralisable à un intervalle de plusieurs évènements et aussi au cas des distributions continues (cf tutoriel suivant).")
 ```
 
-En partant de la distribution théorique $Y \sim N(10, 6.25)$, calculez le quantile délimitant une probabilités à droite de 0.1 (10% des plus grandes observations), en utilisant l'une des fonctions p/q/r/d.
+Représentez le graphique de densité de probabilité pour la distribution binomiale de l'exercice précédent. Dans vos scripts, n'oubliez pas d'utiliser le code suivant avant d'utiliser `chart()` : `SciViews::R("infer")` et `library(BioDataScience1)`.
 
-<!-- 💬 **Ce code correspond au snippet `.inquant`.** -->
+<!-- 💬 **Ce code correspond au snippet `.ibdens`.** -->
 
-```{r normal5_h2, exercise=TRUE}
-qnorm(___, mean = ___, sd = __, lower.tail = ___)
+```{r binom4_h2, exercise=TRUE}
+bi <- ___(size = ___, prob = ___)
+chart(___) +
+  ylab("___")
 ```
 
-```{r normal5_h2-hint-1}
-qnorm(0.1, mean = ___, sd = ___, lower.tail = ___)
+```{r binom4_h2-hint-1}
+bi <- dist_binomial(size = ___, prob = ___)
+chart(___) +
+  ylab("Densité de probabilité")
 
  #### ATTENTION: Hint suivant = solution !####
 ```
 
-```{r normal5_h2-solution}
+```{r binom4_h2-solution}
 ## Solution ##
-qnorm(0.1, mean = 10, sd = 2.5, lower.tail = FALSE)
+bi <- dist_binomial(size = 10, prob = 0.75)
+chart(bi) +
+  ylab("Densité de probabilité")
 ```
 
-```{r normal5_h2-check}
-grade_code("La fonction `qnorm()` calcule un quantile à partir d'une probabilité, contrairement à `pnorm()` qui calcule une probabilité à partir d'un quantile. Vous auriez aussi pu utiliser `quantile(dist_normal(10, 2.5), 1 - 0.1)`... pourquoi `1 - 0.1` ? Parce que `quantile()` calcule toujours par rapport à l'aire à gauche, donc, l'aire complémentaire à nos 10%, soit 90% ici !")
+```{r binom4_h2-check}
+grade_code("Les traits verticaux représentent ici la probabilité de chaque évènement discret correspondant au nombre de succès (les quantiles) en fonction du nombre d'essais indépendants qui est toujours le même (indiqué via `size=`).")
+```
+
+## Distribution de Poisson
+
+![](images/fishing.jpg)
+
+La distribution de Poisson détermine, tout comme la distribution binomiale, les probabilités de nombres de succès par rapport à un nombre d'essais indépendants, mais ici la probabilité de succès est très faible (évènement rare). Vous pouvez utiliser cette distribution pour déterminer la probabilité de rencontrer un animal rare, pour prédire les tremblements de terre, pour déterminer la probabilité d'une maladie rare ... et même pour prédire la probabilité que vous arriviez à pêcher un gros poisson avec votre petite canne à pêche !
+
+Répondez à la question suivante en effectuant le calcul à la main (en vous aidant éventuellement d'une calculatrice de poche).
+
+```{r qu_poisson}
+quiz(
+  question("Calculez le troisième terme d'une distribution de Poisson avec $\\lambda = 3$.",
+    answer("0.353"),
+    answer("0.647"),
+    answer(" 0.224", correct = TRUE),
+    answer("0.828"),
+    allow_retry = TRUE, random_answer_order = TRUE,
+    incorrect = "Recommencez afin de trouver la bonne réponse",
+    correct = "C'est correct !")
+)
+```
+
+Utilisez R pour représentez la table de probabilités lié à l'exercice ci-dessus avec les fonctions p/q/r/d.
+
+<!-- 💬 **Ce code correspond au snippet `.iptable`** [`.ip` = (d)`i`stribution: `p`oisson]. -->
+
+```{r poisson1_h2, exercise=TRUE}
+(poi_table <- dtx(occurences = 0:(___ + 20),
+  probabilité = dpois(0:(___ + 20), lambda = ___)))
+```
+
+```{r poisson1_h2-hint-1}
+(poi_table <- dtx(occurences = 0:(3 + 20),
+  probabilité = dpois(0:(___ + 20), lambda = ___)))
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r poisson1_h2-solution}
+## Solution ##
+(poi_table <- dtx(occurences = 0:(3 + 20),
+  probabilité = dpois(0:(3 + 20), lambda = 3)))
+```
+
+```{r poisson1_h2-check}
+grade_code("La distribution de Poisson est plus simple que la distribution binomiale car elle n'admet qu'un seul paramètre, lambda, correspondant au nombre de succès le plus probable.")
+```
+
+Représentez le graphique de densité cumulée de la distribution de Poisson pour $\lambda = 12$.
+
+<!-- 💬 **Ce code correspond au snippet `.ipdens`.** -->
+
+```{r poisson2_h2, exercise = TRUE}
+poi <- ___(lambda = ___)
+___$___(___) +
+  ylab("Densité de probabilité cumulée")
+```
+
+```{r poisson2_h2-hint-1}
+poi <- ___(lambda = ___)
+chart$___(poi) +
+  ylab("Densité de probabilité cumulée")
+
+ #### ATTENTION: Hint suivant = solution !####
+```
+
+```{r poisson2_h2-solution}
+## Solution ##
+poi <- dist_poisson(lambda = 12)
+chart$cumulative(poi) +
+  ylab("Densité de probabilité cumulée")
+```
+
+```{r poisson2_h2-check}
+grade_code("Ce graphique montre que l'on tend, pour les probabilités cumulées, très rapidement vers 1 (pour un quantile aux alentours de 15). Cela signifie que l'on a pratiquement 100% de chances d'observer maximum 15 fois cet évènement rare durant la période d'observation définie.")
 ```
 
 ## Graphique quantile-quantile
@@ -273,7 +337,7 @@ car::qqPlot(crabs[["length"]], distribution = "lnorm",
 
 ## Conclusion
 
-Vous rencontrerez très souvent la loi normale dans vos analyses de données biologiques. Être capable de vérifier si un échantillon suit cette distribution ou non sera également très utile. Faites tout de même attention à la **taille de l'échantillon**. Il vous faut plusieurs dizaines d'observations, sinon, vous n'aurez pas suffisamment de données pour l'estimer de manière valable.
+Bravo ! Vous venez de terminer votre auto-évaluation relative à deux des lois de distribution de probabilités les plus courantes. La logique et la façon d'effectuer des calculs de probabilités à partir de quantiles ou de quantiles à partir de probabilités est un exercice de base en statistiques que vous serez amené à utiliser fréquemment. Assurez-vous donc de bien les maîtriser.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

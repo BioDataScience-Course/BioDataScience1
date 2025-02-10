@@ -145,7 +145,7 @@ pnorm(100, mean = 145, sd = 22, lower.tail = TRUE)
 ```
 
 ```{r normal3_h3-check}
-grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = FALSE` dans la fonction `pnorm()`.")
+grade_code("Ici, c'est bien l'aire à gauche du quantile 100 cm qui nous intéresse. Elle correspond à la probabilité qu'un plant soit moins haut que ce quantile et se calcule en spécifiant `lower.tail = TRUE` dans la fonction `pnorm()`.")
 ```
 
 Calculez la probabilités d'avoir un plant de maïs prélevé au hasard dont la hauteur est comprise entre 120 et 150 cm en utilisant les aires à gauche des quantiles et toujours la fonction `pnorm()`.

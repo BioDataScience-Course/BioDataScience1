@@ -1,3 +1,7 @@
+# BioDataScience1 2024.7.0
+
+-   Learnrs **A07La_distri2**, **A07Lb_chi2** and **A07Lc_chi2b** revised.
+
 # BioDataScience1 2024.6.0
 
 -   Learnrs **A06La_proba**, **A06Lb_distri** and **A06Lc_correlation** revised.

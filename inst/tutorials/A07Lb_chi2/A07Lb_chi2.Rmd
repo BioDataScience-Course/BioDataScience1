@@ -35,7 +35,7 @@ La loi de distribution du $\chi^2$ représente de manière théorique la probabi
 
 -   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
-Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html) du cours, en particulier la [section 8.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/test-dhypoth%25C3%25A8se.html), et vous devez avoir compris les différentes notions vue au [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à auto-évaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
+Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/districhi2.html) du cours, en particulier la [section 7.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html), et vous devez avoir compris les différentes notions vues au [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/probacorr.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à autoévaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
 ## Distribution du $\chi^2$
 
@@ -158,7 +158,7 @@ Donc, pour notre expérience de préférences alimentaires des chimpanzés, nous
 knitr::kable(chimp)
 ```
 
-Or, sous H~0~ de non préférences alimentaires, nous nous attendions à observer à peu près le même nombre de premiers choix pour chaque fruit. Ces écarts sont-ils révélateurs de préférences marquées, ou peuvent-il être obtenus par le hasard ? Pour le vérifier, nous avions calculé la valeur du $\chi^2_{obs}$ comme étant 7.601.
+Or, sous H~0~ de non-préférences alimentaires, nous nous attendions à observer à peu près le même nombre de premiers choix pour chaque fruit. Ces écarts sont-ils révélateurs de préférences marquées, ou peuvent-il être obtenus par le hasard ? Pour le vérifier, nous avions calculé la valeur du $\chi^2_{obs}$ comme étant 7.601.
 
 Cette valeur doit maintenant être confrontée à la distribution théorique du $\chi^2$ à deux degrés de liberté (nombre de niveaux de la variable qualitative `fruit` moins un, donc ici (3 - 1) = 2) représentée ci-dessous.
 
@@ -199,15 +199,15 @@ pchisq(7.601, df = 2, lower.tail = FALSE)
 grade_code("Cette probabilité est appelée valeur P du test d'hypothèse.")
 ```
 
-Pour tirer une conclusion avec le **test d'hypothèse** du $\chi^2$ univarié, vous comparez la valeur *P* ainsi obtenue au seuil $\alpha$ que vous avez fixé préalablement (choix réalisé *avant* de faire le test pour ne pas être influencé par le résultat). Souvent, on prend $\alpha$ = 5% en biologie. Les hypothèse (H~0~ = hypothèse nulle et H~1~ ou H~A~ = hypothèse alternative) du test $\chi^2$ univarié sont :
+Pour tirer une conclusion avec le **test d'hypothèse** du $\chi^2$ univarié, vous comparez la valeur *P* ainsi obtenue au seuil $\alpha$ que vous avez fixé préalablement (choix réalisé *avant* de faire le test pour ne pas être influencé par le résultat). Souvent, on prend $\alpha$ = 5% en biologie. Les hypothèses (H~0~ = hypothèse nulle et H~1~ ou H~A~ = hypothèse alternative) du test $\chi^2$ univarié sont :
 
 -   H~0~ : $a_i = \alpha_i$ pour tout $i$
 -   H~1~ : $a_i \neq \alpha_i$ pour au moins un $i$
 
 Les règles pour décider si nous rejetons ou non H~0~ sont :
 
--   Valeur *P* \< $\alpha$ =\> rejet de H~0~
--   Valeur *P* ≥ $\alpha$ =\> non rejet de H~0~
+-   Valeur *p* \< $\alpha$ =\> rejet de H~0~
+-   Valeur *p* ≥ $\alpha$ =\> non rejet de H~0~
 
 Sur base de tout ceci, tirez des conclusions concernant l'expérience de préférence alimentaire chez le chimpanzé.
 
@@ -302,13 +302,13 @@ chisq.test(chimp2, p = c(Pomme = 1/3, Banane = 1/3, Orange = 1/3), rescale.p = F
 ```
 
 ```{r chi_test2_h3-check}
-grade_code("Le valeur du chi^2^obs est beaucoup plus grande ici et la valeur P est plus petite.")
+grade_code("La valeur du chi^2 obs est beaucoup plus grande ici et la valeur *p* est plus petite.")
 ```
 
-Plus l'échantillon a une taille *N* importante, plus nous avons des données à disposition et nous pourrons donc rejeter H~0~ si elle est fausse même si l'écart entre les $a_i$ et les $\alpha_i$ est très petit. Par contre, si cet écart est très grand, un plus petit nombre d'observations suffira pour rejeter H~0~. A cause de cet effet de *N*, nous ne dirons *jamais* que nous **acceptons** H~1~, mais nous dirons que nous **ne rejetons pas H~0~**. Car, dans cette situation, deux cas sont possibles :
+Plus l'échantillon a une taille *N* importante, plus nous avons des données à disposition et nous pourrons donc rejeter H~0~ si elle est fausse même si l'écart entre les $a_i$ et les $\alpha_i$ est très petit. Par contre, si cet écart est très grand, un plus petit nombre d'observations suffira pour rejeter H~0~. À cause de cet effet de *N*, nous ne dirons *jamais* que nous **acceptons** H~1~, mais nous dirons que nous **ne rejetons pas H~0~**. Car, dans cette situation, deux cas sont possibles :
 
 1.  H~0~ est effectivement vraie
-2.  H~0~ est fausse mais *N* est trop petit pour détecter l'écart entre les fréquences observées et théorique (relativement faible)
+2.  H~0~ est fausse mais *N* est trop petit pour détecter l'écart entre les fréquences observées et théoriques (relativement faible)
 
 A l'inverse, lorsque l'on travaille avec une taille d'échantillon *N* extrêmement grande, on peut être amené à rejeter H~0~ pour des écarts entre $a_i$ et $\alpha_i$ tellement faibles qu'ils ne signifient plus rien, biologiquement parlant. **C'est pour cette raison qu'il faut toujours comparer les fréquences observées et les fréquences théoriques en cas de rejet de H~0~**, afin de se faire une idée de l'**amplitude des écarts** et des niveaux qu'ils concernent.
 

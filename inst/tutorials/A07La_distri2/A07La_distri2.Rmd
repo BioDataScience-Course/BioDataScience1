@@ -1,10 +1,10 @@
 ---
-title: "Distributions discrètes"
+title: "Distributions (suite)"
 author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 7** Distributions binomiale de Poisson, log-normale et graphique quantile-quantile."
 tutorial:
   id: "A07La_distri2"
-  version: 2.1.1/11
+  version: 2.2.0/11
 output:
   learnr::tutorial:
     progressive: true
@@ -32,15 +32,17 @@ BioDataScience1::learnr_server(input, output, session)
 
 Une loi de distribution statistique généralise le calcul des probabilités dans une situation bien définie. Elle permet de calculer la probabilité que des évènements se produisent d'un point de vue théorique. La distribution binomiale et celle de Poisson concernent des variables quantitatives à deux modalités, c'est-à-dire que seulement deux évènements disjoints peuvent se produire.
 
+Parmi les distributions continues, la distribution log-normale est une variante de la distribution normale où les quantiles ne peuvent être que nuls ou positifs. Le graphique quantile-quantile est un outil graphique permettant de comparer la distribution d'un échantillon à une distribution théorique.
+
 Ce tutoriel est une auto-évaluation de vos connaissances pour :
 
 -   Vérifier vos connaissances relatives à la loi de distribution des probabilités binomiale
 
 -   Vous assurer d'avoir bien compris la distribution de Poisson
 
--   Être certain de bien comprendre le graphique quantile-quantile et l'utiliser pour décider si la distribution d'un échantillon suit une distribution normale ou log-nermale
+-   Être certain de bien comprendre le graphique quantile-quantile et l'utiliser pour décider si la distribution d'un échantillon suit une distribution normale ou log-normale
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-de-poisson.html), à la distribution log-normale et au graphique quantile-quantile. Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via le tutoriel précédent `BioDataScience1::run("A06La_proba")`.
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/districhi2.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-de-poisson.html), à la [distribution log-normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-log-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/graphique-quantile-quantile.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via un tutoriel précédent `BioDataScience1::run("A06La_proba")`.
 
 ## Distribution binomiale
 
@@ -206,7 +208,7 @@ quiz(
 )
 ```
 
-Utilisez R pour représentez la table de probabilités lié à l'exercice ci-dessus avec les fonctions p/q/r/d.
+Utilisez R pour représenter la table de probabilités liée à l'exercice ci-dessus avec les fonctions p/q/r/d.
 
 <!-- 💬 **Ce code correspond au snippet `.iptable`** [`.ip` = (d)`i`stribution: `p`oisson]. -->
 
@@ -236,7 +238,7 @@ Représentez le graphique de densité cumulée de la distribution de Poisson pou
 
 <!-- 💬 **Ce code correspond au snippet `.ipdens`.** -->
 
-```{r poisson2_h2, exercise = TRUE}
+```{r poisson2_h2, exercise=TRUE}
 poi <- ___(lambda = ___)
 ___$___(___) +
   ylab("Densité de probabilité cumulée")
@@ -302,7 +304,7 @@ car::qqPlot(crabs[["length"]], distribution = "norm",
 ```
 
 ```{r qqnorm1_h2-check}
-grade_code("Rappelez-vous de la syntaxe `DF$VAR` pour se référer à la variable nommée `VAR` dans le dataframe `DF`. Vous voyez ici que `length` suit une distribution normale parce que tous les points (ou quasi-tous dans d'autres situations) sont à l'intérieur de l'enveloppe de confiance à 95% représenté par les courbes en pointillés bleus.")
+grade_code("Rappelez-vous de la syntaxe `DF$VAR` pour se référer à la variable nommée `VAR` dans le dataframe `DF`. Vous voyez ici que `length` suit une distribution normale parce que tous les points (ou quasi-tous dans d'autres situations) sont à l'intérieur de l'enveloppe de confiance à 95% représentée par les courbes en pointillés bleus.")
 ```
 
 Est-ce que la longueur de carapace suit une distribution log-normale chez ces mêmes crabes ?

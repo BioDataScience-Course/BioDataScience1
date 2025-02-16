@@ -35,7 +35,7 @@ La loi de distribution du $\chi^2$ peut être utilisée pour étudier si des dé
 
 -   Interpréter correctement un tel test
 
-Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html) du cours, en particulier la [section 7.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/test-dhypoth%25C3%25A8se.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A07Lb_chi2")` préalablement. Ce learnr vous sert à auto-évaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
+Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/districhi2.html) du cours, en particulier la [section 7.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html). Vous devez avoir réalisé le tutoriel `BioDataScience1::run("A07Lb_chi2")` préalablement. Ce learnr vous sert à autoévaluer vos acquis relatifs au test $\chi^2$ d'indépendance.
 
 ## Fumeurs
 
@@ -142,12 +142,12 @@ quiz(
     allow_retry = TRUE,
     incorrect = "Recommencez afin de trouver la bonne réponse",
     correct = "Oui, ici nous pouvons rejeter H0 au seuil alpha de 5%."),
-  question("Toujours au seuil alpha de 5%, y-a-t'il dépendance ou indépendance des deux variables ?",
+  question("Toujours au seuil alpha de 5%, y a-t-il dépendance ou indépendance des deux variables ?",
     answer("Dépendance des deux variables", correct = TRUE),
     answer("Indépendance des deux variables"),
     allow_retry = TRUE,
     incorrect = "Recommencez afin de trouver la bonne réponse",
-    correct = "Très bien. Lorsque vous rejetez H0, cela signifie ici dépendance entre le genre et la prévalence du tabagisme chez ces adolescents, en l'occurence, les garçons ont plus tendance à fumer que les filles (vous comparez les fréquences observées par rapport aux fréquences attendues sous H0 pour le déduire).")
+    correct = "Très bien. Lorsque vous rejetez H0, cela signifie ici dépendance entre le genre et la prévalence du tabagisme chez ces adolescents, en l'occurrence, les garçons ont plus tendance à fumer que les filles (vous comparez les fréquences observées par rapport aux fréquences attendues sous H0 pour le déduire).")
 )
 ```
 
@@ -219,7 +219,7 @@ chart(usa, aes(long, lat, group = group)) +
   coord_quickmap()
 ```
 
-Voici les résultats de cette étude sur un échantillon aléatoire de la population (notez l'utilisation de `xtabs()` ici en avant dernière ligne pour créer le tableau de contingence à double entrée à partir des fréquences.
+Voici les résultats de cette étude sur un échantillon aléatoire de la population (notez l'utilisation de `xtabs()` ici en avant-dernière ligne pour créer le tableau de contingence à double entrée à partir des fréquences.
 
 <!-- et qui correspond au snippet `.ectable2f`) : -->
 
@@ -236,7 +236,7 @@ knitr::kable(blood_table)
 
 Les distributions des groupes sanguins sont-elles identiques dans les trois états étudiés ?
 
-Avant de réalisez votre test $\chi^2$ d'indépendance avec R, veuillez indiquer le nombre de degré de liberté de la distribution $\chi^2$ théorique associée.
+Avant de réalisez votre test $\chi^2$ d'indépendance avec R, veuillez indiquer le nombre de degrés de liberté de la distribution $\chi^2$ théorique associée.
 
 ```{r qu_ddl}
 question("Nombre de degré de liberté de la distribution du $\\chi^2$.",
@@ -304,7 +304,7 @@ quiz(
 
 ## Conclusion
 
-A l'issue de cette série d'exercices, vous devriez être à l'aise avec l'utilisation de la distribution du $\chi^2$ et de ses tests d'hypothèse univarié et d'indépendance. Vous pouvez maintenant passer à des applications concrètes (projets GitHub).
+À l'issue de cette série d'exercices, vous devriez être à l'aise avec l'utilisation de la distribution du $\chi^2$ et de ses tests d'hypothèse univarié et d'indépendance. Vous pouvez maintenant passer à des applications concrètes (projets GitHub).
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

@@ -1,3 +1,7 @@
+# BioDataScience1 2024.8.0
+
+-   Learnrs **A08La_ttest**, **A08Lb_ttest_wmw** revised.
+
 # BioDataScience1 2024.7.0
 
 -   Learnrs **A07La_distri2**, **A07Lb_chi2** and **A07Lc_chi2b** revised.

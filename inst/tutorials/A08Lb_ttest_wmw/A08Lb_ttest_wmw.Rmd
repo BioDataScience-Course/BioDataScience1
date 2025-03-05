@@ -1,7 +1,7 @@
 ---
 title: "Tests de Student & Wilcoxon"
 author: "Guyliann Engels & Philippe Grosjean"
-description: "**SDD I Module 8** Tests de Student et de Wilcoxon/Mann-Whitney."
+description: "**SDD I Module 8** Tests de Student et de Wilcoxon-Mann-Whitney."
 tutorial:
   id: "A08Lb_ttest_wmw"
   version: 2.2.2/11
@@ -33,9 +33,9 @@ Le test *t* de Student, ou plutôt les tests de Student puisqu'il en existe plus
 
 -   Comprendre les différentes variantes du test *t* de Student et les utiliser pour résoudre des questions pratiques en biologie
 
--   Faire de même pour le test de Wilcoxon/Mann-Whitney, et pouvoir déterminer quand l'utiliser à la place du test *t* de Student
+-   Faire de même pour le test de Wilcoxon-Mann-Whitney, et pouvoir déterminer quand l'utiliser à la place du test *t* de Student
 
-N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A08La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/moyenne.html) du cours.
+N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A08La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 8, section 8.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/wilcox.html) du cours.
 
 ## Efficacité du mCPP sur la perte de poids
 
@@ -183,9 +183,9 @@ quiz(
     answer("oui", correct = TRUE),
     answer("non"),
     allow_retry = TRUE,
-    incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur *P* au seuil $\alpha$  défini avant de réaliser le test.",
+    incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur *p* au seuil $\alpha$  défini avant de réaliser le test.",
     correct = "C'est correct. Vous rejetez effectivement $H_0$ au seuil alpha de 5%."),
-  question("Est-ce que le mCPP a un effet significatif sur la perte de poids ?",
+  question("Est-ce que le mCPP a un effet significatif sur la perte de poids au seuil alpha de 5% ?",
     answer("oui", correct = TRUE),
     answer("non"),
     allow_retry = TRUE,
@@ -271,11 +271,11 @@ chart(data = dopamine, conc ~ treatment) +
 grade_code("Vous avez réalisé le bon graphique. Celui-ci permet de visualiser comment se répartissent les concentrations en dopamine dans le cerveau des rats pour les deux traitements", "Oups, il semble que vous n'avez pas obtenu le bon graphique. N'hésitez pas à jeter un coup d'œil aux indices.")
 ```
 
-### Test de Wilcoxon/Mann-Whitney
+### Test de Wilcoxon-Mann-Whitney
 
 Lorsque vos observations ne suivent **pas une distribution normale** avec un nombre relativement faible d'observations, ou que vous avez même trop peu de données pour le vérifier et que vous en doutez, vous pouvez faire le choix de réaliser une version non paramétrique du test *t* de Student. Il s'agit du test de Wilcoxon, encore appelé test de Mann-Whitney. Les conditions d'application de ce dernier test ne nécessitent pas de distribution particulière des données. Il est donc toujours applicable. Cependant, le test *t* de Student reste à préférer s'il est applicable car il est **plus puissant** (c'est-à-dire qu'il est capable de déterminer une différence significative éventuelle avec moins de données à disposition... ce qui est précisément le cas considéré ici).
 
-Dans la littérature, vous avez pu observer que la concentration en dopamine peut varier dans des proportions importantes et extrêmes dans des situations particulières. Ceci vous fait penser que la distribution normale peut ne pas être rencontrée ici. Avec deux fois six observations, nous n'avons pas assez de données pour vérifier la normalité de la distribution. Nous préférons donc la sécurité en effectuant un test de Wilcoxon/Mann-Whitney. Vous avez aussi noté que la concentration en dopanmine peut varier vers le haut autant que vers le bas. Pour cette raison, vous choisissez ici de réaliser un **test bilatéral**.
+Dans la littérature, vous avez pu observer que la concentration en dopamine peut varier dans des proportions importantes et extrêmes dans des situations particulières. Ceci vous fait penser que la distribution normale peut ne pas être rencontrée ici. Avec deux fois six observations, nous n'avons pas assez de données pour vérifier la normalité de la distribution. Nous préférons donc la sécurité en effectuant un test de Wilcoxon-Mann-Whitney. Vous avez aussi noté que la concentration en dopanmine peut varier vers le haut autant que vers le bas. Pour cette raison, vous choisissez ici de réaliser un **test bilatéral**.
 
 **Attention :** sur le graphique en boites de dispersions, nous observons que les concentrations en dopamine tendent à être plus élevées lors de l'exposition au toluène. Mais cette observation est **issue des données elles-mêmes**. Elle ne peut **pas** être utilisée pour décider de la latéralité du test. Cela doit être absolument une information **externe** qui doit conduire à notre choix, par exemple, le comportement de la dopamine en cas d'intoxication chimique à ce genre de molécule... mais aucune information de la littérature ne montre ici un effet unidirectionnel. Donc, le test bilatéral **doit** être appliqué (de même par défaut, en absence de toute information sur le phénomène étudié).
 
@@ -286,7 +286,7 @@ wilcox.test(data = DF, YNUM ~ XFACTOR,
   alternative = "two.sided", conf.level = 0.95)
 ```
 
-Comme vous pouvez vous en apercevoir, la fonction `wilcox.test()` est assez similaire à la fonction `t.test()` du point de vue des ses arguments. Réalisez maintenant le test de Wilcoxon/Mann-Whitney bilatéral au seuil alpha de 5% sur vos données.
+Comme vous pouvez vous en apercevoir, la fonction `wilcox.test()` est assez similaire à la fonction `t.test()` du point de vue des ses arguments. Réalisez maintenant le test de Wilcoxon-Mann-Whitney bilatéral au seuil alpha de 5% sur vos données.
 
 ```{r tolu_wmw_h2, exercise=TRUE, exercise.setup="prepare_toluene"}
 wilcox.test(data = ___, ___ ~ ___,
@@ -329,7 +329,7 @@ quiz(
 )
 ```
 
-**Attention :** lorsque vous faites un test de Wilcoxon/Mann-Whitney, vous comparez globalement les distributions des deux sous-populations. Ce n'est plus les moyennes qui sont comparées (vous pouvez à la rigueur parler de comparaison de médianes, mais ce n'est même pas à 100% exact). Par contre, dans le test *t* de Student, vous **devez** indiquer clairement que ce sont les moyennes qui sont comparées, et ce, aussi bien dans la spécification de vos hypothèses que dans les conclusions que vous tirez de votre analyse.
+**Attention :** lorsque vous faites un test de Wilcoxon-Mann-Whitney, vous comparez globalement les distributions des deux sous-populations. Ce n'est plus les moyennes qui sont comparées (vous pouvez à la rigueur parler de comparaison de médianes, mais ce n'est même pas à 100% exact). Par contre, dans le test *t* de Student, vous **devez** indiquer clairement que ce sont les moyennes qui sont comparées, et ce, aussi bien dans la spécification de vos hypothèses que dans les conclusions que vous tirez de votre analyse.
 
 ## Puissance d'un test d'hypothèse
 
@@ -361,7 +361,7 @@ quiz(
 
 ## Conclusion
 
-Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon/Mann-Whitney. Dans le cours et dans vos projets vous rencontrerez encore d'autres variantes de ces tests : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
+Vous venez de vérifier votre bonne compréhension du test *t* de Student et du test de Wilcoxon-Mann-Whitney. Dans le cours et dans vos projets vous rencontrerez encore d'autres variantes de ces tests : les variantes appariées et indépendantes. Mais vous avez les bases maintenant pour pouvoir vous lancer dans vos exercices sous forme de projets GitHub. Si certaines questions vous semblaient plus difficiles, revoyez la théorie correspondante avant de vous attaquer à ces exercices.
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

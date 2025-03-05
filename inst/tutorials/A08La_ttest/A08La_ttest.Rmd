@@ -37,7 +37,7 @@ La moyenne est un descripteur statistique très employé pour résumer l'informa
 
 -   Comprendre le test *t* de Student et être capable de l'utiliser pour résoudre des questions pratiques en biologie
 
-Vous devez maîtriser le calcul de probabilités ([module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développée dans le [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/correlation.html) relatif au test de corrélation. Enfin, vous devez avoir vu la première partie du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
+Vous devez maîtriser le calcul de probabilités ([module 6, section 6.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/proba.html)) et avoir compris la logique d'un test d'hypothèse telle que nous l'avons développé dans la [section 6.6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/test-de-corr%25C3%25A9lation.html) relatif au test de corrélation. Enfin, vous devez avoir vu la première partie du [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/moyenne.html) avant d'aborder ces exercices d'auto-évaluation de vos acquis.
 
 ## Moyenne
 
@@ -246,7 +246,7 @@ biometry %>.%
   biometry
 ```
 
-Commencez par réalisez un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
+Réalisez maintenant un tableau qui résume la moyenne, l'écart-type et le nombre d'observations pour les hommes et pour les femmes séparément. Employez les fonctions "speedy" commençant par "s" comme `ssummarise()` et "fast" débutant par "f" comme `fvar()`
 
 ```{r bio-prepare}
 biometry <- read("biometry", package = "BioDataScience") %>.%
@@ -315,7 +315,7 @@ quiz(
     answer("oui"),
     answer("non", correct = TRUE),
     allow_retry = TRUE,
-    incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur *P* au seuil alpha, ce dernier étant choisi avant de réaliser le test.",
+    incorrect = "Vous vous êtes trompé. Pour savoir si vous devez rejeter $H_0$, il faut comparer la valeur *p* au seuil alpha, ce dernier étant choisi avant de réaliser le test.",
     correct = "C'est correct. Vous ne rejetez pas $H_0$ au seuil alpha de 5% ici."),
     question("Est-ce que l'indice de masse corporelle moyen est significativement différent entre les hommes et les femmes au seuil alpha de 5% ?",
     answer("oui"),

@@ -1,5 +1,5 @@
 Package: BioDataScience1
-Version: 2024.8.0
+Version: 2024.9.0
 Title: A Series of Learnr Documents for Biological Data Science 1
 Description: Interactive documents using learnr and shiny applications for studying biological data science.
 Authors@R: c(

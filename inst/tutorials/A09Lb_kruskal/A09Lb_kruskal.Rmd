@@ -39,7 +39,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Tout comme le test de Wilcoxon/Mann-Whitney est l'équivalent non paramétrique du test *t* de Student, le test de Kruskal-Wallis est l'équivalent non paramétrique de l'analyse de variance à un facteur.
+Tout comme le test de Wilcoxon-Mann-Whitney est l'équivalent non paramétrique du test *t* de Student, le test de Kruskal-Wallis est l'équivalent non paramétrique de l'analyse de variance à un facteur.
 
 Dans ce tutoriel, vous allez pouvoir auto-évaluer votre capacité à :
 
@@ -71,7 +71,7 @@ plant <- dtx(
 skimr::skim(plant)
 ```
 
-Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe est constitué de 30 réplicas. Il n'y a pas de valeurs manquantes dans ce tableaux. Votre objectif est de comparer les rendements obtenus pour les trois groupes (moyennes ou médianes).
+Vous pouvez observer que ce tableau comprend deux variables dont une variable facteur à trois niveaux et une variable numérique. Chaque groupe est constitué de 30 réplicats. Il n'y a pas de valeurs manquantes dans ce tableaux. Votre objectif est de comparer les rendements obtenus pour les trois groupes (moyennes ou médianes).
 
 ## Un peu de théorie
 
@@ -84,7 +84,7 @@ Lorsque l'on souhaite comparer les valeurs moyennes ou médianes d'une variable 
 -   distribution normale des résidus,
 -   homoscédasticité (même variance intragroupe).
 
-Les quatre premières conditions sont similaires pour le test de Kruskal-Wallis. Les deux dernières conditions sont propres à l'ANOVA. Le raisonnement pour faire un choix entre ANOVA (test paramétrique) et Kruskal-Wallis (test non paramétrique) est le même que pour décider entre l'utilisation d'un test *t* de Student ou d'un test de Wilcoxon/Mann-Whitney. Lorsque les conditions sont remplies, l'ANOVA est un test plus puissant que le Kruskal-Wallis. Il est donc à utiliser en priorité, sauf dans les cas impossibles où aucune transformation des données ne permet d'obtenir une distribution acceptable des résidus ou l'homoscédasticité.
+Les quatre premières conditions sont similaires pour le test de Kruskal-Wallis. Les deux dernières conditions sont propres à l'ANOVA. Le raisonnement pour faire un choix entre ANOVA (test paramétrique) et Kruskal-Wallis (test non paramétrique) est le même que pour décider entre l'utilisation d'un test *t* de Student ou d'un test de Wilcoxon-Mann-Whitney. Lorsque les conditions sont remplies, l'ANOVA est un test plus puissant que le Kruskal-Wallis. Il est donc à utiliser en priorité, sauf dans les cas impossibles où aucune transformation des données ne permet d'obtenir une distribution acceptable des résidus ou l'homoscédasticité.
 
 Concernant le test de Kruskal-Wallis, le calcul se fait dans R comme suit :
 
@@ -92,9 +92,9 @@ Concernant le test de Kruskal-Wallis, le calcul se fait dans R comme suit :
 kruskal.test(data = DF, YNUM ~ XFACTOR)
 ```
 
--   DF : le tableau de données
--   YNUM : la variable quantitative
--   XFACTOR : la variable qualitative
+-   DF : le tableau de données
+-   YNUM : la variable quantitative
+-   XFACTOR : la variable qualitative
 
 À présent que vous êtes au point concernant les conditions d'application, il est temps de répondre à la question posée.
 
@@ -102,7 +102,7 @@ kruskal.test(data = DF, YNUM ~ XFACTOR)
 
 Toute analyse débute par la description des données à l'aide de descripteurs numériques et de graphiques **pertinents**. Vous voulez comparer les **moyennes** de trois groupes (si ANOVA). Il semble évident de présenter graphiquement les moyennes de chaque groupe de telle façon que la comparaison visuelle sur le graphique est facile à réaliser. C'est ce que nous avons fait dans le tutoriel learnr précédent consacré à l'ANOVA.
 
-Par contre, si au cours de votre analyse, vous réalisez que c'est plutôt un test de Kruskal-Wallis, alors il faudra revenir sur votre description initiale des données et vous tourner vers un graphique qui comparera plutôt les **médianes** des trois groupes. Ici, nous savons d'avance que nous réaliserons un test de Kruskal-Wallis au final. Donc, afin d'économiser notre temps, nous ferons directement un graphique en boites de dispersion parallèles. Vous annoterez le graphique avec le nombre d'observations au-dessus de chaque boite de dispersion.
+Par contre, si au cours de votre analyse, vous réalisez que c'est plutôt un test de Kruskal-Wallis, alors il faudra revenir sur votre description initiale des données et vous tourner vers un graphique qui comparera plutôt les **médianes** des trois groupes. Ici, nous savons d'avance que nous réaliserons un test de Kruskal-Wallis au final. Donc, afin d'économiser notre temps, nous ferons directement un graphique en boites à moustaches parallèles. Vous annoterez le graphique avec le nombre d'observations au-dessus de chaque boite à moustache.
 
 ```{r boxplot_h2, exercise=TRUE, exercise.lines=10}
 # Fonction comptant les observations
@@ -110,7 +110,7 @@ give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 # Graphique
 chart(data = __, ___ ~ ___) +
-  geom____() + # boites de dispersion parallèles 
+  geom____() + # boites à moustaches parallèles 
   ___(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
@@ -122,7 +122,7 @@ give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 # Graphique
 chart(data = __, yield ~ group) +
-  geom_boxplot() + # boites de dispersion parallèles 
+  geom_boxplot() + # boites à moustaches parallèles 
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
@@ -137,14 +137,14 @@ give_n <- function(x)
   c(y = max(x) * 1.1, label = length(x)) 
 # Graphique
 chart(data = plant, yield ~ group) +
-  geom_boxplot() + # boites de dispersion parallèles 
+  geom_boxplot() + # boites à moustaches parallèles 
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
 ```
 
 ```{r boxplot_h2-check}
-grade_code("Les boites de dispersion parallèles sont tout indiquées pour représenter les données avant un test de Wilcoxon/Mann-Whitney indépendant ou un test de Kruskal-Wallis.")
+grade_code("Les boites à moustaches parallèles sont tout indiquées pour représenter les données avant un test de Wilcoxon/Mann-Whitney indépendant ou un test de Kruskal-Wallis.")
 ```
 
 Que cela soit un tableau résumé ou un graphique, ils ne permettent pas d'affirmer ou d'infirmer qu'il y a une différence significative entre les groupes présentés. Vous devez réaliser un test d'hypothèse pour décider si les différences observées sont probablement issues de ces différences ou si elles sont plutôt imputables à la variations entre individus et aux erreurs de mesure (variations aléatoires).
@@ -213,7 +213,7 @@ question("Sélectionnez l'interprétation adaptée au test réalisé ci-dessus",
   answer("Au moins la moyenne d'un groupe diffère des autres significativement au seuil alpha de 5%."),
    answer("Les rangs moyens (médianes) ne différent pas significativement au seuil alpha de 5%"),
   answer("Les rangs moyens (médianes) différent significativement au seuil alpha de 5%"),
-  answer("Au moins un rang moyen (médianes) d'un groupe diffère des autres significativement au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5% (Chi^2 = 54,95, ddl = 2, valeur p = 1,17e-12).",
+  answer("Au moins un rang moyen (médianes) d'un groupe diffère des autres significativement au seuil alpha de 5%.", correct = TRUE), correct = "L'interprétation complète est la suivante : Au moins un rang moyen d'un groupe diffère des autres significativement au seuil alpha de 5% (Chi^2 = 54,95, ddl = 2, valeur p < 1e-3).",
   allow_retry = TRUE,
   random_answer_order = TRUE)
 ```

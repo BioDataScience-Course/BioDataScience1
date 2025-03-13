@@ -121,7 +121,7 @@ toothgrowth %>.%
 
 **Cette étape est la première à réaliser après avoir importé les données. Il faut vérifier et adapter les types et les labels des variables.** Il est particulièrement important que les variables qui définissent les sous-populations comparées soient bien encodées sous forme d'objets `factor` ou `ordered` ! Le piège lorsqu'il s'agit de valeurs numériques, comme ici, est de laisser la variable sous forme `integer` ou `numeric`, car alors, la fonction `lm()` fera une autre analyse (régression linéaire que nous verrons au cours SDD II).
 
-Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **y a-t-il une différence de la longueur des odontoblastes en fonction de la ration journalière de vitamine C administrée sous forme d'acide ascorbique ?**
+Nous allons nous concentrer uniquement sur les individus qui ont reçu de la vitamine C. La question biologique est la suivante : **y a-t-il une différence de la longueur des odontoblastes en fonction de la ration journalière de vitamine C administrée sous forme d'acide ascorbique ?**
 
 ```{r, echo=TRUE}
 tooth_vc <- sfilter(toothgrowth, supp == "VC")
@@ -129,7 +129,7 @@ tooth_vc <- sfilter(toothgrowth, supp == "VC")
 
 ### Description des données
 
-Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu1.html), [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu2.html) et [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu3.html) de SDD I).
+Rappelez-vous que la description des données est une étape indispensable avant l'analyse (voir modules [1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/introvisu.html), [2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu2.html) et [3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/visu3.html) de SDD I).
 
 ### Description numérique
 
@@ -195,18 +195,18 @@ grade_code("Vous obtenez le tableau adéquat en vue de réaliser ensuite une ANO
 
 ### Description graphique
 
-Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Étant donné que nous avons trois groupes avec dix individus par groupe, nous vous proposons de réaliser des boites de dispersion parallèles avec l'ajout des valeurs sous la forme de point (tout en évitant le chevauchement des observations) et des moyennes.
+Plusieurs graphiques différents permettent de visualiser correctement vos observations avant de réaliser une ANOVA. Étant donné que nous avons trois groupes avec dix individus par groupe, nous vous proposons de réaliser des boites à moustaches parallèles avec l'ajout des valeurs sous la forme de point (tout en évitant le chevauchement des observations) et des moyennes.
 
 ```{r tooth_graph_h2, exercise=TRUE, exercise.setup="tg_prepare"}
 chart(data = ___, ___ ~ ___) ___
-  geom____() ___ # boites de dispersion parallèles
+  geom____() ___ # boites à moustaches parallèles
   geom____(width = 0.05, alpha = 0.5) ___ # points évitant le chevauchement
   stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
 ```
 
 ```{r tooth_graph_h2-hint-1}
 chart(data = ___, ___ ~ ___) +
-  geom_boxplot() + # boites de dispersion parallèles
+  geom_boxplot() + # boites à moustaches parallèles
   geom____(width = 0.05, alpha = 0.5) + # points évitant le chevauchement
   stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
 
@@ -216,13 +216,13 @@ chart(data = ___, ___ ~ ___) +
 ```{r tooth_graph_h2-solution}
 ## Solution ##
 chart(data = tooth_vc, len ~ dose) +
-  geom_boxplot() + # boites de dispersion parallèles
+  geom_boxplot() + # boites à moustaches parallèles
   geom_jitter(width = 0.05, alpha = 0.5) + # points évitant le chevauchement
   stat_summary(geom = "point", fun = "mean", color = "red", size = 2) # points représentant les moyennes
 ```
 
 ```{r tooth_graph_h2-check}
-grade_code("Ce graphique est adéquat pour visualiser les données avant une ANOVA à un facteur avec dix individus par groupe dont le but est de comparer la longueur des dents en fonction de la dose administrée. Avec un nombre plus important d'individus, vous auriez pu remplacer les boites de dispersion par par un graphique en \"violon\". Avec un nombre plus faible d'observation, l'affichage plus simple des points et de la moyenne de chaque groupe est encore le meilleur choix.")
+grade_code("Ce graphique est adéquat pour visualiser les données avant une ANOVA à un facteur avec dix individus par groupe dont le but est de comparer la longueur des dents en fonction de la dose administrée. Avec un nombre plus important d'individus, vous auriez pu remplacer les boites à moustaches par un graphique en \"violon\". Avec un nombre plus faible d'observation, l'affichage plus simple des points et de la moyenne de chaque groupe est encore le meilleur choix.")
 ```
 
 Maintenant que vous avez pris connaissance de vos données grâce à un tableau et un graphique, vous pouvez réaliser votre test d'hypothèse... tout en vous assurant de bien vérifier que les conditions d'application du test sont respectées.
@@ -278,7 +278,7 @@ question("Y a-t-il homoscédasticité (égalité des variances entre sous-popula
 
 Dans R, nous avons plusieurs fonctions pour réaliser une ANOVA. Nous utilisons `lm()` qui demande un jeu de données et une formule. Nous lui appliquons ensuite la fonction `anova()` pour produire le tableau de l'analyse de la variance. Si le résultat doit être propre, nous pouvons ensuite utiliser `tabularise()` pour formater le tableau de l'ANOVA.
 
-```{r, echo=TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=FALSE, warning=FALSE}
 anova(DF_anova <- lm(data = DF, YNUM ~ XFACTOR)) |> tabularise()
 ```
 
@@ -286,7 +286,7 @@ Vous êtes habitué à cette interface formule que vous utilisez dans la réalis
 
 <!-- 💬 **Ce code correspond au snippet `.hmanova1`** -->
 
-```{r tooth_anova_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
+```{r tooth_anova_h2, exercise=TRUE, exercise.setup="tg_prepare"}
 anova(tg_anova <- lm(data = ___, ___ ~ ___)) |> tabularise()
 ```
 
@@ -309,7 +309,7 @@ Vérifiez maintenant la distribution normale des résidus depuis votre objet `tg
 
 <!-- 💬 **Il existe une snippet pour vous aider `.hmanovaqqplot`** -->
 
-```{r tooth_qqplot_h2, exercise = TRUE, exercise.setup = "tg_prepare"}
+```{r tooth_qqplot_h2, exercise=TRUE, exercise.setup="tg_prepare"}
 chart$___(___, ___ = ___)
 ```
 
@@ -379,7 +379,7 @@ question("Quels sont les niveaux significativement différents au seuil alpha de
 
 ## Interprétation biologique
 
-Notre ANOVA est terminée. En situation réelle, il nous resterait à intégrer ces résultats dans notre rapport ou notre présentation pour les communiquer au public intéressé. Rappelez-vous que la formulation est importante. Vous utiliserez une phrase du genre : "chez le cochon d'Inde, la longueur des odontoblastes s'accroît de manière significative au seuil $\alpha$ de 5% en passant de rations quotidiennes de vitamine C ration de 0.5 à 1, et à 2 mg/J (ANOVA à 2 et 27 ddl, F = 67,1, valeur P \< 3,3•10^-11^ ; voir aussi tests post-hoc de Tukey Table X et Fig. Y)". Ceci correspond à l'interprétation sur le plan statistique de vos résultats. Vous discuterez ensuite des mécanismes qui entrent possiblement en jeu ici, en réfléchissant au rôle de l'acide ascorbique dans les réactions biochimiques de formation de la dentine et de l'émail, par exemple (interprétation biologique de vos résultats).
+Notre ANOVA est terminée. En situation réelle, il nous resterait à intégrer ces résultats dans notre rapport ou notre présentation pour les communiquer au public intéressé. Rappelez-vous que la formulation est importante. Vous utiliserez une phrase du genre : "chez le cochon d'Inde, la longueur des odontoblastes s'accroît de manière significative au seuil $\alpha$ de 5% en passant de rations quotidiennes de vitamine C ration de 0.5 à 1, et à 2 mg/J (ANOVA à 2 et 27 ddl, F = 67,1, valeur *p* \< 3,3•10^-11^ ; voir aussi tests post-hoc de Tukey Table X et Fig. Y)". Ceci correspond à l'interprétation sur le plan statistique de vos résultats. Vous discuterez ensuite des mécanismes qui entrent possiblement en jeu ici, en réfléchissant au rôle de l'acide ascorbique dans les réactions biochimiques de formation de la dentine et de l'émail, par exemple (interprétation biologique de vos résultats).
 
 Comme la formulation du test dans la parenthèse est fort longue pour l'ANOVA, on utilise souvent un renvoi vers la table de l'analyse de la variance que vous pouvez intégrer dans le document pour plus de lisibilité à la fois du texte et du résultat de l'ANOVA. Naturellement, si un test post-hoc est réalisé, il doit aussi être présenté, soit sous forme de tableau, soit sous forme de graphique, ou encore les deux si la place dans le document le permet (pour les articles scientifiques on est souvent fort limité en nombre de figures et de tables, et il faut parfois se résoudre à les placer dans les annexes ou dans le matériel complémentaire).
 

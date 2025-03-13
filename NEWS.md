@@ -1,3 +1,7 @@
+# BioDataScience1 2024.9.0
+
+-   Learnrs **A09La_anova**, **A09Lb_kruskal** revised.
+
 # BioDataScience1 2024.8.0
 
 -   Learnrs **A08La_ttest**, **A08Lb_ttest_wmw** revised.

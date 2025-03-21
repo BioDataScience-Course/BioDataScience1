@@ -73,7 +73,7 @@ skimr::skim(zeno)
 
 Le niveau de gris mesuré varie de 0 à 255. Une valeur proche de 0 correspond à une crevette très foncée alors qu'une valeur proche de 255 est une crevette très claire. Le temps depuis lequel la crevette a été éloignée de son hôte est exprimé en minutes. L'`id` correspond au code de la crevette étudiée.
 
-La question posée est la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps ?**
+La question posée est la suivante : **observe-t-on une décoloration de l'abdomen (un éclaircissement des individus) au cours du temps ?**
 
 ## Facteur fixe et facteur aléatoire
 
@@ -84,7 +84,7 @@ head(zeno)
 La première étape lors de la réalisation de ce type d'expérience est de définir correctement quel(s) facteur(s) sont fixe(s) et quels facteur(s) sont aléatoire(s). Aidez-vous de la description proposée dans la section précédente.
 
 ```{r quiz_factor}
-question("Parmi les variables du jeu de données `zeno`, sélectionnez le facteur aléatoire parmi les variables suivantes :",
+question("Parmi les variables du jeu de données `zeno`, sélectionnez le facteur aléatoire :",
   answer("id", correct = TRUE, "Vous avez correctement sélectionné le facteur aléatoire"),
   answer("time", message = "Cette variable peut être considérée ici comme un facteur fixe : nous avons choisi un certain nombre de valeurs de temps pour lesquelles nous souhaitons observer les effets de variation de la coloration des crevettes." ),
   answer("grey", message = "Cette variable n'est pas un facteur, mais la variable numérique à partir de laquelle nous calculons les moyennes."),

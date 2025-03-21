@@ -43,14 +43,14 @@ Dans ce tutoriel, deux jeux de données que vous commencez à bien connaitre ser
 
 Le jeu de données sur la biométrie humaine contient sept variables et 395 individus.
 
-```{r}
+```{r, warning=FALSE}
 biometry <- read("biometry", package = "BioDataScience", lang = "fr")
 tabularise$headtail(biometry)
 ```
 
 Le jeu de données sur les oursins comprend 19 variables et 421 individus. En voici les huit premières variables :
 
-```{r}
+```{r, warning=FALSE}
 urchin <- read("urchin_bio", package = "data.io", lang = "fr")
 tabularise$headtail(urchin[, 1:8])
 ```

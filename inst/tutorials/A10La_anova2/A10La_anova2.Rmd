@@ -209,15 +209,15 @@ Si vous souhaitez réaliser une ANOVA à deux facteurs, vous devez respecter les
 -   distribution **normale** des résidus,
 -   **homoscédasticité** (même variance intragroupe).
 
-Pour vérifier si l'échantillonnage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous devez vous référer au protocole expérimental. Dans le cas de cette étude, vous considérerez, sur base de la discussion du protocole utilisé avec les fermiers (considérez que vous l'avez fait), que les individus ont bien été sélectionnés par un processus aléatoire. Considérez aussi que vous constatez que l'attribution des vaches au niveau de la ration et du type d'alimentation a également été réalisée de manière aléatoire. Vous avez aussi constaté qu'ils n'y a pas de parenté forcée (par ex., les vaches issues de l'insémination par le même taureau qui sont toutes nourries de la même manière).
+Pour vérifier si l'échantillonnage est représentatif de la population et si les observations sont bien indépendantes les unes des autres, vous devez vous référer au protocole expérimental. Dans le cas de cette étude, vous considérerez, sur base de la discussion du protocole utilisé avec les fermiers (considérez que vous l'avez fait), que les individus ont bien été sélectionnés par un processus aléatoire. Considérez aussi que vous constatez que l'attribution des vaches au niveau de la ration et du type d'alimentation a également été réalisée de manière aléatoire. Vous avez aussi constaté qu'il n'y a pas de parenté forcée (par ex., les vaches issues de l'insémination par le même taureau qui sont toutes nourries de la même manière).
 
-Le type de variable peut se vérifier en consultant les données, par exemple avec la fonction `str()`, ou en déroulant le contenu de l'objet avec le bouton bleu dans l'onglet "Environnement" de RStudio. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont de type facteur non ordonné (**factor**) ou facteur ordonné (**ordered**) dans R. C'est le cas ici car la `ration` est un facteur ordonné (**ordered**) et `food` est un facteur non ordonné (**factor**). La variable réponse `milk` est bien numérique (**numeric**).
+Le type de variable peut se vérifier en consultant les données, par exemple avec la fonction `str()`, ou en déroulant le contenu de l'objet avec le bouton bleu dans l'onglet "Environnement" de RStudio. Attention de bien vous assurer que les deux variables explicatives que vous utilisez sont de type facteur non ordonné (**factor**) ou facteur ordonné (**ordered**) dans R. C'est le cas ici, car la `ration` est un facteur ordonné (**ordered**) et `food` est un facteur non ordonné (**factor**). La variable réponse `milk` est bien numérique (**numeric**).
 
 ```{r, echo=TRUE}
 str(milk_production)
 ```
 
-Vous devez encore vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permettant de vérifier l'homoscédasticité (homogénéité des variances). Vous devrez aussi vérifier que la distribution des résidus est normale. Mais cette étape ne peut se fait que plus tard, après le calcul de l'ANOVA à deux facteurs mais avant son interprétation (les résidus ne peuvent être calculés qu'après le modèle lui-même, puisqu'il s'agit de l'écart entre les observations et les valeurs prédites par le modèle, par définition).
+Vous devez encore vérifier les deux dernières conditions sur votre échantillon. Les données par sous-population étant en nombre suffisant, vous allez pouvoir appliquer un test permettant de vérifier l'homoscédasticité (homogénéité des variances). Vous devrez aussi vérifier que la distribution des résidus est normale. Mais cette étape ne peut se fait que plus tard, après le calcul de l'ANOVA à deux facteurs, mais avant son interprétation (les résidus ne peuvent être calculés qu'après le modèle lui-même, puisqu'il s'agit de l'écart entre les observations et les valeurs prédites par le modèle, par définition).
 
 ### Test de Bartlett
 
@@ -225,8 +225,8 @@ Pour vérifier l'homoscédasticité de vos données, vous allez utiliser le test
 
 Effectuez maintenant un test de Bartlett sur les données du jeu `milk_production` de la quantité de lait (`milk`) en fonction du type d'alimentation (`food`) et de la ration (`ration`). Pour rappel, nous avons :
 
--   H~0~ : homoscédasticité
--   H~1~ : hétéroscédasticité
+-   H~0~ : homoscédasticité
+-   H~1~ : hétéroscédasticité
 
 <!-- 💬 **Le code ci-dessous correspond au snippet `.hvbartlett`.** -->
 
@@ -318,7 +318,7 @@ question("Observez-vous des interactions significatives entre les rations et les
   answer("oui"),
   answer("non", correct = TRUE),
   allow_retry = TRUE,
-  incorrect = "L'interprétation que vous avez faites n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha 5% pour le terme d'interactions.",
+  incorrect = "L'interprétation que vous avez faite n'est pas la bonne. Retournez voir dans le cours comment se prend la décision du rejet ou non de H0 en comparant la valeur P obtenue au seuil alpha 5% pour le terme d'interactions.",
   correct = "Il n'y a pas d'interactions significatives entre les deux facteurs au seuil alpha de 5%. Avant de continuer l'analyse, vous allez simplifier le modèle en retirant le terme correspondant à ces interactions (notez que vous pouvez aussi parfaitement interpréter les deux facteurs sur le modèle complet si vous préférez, en pratique : la simplification n'est pas obligatoire).")
 ```
 

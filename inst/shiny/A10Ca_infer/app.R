@@ -184,6 +184,8 @@ server <- function(input, output) {
       ranking <- ranking[order(-ranking$score, as.numeric(ranking$date)), ]
       ranking$date <- as.POSIXct(ranking$date, origin = "1960-01-01")
       ranking$date <- format(ranking$date, "%Y-%m-%d %H:%M:%S")
+      # Keep only best score for each student or team
+      ranking <- ranking[!duplicated(ranking$project), ]
     }
     message("Date reworked")
     # Add a column with medals for the three first results

@@ -1,5 +1,5 @@
 Package: BioDataScience1
-Version: 2024.10.0
+Version: 2025.0.0
 Title: A Series of Learnr Documents for Biological Data Science 1
 Description: Interactive documents using learnr and shiny applications for studying biological data science.
 Authors@R: c(
@@ -16,6 +16,5 @@ License: MIT + file LICENSE
 URL: https://github.com/BioDataScience-Course/BioDataScience1
 BugReports: https://github.com/BioDataScience-Course/BioDataScience1/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
-VignetteBuilder: knitr
+RoxygenNote: 7.3.2
 Encoding: UTF-8

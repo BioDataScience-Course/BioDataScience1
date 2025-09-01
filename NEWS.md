@@ -2,6 +2,8 @@
 
 -   New version for academic year 2024-2025.
 
+-   Only learnrs for Q1 (01-05) are activated.
+
 # BioDataScience1 2024.10.0
 
 -   Learnrs **A10La_anova2**, **A10Lb_anova2mixte** and **A10Lc_syntaxr** revised.

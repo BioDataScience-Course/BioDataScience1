@@ -1,3 +1,7 @@
+# BioDataScience1 2025.0.1
+
+-   Argument `envir=` added to `learnr_server()` to accomodate changes for compatibility with a Posit Connect server.
+
 # BioDataScience1 2025.0.0
 
 -   New version for academic year 2024-2025.

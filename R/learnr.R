@@ -46,5 +46,7 @@ learnr_banner <- function(simple = FALSE) {
 #' @param input The Shiny input.
 #' @param output The Shiny output.
 #' @param session The Shiny session.
-learnr_server <- function(input, output, session)
-  learnitdownLearnrServer(input, output, session)
+#' @param envir The environment in which to evaluate code (by default, the
+#'   parent frame).
+learnr_server <- function(input, output, session, envir = parent.frame())
+  learnitdownLearnrServer(input, output, session, envir)

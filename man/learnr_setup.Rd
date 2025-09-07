@@ -10,7 +10,7 @@ learnr_setup(cap = "Code R", debug = Sys.getenv("LEARNITDOWN_DEBUG", 0) != 0)
 
 learnr_banner(simple = FALSE)
 
-learnr_server(input, output, session)
+learnr_server(input, output, session, envir = parent.frame())
 }
 \arguments{
 \item{cap}{The caption of learnr R code widgets.}
@@ -25,6 +25,9 @@ environment variables \code{LEARNITDOWN_DEBUG} is not \code{0}).}
 \item{output}{The Shiny output.}
 
 \item{session}{The Shiny session.}
+
+\item{envir}{The environment in which to evaluate code (by default, the
+parent frame).}
 }
 \description{
 These functions add recording through the learnitdown approach.

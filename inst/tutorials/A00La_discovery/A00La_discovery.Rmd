@@ -15,15 +15,34 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
 library(ggplot2)
-library(tidyverse)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
 library(collapse)
 library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
 library(svMisc)
 library(svBase)
 library(svFlow)
 library(data.io)
 library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+
 ```
 
 ```{r, echo=FALSE}
@@ -31,6 +50,28 @@ BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
+#observe({
+#  session_user <- session$user
+#  if (!is.null(session_user) && session_user != "rstudio-connect") {
+#    # Get more data from the users database
+#    users <- try(mongolite::mongo("users", url = "mongodb://127.0.0.1/sdd"), silent = TRUE)
+#    if (inherits(users, "try-error"))
+#      message("Impossible to connect to the users database.")
+#    query <- paste0('{ "login": "', session_user, '" }')
+#    fields <- '{ "login": true, "email": true, "firstname": true, "lastname": true, "iemail": true, "iid": true, "ifirstname": true, "ilastname": true, "icourse": true, "ictitle": true, "iurl": true, "institution": true, "iref": true, "_id": false }'
+#    if (!users$count(query)) {
+#      message("User '", session_user, "' not found in the users table.")
+#      user_info <- list(login = session_user) # Minimal info...
+#    } else {
+#      user_info <- as.list(users$find(query, fields)[1L, ])
+#    }
+#    try(users$disconnect(), silent = TRUE)
+#  } else {# Try getting user data from the URL query string
+#    user_info <- parseQueryString(session$clientData$url_search)
+#  }
+#  options(learnitdown_learnr_user = user_info)
+#})
+#
 BioDataScience1::learnr_server(input, output, session)
 ```
 
@@ -54,7 +95,7 @@ Le learnr est un outil pédagogique mis au point afin de proposer des tutoriels 
 
 Des questions ouvertes (sous la forme de zones de code R) vous sont proposées dans les exercices. Elles vous permettent d'expérimenter directement des instructions dans R depuis le document learnr. Pour exécuter ces instructions, il faut cliquer sur le bouton `Run Code`. Vous pouvez le faire autant de fois que vous le voulez. Modifiez le code, cliquez `Run Code`, analysez le résultat, modifiez votre code, cliquez à nouveau sur `Run Code`, etc. jusqu'à ce que vous soyez satisfait du résultat. Finissez l'exercice et soumettez votre réponse en cliquant sur le bouton `Submit Answer`. **Tant que vous n'aurez pas cliqué sur `Submit Answer`, votre exercice restera inachevé et ne comptera donc pas dans l'évaluation de votre progression.**
 
-Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/learnr.html).
+Si vous n'avez jamais utilisé de tutoriel learnr, familiarisez-vous d'abord avec son interface [ici](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/learnr.html).
 
 ## Objectifs
 

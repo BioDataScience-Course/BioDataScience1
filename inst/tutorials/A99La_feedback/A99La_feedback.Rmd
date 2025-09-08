@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I** Vos commentaires et suggestions..."
 tutorial:
   id: "A99La_feedback"
-  version: 2.0.1/0
+  version: 3.0.0/0
 output:
   learnr::tutorial:
     progressive: true
@@ -14,6 +14,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
+library(testthat)
 ```
 
 ```{r, echo=FALSE}
@@ -32,20 +33,18 @@ Ceci est un bref formulaire visant à améliorer le cours de science des donnée
 
 ```{r feedback_topic_noscore}
 question("Quelle partie du cours évaluez-vous ?",
-  answer("Module 1 : Introduction", correct = TRUE),
-  answer("Module 2 : Visualisation I", correct = TRUE),
-  answer("Module 3 : Visualisation II", correct = TRUE),
-  answer("Module 4 : Visualisation III", correct = TRUE),
-  answer("Module 5 : Traitement des données I", correct = TRUE),
-  answer("Module 6 : Traitement des données II", correct = TRUE),
-  answer("**AA visualisation (Q1, modules 1-6)**", correct = TRUE),
-  answer("Module 7 : Probabilités & Distributions", correct = TRUE),
-  answer("Module 8 : Test Chi carré", correct = TRUE),
-  answer("Module 9 : Moyenne", correct = TRUE),
-  answer("Module 10 : Variance I", correct = TRUE),
-  answer("Module 11 : Variance II", correct = TRUE),
-  answer("Module 12 : Corrélation", correct = TRUE),
-  answer("**AA inférence (Q2, modules 7-12)**", correct = TRUE),
+  answer("Module 1 : Introduction & visualisation I", correct = TRUE),
+  answer("Module 2 : Visualisation II", correct = TRUE),
+  answer("Module 3 : Visualisation III", correct = TRUE),
+  answer("Module 4 : Traitement des données I", correct = TRUE),
+  answer("Module 5 : Traitement des données II", correct = TRUE),
+  answer("**AA visualisation (Q1, modules 1-5)**", correct = TRUE),
+  answer("Module 6 : Probabilités, distributions I & corrélation", correct = TRUE),
+  answer("Module 7 : Distribution & Test Chi carré", correct = TRUE),
+  answer("Module 8 : Moyenne", correct = TRUE),
+  answer("Module 9 : Variance I", correct = TRUE),
+  answer("Module 10 : Variance II", correct = TRUE),
+  answer("**AA inférence (Q2, modules 6-10)**", correct = TRUE),
   answer("**Tout le cours**", correct = TRUE),
   allow_retry = TRUE,
   type = "single", correct = "OK, indiquez maintenant vos commentaires relatifs à cette partie ci-dessous.")

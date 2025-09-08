@@ -6,6 +6,7 @@ library(shiny)
 library(learnitdown)
 library(BioDataScience1)
 library(data.io)
+library(svBase)
 library(dplyr)
 library(ggplot2)
 library(chart)
@@ -55,7 +56,7 @@ server <- function(input, output, session) {
         labs <- paste(method, "de", label, sep = " ")
       }
 
-      data.io::labelise(switch(method,
+      svBase::labelise(switch(method,
         "Aucune" = x,
         "Logarithme népérien" = log(x),
         "Racine carrée" = sqrt(x),

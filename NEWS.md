@@ -1,3 +1,7 @@
+# BioDataScience1 2025.1.0
+
+-   Learnrs **A00La_discovery**, **A01La_base** and **A01Lb_scatterplot** revised for 2025-2026.
+
 # BioDataScience1 2025.0.1
 
 -   Argument `envir=` added to `learnr_server()` to accomodate changes for compatibility with a Posit Connect server.

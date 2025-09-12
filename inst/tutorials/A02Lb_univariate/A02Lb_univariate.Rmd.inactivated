@@ -17,7 +17,7 @@ runtime: shiny_prerendered
 BioDataScience1::learnr_setup()
 SciViews::R()
 # Dataset
-urchin <- read("urchin_bio", package = "data.io", lang = "fr") 
+urchin <- read("urchin_bio", package = "data.io", lang = "fr")
 zooplankton <- read("zooplankton", package = "data.io", lang = "fr")
 copepoda <- fsubset(zooplankton, class %in%
   c("Calanoid", "Cyclopoid", "Harpacticoid", "Poecilostomatoid"))
@@ -61,17 +61,17 @@ chart(biometry, ~ age | gender) +
 ```
 
 ```{r histo_h3, exercise=TRUE}
-chart(___, ~ ___ ___ ___) + 
+chart(___, ~ ___ ___ ___) +
   ___(___)
 ```
 
 ```{r histo_h3-hint-1}
-chart(DF, ~ ___ | ___) + 
+chart(DF, ~ ___ | ___) +
   geom_histogram(___)
 ```
 
 ```{r histo_h3-hint-2}
-chart(biometry, ~ NUM | FACTOR) + 
+chart(biometry, ~ NUM | FACTOR) +
   geom_histogram(bins = ___)
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -218,22 +218,22 @@ Reproduisez le graphique suivant qui représente la répartition de taille (`siz
 
 ```{r ggridges_intro}
 chart(copepoda, class ~ size %fill=% class) +
-  ggridges::geom_density_ridges(show.legend = FALSE) 
+  ggridges::geom_density_ridges(show.legend = FALSE)
 ```
 
 ```{r ggridges_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
-  ___(___) 
+  ___(___)
 ```
 
 ```{r ggridges_h3-hint-1}
 chart(DF, ___ ~ ___ %fill=% ___) +
-  ggridges::geom_density_ridges(___) 
+  ggridges::geom_density_ridges(___)
 ```
 
 ```{r ggridges_h3-hint-2}
 chart(copepoda, FACTOR ~ NUM %fill=% FACTOR) +
-  ggridges::geom_density_ridges(show.legend = ___) 
+  ggridges::geom_density_ridges(show.legend = ___)
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
@@ -241,7 +241,7 @@ chart(copepoda, FACTOR ~ NUM %fill=% FACTOR) +
 ```{r ggridges_h3-solution}
 ## Solution ##
 chart(copepoda, class ~ size %fill=% class) +
-  ggridges::geom_density_ridges(show.legend = FALSE) 
+  ggridges::geom_density_ridges(show.legend = FALSE)
 ```
 
 ```{r ggridges_h3-check}
@@ -254,17 +254,17 @@ Reproduisez le graphique suivant qui représente la répartition de taille (`siz
 
 ```{r ggridges2_intro}
 chart(zooplankton, class ~ size) +
-  ggridges::geom_density_ridges() 
+  ggridges::geom_density_ridges()
 ```
 
 ```{r ggridges2_h2, exercise=TRUE}
 chart(___, ___ ~ ___) +
-  ___() 
+  ___()
 ```
 
 ```{r ggridges2_h2-hint}
 chart(DF, FACTOR ~ NUM) +
-  ggridges::geom_density_ridges() 
+  ggridges::geom_density_ridges()
 
 #### Attention : solution dans le 'hint' suivant! ####
 ```
@@ -272,7 +272,7 @@ chart(DF, FACTOR ~ NUM) +
 ```{r ggridges2_h2-solution}
 ## Solution ##
 chart(zooplankton, class ~ size) +
-  ggridges::geom_density_ridges() 
+  ggridges::geom_density_ridges()
 ```
 
 ```{r ggridges2_h2-check}
@@ -385,4 +385,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

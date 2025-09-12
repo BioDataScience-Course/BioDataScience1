@@ -91,7 +91,7 @@ summary(iris_corr)
 ```{r is_corr_h2-hint-1}
 iris_corr <- correlation(DF[, INDEX_EXPRESSION], use = "complete.obs", method = "pearson")
 summary(iris_corr)
-# La sélection se fait sur base des indices des colonnes en R de base. 
+# La sélection se fait sur base des indices des colonnes en R de base.
 # Vous ne devez sélectionner que les variables numériques.
 
  #### ATTENTION: Hint suivant = solution !####
@@ -154,7 +154,7 @@ cor.test(data = ___, ~ ___ + ___,
 ```
 
 ```{r cortest_h2-hint-1}
-cor.test(data = iris, ~ ___ + ___, 
+cor.test(data = iris, ~ ___ + ___,
   alternative = "two.sided", method = "___")
 
 #### ATTENTION: Hint suivant = solution !####
@@ -162,7 +162,7 @@ cor.test(data = iris, ~ ___ + ___,
 
 ```{r cortest_h2-solution}
 ## Solution ##
-cor.test(data = iris, ~ petal_width + petal_length, 
+cor.test(data = iris, ~ petal_width + petal_length,
   alternative = "two.sided", method = "pearson")
 ```
 
@@ -174,8 +174,8 @@ grade_code("Vous venez de réaliser un test de corrélation de Pearson. Il ne vo
 question("La largeur des pétales (`petal_width`) et la longueur des pétales (`petal_length`) sont-elles significativement corrélées au seuil alpha de 5% ?",
   answer("Oui", correct = TRUE),
   answer("Non"),
-  correct = "Avec une valeur *p* inférieure au seuil alpha de 5%, il y a rejet de l'hypothèse nulle.", 
-  incorrect = "Il semble que vous n'avez pas su correctement interpréter ce test. Vérifez votre compréhension de ses hypothèses nulle et alternative, ainsi que la façon de décider laquelle favoriser.", 
+  correct = "Avec une valeur *p* inférieure au seuil alpha de 5%, il y a rejet de l'hypothèse nulle.",
+  incorrect = "Il semble que vous n'avez pas su correctement interpréter ce test. Vérifez votre compréhension de ses hypothèses nulle et alternative, ainsi que la façon de décider laquelle favoriser.",
   allow_retry = TRUE)
 ```
 
@@ -191,4 +191,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

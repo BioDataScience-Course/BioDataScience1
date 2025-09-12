@@ -107,7 +107,7 @@ head(long)
 
 ```{r wide1_h3-hint-2}
 long <- pivot_longer(wide, cols = "1989":"1995", names_to = "___",
-  values_to = "___") 
+  values_to = "___")
 head(long)
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -198,7 +198,7 @@ La fonction `pivot_wider()` ou `spivot_wider()` requiert pour arguments :
 ```{r long-init}
 gr_age <- c("Jeune", "Adulte","Senior")
 period <- c(1992, 1995, 1998)
-popu   <- c(2185103, 6311109, 1525785, 
+popu   <- c(2185103, 6311109, 1525785,
             2196799, 6337067, 1596532,
             2180816, 6332857, 1678591)
 
@@ -226,7 +226,7 @@ knitr::kable(demo)
 ```{r long-prep}
 gr_age <- c("Jeune", "Adulte","Senior")
 period <- c(1992, 1995, 1998)
-popu   <- c(2185103, 6311109, 1525785, 
+popu   <- c(2185103, 6311109, 1525785,
             2196799, 6337067, 1596532,
             2180816, 6332857, 1678591)
 
@@ -347,4 +347,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

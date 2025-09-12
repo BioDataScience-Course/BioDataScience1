@@ -5,7 +5,7 @@ description: "**SDD I Module 2** Vocabulaire lié à la gestion de versions avec
 tutorial:
   id: "A02Lc_git"
   version: 2.0.1/6
-output: 
+output:
   learnr::tutorial:
     progressive: true
     allow_skip: true
@@ -159,4 +159,16 @@ question_text(
   try_again_button = "Resoumettre une réponse",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

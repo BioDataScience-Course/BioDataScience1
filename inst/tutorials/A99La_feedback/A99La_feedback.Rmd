@@ -103,3 +103,15 @@ question_text(
 ```
 
 *Merci d'avoir pris le temps de remplir ce formulaire.*
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
+```

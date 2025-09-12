@@ -103,7 +103,7 @@ ___ %>.%
 ```
 
 ```{r mcpp_tab_h2-hint-1}
-mcpp %>.% 
+mcpp %>.%
   sgroup_by(., ___) %>.%
   ssummarise(., mean = ___(___),
     sd = ___(___), n = fn(___))
@@ -113,7 +113,7 @@ mcpp %>.%
 
 ```{r mcpp_tab_h2-solution}
 ## Solution ##
-mcpp %>.% 
+mcpp %>.%
   sgroup_by(., treatment) %>.%
   ssummarise(., mean = fmean(delta_weight),
     sd = fsd(delta_weight), n = fn(delta_weight))
@@ -206,7 +206,7 @@ Le toluène a-t-il un effet sur la concentration en dopamine dans le cerveau ? 
 
 ```{r, echo=TRUE}
 dopamine <- dtx(
-  treatment = rep(c("contrôle", "toluène"), each = 6), 
+  treatment = rep(c("contrôle", "toluène"), each = 6),
   conc      = c(1.820, 1.843, 1.397, 1.803, 2.539, 1.990,  # contrôle
                 3.420, 2.314, 1.911, 2.464, 2.781, 2.803)) # toluène
 dopamine$treatment <- factor(dopamine$treatment,
@@ -219,7 +219,7 @@ dopamine
 
 ```{r prepare_toluene}
 dopamine <- dtx(
-  treatment = rep(c("contrôle", "toluène"), each = 6), 
+  treatment = rep(c("contrôle", "toluène"), each = 6),
   conc      = c(1.820, 1.843, 1.397, 1.803, 2.539, 1.990,  # contrôle
                 3.420, 2.314, 1.911, 2.464, 2.781, 2.803)) # toluène
 dopamine$treatment <- factor(dopamine$treatment,
@@ -371,4 +371,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

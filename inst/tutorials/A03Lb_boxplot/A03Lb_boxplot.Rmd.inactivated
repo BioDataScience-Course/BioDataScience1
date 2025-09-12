@@ -96,12 +96,12 @@ chart(crabs, length ~ species %fill=% sex) +
 
 ```{r boxplot2_h3, exercise=TRUE}
 chart(___, ___ ~ ___ ___ ___) +
-  ___() 
+  ___()
 ```
 
 ```{r boxplot2_h3-hint-1}
 chart(DF, ___ ~ ___ %fill=% ___) +
-  geom___() 
+  geom___()
 ```
 
 ```{r boxplot2_h3-hint-2}
@@ -127,7 +127,7 @@ Les chercheurs décident ensuite d'étudier la taille du lobe frontal et réalis
 
 ```{r}
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 
 chart(crabs, front ~ species %fill=% sex) +
   geom_boxplot() +
@@ -139,7 +139,7 @@ chart(crabs, front ~ species %fill=% sex) +
 
 ```{r boxplot3_h3, exercise=TRUE, exercise.lines=7}
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 
 chart(___, ___ ~ ___ ___ ___) +
   ___() +
@@ -149,7 +149,7 @@ chart(___, ___ ~ ___ ___ ___) +
 
 ```{r boxplot3_h3-hint-1}
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 
 chart(DF, ___ ~ ___ %fill=% ___) +
   geom___() +
@@ -159,7 +159,7 @@ chart(DF, ___ ~ ___ %fill=% ___) +
 
 ```{r boxplot3_h3-hint-2}
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 
 chart(crabs, NUM ~ FACTOR1 %fill=% FACTOR2) +
   geom_boxplot() +
@@ -172,7 +172,7 @@ chart(crabs, NUM ~ FACTOR1 %fill=% FACTOR2) +
 ```{r boxplot3_h3-solution}
 ## Solution ##
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 
 chart(crabs, front ~ species %fill=% sex) +
   geom_boxplot() +
@@ -237,4 +237,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

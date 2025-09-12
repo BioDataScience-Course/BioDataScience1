@@ -162,7 +162,7 @@ combine_charts(list(a, b))
 Reproduisez le graphique ci-dessus en utilisant les deux mêmes graphiques que vous avez réalisés précédemment.
 
 ```{r comb1_h3, exercise=TRUE}
-# Graphique de la température 
+# Graphique de la température
 a <- chart(___, ___ ~ ___) +
   ___() +
   ___() +
@@ -178,7 +178,7 @@ combine_charts(list(___, ___))
 ```
 
 ```{r comb1_h3-hint-1}
-# Graphique de la température 
+# Graphique de la température
 a <- chart(DF, YNUM ~ XNUM) +
   geom_line() +
   geom_point() +
@@ -193,7 +193,7 @@ combine_charts(list(___, ___))
 ```
 
 ```{r comb1_h3-hint-2}
-# Graphique de la température 
+# Graphique de la température
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
@@ -211,7 +211,7 @@ combine_charts(list(___, ___))
 
 ```{r comb1_h3-solution}
 ## Solution ##
-# Graphique de la température 
+# Graphique de la température
 a <- chart(marphy, Temperature ~ Station) +
   geom_line() +
   geom_point() +
@@ -263,4 +263,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

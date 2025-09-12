@@ -264,7 +264,7 @@ Le calcul un à un de l'IMC de chaque individu deviendra très rapidement fastid
 weight_w <- c(69, 49, 75, 66, 54)
 # Assignation des valeurs de tailles dans un vecteur nommé `height_w`
 height_w <- c(174, 155, 169, 179, 168)
-# Transformation du vecteur `height_w` de centimètre en mètre 
+# Transformation du vecteur `height_w` de centimètre en mètre
 height_w <- height_w / 100
 # Calcul de l'IMC/BMI
 weight_w / height_w^2
@@ -299,7 +299,7 @@ Réalisez les mêmes opérations sur les individus 8 à 12 qui sont des hommes.
 weight_m <- c(___)
 # Assignation des valeurs de tailles dans un vecteur nommé `height_m`
 height_m <- ___
-# Transformation du vecteur `height_m` de centimètre en mètre 
+# Transformation du vecteur `height_m` de centimètre en mètre
 height_m <- height_m / 100
 # Calcul de IMC
 ___
@@ -310,7 +310,7 @@ ___
 weight_m <- c(82, 73, 105, 61, 95)
 # Assignation des valeurs de tailles dans un vecteur nommé `height_m`
 height_m <- ___
-# Transformation du vecteur `height_m` de centimètre en mètre 
+# Transformation du vecteur `height_m` de centimètre en mètre
 height_m <- ___
 # Calcul de IMC
 weight_m / height_m^2
@@ -324,7 +324,7 @@ weight_m / height_m^2
 weight_m <- c(82, 73, 105, 61, 95)
 # Assignation des valeurs de tailles dans un vecteur nommé `height_m`
 height_m <- c(174, 186, 203, 172, 190)
-# Transformation du vecteur `height_m` de centimètre en mètre 
+# Transformation du vecteur `height_m` de centimètre en mètre
 height_m <- height_m / 100
 # Calcul de IMC
 weight_m / height_m^2
@@ -470,7 +470,7 @@ Pour calculer l'IMC sur le jeu de données `bio_100`, nous employons à nouveau 
 
 ```{r, echo=TRUE}
 bio_100 <- smutate(bio_100, bmi = weight / (height / 100)^2)
-# Afficher les premières lignes du tableau de données 
+# Afficher les premières lignes du tableau de données
 head(bio_100, n = 5)
 ```
 
@@ -571,7 +571,7 @@ biometry <- smutate(biometry, bmi_cat = case_when(
   bmi>= 25 & bmi < 30 ~"overweight",
   bmi >= 30 ~ "obese"
 ))
-# Afficher les 5 premières lignes du tableau 
+# Afficher les 5 premières lignes du tableau
 head(biometry)
 ```
 
@@ -757,4 +757,16 @@ question_text(
   try_again_button = "Resoumettre une réponse",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

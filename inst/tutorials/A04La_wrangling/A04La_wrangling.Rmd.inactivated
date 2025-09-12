@@ -96,11 +96,11 @@ Calculez sur le tableau `crabs` à l'aide de la fonction speedy `smutate()` :
 Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les six premières lignes sont affichées. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
-crabs <- smutate(crabs, 
+crabs <- smutate(crabs,
   log_length = log(length),
   sqrt_width = sqrt(width),
   front_m    = front / 1000)
-# Visualisation des premières lignes du tableau 
+# Visualisation des premières lignes du tableau
 head(crabs)
 ```
 
@@ -109,7 +109,7 @@ ___ <- ___(___,
   ___ = ___,
   ___ = ___,
   ___ = ___)
-# Visualisation des premières lignes du tableau 
+# Visualisation des premières lignes du tableau
 ___(___)
 ```
 
@@ -118,7 +118,7 @@ DF <- smutate(___,
   log_length = ___,
   sqrt_width = ___,
   front_m    = ___)
-# Visualisation des premières lignes du tableau 
+# Visualisation des premières lignes du tableau
 head(___)
 ```
 
@@ -127,7 +127,7 @@ crabs <- smutate(crabs,
   log_length = log(___),
   sqrt_width = sqrt(___),
   front_m    = ___ / 1000)
-# Visualisation des premières lignes du tableau 
+# Visualisation des premières lignes du tableau
 head(___)
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -139,7 +139,7 @@ crabs <- smutate(crabs,
   log_length = log(length),
   sqrt_width = sqrt(width),
   front_m    = front / 1000)
-# Visualisation des premières lignes du tableau 
+# Visualisation des premières lignes du tableau
 head(crabs)
 ```
 
@@ -170,7 +170,7 @@ crabs %>.%
   select(., -index) %>.%
   filter(., sex == "M" & length >= 25) ->
   crabs2
-# Visualisation des six premières lignes du tableau 
+# Visualisation des six premières lignes du tableau
 head(crabs2)
 ```
 
@@ -307,7 +307,7 @@ crabs %>.%
     ntot = fn(___),
     nobs = fnobs(___)) ___
   ___
-# Tableau formaté avec knitr::kable()  
+# Tableau formaté avec knitr::kable()
 knitr::kable(___)
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -386,7 +386,7 @@ crabs %>.%
     median = fmedian(___),
     ntot   = fn(___)) ___
   ___
-# Tableau formaté avec knitr::kable()  
+# Tableau formaté avec knitr::kable()
 knitr::kable(___)
 
 #### Attention : solution dans le 'hint' suivant! ####
@@ -427,4 +427,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

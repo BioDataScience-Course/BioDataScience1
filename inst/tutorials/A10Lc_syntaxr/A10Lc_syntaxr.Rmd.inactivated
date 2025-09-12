@@ -180,7 +180,7 @@ Sélectionnez maintenant les variables `origin`, `height` et `weight` du jeu de 
 ### SciViews::R et tidyverse
 
 ```{r select1_h2, exercise=TRUE}
-urchin_sub <- ___(___) 
+urchin_sub <- ___(___)
 # impression des premières lignes du nouveau tableau
 ___(___)
 ```
@@ -275,7 +275,7 @@ Lorsque vous souhaitez conserver certaines variables dans votre jeu de données,
 Si vous souhaitez, par exemple, réduire le jeu de données `biometry` pour conserver un sous-tableau comprenant toutes les variables à l'exception des variables `wrist`, `year_measure` et `age`, vous procédez donc comme suit :
 
 ```{r, echo=TRUE}
-biom_sub <-  sselect(biometry, -wrist, -year_measure, -age) 
+biom_sub <-  sselect(biometry, -wrist, -year_measure, -age)
 # impression des premières lignes du nouveau tableau
 head(biom_sub)
 ```
@@ -303,7 +303,7 @@ Réduisez maintenant le jeu de données `urchin` afin d'obtenir un sous-tableau 
 ### SciViews::R et tidyverse
 
 ```{r select4_h2, exercise=TRUE}
-urchin_sub <- ___(___) 
+urchin_sub <- ___(___)
 # impression des premières lignes du nouveau tableau
 ___(___)
 ```
@@ -549,4 +549,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

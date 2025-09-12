@@ -59,7 +59,7 @@ Les données employées sont générées artificiellement, mais elles s'inspiren
 set.seed(43)
 # Création du tableau
 plant <- dtx(
-  group = as.factor(rep(c("cont", "trt1", "trt2"), each = 30)), 
+  group = as.factor(rep(c("cont", "trt1", "trt2"), each = 30)),
   yield = c(
     rnorm(30, 60, 2), # groupe "cont" : 30 réplicas, moyenne de 6, écart-type de 2
     rnorm(30, 60.5, 2), # groupe "trt1" : 30 réplicas, moyenne de 10, écart-type de 2
@@ -107,10 +107,10 @@ Par contre, si au cours de votre analyse, vous réalisez que c'est plutôt un te
 ```{r boxplot_h2, exercise=TRUE, exercise.lines=10}
 # Fonction comptant les observations
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 # Graphique
 chart(data = __, ___ ~ ___) +
-  geom____() + # boites à moustaches parallèles 
+  geom____() + # boites à moustaches parallèles
   ___(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
@@ -119,10 +119,10 @@ chart(data = __, ___ ~ ___) +
 ```{r boxplot_h2-hint-1}
 # Fonction comptant les observations
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 # Graphique
 chart(data = __, yield ~ group) +
-  geom_boxplot() + # boites à moustaches parallèles 
+  geom_boxplot() + # boites à moustaches parallèles
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
@@ -134,10 +134,10 @@ chart(data = __, yield ~ group) +
 ## Solution ##
 # Fonction comptant les observations
 give_n <- function(x)
-  c(y = max(x) * 1.1, label = length(x)) 
+  c(y = max(x) * 1.1, label = length(x))
 # Graphique
 chart(data = plant, yield ~ group) +
-  geom_boxplot() + # boites à moustaches parallèles 
+  geom_boxplot() + # boites à moustaches parallèles
   stat_summary(fun.data = give_n, geom = "text", hjust = 0.5) +
   xlab("Traitement") +
   ylab("Rendement [q/ha]")
@@ -261,4 +261,16 @@ question_text(
   placeholder = "Entrez vos commentaires ici...",
   allow_retry = TRUE
 )
+```
+
+```{css, echo=FALSE}
+@media print {
+  .topics {
+    width: 100% !important;
+    padding: 0 0.5em 0 !important;
+  }
+  .topicsContainer, .topicsContainer *, .learnrBanner, .learnrBanner *, .topicActions, .topicActions * {
+    display: none !important;
+  }
+}
 ```

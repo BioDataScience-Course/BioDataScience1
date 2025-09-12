@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 9** ANOVA à un facteur et tests post-hocs."
 tutorial:
   id: "A09La_anova"
-  version: 2.1.1/10
+  version: 3.0.0/10
 output:
   learnr::tutorial:
     progressive: true
@@ -22,6 +22,12 @@ BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
+if (Sys.info()["user"] == "rstudio-connect") {
+  options(learnr_user_id = session$user)
+  assignInNamespace("default_user_id", function() {
+    getOption("learnr_user_id", unname(Sys.info()["user"]))
+  }, ns = "learnr")
+}
 BioDataScience1::learnr_server(input, output, session)
 ```
 

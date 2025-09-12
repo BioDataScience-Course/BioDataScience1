@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 10** ANOVA à deux facteurs."
 tutorial:
   id: "A10La_anova2"
-  version: 2.2.0/11
+  version: 3.0.0/11
 output:
   learnr::tutorial:
     progressive: true
@@ -43,6 +43,12 @@ BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
+if (Sys.info()["user"] == "rstudio-connect") {
+  options(learnr_user_id = session$user)
+  assignInNamespace("default_user_id", function() {
+    getOption("learnr_user_id", unname(Sys.info()["user"]))
+  }, ns = "learnr")
+}
 BioDataScience1::learnr_server(input, output, session)
 ```
 

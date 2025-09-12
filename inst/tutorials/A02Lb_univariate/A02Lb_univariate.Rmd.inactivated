@@ -4,7 +4,7 @@ author: "Guyliann Engels & Philippe Grosjean"
 description: "**SDD I Module 2** Histogramme, graphiques de densité ou en violon."
 tutorial:
   id: "A02Lb_univariate"
-  version: 2.1.0/8
+  version: 3.0.0/8
 output:
   learnr::tutorial:
     progressive: true
@@ -29,6 +29,12 @@ BioDataScience1::learnr_banner()
 ```
 
 ```{r, context="server"}
+if (Sys.info()["user"] == "rstudio-connect") {
+  options(learnr_user_id = session$user)
+  assignInNamespace("default_user_id", function() {
+    getOption("learnr_user_id", unname(Sys.info()["user"]))
+  }, ns = "learnr")
+}
 BioDataScience1::learnr_server(input, output, session)
 ```
 

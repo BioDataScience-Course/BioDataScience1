@@ -16,7 +16,35 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
-# Dataset
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
+# Datasets
 urchin <- read("urchin_bio", package = "data.io", lang = "fr")
 zooplankton <- read("zooplankton", package = "data.io", lang = "fr")
 copepoda <- fsubset(zooplankton, class %in%
@@ -173,7 +201,7 @@ Intéressez-vous au jeu de données sur l'analyse d'image du zooplancton ci-dess
 # Importation du jeu de données
 (zooplankton <- read("zooplankton", package = "data.io", lang = "fr"))
 # Filtre du jeu de données pour obtenir uniquement les copépodes
-(copepoda <- sfilter(zooplankton, class %in%
+(copepoda <- filter_(zooplankton, ~class %in%
   c("Calanoid", "Cyclopoid", "Harpacticoid", "Poecilostomatoid")))
 ```
 
@@ -355,6 +383,7 @@ chart(DF, ___ ~ ___ %col=% ___ %shape=% ___) +
 # Utiliser la couleur en tant que premier argument et la forme en second
 chart(urchin, YNUM ~ XNUM %col=% FACTOR1 %shape=% FACTOR2) +
   geom_point()
+
 #### Attention : solution dans le 'hint' suivant! ####
 ```
 

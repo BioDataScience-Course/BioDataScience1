@@ -16,7 +16,36 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R(lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
 library(BioDataScience)
+# Dataset
+biometry <- read("biometry", package = "BioDataScience", lang = "fr")
 ```
 
 ```{r, echo=FALSE}
@@ -83,12 +112,12 @@ Le point d'interrogation devant notre jeu de données renvoie vers une page d'ai
 Nous commençons par sélectionner des colonnes d'intérêt du tableau initial `biometry`.
 
 ```{r, echo=TRUE}
-bio <- sselect(biometry, -day_birth, -wrist, -year_measure)
+bio <- select_(biometry, ~-day_birth, ~-wrist, ~-year_measure)
 ```
 
 **Notez ceci :**
 
-Nous réalisons cette sélection avec la fonction `sselect()` en éliminant des colonnes du tableau que nous n'utiliserons pas (les variables `day_birth`, `wrist` et `year_measure`). Le résultat de cette fonction est assigné à `bio` grâce à l'opérateur d'assignation `<-` déjà vu dans le tutoriel précédent.
+Nous réalisons cette sélection avec la fonction `select_()` en éliminant des colonnes du tableau que nous n'utiliserons pas (les variables `day_birth`, `wrist` et `year_measure`). Pour indiquer que nous voulons *éliminer* ces variables, nous les précédons d'un signe `-`, et enfin, nous utilisons l'interface formule, donc nous précédons encore ces instructions d'un `~`. Le résultat de cette fonction est assigné à `bio` grâce à l'opérateur d'assignation `<-` déjà vu dans le tutoriel précédent.
 
 Utilisons la fonction `tabularise()` du package {tabularise} maintenant pour présenter les huit premières lignes de notre jeu de données.
 
@@ -104,7 +133,7 @@ Considérons maintenant uniquement les femmes. On peut filtrer les lignes d'un t
 
 ```{r, echo=TRUE, warning=FALSE}
 bio %>.%
-  sfilter(., gender == "W") %>.%
+  filter_(., ~gender == "W") %>.%
   tabularise(., max.rows = 8)
 ```
 
@@ -112,16 +141,35 @@ Continuons à manipuler notre tableau en sélectionnant des colonnes et en filtr
 
 ```{r, echo=TRUE, warning=FALSE}
 bio %>.%
-  sfilter(., gender == "W") %>.% # Sélectionne les femmes
-  sselect(., -age) %>.% # Retire la colonne âge
+  filter_(., ~gender == "W") %>.% # Sélectionne les femmes
+  select_(., ~-age) %>.% # Retire la colonne âge
   tabularise(., max.rows = 8)
 ```
+
+Lorsque la succession des opérations à réaliser devient longue, il est difficile de débusquer les erreurs dans le "pipeline" parce qu'en fait, toutes les opérations sont regroupées en une seule longue et même instruction R. C'est un peu comme si vous écriviez un roman en une seule phrase avec juste un point à la fin du livre ! Pour éviter cela, tout en conservant la clarté du code, agencé de telle manière que l'on comprenne bien qu'il s'agit d'étapes successives d'un même traitement, vous pouvez aussi utiliser la forme "bullet-point" avec le pseudo-opérateur `.=`. Le code précédent s'écrira alors comme ceci (comparez attentivement les deux formes) :
+
+```{r, echo=TRUE, warning=FALSE}
+.= bio
+.= filter_(., ~gender == "W") # Sélectionne les femmes
+.= select_(., ~-age)          # Retire la colonne âge
+.= tabularise(., max.rows = 8)
+```
+
+Les `.=` en début de ligne forment des espèces de puces ("bullet points" en anglais), ce qui permet donc de présenter vos étapes successives comme un ensemble d'éléments d'une liste. Cela se rapproche plus de ce que vous écririez naturellement pour présenter une recette (de cuisine, par exemple) sous forme abrégée. Vous n'écrirez, en effet, jamais "éplucher les pommes de terre *et puis* remplir une casserole d'eau *et puis* y placer les pommes de terre *et puis* faire bouillir l'eau..." (le *et puis* représentant votre opérateur de pipe). Vous écrirez plutôt :
+
+-   éplucher les pommes de terre
+-   remplir une casserole d'eau
+-   y placer les pommes de terre
+-   faire bouillir l'eau
+-   ...
+
+Cela se rapproche plus de la forme "bullet-point", non ? De plus, dans cette dernière forme, chaque ligne est une instruction indépendante et il est possible de suivre facilement le remaniement des données en utilisant `View(.)`, puisqu'en réalité `.=` ne fait rien d'autre qu'assigner à l'objet `.` le résultat du calcul à chaque étape.
 
 Maintenant que nous avons vu comment lire, remanier et présenter des tableaux de données dans R (nous reviendrons sur ces notions plus tard), nous pouvons explorer ses potentialités pour réaliser des graphiques à la section suivante...
 
 ### Visualiser
 
-Voici quelques exemples de graphiques réalisés avec R, sur notre jeu de données portant sur la biométrie humaine :
+Voici quelques exemples de graphiques réalisés avec R, appliqués à notre jeu de données portant sur la biométrie humaine :
 
 -   Le graphique en barres nous montre que le nombre d'hommes et de femmes est similaire.
 
@@ -139,7 +187,7 @@ chart(data = biometry, ~ age %fill=% gender | gender) +
   labs(y = "Dénombrement")
 ```
 
--   Les graphiques en violon couplés avec des boites de dispersion montrent que les hommes sont plus grands et plus lourds que les femmes dans notre jeu de données.
+-   Les graphiques en violon couplés avec des boites à moustaches montrent que les hommes sont plus grands et plus lourds que les femmes dans notre jeu de données.
 
 ```{r, echo=TRUE}
 a <- chart(data = biometry, height ~ gender %fill=% gender) +
@@ -160,7 +208,7 @@ chart(data = biometry, height ~ weight %col=% gender) +
   geom_point()
 ```
 
-Avez-vous remarqué la ressemblance dans la syntaxe employée pour réaliser un graphique en barres, un histogramme, un graphique en violon ou encore un nuage de points ? Nous utilisons la fonction `chart()` à chaque fois. On commence par lui fournir le tableau de données à employer avec `data =`, puis une "formule", c'est-à-dire une description de type `y ~ x` ... avec le tilde `~` qui caractérise cet objet formule. Si on reprend le nuage de points réalisé, on utilise le tableau `biometry` pour réaliser un graphique de la hauteur en fonction (symbolisé par le tilde `~` donc) de la masse. On spécifie que ce graphique est un nuage de points grâce à `geom_point()`. La formule peut être plus complexe si on souhaite ajouter des éléments en plus (comme différencier le genre des personnes grâce à la couleur). Le `+`permet d'ajouter des couches sur le graphique. En résumé, on aura la structure ci-dessous. La fonction `geom_...()` va varier en fonction du type de graphique à réaliser : `geom_point()` (un nuage de points), `geom_bar()` (un graphique en barres), `geom_histogram()` (un histogramme), `geom_boxplot()` (une boite de dispersion)... Si toute cette terminologie vous est étrangère, n'ayez crainte, nous l'étudierons progressivement. Retenez simplement à ce stade qu'il s'agit de types différents de graphiques. Nous pouvons donc résumer le canevas général comme suit (avec les items en lettres majuscules à replacer selon le contexte) :
+Avez-vous remarqué la ressemblance dans la syntaxe employée pour réaliser un graphique en barres, un histogramme, un graphique en violon ou encore un nuage de points ? Nous utilisons la fonction `chart()` à chaque fois. On commence par lui fournir le tableau de données à employer avec `data =`, puis une "formule", c'est-à-dire une description de type `y ~ x` ... avec le tilde `~` qui caractérise cet objet formule. Si on reprend le nuage de points réalisé, on utilise le tableau `biometry` pour réaliser un graphique de la hauteur en fonction (symbolisé par le tilde `~` donc) de la masse. On spécifie que ce graphique est un nuage de points grâce à `geom_point()`. La formule peut être plus complexe si on souhaite ajouter d'autres éléments graphiques (comme différencier le genre des personnes grâce à la couleur des points). Le `+`permet d'ajouter des couches sur le graphique. En résumé, on aura la structure ci-dessous. La fonction `geom_...()` va varier en fonction du type de graphique à réaliser : `geom_point()` (un nuage de points), `geom_bar()` (un graphique en barres), `geom_histogram()` (un histogramme), `geom_boxplot()` (une boite à moustache)... Si toute cette terminologie vous est étrangère, n'ayez crainte, nous l'étudierons progressivement. Retenez simplement à ce stade qu'il s'agit de types différents de graphiques. Nous pouvons donc résumer le canevas général comme suit (avec les items en lettres majuscules à replacer selon le contexte) :
 
 ```{r, echo=TRUE, eval=FALSE}
 chart(data = DF, FORMULA) +
@@ -280,7 +328,7 @@ weight_w / height_w^2
 
 -   Choisissez bien les noms de vos objets. Ces noms doivent être courts, mais informatifs sur leur contenu.
 
--   Rappelez-vous que des noms acceptables commencent par une lettre, et comportent ensuite des lettres, chiffres, le trait souligné `_` ou le point `.`, mais évitez, si possible, le point qui a une signification particulière dans divers contextes.
+-   Rappelez-vous que des noms acceptables commencent par une lettre, et comportent ensuite des lettres, des chiffres, le trait souligné `_` ou le point `.`, mais évitez, si possible, le point qui a une signification particulière dans divers contextes.
 
 -   Comme il est difficile de mémoriser la casse d'un nom, il est conseillé d'utiliser uniquement des lettres minuscules.
 
@@ -342,17 +390,17 @@ grade_code("Vous obtenez les cinq valeurs d'IMC en une seule fois avec l'utilisa
 
 ## Encodage d'un tableau de données
 
-Il devient rapidement évident qu'il est plus simple que nos observations de terrain soient rassemblées en un jeu de données structuré. Pour cela vous allez créer ce qu'on appelle un objet **data.table** (qui se traduit en français par "tableau de données") dans R. La fonction qui permet de le créer dans `SciViews::R` est `dtx()`. Cette dernière fonction permet de combiner vos différents vecteurs colonne par colonne dans un tableau.
+Il devient rapidement évident qu'il est plus simple que nos observations de terrain soient rassemblées en un jeu de données structuré. Pour cela vous allez créer ce qu'on appelle un objet **data.trame** (qui se traduit en français par "tableau de données") dans R. La fonction qui permet de le créer dans `SciViews::R` est `dtx()`. Cette dernière fonction permet de combiner vos différents vecteurs colonne par colonne dans un tableau.
 
 Dans `dtx()`, vous entrerez vos différents vecteurs comme autant d'**arguments** de la fonction, séparés par une virgule `,`. De plus, vous pouvez nommer vos colonnes en donnant des noms aux arguments de type `nom = valeur`. Analysez avec attention l'exemple ci-dessous.
 
 ```{r, echo=TRUE}
 # Création du tableau de données (data.table) avec dtx()
 woman <- dtx(
-  id     = 3:7,       # Valeurs numériques
+  id     = 3:7,                 # Valeurs numériques
   gender = rep("W", times = 5), # Chaines de caractères (! guillemets)
-  weight = weight_w,  # Vecteur de masses créé précédemment
-  height = height_w   # Vecteur de tailles créé précédemment
+  weight = weight_w,            # Vecteur de masses créé précédemment
+  height = height_w             # Vecteur de tailles créé précédemment
 )
 # Afficher le tableau
 woman
@@ -408,11 +456,11 @@ man
 grade_code("Maintenant que vous êtes capable de créer un tableau de données dans R, vous verrez, vous ne pourrez plus vous en passer.")
 ```
 
-Calculez de nouveau l'IMC et ajoutez vos résultats dans le tableau de données. Vous avez à votre disposition la fonction `smutate()` qui requiert comme argument le jeu de données et le nom de la nouvelle variable, suivie du signe égal `=`, puis de l'instruction qui calcule son contenu.
+Calculez de nouveau l'IMC et ajoutez vos résultats dans le tableau de données. Vous avez à votre disposition la fonction `mutate_()` qui requiert comme argument le jeu de données et le nom de la nouvelle variable, suivie du signe égal `=`, puis de l'instruction qui calcule son contenu sous forme d'une formule (donc, précédée d'un `~`.
 
 ```{r, echo=TRUE}
 # Calculer l'IMC pour les femmes
-woman <- smutate(woman, bmi = weight / height^2)
+woman <- mutate_(woman, bmi = ~weight / height^2)
 # Afficher le tableau de données
 woman
 ```
@@ -441,7 +489,7 @@ man <- dtx(
 
 ```{r imc_mutate, exercise=TRUE, exercise.setup="imc_mutate_setup"}
 # Calculer l'IMC pour les hommes
-man <- smutate(man, bmi = ___)
+man <- mutate_(man, bmi = ___)
 # Afficher le tableau de données (sans tabularise)
 ___
 ```
@@ -449,13 +497,13 @@ ___
 ```{r imc_mutate-solution}
 ## Solution ##
 # Calculer l'IMC pour les hommes
-man <- smutate(man, bmi = weight / height^2)
+man <- mutate_(man, bmi = ~weight / height^2)
 # Afficher le tableau de données (sans tabularise)
 man
 ```
 
 ```{r imc_mutate-check}
-grade_code("Vous avez employé la fonction `smutate()` judicieusement.")
+grade_code("Vous avez employé la fonction `mutate_()` judicieusement.")
 ```
 
 Vous pouvez observer que tout comme le tableau de données portant sur les femmes, vous obtenez une nouvelle colonne au sein de votre tableau de données portant le nom `bmi` (pour "Body Mass Index", soit l'IMC en français).
@@ -472,15 +520,19 @@ bio_100 <- biometry[1:100, ]
 
 Vous pouvez observer que la taille est ici exprimée en centimètres, il faut en tenir compte lors du calcul de l'IMC qui attend la taille exprimée en mètre. Un jeu de données réduit est employé pour expliciter les suites d'instructions `bio_100` qui ne reprend que 100 observations du jeu de données complet `biometry`.
 
-Pour calculer l'IMC sur le jeu de données `bio_100`, nous employons à nouveau la fonction `smutate()`.
+Pour calculer l'IMC sur le jeu de données `bio_100`, nous employons à nouveau la fonction `mutate_()`.
 
 ```{r, echo=TRUE}
-bio_100 <- smutate(bio_100, bmi = weight / (height / 100)^2)
+bio_100 <- mutate_(bio_100, bmi = ~weight / (height / 100)^2)
 # Afficher les premières lignes du tableau de données
 head(bio_100, n = 5)
 ```
 
-Calculez maintenant l'IMC sur le jeu de données `biometry` tout entier. Utilisez la fonction `smutate()`. Nommez cette nouvelle variable `bmi` et assignez votre résultat de nouveau à `biometry`
+Calculez maintenant l'IMC sur le jeu de données `biometry` tout entier. Utilisez la fonction `mutate_()`. Nommez cette nouvelle variable `bmi` et assignez votre résultat de nouveau à `biometry`
+
+```{r bio_imc_h2_setup}
+biometry <- read("biometry", package = "BioDataScience", lang = "fr")
+```
 
 ```{r bio_imc_h2, exercise=TRUE}
 # Calcul de l'IMC
@@ -491,7 +543,7 @@ ___
 
 ```{r bio_imc_h2-hint-1}
 # Calcul de l'IMC
-biometry <- smutate(___)
+biometry <- mutate_(___)
 # Affichage des 5 premières lignes du tableau de données
 ___
 
@@ -501,14 +553,15 @@ ___
 ```{r bio_imc_h2-solution}
 ## Solution ##
 # Calcul de l'IMC
-biometry <- smutate(biometry, bmi = weight / (height / 100)^2)
+biometry <- mutate_(biometry, bmi = ~weight / (height / 100)^2)
 # Affichage des 5 premières lignes du tableau de données
 head(biometry, n = 5)
 ```
 
 ```{r bio_imc_h2-check}
 grade_code(
-  correct = "Vous progressez très rapidement.", incorrect = "Observez comment nous avions fait sur `bio`. N'auriez-vous pas oublié quelque chose ?")
+  correct  = "Vous progressez très rapidement.",
+  incorrect = "Observez comment nous avions fait sur `bio`. N'auriez-vous pas oublié quelque chose ?")
 ```
 
 ## Signification de l'IMC
@@ -539,7 +592,7 @@ Ajoutez une nouvelle variable qui tient compte de l'échelle de l'OMS dans le je
 
 ```{r, echo=TRUE}
 # Ajouter la nouvelle variable
-bio_100 <- smutate(bio_100, bmi_cat = case_when(
+bio_100 <- mutate_(bio_100, bmi_cat = ~case_when(
   bmi < 18.5 ~ "underweight",
   bmi >= 18.5 & bmi < 25 ~ "normal weight",
   bmi >= 25 & bmi < 30 ~ "overweight",
@@ -552,13 +605,13 @@ head(bio_100)
 Ajoutez maintenant une nouvelle variable `bmi_cat` au jeu de données `biometry` en complétant les informations manquantes. Affichez les premières lignes du tableau avec la fonction `head()`.
 
 ```{r case_when_setup}
-biometry <- read("biometry", package = "BioDataScience")
-biometry <- smutate(biometry, bmi = weight / (height / 100)^2)
+biometry <- read("biometry", package = "BioDataScience", lang = "fr")
+biometry <- mutate_(biometry, bmi = ~weight / (height / 100)^2)
 ```
 
 ```{r case_when, exercise=TRUE, exercise.setup="case_when_setup"}
 # Ajouter la nouvelle variable
-___ <- smutate(___, bmi_cat = case_when(
+___ <- mutate_(___, bmi_cat = ~case_when(
   bmi  ___ ___~ "underweight",
   bmi  ___ ___~ "normal weight",
   bmi  ___ ___~"overweight",
@@ -571,7 +624,7 @@ head(___)
 ```{r case_when-solution}
 ## Solution ##
 # Ajouter la nouvelle variable
-biometry <- smutate(biometry, bmi_cat = case_when(
+biometry <- mutate_(biometry, bmi_cat = ~case_when(
   bmi < 18.5 ~ "underweight",
   bmi >= 18.5 & bmi < 25 ~ "normal weight",
   bmi>= 25 & bmi < 30 ~"overweight",
@@ -585,12 +638,12 @@ head(biometry)
 grade_code("C'est correct. Vous êtes maintenant capable de réaliser des catégories avec `case_when()`.")
 ```
 
-Votre nouvelle variable contient des chaînes de caractères (du texte). Elle est de classe **character** dans R. Cependant c'est une variable non numérique. On parle encore de variable qualitative ou variable "facteur" en statistiques. Si nous voulons qu'elle soit comprise comme tel dans R, nous pouvons la convertir en un objet **factor** avec la fonction `factor()`. Avec l'argument `levels =`, nous spécifions l'ordre des différents niveaux de notre variable. Nous utilisons la fonction `smutate()` comme précédemment.
+Votre nouvelle variable contient des chaînes de caractères (du texte). Elle est de classe **character** dans R. Cependant c'est une variable non numérique. On parle encore de variable qualitative ou variable "facteur" en statistiques. Si nous voulons qu'elle soit comprise comme tel dans R, nous pouvons la convertir en un objet **factor** avec la fonction `factor()`. Avec l'argument `levels =`, nous spécifions l'ordre des différents niveaux de notre variable. Nous utilisons la fonction `mutate_()` comme précédemment.
 
 Pour convertir en **factor** notre nouvelle variable `bmi_cat` dans `bio_100`, nous faisons donc :
 
 ```{r, echo=TRUE}
-bio_100 <- smutate(bio_100, bmi_cat = factor(bmi_cat,
+bio_100 <- mutate_(bio_100, bmi_cat = ~factor(bmi_cat,
   levels = c("underweight", "normal weight", "overweight", "obese")))
 bio_100
 ```
@@ -602,7 +655,7 @@ Classer votre nouvelle variable avec le jeu de données `biometry` tout entier, 
 ```{r factor_setup}
 biometry <- read("biometry", package = "BioDataScience", lang = "fr")
 biometry$bmi <- biometry$weight / (biometry$height / 100)^2
-biometry <- smutate(biometry, bmi_cat = case_when(
+biometry <- mutate_(biometry, bmi_cat = ~case_when(
   bmi < 18.5 ~ "underweight",
   bmi >= 18.5 & bmi < 25 ~ "normal weight",
   bmi >= 25 & bmi < 30 ~ "overweight",
@@ -611,7 +664,7 @@ biometry <- smutate(biometry, bmi_cat = case_when(
 ```
 
 ```{r factor, exercise=TRUE, exercise.setup="factor_setup"}
-biometry <- smutate(biometry, bmi_cat = ordered(___,
+biometry <- mutate_(biometry, bmi_cat = ~ordered(___,
   levels = c(___)))
 # Visualiser le vecteur
 biometry$bmi_cat
@@ -621,7 +674,7 @@ ___(biometry$bmi_cat)
 
 ```{r factor-solution}
 ## Solution ##
-biometry <- smutate(biometry, bmi_cat = ordered(bmi_cat,
+biometry <- mutate_(biometry, bmi_cat = ~ordered(bmi_cat,
   levels = c("underweight", "normal weight", "overweight", "obese")))
 # Visualiser le vecteur
 biometry$bmi_cat
@@ -649,8 +702,8 @@ Utilisez la fonction `summary()` pour obtenir une description du tableau de donn
 ```{r obese_setup}
 biometry <- read("biometry", package = "BioDataScience", lang = "fr")
 biometry$bmi <- biometry$weight/(biometry$height/100)^2
-biometry <- fmutate(biometry,
-  bmi_cat = case_when(
+biometry <- mutate_(biometry,
+  bmi_cat = ~case_when(
     bmi < 18.5 ~ "underweight",
     bmi >= 18.5 & bmi < 25 ~ "normal weight",
     bmi >= 25 & bmi < 30 ~ "overweight",
@@ -668,6 +721,7 @@ summary(___)
 ```
 
 ```{r obese-solution}
+## Solution ##
 # Résumé des données
 summary(biometry)
 ```

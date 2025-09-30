@@ -17,8 +17,34 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
 library(BioDataScience)
-
 # Dataset
 crabs <- read("crabs", package = "MASS", lang = "fr")
 ```

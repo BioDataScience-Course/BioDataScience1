@@ -15,6 +15,34 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R()
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
 ```
 
 ```{r, echo=FALSE}
@@ -37,13 +65,13 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Combinaison de deux tableaux
 
-Il existe plusieurs fonctions qui permettent de fusionner des tableaux. Nous vous proposons d'employer `*_join()` comme `full_join()`/`sfull_join()`, `inner_join()`/`sinner_join()`, `left_join()`/`sleft_join()`, `right_join()`/`sright_join()`.
+Il existe plusieurs fonctions qui permettent de fusionner des tableaux. Nous vous proposons d'employer `*_join()` comme `full_join_()`/`full_join()`, `inner_join_()`/`inner_join()`, `left_join_()`/`left_join()`, `right_join_()`/`right_join()`.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF <- (s)full_join(DF1, DF2, by = VAR)
-DF <- (s)inner_join(DF1, DF2, by = VAR)
-DF <- (s)left_join(DF1, DF2, by = VAR)
-DF <- (s)right_join(DF1, DF2, by = VAR)
+DF <- full_join_(DF1, DF2, by = VAR)
+DF <- inner_join_(DF1, DF2, by = VAR)
+DF <- left_join_(DF1, DF2, by = VAR)
+DF <- right_join_(DF1, DF2, by = VAR)
 ```
 
 Ces quatre paires de fonctions utilisent la syntaxe suivante :
@@ -53,7 +81,7 @@ Ces quatre paires de fonctions utilisent la syntaxe suivante :
 
 Soyez particulièrement attentif lors des exercices ci-dessous, les fonctions utilisées semblent similaires mais les différences peuvent grandement changer les résultats de la fusion de tableaux.
 
-Des chercheurs réalisent une expérience avec plusieurs aquariums expérimentaux. Ils ont encodé les données dans deux tableaux distincts. Le premier tableau contient la variation de la température et de la salinité dans ces aquariums. Le second tableau reprend à la masse de l'organisme placé dans l'aquarium.
+Des chercheurs réalisent une expérience en utilisant plusieurs aquariums expérimentaux. Ils ont encodé les données dans deux tableaux distincts. Le premier tableau contient la variation de la température et de la salinité dans ces aquariums. Le second tableau reprend la masse de l'organisme placé dans l'aquarium.
 
 ```{r join_init}
 set.seed(42)
@@ -84,10 +112,10 @@ knitr::kable(weight)
 
 ### fusion de tableaux 1
 
--   Reproduisez le tableau ci-dessous grâce à une jointure complète à l'aide d'une fonction speedy et nommez-le `ph_weight` :
+-   Reproduisez le tableau ci-dessous grâce à une jointure complète à l'aide d'une fonction svTidy et nommez-le `ph_weight` :
 
 ```{r}
-sfull_join(physico, weight, by = "aqua") %>.%
+full_join_(physico, weight, by = 'aqua') %>.%
   knitr::kable(.)
 ```
 
@@ -117,7 +145,7 @@ knitr::kable(___)
 
 ```{r join1_h2-solution}
 ## Solution ##
-ph_weight <- sfull_join(physico, weight, by = "aqua")
+ph_weight <- full_join_(physico, weight, by = "aqua")
 knitr::kable(ph_weight)
 ```
 
@@ -127,10 +155,10 @@ grade_code("Vous venez de fusionner vos deux tableaux.")
 
 ### fusion de tableaux 2
 
--   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (sélectionnez la jointure qui convient ici et utilisez cette fois-ci une fonction tidy) :
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (sélectionnez la jointure qui convient ici et utilisez cette fois-ci une fonction tidyverse). Examinez bien quelles lignes des deux tableaux initiaux sont reprises pour en déduire la jointure à utiliser ici :
 
 ```{r}
-sleft_join(physico, weight, by = "aqua") %>.%
+left_join_(physico, weight, by = 'aqua') %>.%
   knitr::kable(.)
 ```
 
@@ -153,15 +181,15 @@ knitr::kable(ph_weight)
 ```
 
 ```{r join2_h2-check}
-grade_code("Vous venez de fusionner vos tableaux cette fois-ci avec `left_join()`. Remarquez que le résultat diffère de `(s)full_join()`")
+grade_code("Vous venez de fusionner vos tableaux cette fois-ci avec `left_join()`. Remarquez que le résultat diffère de `full_join()`")
 ```
 
 ### fusion de tableaux 3
 
--   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (utilisez la jointure qui convient en version speedy) :
+-   Reproduisez le tableau ci-dessous et nommez-le `ph_weight` (utilisez la jointure qui convient en version svTidy) :
 
 ```{r}
-sinner_join(physico, weight, by = "aqua") %>.%
+inner_join_(physico, weight, by = 'aqua') %>.%
   knitr::kable(.)
 ```
 
@@ -179,12 +207,12 @@ knitr::kable(___)
 
 ```{r join3_h2-solution}
 ## Solution ##
-ph_weight <- sinner_join(physico, weight, by = "aqua")
+ph_weight <- inner_join_(physico, weight, by = "aqua")
 knitr::kable(ph_weight)
 ```
 
 ```{r join3_h2-check}
-grade_code("Encore un résultat différent, cette fois-ci avec `(s)inner_join()`.")
+grade_code("Encore un résultat différent, cette fois-ci avec `inner_join_()`.")
 ```
 
 ## Conclusion

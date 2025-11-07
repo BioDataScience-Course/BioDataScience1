@@ -15,6 +15,34 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R(lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
 ```
 
 ```{r, echo=FALSE}
@@ -41,13 +69,13 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## De large vers long
 
-Le format long d'un tableau de données correspond à un encodage en un minimum de colonnes, les données étant réparties sur un plus grand nombre de lignes en comparaison du format large qui regroupe les données dans plusieurs colonnes successives. Il est assez courant de devoir transformer un tableau large vers un tableau long. Cela permet souvent d'obtenir un tableau cas par variables correct. La fonction utile pour cela est `pivot_longer()` en version tidy, ou `spivot_longer()` en version speedy.
+Le format long d'un tableau de données correspond à un encodage en un minimum de colonnes, les données étant réparties sur un plus grand nombre de lignes en comparaison du format large qui regroupe les données dans plusieurs colonnes successives. Il est assez courant de devoir transformer un tableau large vers un tableau long. Cela permet souvent d'obtenir un tableau cas par variables correct. La fonction utile pour cela est `pivot_longer()` en version Tidyverse, ou `pivot_longer_()` en version svTidy.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF1 <- spivot_longer(DF, cols = SELECTION, names_to = NEWVAR1, values_to = NEWVAR2)
+DF1 <- pivot_longer_(DF, cols = SELECTION, names_to = NEWVAR1, values_to = NEWVAR2)
 ```
 
-La fonction `pivot_longer()` ou `spivot_longer()` a les arguments suivants :
+La fonction `pivot_longer()` ou `pivot_longer_()` a les arguments principaux suivants :
 
 -   `cols =` : les variables qui doivent être pivotées
 -   `names_to =` : le nom de la nouvelle variable qui reprend le nom des colonnes pivotées
@@ -64,12 +92,12 @@ long <- dtx(
   circumf = size
 )
 
-wide <- spivot_wider(long, names_from = year, values_from = circumf)
-long1 <- spivot_longer(wide, cols = "1989":"1995", names_to = "year",
-  values_to = "circumf")
+wide <- pivot_wider_(long, names_from = 'year', values_from = 'circumf')
+long1 <- pivot_longer_(wide, cols = ~'1989':'1995', names_to = 'year',
+  values_to = 'circumf')
 ```
 
-Sur base du tableau `wide` ci-dessous :
+Voici un jeu de données nommé `wide` :
 
 ```{r}
 knitr::kable(wide)
@@ -83,7 +111,7 @@ knitr::kable(long1)
 
 ### Première variante de l'argument cols
 
-Complétez le code pour obtenir le tableau `long` avec une fonction tidy.
+Complétez le code pour obtenir le tableau `long` avec une fonction tidyverse.
 
 ```{r wide-prep}
 time <- 1989:1995
@@ -96,7 +124,7 @@ long <- dtx(
   circumf = size
 )
 
-wide <- spivot_wider(long, names_from = year, values_from = circumf)
+wide <- pivot_wider_(long, names_from = 'year', values_from = 'circumf')
 ```
 
 ```{r wide1_h3, exercise = TRUE, exercise.setup = "wide-prep"}
@@ -132,7 +160,7 @@ grade_code("Vous venez de réaliser votre premier pivot de tableau.")
 
 ### Seconde variante de l'argument cols =
 
-L'argument `cols =` de la fonction pivot accepte plusieurs écritures afin de spécifier les colonnes d'intérêts. Retirez la colonne qui ne doit pas subir le pivot dans la variante suivante pour à nouveau obtenir votre tableau `long`. Utilisez cette fois-ci la fonction speedy.
+L'argument `cols =` de la fonction de pivot accepte plusieurs écritures pour spécifier les colonnes d'intérêts. Retirez la colonne qui ne doit pas subir le pivot dans la variante suivante pour à nouveau obtenir votre tableau `long`. Utilisez cette fois-ci la fonction svTidy.
 
 ```{r wide2_h2, exercise = TRUE, exercise.setup = "wide-prep"}
 ___ <- ___(___, cols = ___, names_to = "___",
@@ -141,7 +169,7 @@ head(___)
 ```
 
 ```{r wide2_h2-hint-1}
-long <- spivot_longer(wide, cols = !___, names_to = "year",
+long <- pivot_longer_(wide, cols = ~!___, names_to = "year",
   values_to = "circumf")
 head(___)
 
@@ -150,18 +178,18 @@ head(___)
 
 ```{r wide2_h2-solution}
 ## Solution ##
-long <- spivot_longer(wide, cols = !tree, names_to = "year",
+long <- pivot_longer_(wide, cols = ~!tree, names_to = "year",
   values_to = "circumf")
 head(long)
 ```
 
 ```{r wide2_h2-check}
-grade_code("Cette variante est parfois plus pratique, surtout avec des grands tableaux. Elle fonctionne aussi bien avec les fonctions tidy que speedy.")
+grade_code("Cette variante est parfois plus pratique, surtout avec des grands tableaux. Elle fonctionne aussi bien avec les fonctions tidyverse que svTidy, à condition pour ces dernières de ne pas oublier de transformer l'expression en formule en ajoutant un `~` devant.")
 ```
 
 ### Troisième variante de l'argument cols =
 
-Pour l'argument `cols =` vous pouvez aussi utiliser `start_with()` afin de sélectionner les colonnes dont le nom commence par une chaîne de caractères donnée pour le pivot. Créez à nouveau un tableau nommé `long` à partir du tableau `wide`. Utilisez à nouveau la fonction tidy ici.
+Pour l'argument `cols =` vous pouvez aussi utiliser `starts_with()` pour sélectionner les colonnes dont le nom commence par une chaîne de caractères donnée. Créez à nouveau un tableau nommé `long` à partir du tableau `wide`. Utilisez à nouveau la fonction tidyverse ici.
 
 ```{r wide3_h2, exercise = TRUE, exercise.setup = "wide-prep"}
 ___ <- ___(., cols = ___("___"), names_to = "___",
@@ -185,18 +213,18 @@ head(long)
 ```
 
 ```{r wide3_h2-check}
-grade_code("La sélection de variables à l'aide de `starts_with()` ou `ends_with()` peut rendre de grands services ici comme dans `select()` par exemple.")
+grade_code("La sélection de variables à l'aide de `starts_with()` ou `ends_with()` peut rendre de grands services ici, tout comme dans `select_()`/`select()`, par exemple, elle fonctionne aussi avec les fonctions svTidy, après avoir transformé l'expression en formule.")
 ```
 
 ## De long vers large
 
-Il est plus rare de passer d'un tableau long vers un tableau large. Cela est souvent utilisé lorsque l'on souhaite transformer ce tableau afin de le rendre plus compact pour l'inclure dans un rapport ou dans une présentation. La fonction utile pour cette transformation est `pivot_wider()` (version tidy) ou `spivot_wider()`(version speedy).
+Il est plus rare de passer d'un tableau long vers un tableau large. Cela est souvent utilisé lorsque l'on souhaite transformer le jeu de données pour le rendre plus compact (par exemple, pour l'imprimer dans un rapport ou dans une présentation). La fonction utile pour cette transformation est `pivot_wider()` (version tidyverse) ou `pivot_wider_()`(version svTidy).
 
 ```{r, eval=FALSE, echo=TRUE}
-DF1 <- spivot_wider(DF, names_from = VAR1, values_from = VAR2)
+DF1 <- pivot_wider_(DF, names_from = VAR1, values_from = VAR2)
 ```
 
-La fonction `pivot_wider()` ou `spivot_wider()` requiert pour arguments :
+La fonction `pivot_wider()` ou `pivot_wider_()` a pour principaux arguments :
 
 -   `names_from =` : le nom de la variable dont les valeurs vont être employées comme les noms des nouvelles variables.
 -   `values_from =` : le nom de la variable dont les valeurs vont être employées comme les valeurs des nouvelles variables.
@@ -214,16 +242,16 @@ demography <- dtx(
   population = popu
 )
 
-demo <- spivot_wider(demography, names_from = year, values_from = population)
+demo <- pivot_wider_(demography, names_from = 'year', values_from = 'population')
 ```
 
-Sur base du tableau ci-dessous :
+Voici un petit jeu de données au format long nommé `demography` :
 
 ```{r}
 knitr::kable(demography)
 ```
 
-Modifiez le tableau `demography` afin d'obtenir le tableau suivant que vous nommerez `demo` :
+Modifiez ce tableau `demography` en un tableau large que vous nommerez `demo` :
 
 ```{r}
 knitr::kable(demo)
@@ -243,7 +271,7 @@ demography <- dtx(
 )
 ```
 
-Complétez l'instruction ci-dessous en utilisant une fonction tidy.
+Complétez l'instruction ci-dessous en utilisant une fonction tidyverse.
 
 ```{r long_h2, exercise=TRUE, exercise.setup="long-prep"}
 ___ <- ___(___, names_from = ___, values_from = ___)
@@ -259,24 +287,24 @@ head(demo)
 
 ```{r long_h2-solution}
 ## Solution ##
-demo <- pivot_wider(demography, names_from = year, values_from = population)
+demo <- pivot_wider(demography, names_from = "year", values_from = "population")
 head(demo)
 ```
 
 ```{r long_h2-check}
-grade_code("Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre `pivot_wider()` et `pivot_longer()` (ou leurs équivalents speedy). Elles se complètent parfaitement.")
+grade_code("Vous venez de réaliser un tableau large en partant d'un tableau long. Comme vous pouvez le voir, la syntaxe est très similaire entre `pivot_wider()` et `pivot_longer()` (ou leurs équivalents svTidy). Elles se complètent parfaitement.")
 ```
 
 ## Diviser des colonnes dans un tableau
 
-La fonction à utiliser pour créer plusieurs variables en séparant les éléments qui se trouvent dans une seule colonne est `separate()` en tidy ou `sseparate()` en speedy. La fonction `unite()` ou `sunite()` est complémentaire de `separate()`/`sseparate()` et crée une seule variable à partir de plusieurs.
+La fonction à utiliser pour créer plusieurs variables en séparant les éléments qui se trouvent dans une seule colonne est `separate()` en tidyverse ou `separate_()` en svTidy. La fonction `unite()` ou `unite_()` est complémentaire de `separate()`/`separate_()` et crée une seule variable à partir de plusieurs.
 
 ```{r, eval=FALSE, echo=TRUE}
-DF1 <- sseparate(DF, col = VARNAME, into = c("VAR1", "VAR2"),
+DF1 <- separate_(DF, col = VARNAME, into = c("VAR1", "VAR2"),
   sep = "[^[:alnum:]]+")
 ```
 
-La fonction `separate()` ou `sseparate()` prend les arguments suivants :
+La fonction `separate()` ou `separate_()` a les principaux arguments suivants :
 
 -   `col =` : le nom de la variable à scinder
 -   `into =` : le nom des nouvelles variables
@@ -291,16 +319,16 @@ bacteria <- dtx(
   value = c((11:13)^3, (11:13)^4, (11:13)^5)
 )
 
-bact <- sseparate(bacteria, col = batch, into = c("rep", "date"), sep = "_" )
+bact <- separate_(bacteria, col = 'batch', into = c('rep', 'date'), sep = "_" )
 ```
 
-Sur base du tableau ci-dessous :
+Voici un jeu de données nommé `bacteria` dont la première colonne combine deux informations (le lot et la date) :
 
 ```{r}
 knitr::kable(bacteria)
 ```
 
-Modifiez le tableau `bacteria` pour obtenir le tableau suivant que vous nommerez `bact` en utilisant une fonction speedy :
+Modifiez ce tableau `bacteria` en un tableau à trois colonnes que vous nommerez `bact` en utilisant une fonction svTidy :
 
 ```{r}
 knitr::kable(bact)
@@ -323,7 +351,7 @@ head(___)
 ```
 
 ```{r separate_h2-hint-1}
-bact <- sseparate(bacteria, col = batch,
+bact <- separate_(bacteria, col = "batch",
   into = c("___", "___"), sep = "___")
 head(bact)
 
@@ -332,13 +360,13 @@ head(bact)
 
 ```{r separate_h2-solution}
 ## Solution ##
-bact <- sseparate(bacteria, col = batch,
+bact <- separate_(bacteria, col = "batch",
   into = c("rep", "date"), sep = "_" )
 head(bact)
 ```
 
 ```{r separate_h2-check}
-grade_code("Vous venez de scinder une colonne de votre tableau avec `sseparate()`. Vous pouvez également utiliser `separate()` en tidy.")
+grade_code("Vous venez de scinder une colonne de votre tableau avec `separate_()`. Vous pouvez également utiliser `separate()` en mode tidyverse.")
 ```
 
 ## Conclusion

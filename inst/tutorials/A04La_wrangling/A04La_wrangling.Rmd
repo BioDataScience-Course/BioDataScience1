@@ -16,7 +16,35 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R(lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
 library(BioDataScience)
+
 
 # Dataset
 crabs <- read("crabs", package = "MASS")
@@ -42,10 +70,10 @@ BioDataScience1::learnr_server(input, output, session)
 
 Le cours de Science des données I : visualisation se divise en deux parties. La première partie traite principalement de la réalisation de graphiques et la seconde du remaniement des données. Ce tutoriel doit vous permettre de :
 
--   Vérifier l'acquisition des notions relatives au remaniement des données avec les fonctions `select()`/`sselect()`, `filter()`/`sfilter()`, `mutate()`/`smutate()`, `group_by()`/`sgroup_by()`, `summarise()`/`ssummarise()`
+-   Vérifier l'acquisition des notions relatives au remaniement des données avec les fonctions `select_()`/`select()`, `filter_()`/`filter()`, `mutate_()`/`mutate()`, `group_by_()`/`group_by()`, `summarise_()`/`summarise()`
 -   Vérifier l'acquisition des compétences relatives au chaînage des instructions
 
-## Les fonctions speedy/tidy
+## Les fonctions svTidy/Tidyverse
 
 L'instruction `SciViews::R` ou `SciViews::R()` qui est équivalente, est employée pour charger une série cohérente de packages R. Nous l'utilisons en début de script R ou dans le premier chunk d'un document Quarto ou R Markdown.
 
@@ -53,31 +81,23 @@ L'instruction `SciViews::R` ou `SciViews::R()` qui est équivalente, est employ�
 SciViews::R()
 ```
 
-Vous employez des tableaux de données depuis le premier module de ce cours pour réaliser des graphiques. Vous allez à présent apprendre à les manipuler. Il existe dans R plusieurs types d'objets pour contenir des jeux de données, dont **data.frame**, tibble (objet **tbl_df**) ou **data.table**. Par défaut dans `SciViews::R`, vous travaillez avec des **data.table**s. La vitesse de traitements et la gestion en mémoire des objets **data.table** en font le choix idéal pour traiter des gros jeux de données. Actuellement, vous n'avez pas encore traité de gros jeux de données mais cela va venir plus vite que vous ne l'imaginez.
+Vous employez des tableaux de données depuis le premier module de ce cours pour réaliser des graphiques. Vous allez à présent apprendre à les manipuler. Il existe dans R plusieurs types d'objets pour contenir des jeux de données, dont **data.frame**, tibble (objet **tbl_df**) ou **data.table**. Par défaut dans `SciViews::R`, vous travaillez avec des **data.trame**s. La vitesse de traitements et la gestion en mémoire des objets **data.trame** en font le choix idéal pour traiter des gros jeux de données. Actuellement, vous n'avez pas encore traité de gros jeux de données mais cela va venir plus vite que vous ne l'imaginez.
 
 Le remaniement de données est tout un art que vous devez maîtriser. Vous devez être capable de sélectionner des colonnes, de filtrer des lignes, de trier un tableau, de résumer vos observations...
 
-Parmi les fonctions de remaniement de tableaux, nous avons les fonctions "speedy" qui visent à accélérer le traitement dans R. Ces fonctions speedy sont compatibles avec les objets **data.table**. Elles sont préfixées avec un "s" pour les reconnaître facilement.
+Parmi les fonctions de remaniement de tableaux, nous avons les fonctions svTidy qui visent à accélérer le traitement dans R. Ces fonctions sont compatibles avec les objets **data.trame**. Elles sont suffixées avec un "_" pour les reconnaître facilement.
 
-```{r, echo=TRUE}
-list_speedy_functions()
-```
+Un second ensemble est constitué des fonctions [Tidyverse](https://www.tidyverse.org), et portant le même nom que leurs homologues svTidy, mais non suffixées d'un "_". Elles sont couramment utilisées dans R, mais, dans la plupart des cas, plus lentes que les fonctions svTidy correspondantes, et elles n'utilisent pas l'interface formule qsui vous est familière avec, entre autres, `chart()`.
 
-Un second ensemble est constitué des fonctions "tidy" du [Tidyverse](https://www.tidyverse.org), et portant le même nom que leurs homologues speedy, mais non préfixées d'un "s".
+Nous retrouvons donc des paires de fonctions svTidy/Tidyverse qui réalisent des traitements très similaires et ont une syntaxe relativement proche. Elles permettent de :
 
-```{r, echo=TRUE}
-list_tidy_functions()
-```
+-   sélectionner des colonnes d'un jeu de données avec `select_()`/`select()`
+-   filtrer des lignes dans un jeu de données avec `filter_()`/`filter()`
+-   calculer de nouvelles variables dans un jeu de données avec `mutate_()`/`mutate()`
+-   indiquer les variables de regroupement à utiliser dans un tableau avec `group_by_()`/`group_by()`
+-   résumer les variables d'un jeu de données avec `summarise_()`/`summarise()`
 
-Nous retrouvons donc des paires de fonctions speedy/tidy qui réalisent des traitements très similaires et ont une syntaxe identique ou très proche. Elles permettent de :
-
--   sélectionner des colonnes d'un jeu de données avec `sselect()`/`select()`
--   filtrer des lignes dans un jeu de données avec `sfilter()`/`filter()`
--   calculer de nouvelles variables dans un jeu de données avec `smutate()`/`mutate()`
--   indiquer les variables de regroupement à utiliser dans un tableau avec `sgroup_by()`/`group_by()`
--   résumer les variables d'un jeu de données avec `ssummarise()`/`summarise()`
-
-*Nous vous conseillons d'employer préférentiellement les fonctions speedy.* Dans ce tutoriel, nous utiliserons alternativement les deux pour se familiariser avec les deux syntaxes.
+*Nous vous conseillons d'employer préférentiellement les fonctions svTidy.* Cependant, dans ce tutoriel nous utiliserons alternativement les deux pour se familiariser avec les deux syntaxes.
 
 ## Deux variétés de crabes
 
@@ -93,7 +113,7 @@ Ce tableau contient `r nrow(crabs)` observations et `r ncol(crabs)` variables. L
 
 ### Calculer de nouvelles variables
 
-Calculez sur le tableau `crabs` à l'aide de la fonction speedy `smutate()` :
+Calculez sur le tableau `crabs` à l'aide de la fonction svTidy `mutate_()` :
 
 -   le logarithme (`log()`) de la longueur de la carapace (`length`) des crabes et nommez cette nouvelle variables `log_length`
 -   la racine carrée (`sqrt()`) de la largueur de la carapace (`width`) et nommez cette nouvelle variable `sqrt_width`
@@ -102,10 +122,10 @@ Calculez sur le tableau `crabs` à l'aide de la fonction speedy `smutate()` :
 Affichez ensuite les premières lignes du tableau (`head()`). Par défaut, les six premières lignes sont affichées. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
-crabs <- smutate(crabs,
-  log_length = log(length),
-  sqrt_width = sqrt(width),
-  front_m    = front / 1000)
+crabs <- mutate_(crabs,
+  log_length = ~log(length),
+  sqrt_width = ~sqrt(width),
+  front_m    = ~front / 1000)
 # Visualisation des premières lignes du tableau
 head(crabs)
 ```
@@ -120,7 +140,7 @@ ___(___)
 ```
 
 ```{r mutate_h3-hint-1}
-DF <- smutate(___,
+DF <- mutate_(___,
   log_length = ___,
   sqrt_width = ___,
   front_m    = ___)
@@ -129,9 +149,9 @@ head(___)
 ```
 
 ```{r mutate_h3-hint-2}
-crabs <- smutate(crabs,
-  log_length = log(___),
-  sqrt_width = sqrt(___),
+crabs <- mutate_(crabs,
+  log_length = ~log(___),
+  sqrt_width = ~sqrt(___),
   front_m    = ___ / 1000)
 # Visualisation des premières lignes du tableau
 head(___)
@@ -141,16 +161,16 @@ head(___)
 
 ```{r mutate_h3-solution}
 ## Solution ##
-crabs <- smutate(crabs,
-  log_length = log(length),
-  sqrt_width = sqrt(width),
-  front_m    = front / 1000)
+crabs <- mutate_(crabs,
+  log_length = ~log(length),
+  sqrt_width = ~sqrt(width),
+  front_m    = ~front / 1000)
 # Visualisation des premières lignes du tableau
 head(crabs)
 ```
 
 ```{r mutate_h3-check}
-grade_code("Vous savez maintenant comment calculer de nouvelles variables avec la fonction speedy `smutate()`.")
+grade_code("Vous savez maintenant comment calculer de nouvelles variables avec la fonction svTidy `mutate_()` qui utilise des formules commençant par `~` pour effectuer les transformations désirées.")
 ```
 
 ### Filtrer et sélectionner des données
@@ -162,7 +182,7 @@ Reprenons le jeu de données initial `crabs`.
 (crabs <- read("crabs", package = "MASS", lang = "fr"))
 ```
 
-Réalisez les opérations suivantes avec les fonctions **tidy** `filter()` et `select()` et assignez votre résultat à `crabs2` :
+Réalisez les opérations suivantes avec les fonctions **Tidyverse** `filter()` et `select()` et assignez votre résultat à `crabs2` :
 
 -   Retirer la variable index (`index`) du jeu de données
 -   Garder uniquement les individus mâles (`"M"`) du jeu de données dont la longueur de la carapace est supérieure ou égale à 25 mm (variables `sex` et `length` respectivement)
@@ -216,10 +236,10 @@ head(crabs2)
 ```
 
 ```{r pipe1_h3-check}
-grade_code("La sélection de vos variables avec `select()` et de vos observations avec `filter()` (fonctions tidy) réalisent cette transformation. En général dans un pipeline, finissez toujours en assignant avec -> pour que l'assignation apparaisse à la fin dans la logique de succession des opérations et mettez en évidence le nom auquel vous assignez en le plaçant sur une nouvelle ligne.")
+grade_code("La sélection de vos variables avec `select()` et de vos observations avec `filter()` (fonctions tidyverse) réalisent cette transformation. En général dans un pipeline, finissez toujours en assignant avec `->` pour que l'assignation apparaisse à la fin dans la logique de succession des opérations et mettez en évidence le nom auquel vous assignez en le plaçant sur une nouvelle ligne.")
 ```
 
-Afin de comparer les fonctions speedy et tidy, réalisez le même exercice en utilisant des fonctions "speedy".
+Afin de comparer les fonctions svTidy et tidyverse, réalisez le même exercice en utilisant cette fois-ci des fonctions svTidy.
 
 ```{r pipe1s_h2, exercise=TRUE}
 crabs ___
@@ -231,7 +251,7 @@ head(crabs2)
 
 ```{r pipe1s_h2-hint-1}
 crabs %>.%
-  sselect(___, ___) ___
+  select_(___, ___) ___
   ___(___, ___ & ___) ->
   crabs2
 head(crabs2)
@@ -242,14 +262,14 @@ head(crabs2)
 ```{r pipe1s_h2-solution}
 ## Solution ##
 crabs %>.%
-  sselect(., -index) %>.%
-  sfilter(., sex == "M" & length >= 25) ->
+  select_(., ~-index) %>.%
+  filter_(., ~sex == "M" & length >= 25) ->
   crabs2
 head(crabs2)
 ```
 
 ```{r pipe1s_h2-check}
-grade_code("Vous voyez que les fonctions `select()` et `sselect()`, ainsi que `filter()` et `sfilter()` apparaissent souvent interchageables. Les résultats ne sont cependant pas toujours similaires et vous devez restez attentif à cela dans votre code, par exemple, si vous traduisez un exemple tidy trouvé sur le Web en version speedy.")
+grade_code("Vous voyez que les fonctions `select()` et `select_()`, ainsi que `filter()` et `filter_()` apparaissent souvent interchageables, à condition de bien penser à utiliser des formules avec les fonctions svTidy (ajouter un `~` au début des expressions. Les résultats ne sont cependant pas toujours similaires et vous devez restez attentif à cela dans votre code, par exemple, si vous traduisez un exemple tidyverse trouvé sur le Web en version svTidy.")
 ```
 
 ### Résumer des données
@@ -264,16 +284,16 @@ Réalisez les opérations suivantes sur `crabs` :
 -   Assignez le résultat à `crabs2`
 -   Formatez votre tableau `crabs2` avec `knitr::kable()`
 
-Employez des fonction speedy et fstat uniquement et le chaînage des opérations avec `%>.%` dans un pipeline pour résoudre cette exercice. Vous devez obtenir le tableau ci-dessous :
+Employez des fonction svTidy et fstat uniquement (pour rappel, les functions fast commencent par un `f`, par exemple, `fmean()` est l'équivalent fast de la fonction R de base `mean()`) et le chaînage des opérations avec `%>.%` dans un pipeline pour résoudre cette exercice. Vous devez obtenir le tableau ci-dessous :
 
 ```{r}
 crabs %>.%
-  sfilter(., length > 25) %>.%
-  sgroup_by(., sex, species) %>.%
-  ssummarise(.,
-    mean = fmean(width),
-    ntot = fn(width),
-    nobs = fnobs(width)) ->
+  filter_(., ~length > 25) %>.%
+  group_by_(., ~sex, ~species) %>.%
+  summarise_(.,
+    mean = ~fmean(width),
+    ntot = ~fn(width),
+    nobs = ~fnobs(width)) ->
   crabs2
 knitr::kable(crabs2)
 ```
@@ -293,9 +313,9 @@ ___(___)
 
 ```{r pipe2_h3-hint-1}
 crabs %>.%
-  sfilter(___, ___) ___
-  sgroup_by(___, ___, ___) ___
-  ssummarise(___,
+  filter_(___, ___) ___
+  group_by_(___, ___, ___) ___
+  summarise_(___,
     mean = ___(___),
     ntot = ___(___),
     nobs = ___(___)) ___
@@ -306,12 +326,12 @@ knitr::kable(___)
 
 ```{r pipe2_h3-hint-2}
 crabs %>.%
-  sfilter(., length > ___) %>.%
-  sgroup_by(., ___, ___) %>.%
-  ssummarise(.,
-    mean = fmean(___),
-    ntot = fn(___),
-    nobs = fnobs(___)) ___
+  filter_(., ~length > ___) %>.%
+  group_by_(., ___, ___) %>.%
+  summarise_(.,
+    mean = ~fmean(___),
+    ntot = ~fn(___),
+    nobs = ~fnobs(___)) ___
   ___
 # Tableau formaté avec knitr::kable()
 knitr::kable(___)
@@ -322,22 +342,22 @@ knitr::kable(___)
 ```{r pipe2_h3-solution}
 ## Solution ##
 crabs %>.%
-  sfilter(., length > 25) %>.%
-  sgroup_by(., sex, species) %>.%
-  ssummarise(.,
-    mean = fmean(width),
-    ntot = fn(width),
-    nobs = fnobs(width)) ->
+  filter_(., ~length > 25) %>.%
+  group_by_(., ~sex, ~species) %>.%
+  summarise_(.,
+    mean = ~fmean(width),
+    ntot = ~fn(width),
+    nobs = ~fnobs(width)) ->
   crabs2
 # Tableau formaté avec knitr::kable()
 knitr::kable(crabs2)
 ```
 
 ```{r pipe2_h3-check}
-grade_code("Vous avez maintenant compris comment résumer vos données avec `(s)group_by()` et `(s)summarise()` et formater vos sorties avec `knitr::kable()`.")
+grade_code("Vous avez maintenant compris comment résumer vos données avec `group_by_()` et `summarise_()` et formater vos sorties avec `knitr::kable()`.")
 ```
 
-Réalisez à présent un exercice similaire, toujour avec les fonctions speedy :
+Réalisez à présent un exercice similaire, toujour avec les fonctions svTidy :
 
 -   Sélectionnez les individus dont la longueur (`length`) est strictement *inférieur ou égale* à 25 mm
 -   Résumez le jeu de données par le sexe (`sex`) et par la variété (`species`) de crabe
@@ -350,11 +370,11 @@ Employez le chaînage des opérations `%>.%` au sein d'un pipeline pour résoudr
 
 ```{r}
 crabs %>.%
-  sfilter(., length <= 25) %>.%
-  sgroup_by(., sex, species) %>.%
-  ssummarise(.,
-    median = fmedian(width),
-    ntot   = fn(width)) ->
+  filter_(., ~length <= 25) %>.%
+  group_by_(., ~sex, ~species) %>.%
+  summarise_(.,
+    median = ~fmedian(width),
+    ntot   = ~fn(width)) ->
   crabs2
 # Tableau formaté avec knitr::kable()
 knitr::kable(crabs2)
@@ -374,9 +394,9 @@ ___(___)
 
 ```{r pipe3_h3-hint-1}
 crabs %>.%
-  sfilter(___, ___) ___
-  sgroup_by(___, ___, ___) ___
-  ssummarise(___,
+  filter_(___, ___) ___
+  group_by_(___, ___, ___) ___
+  summarise_(___,
     median = ___(___),
     ntot.  = ___(___)) ___
   ___
@@ -386,11 +406,11 @@ knitr::kable(___)
 
 ```{r pipe3_h3-hint-2}
 crabs %>.%
-  sfilter(., length <= ___) %>.%
-  sgroup_by(., ___, ___) %>.%
-  ssummarise(.,
-    median = fmedian(___),
-    ntot   = fn(___)) ___
+  filter_(., ~length <= ___) %>.%
+  group_by_(., ___, ___) %>.%
+  summarise_(.,
+    median = ~fmedian(___),
+    ntot   = ~fn(___)) ___
   ___
 # Tableau formaté avec knitr::kable()
 knitr::kable(___)
@@ -401,18 +421,18 @@ knitr::kable(___)
 ```{r pipe3_h3-solution}
 ## Solution ##
 crabs %>.%
-  sfilter(., length <= 25) %>.%
-  sgroup_by(., sex, species) %>.%
-  ssummarise(.,
-    median = fmedian(width),
-    ntot   = fn(width)) ->
+  filter_(., ~length <= 25) %>.%
+  group_by_(., ~sex, ~species) %>.%
+  summarise_(.,
+    median = ~fmedian(width),
+    ntot   = ~fn(width)) ->
   crabs2
 # Tableau formaté avec knitr::kable()
 knitr::kable(crabs2)
 ```
 
 ```{r pipe3_h3-check}
-grade_code("Vous savez maintenant résumer vos données avec `sgroup_by()` et `ssummarise()`.")
+grade_code("Vous savez maintenant résumer vos données avec `group_by_()` et `summarise_()`.")
 ```
 
 ## Conclusion
@@ -421,9 +441,8 @@ Bravo ! Vous venez de terminer votre séance d'exercices relative à la manipul
 
 Vous avez maintenant un aperçu de :
 
--   notions relatives aux remaniement des données avec les fonctions `(s)select()`, `(s)filter()`, `(s)mutate()`, `(s)group_by()`, `(s)summarise()`
+-   notions relatives aux remaniement des données avec les fonctions `select_()`/`select()`, `filter_()`/`filter()`, `mutate_()`/`mutate()`, `group_by_()`/`group_by()`, `summarise_()`/`summarise()`
 -   chaînages des instructions dans un pipeline avec `%>.%`
--   l'assignation alternative `%->%` en fin de pipeline tidy pour collecter les résultats dans un tableau
 
 ```{r comm_noscore, echo=FALSE}
 question_text(

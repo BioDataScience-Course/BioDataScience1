@@ -1,3 +1,7 @@
+# BioDataScience1 2025.6.0
+
+-   Learnrs **A06La_proba** and **A06Lb_distri** revised for 2025-2026.
+
 # BioDataScience1 2025.5.0
 
 -   Learnrs **A05La_recombinaison** and **A05Lb_multi_table** revised for 2025-2026.

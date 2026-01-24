@@ -15,6 +15,36 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(distributional)
+library(inferit)
+library(BioDataScience)
 library(BioDataScience1)
 ```
 
@@ -45,7 +75,7 @@ La loi de distribution normale est centrale en statistiques. Ce tutoriel vous pe
 -   Être capable de calculer des probabilités à partir de quantiles
 
 
-Vous devez avoir étudié le contenu du [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/probacorr.html) du cours SDD I, et en particulier les sections relatives à la [distribution normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-normale.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A06La_proba")`).
+Vous devez avoir étudié le contenu du [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/probacorr.html) du cours SDD I, et en particulier les sections relatives à la [distribution normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/distribution-normale.html). Assurez-vous également au préalable d'être à l'aise avec le calcul des probabilités (que vous vérifiez avec le learnr `BioDataScience1::run("A06La_proba")`).
 
 ## Distribution normale
 

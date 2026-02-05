@@ -1,6 +1,6 @@
 # BioDataScience1 2025.6.0
 
--   Learnrs **A06La_proba** and **A06Lb_distri** revised for 2025-2026.
+-   Learnrs **A06La_proba**, **A06Lb_distri** and **A06Lc_correlation** revised for 2025-2026.
 
 # BioDataScience1 2025.5.0
 

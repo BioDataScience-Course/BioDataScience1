@@ -15,6 +15,37 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
 library(BioDataScience1)
 ```
 
@@ -48,7 +79,7 @@ Ce tutoriel est une auto-évaluation de vos connaissances pour :
 
 -   Être certain de bien comprendre le graphique quantile-quantile et l'utiliser pour décider si la distribution d'un échantillon suit une distribution normale ou log-normale
 
-Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/districhi2.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-de-poisson.html), à la [distribution log-normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/distribution-log-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/graphique-quantile-quantile.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via un tutoriel précédent `BioDataScience1::run("A06La_proba")`.
+Vous devez avoir étudié le contenu du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/districhi2.html) du cours SDD I, et en particulier les sections relatives à la [distribution binomiale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/distribution-binomiale.html) et à la [distribution de Poisson](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/distribution-de-poisson.html), à la [distribution log-normale](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/distribution-log-normale.html) et au [graphique quantile-quantile](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/graphique-quantile-quantile.html). Enfin, cette matière nécessite que vous soyez à l'aise avec le calcul des probabilités, et que vous l'ayez vérifié via un tutoriel précédent `BioDataScience1::run("A06La_proba")`.
 
 ## Distribution binomiale
 

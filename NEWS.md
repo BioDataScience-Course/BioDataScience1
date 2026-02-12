@@ -1,3 +1,7 @@
+# BioDataScience1 2025.7.0
+
+-   Learnrs **A07La_distri2**, **A07Lb_chi2** and **A07Lc_chi2b** revised for 2025-2026.
+
 # BioDataScience1 2025.6.0
 
 -   Learnrs **A06La_proba**, **A06Lb_distri** and **A06Lc_correlation** revised for 2025-2026.

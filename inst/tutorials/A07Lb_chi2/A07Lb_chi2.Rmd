@@ -15,6 +15,38 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+#library(BioDataScience)
+#library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -41,7 +73,7 @@ La loi de distribution du $\chi^2$ représente de manière théorique la probabi
 
 -   Appréhender le test d'hypothèse du $\chi^2$ univarié
 
-Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/districhi2.html) du cours, en particulier la [section 7.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/chi2.html), et vous devez avoir compris les différentes notions vues au [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/probacorr.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à autoévaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
+Vous devez avoir assimilé la matière du [module 7](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/districhi2.html) du cours, en particulier la [section 7.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/chi2.html), et vous devez avoir compris les différentes notions vues au [module 6](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/probacorr.html) relatives au calcul de probabilités et aux lois de distribution statistiques. Ce learnr vous sert à autoévaluer vos acquis relatifs à la distribution $\chi^2$ et au test $\chi^2$ univarié.
 
 ## Distribution du $\chi^2$
 

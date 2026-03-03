@@ -15,6 +15,38 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
+library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -41,7 +73,7 @@ Le test *t* de Student, ou plutôt les tests de Student puisqu'il en existe plus
 
 -   Faire de même pour le test de Wilcoxon-Mann-Whitney, et pouvoir déterminer quand l'utiliser à la place du test *t* de Student
 
-N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A08La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 8, section 8.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/wilcox.html) du cours.
+N'entamer ce tutoriel qu'après avoir compris ce qu'est un test *t* de Student et vous être auto-évalué via le learnr **A08La_ttest** intitulé "Moyenne et test t de Student". Vous devez également avoir étudié les différentes variantes du test *t* de Student et leurs homologues non paramétriques de Wilcoxon *alias* Mann-Whitney dans le [module 8, section 8.5](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/wilcox.html) du cours.
 
 ## Efficacité du mCPP sur la perte de poids
 
@@ -96,8 +128,8 @@ levels(mcpp$treatment)
 Réalisez un résumé des données en fonction du traitement administré. Les informations nécessaires dans le contexte sont la moyenne, l'écart type et le nombre de patients pour chaque traitement. Utilisez les éléments ci-dessous pour compléter les instructions R (les éléments peuvent être employé plusieurs fois). Utilisez les fonctions "speedy" et "fast" (commençant par "s" ou "f").
 
 ```{r}
-variable <- c("mcpp", "treatment", "delta_weight", "sgroup_by",
-  "ssummarise", "fmean", "fsd", "fn")
+variable <- c("mcpp", "treatment", "delta_weight", "group_by_",
+  "summarise_", "fmean", "fsd", "fn")
 sample(variable)
 ```
 
@@ -105,14 +137,14 @@ sample(variable)
 ___ %>.%
   ___(., ___) %>.%
   ___(., mean = ___(___),
-    sd = ___(___), n = fn(___))
+    sd = ___(___), n = ~fn(___))
 ```
 
 ```{r mcpp_tab_h2-hint-1}
 mcpp %>.%
-  sgroup_by(., ___) %>.%
-  ssummarise(., mean = ___(___),
-    sd = ___(___), n = fn(___))
+  group_by_(., ___) %>.%
+  summarise_(., mean = ___(___),
+    sd = ___(___), n = ~fn(___))
 
 #### ATTENTION: Hint suivant = solution !####
 ```
@@ -120,9 +152,9 @@ mcpp %>.%
 ```{r mcpp_tab_h2-solution}
 ## Solution ##
 mcpp %>.%
-  sgroup_by(., treatment) %>.%
-  ssummarise(., mean = fmean(delta_weight),
-    sd = fsd(delta_weight), n = fn(delta_weight))
+  group_by_(., ~treatment) %>.%
+  summarise_(., mean = ~fmean(delta_weight),
+    sd = ~fsd(delta_weight), n = ~fn(delta_weight))
 ```
 
 ```{r mcpp_tab_h2-check}
@@ -178,7 +210,7 @@ t.test(data = mcpp, delta_weight ~ treatment,
 ```
 
 ```{r mcpp_ttest_h2-check}
-grade_code("Vous avez réalisé un test de Welch avec les arguments souhaités.", "Oups, il semble que vous n'avez pas obtenu le bon résultat. Relisez avec attention la question et identifiez les valeurs à indiquer pour chaque argument de la fonction `t.test()`.")
+grade_code("Vous avez réalisé la variante de Welch du test de Student avec les arguments souhaités.", "Oups, il semble que vous n'avez pas obtenu le bon résultat. Relisez avec attention la question et identifiez les valeurs à indiquer pour chaque argument de la fonction `t.test()`.")
 ```
 
 Analysez le résultat du test et répondez aux questions ci-dessous.

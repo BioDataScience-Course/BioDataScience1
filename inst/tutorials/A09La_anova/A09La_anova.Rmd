@@ -15,6 +15,40 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", "model", lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# model section
+library(modelit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
+library(BioDataScience1)
 ```
 
 ```{r, echo=FALSE}
@@ -37,7 +71,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 Vous avez découvert il y a peu la moyenne et plusieurs tests d'hypothèses associés (différentes variantes du test *t* de Student). Le test *t* de Student indépendant vous permet de comparer les moyennes de deux populations.
 
-Le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
+Le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/variance.html) du cours vous explique pourquoi c'est une mauvaise idée de l'appliquer pour comparer plus de deux moyennes simultanément via des comparaisons deux à deux multiples sans précautions particulières.
 
 ![](images/red-traffic-lights.png){width="10%"}
 

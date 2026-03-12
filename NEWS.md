@@ -1,3 +1,7 @@
+# BioDataScience1 2025.9.0
+
+-   Learnrs **A09La_anova** and **A09Lb_kruskal** revised for 2025-2026.
+
 # BioDataScience1 2025.8.0
 
 -   Learnrs **A08La_ttest** and **A08Lb_ttest_wmw** revised for 2025-2026.

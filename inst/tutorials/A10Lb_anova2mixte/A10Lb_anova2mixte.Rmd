@@ -15,8 +15,43 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", "model", lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# model section
+library(modelit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
+library(BioDataScience1)
 library(broom.mixed)
-# dataset
+
+# Dataset
 zeno <- dtx(
   id   = as.factor(rep(1:7, 6)),
   time = rep(c(1, 12, 24, 36, 48, 60) * 5, each = 7),
@@ -54,7 +89,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Il est courant en biologie de réaliser des mesures répétées sur des individus, successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus plus de deux fois.
+Il est courant en biologie de réaliser des mesures répétées sur des individus, successivement dans le temps par exemple. Nous avons déjà rencontré une situation similaire lors de la réalisation d'une expérience qui menait à comparer des mesures réalisées sur les mêmes individus, le test *t* de Student apparié. Par exemple, lors d'une expérience qui étudie la perte de poids entre deux mesures aux temps *t~1~* et *t~2~* de patients. N'hésitez pas à revoir ce test étudié au [module 8](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/variantes-du-test-t-de-student.html). Le modèle à mesures répétées va nous permettre d'étudier des mesures répétées sur des individus plus de deux fois.
 
 Dans ce tutoriel, vous allez pouvoir autoévaluer votre capacité à :
 

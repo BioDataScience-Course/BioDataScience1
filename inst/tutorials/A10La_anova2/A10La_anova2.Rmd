@@ -15,6 +15,40 @@ runtime: shiny_prerendered
 ```{r setup, include=FALSE}
 BioDataScience1::learnr_setup()
 SciViews::R("infer", "model", lang = "fr")
+# Required for RSConnect
+# SciViews::R
+library(rlang)
+library(data.table)
+library(ggplot2)
+library(tibble)
+library(tidyr)
+library(dplyr)
+library(dtplyr)
+library(broom)
+library(forcats)
+library(collapse)
+library(fs)
+library(data.trame)
+library(svFast)
+library(svTidy)
+library(svMisc)
+library(svBase)
+library(svFlow)
+library(data.io)
+library(chart)
+library(tabularise)
+library(SciViews)
+# infer section
+library(distributional)
+library(inferit)
+# model section
+library(modelit)
+# ... more
+library(readxl)
+library(testthat)
+library(equatags)
+library(BioDataScience)
+library(BioDataScience1)
 
 set.seed(43)
 production <- c(12, 13, 14, 11, 10, 13, 14, 12, 11, 10, 10, 12, 12, 13,
@@ -56,7 +90,7 @@ BioDataScience1::learnr_server(input, output, session)
 
 ## Objectifs
 
-Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable explicative qualitative (de classe **factor** dans R). Dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables explicatives facteurs avec une **ANOVA à deux facteurs**.
+Lors de la réalisation du tutoriel précédent portant sur l'ANOVA à un facteur, vous avez étudié une variable réponse quantitative pour différents niveaux d'une variable explicative qualitative (de classe **factor** dans R). Dans le [module 10](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/variance2.html) du cours, vous avez vu qu'il était également possible de considérer deux variables explicatives facteurs avec une **ANOVA à deux facteurs**.
 
 Ce tutoriel vous permet d'autoévaluer votre aptitude à :
 
@@ -66,7 +100,7 @@ Ce tutoriel vous permet d'autoévaluer votre aptitude à :
 
 -   interpréter correctement les résultats obtenus
 
-Assurez-vous d'avoir compris les sections [10.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/anova-%25C3%25A0-deux-facteurs.html), [10.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/mod%25C3%25A8le-sans-interactions.html) et [10.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vues dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2024/variance.html) relatives à l'ANOVA à un facteur.
+Assurez-vous d'avoir compris les sections [10.1](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/anova-%25C3%25A0-deux-facteurs.html), [10.2](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/mod%25C3%25A8le-sans-interactions.html) et [10.3](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/mod%25C3%25A8le-crois%25C3%25A9-complet.html) du cours. Vous devez également maîtriser les différentes notions vues dans le [module 9](https://wp.sciviews.org/sdd-umons/?iframe=wp.sciviews.org/sdd-umons-2025/variance.html) relatives à l'ANOVA à un facteur.
 
 ## Rendement laitier
 

@@ -1,3 +1,7 @@
+# BioDataScience1 2025.10.0
+
+-   Learnrs **A10La_anova2**, **A10Lb_anova2mixte** and **A10Lc_syntaxr** revised for 2025-2026.
+
 # BioDataScience1 2025.9.0
 
 -   Learnrs **A09La_anova** and **A09Lb_kruskal** revised for 2025-2026.

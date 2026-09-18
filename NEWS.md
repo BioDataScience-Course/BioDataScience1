@@ -1,3 +1,7 @@
+# BioDataScience1 2026.1.0
+
+-   Learnrs **A01La_base** and **A01Lb_scatterplot** revised for 2026-2027.
+
 # BioDataScience1 2026.0.0
 
 -   New version for academic year 2026-2027.
